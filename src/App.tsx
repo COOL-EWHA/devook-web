@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalStyle from './styles/global';
+import GlobalStyle from '@/styles/global';
 
 function App() {
   return (
