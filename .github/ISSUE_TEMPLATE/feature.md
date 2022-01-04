@@ -1,15 +1,15 @@
 ---
 name: New Feature
-about: 새로운 기능을 추가합니다.
-title: "[추가] "
+about: Add New Feature
+title: '[추가] '
 labels: feature
-assignees: ""
+assignees: ''
 ---
 
 **Description**  
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-**Progress**
+**To Do**
 
 - [ ] todo1
 - [ ] todo2
