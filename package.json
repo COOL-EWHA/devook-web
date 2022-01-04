@@ -20,8 +20,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "pretty": "prettier --write \"src/**/*.(ts|tsx)\"",
+    "tsc": "tsc",
+    "test": "yarn lint && yarn pretty && yarn tsc"
   },
   "eslintConfig": {
     "extends": [
