@@ -1,22 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import GlobalStyle from '@/styles/global';
+import MainLayout from '@/layout/MainLayout';
 
 function App() {
   return (
-    <>
+    <MainLayout>
       <GlobalStyle />
-      <P>test</P>
-    </>
+    </MainLayout>
   );
 }
-
-const P = styled.p`
-  font-size: 1.4rem;
-  padding: 1.2rem;
-  background-color: yellow;
-  width: 4rem;
-`;
 
 export default App;
