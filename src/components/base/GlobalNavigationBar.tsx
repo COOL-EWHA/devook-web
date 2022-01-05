@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
 
-import { GREY } from 'src/styles/colors';
+import { GREY, WHITE } from 'src/styles/colors';
 import { NAV_ITEMS } from 'src/constant';
 
 function GlobalNavigationBar() {
@@ -24,6 +24,7 @@ function GlobalNavigationBar() {
 export default GlobalNavigationBar;
 
 const Nav = styled.nav`
+  background-color: ${WHITE};
   @media screen and (min-width: 1025px) {
     margin: 6.4rem 2rem 0 0;
   }

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BookmarkAddButton from 'src/components/bookmarks/AddButton';
 import { MaterialIcon } from 'src/components/common';
 
-import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 
 function GlobalHeader() {
   return (
@@ -27,6 +27,7 @@ const Wrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: ${WHITE};
 
   @media screen and (min-width: 1025px) {
     height: 5.2rem;
@@ -67,7 +68,7 @@ const ButtonsWrapper = styled.div`
 const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', width: '2.4rem' })`
   @media screen and (max-width: 1024px) {
     && {
-    display: none;
+      display: none;
     }
   }
   margin-left: 0.4rem;
