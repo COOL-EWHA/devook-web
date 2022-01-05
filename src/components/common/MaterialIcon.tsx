@@ -9,7 +9,7 @@ interface IMaterialIconProps {
 
 export function MaterialIcon({ className, type, width }: IMaterialIconProps) {
   return (
-    <Wrapper className={className} width={width}>
+    <Wrapper className={className}>
       <Icon className="material-icons" width={width}>
         {type}
       </Icon>
@@ -17,9 +17,7 @@ export function MaterialIcon({ className, type, width }: IMaterialIconProps) {
   );
 }
 
-const Wrapper = styled.div<Pick<IMaterialIconProps, 'width'>>`
-  ${({ width }) => width && `width: ${width}; height: ${width}`}
-`;
+const Wrapper = styled.div``;
 
 const Icon = styled.span<{ width?: number | string }>`
   ${({ width }) => width && `font-size: ${width}`}

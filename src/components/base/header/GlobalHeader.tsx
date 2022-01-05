@@ -1,21 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import AddButton from 'src/components/bookmarks/AddButton';
+import BookmarkAddButton from 'src/components/bookmarks/AddButton';
 import { MaterialIcon } from 'src/components/common';
 
 import { CACTUS_GREEN, GREY } from 'src/styles/colors';
-import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
 function GlobalHeader() {
   return (
     <Wrapper>
-      <LogoLink>Devook</LogoLink>
-      <ButtonsWrapper>
-        <AddButton />
-        <NotificationIcon type="notifications" width="2.4rem" />
-        <MaterialIcon type="person" width="2.4rem" />
-      </ButtonsWrapper>
+      <ContentWrapper>
+        <LogoLink>Devook</LogoLink>
+        <ButtonsWrapper>
+          <BookmarkAddButton />
+          <NotificationIcon />
+          <MyIcon />
+        </ButtonsWrapper>
+      </ContentWrapper>
     </Wrapper>
   );
 }
@@ -27,21 +28,25 @@ const Wrapper = styled.header`
   top: 0;
   width: 100%;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   @media screen and (min-width: 1024px) {
-    max-width: ${DESKTOP_MAX_WIDTH};
-    height: 4.8rem;
+    height: 5.2rem;
   }
 
   @media screen and (max-width: 1023px) {
     height: 4.4rem;
-
-    padding: 0 1.2rem;
     border-bottom: 1px solid ${GREY[300]};
   }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  height: 100%;
+  padding: 0 2rem;
+  margin: 0 auto;
 `;
 
 const LogoLink = styled.a`
@@ -49,6 +54,7 @@ const LogoLink = styled.a`
   font-weight: 700;
   color: ${CACTUS_GREEN[500]};
   cursor: pointer;
+  margin-right: auto;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -62,18 +68,18 @@ const ButtonsWrapper = styled.div`
     :hover {
       color: ${GREY[900]};
     }
-
-    :last-child {
-      @media screen and (max-width: 1023px) {
-        margin-left: 0.4rem;
-      }
-    }
   }
 `;
 
-const NotificationIcon = styled(MaterialIcon)`
-  display: block;
+// @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
+const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', width: '2.4rem' })`
   @media screen and (max-width: 1023px) {
     display: none;
   }
+  margin-left: 0.4rem;
+`;
+
+// @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
+const MyIcon = styled(MaterialIcon).attrs({ type: 'person', width: '2.4rem' })`
+  margin-left: 0.4rem;
 `;
