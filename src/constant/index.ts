@@ -3,15 +3,15 @@ export const DESKTOP_MAX_WIDTH = '1280px';
 
 export const NAV_ITEMS = [
   {
-    icon: 'bookmarks',
+    iconType: 'bookmarks',
     label: '북마크 목록',
   },
   {
-    icon: 'event_available',
+    iconType: 'event_available',
     label: '읽기 관리',
   },
   {
-    icon: 'feed',
+    iconType: 'feed',
     label: '추천 글 목록',
   },
 ];
