@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from '@/data/colors';
+import { GREY } from '@/styles/colors';
+import { MOBILE_MAX_WIDTH } from '@/constant';
 
 function GlobalNavigationBar() {
   return (
@@ -26,18 +27,35 @@ export default GlobalNavigationBar;
 
 const GlobalNavigationBarWrapper = styled.div`
   position: fixed;
-  bottom: 0;
-
-  width: 100vw;
-  max-width: 60rem;
-  height: 6rem;
-
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 
-  padding: 0 2rem;
-  border-top: 1px solid ${GREY[300]};
+  @media screen and (min-width: 1024px) {
+    top: 98px;
+
+    width: 200px;
+    height: 200px;
+
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px dashed ${GREY[400]};
+  }
+
+  @media screen and (max-width: 1023px) {
+    bottom: 0;
+
+    width: 100vw;
+    max-width: ${MOBILE_MAX_WIDTH};
+    height: 6rem;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 2rem;
+    border-top: 1px solid ${GREY[300]};
+  }
 `;
 
 const NavigatorBlock = styled.div`
@@ -48,6 +66,11 @@ const NavigatorBlock = styled.div`
 
   .material-icons {
     text-align: center;
+    font-size: 1.8rem;
+
+    @media screen and (min-width: 1024px) {
+      display: none;
+    }
   }
 `;
 
