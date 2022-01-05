@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { MaterialIcon } from 'src/components/common';
+
 import { GREY } from 'src/styles/colors';
-import { Icon } from 'src/components/common';
 
 function SearchInput() {
   return (
     <Wrapper>
-      <SearchIcon>search</SearchIcon>
+      <SearchIcon type="search" />
       <Input placeholder="북마크 검색" />
     </Wrapper>
   );
@@ -36,7 +37,7 @@ const Input = styled.input`
   }
 `;
 
-const SearchIcon = styled(Icon)`
+const SearchIcon = styled(MaterialIcon)`
   position: absolute;
   width: 3rem;
   height: 100%;

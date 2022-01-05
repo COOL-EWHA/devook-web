@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon } from 'src/components/common';
+import AddButton from 'src/components/bookmarks/AddButton';
+import { MaterialIcon } from 'src/components/common';
 
 import { CACTUS_GREEN, GREY } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
@@ -9,13 +10,12 @@ import { DESKTOP_MAX_WIDTH } from 'src/constant';
 function GlobalHeader() {
   return (
     <Wrapper>
-      <LogoLabel>Devook</LogoLabel>
-      <IconsWrapper>
-        <BookmarkAddButton>북마크 추가</BookmarkAddButton>
-        <ResponsiveIcon isMobile={false}>notifications</ResponsiveIcon>
-        <ResponsiveIcon isMobile>add</ResponsiveIcon>
-        <Icon>person</Icon>
-      </IconsWrapper>
+      <LogoLink>Devook</LogoLink>
+      <ButtonsWrapper>
+        <AddButton />
+        <NotificationIcon type="notifications" width="2.4rem" />
+        <MaterialIcon type="person" width="2.4rem" />
+      </ButtonsWrapper>
     </Wrapper>
   );
 }
@@ -44,26 +44,20 @@ const Wrapper = styled.header`
   }
 `;
 
-const LogoLabel = styled.p`
-  @media screen and (min-width: 1024px) {
-    width: 14.3rem;
-  }
-
+const LogoLink = styled.a`
   font-size: 2rem;
   font-weight: 700;
   color: ${CACTUS_GREEN[500]};
-
   cursor: pointer;
 `;
 
-const IconsWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
 
   .material-icons {
     cursor: pointer;
     color: ${GREY[700]};
-    font-size: 2.4rem;
 
     :hover {
       color: ${GREY[900]};
@@ -77,34 +71,9 @@ const IconsWrapper = styled.div`
   }
 `;
 
-const BookmarkAddButton = styled.button`
-  width: 8.5rem;
-  height: 2.5rem;
-
-  border-radius: 8px;
-  border: 1px solid ${GREY[500]};
-  background: none;
-  font-size: 1.2rem;
-  color: ${GREY[500]};
-  margin: 0 0.6rem;
-  cursor: pointer;
-
+const NotificationIcon = styled(MaterialIcon)`
+  display: block;
   @media screen and (max-width: 1023px) {
     display: none;
   }
-`;
-
-const ResponsiveIcon = styled(Icon)<{ isMobile: boolean }>`
-  ${(props) =>
-    props.isMobile
-      ? `
-      display: none;
-      @media screen and (max-width: 1023px) {
-        display: block;
-      }`
-      : `
-      display: block;
-      @media screen and (max-width: 1023px) {
-        display: none;
-      }`}
 `;

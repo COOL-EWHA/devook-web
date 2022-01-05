@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon } from 'src/components/common';
+import { MaterialIcon } from 'src/components/common';
 
 import { GREY } from 'src/styles/colors';
 import { NAV_ITEMS } from 'src/constant';
@@ -9,9 +9,9 @@ import { NAV_ITEMS } from 'src/constant';
 function GlobalNavigationBar() {
   return (
     <Nav>
-      {NAV_ITEMS.map(({ icon, label }) => (
+      {NAV_ITEMS.map(({ iconType, label }) => (
         <Li key={label}>
-          <Icon>{icon}</Icon>
+          <MaterialIcon type={iconType} />
           <Label>{label}</Label>
         </Li>
       ))}
