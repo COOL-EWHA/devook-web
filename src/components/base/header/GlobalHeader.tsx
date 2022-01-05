@@ -28,11 +28,11 @@ const Wrapper = styled.header`
   top: 0;
   width: 100%;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     height: 5.2rem;
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     height: 4.4rem;
     border-bottom: 1px solid ${GREY[300]};
   }
@@ -73,8 +73,10 @@ const ButtonsWrapper = styled.div`
 
 // @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
 const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', width: '2.4rem' })`
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
+    && {
     display: none;
+    }
   }
   margin-left: 0.4rem;
 `;

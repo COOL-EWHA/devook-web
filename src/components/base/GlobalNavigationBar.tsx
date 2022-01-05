@@ -24,19 +24,19 @@ function GlobalNavigationBar() {
 export default GlobalNavigationBar;
 
 const Nav = styled.nav`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     margin: 6.4rem 2rem 0 0;
   }
 `;
 
 const Ul = styled.ul`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     padding: 1.2rem 0;
     border-radius: 0.8rem;
     border: 1px dashed ${GREY[400]};
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -57,7 +57,7 @@ const Li = styled.li`
     font-size: 1.8rem;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     width: 14rem;
     padding: 1.4rem 2rem;
     .material-icons {
@@ -65,7 +65,7 @@ const Li = styled.li`
     }
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
     flex: 1;

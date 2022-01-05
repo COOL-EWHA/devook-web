@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 const Main = styled.main`
   flex: 1;
   margin-top: 6.4rem;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin-top: 6rem;
     margin-bottom: 7.2rem;
   }

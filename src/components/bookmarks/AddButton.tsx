@@ -16,7 +16,7 @@ function AddButton() {
 export default AddButton;
 
 const Wrapper = styled.button`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     width: 8rem;
     height: 2.4rem;
     border-radius: 8px;
@@ -28,21 +28,20 @@ const Wrapper = styled.button`
     cursor: pointer;
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
+    display: flex;
     background: none;
     border: none;
   }
 `;
 
-const Text = styled.p`
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;
 
 const BookmarkAddIcon = styled(MaterialIcon)`
+  @media screen and (min-width: 1025px) {
   display: none;
-  @media screen and (max-width: 1023px) {
-    display: block;
   }
 `;
