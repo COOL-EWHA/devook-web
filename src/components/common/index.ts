@@ -1,3 +1,3 @@
-import { Icon } from './Icon';
+import { MaterialIcon } from './MaterialIcon';
 
-export { Icon };
+export { MaterialIcon };
