@@ -5,9 +5,12 @@ import MainLayout from 'src/layout/MainLayout';
 
 function App() {
   return (
-    <MainLayout>
+    <>
       <GlobalStyle />
-    </MainLayout>
+      <MainLayout>
+        <p>hi</p>
+      </MainLayout>
+    </>
   );
 }
 
