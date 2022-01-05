@@ -60,14 +60,6 @@ const LogoLink = styled.a`
 const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  .material-icons {
-    cursor: pointer;
-    color: ${GREY[700]};
-
-    :hover {
-      color: ${GREY[900]};
-    }
   }
 `;
 

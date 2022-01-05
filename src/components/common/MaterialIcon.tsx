@@ -1,16 +1,19 @@
 import React from 'react';
+import { GREY } from 'src/styles/colors';
 import styled from 'styled-components';
 
 interface IMaterialIconProps {
   className?: string;
   type: string;
   width?: number | string;
+  color?: string;
+  hoverColor?: string;
 }
 
-export function MaterialIcon({ className, type, width }: IMaterialIconProps) {
+export function MaterialIcon({ className, type, width, color, hoverColor }: IMaterialIconProps) {
   return (
     <Wrapper className={className}>
-      <Icon className="material-icons" width={width}>
+      <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor}>
         {type}
       </Icon>
     </Wrapper>
@@ -19,6 +22,13 @@ export function MaterialIcon({ className, type, width }: IMaterialIconProps) {
 
 const Wrapper = styled.div``;
 
-const Icon = styled.span<{ width?: number | string }>`
-  ${({ width }) => width && `font-size: ${width}`}
+const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
+  ${({ width, color, hoverColor }) => `
+  width: ${width || 'inherit'};
+  color: ${color || GREY[700]};
+  :hover {
+    color: ${hoverColor || GREY[900]};
+  }
+  transition: all 0.3s;
+  `}
 `;
