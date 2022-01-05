@@ -7,7 +7,7 @@ import { GREY } from 'src/styles/colors';
 function AddButton() {
   return (
     <Wrapper>
-      <Text>북마크 추가</Text>
+      <P>북마크 추가</P>
       <BookmarkAddIcon type="add" width="2.4rem" />
     </Wrapper>
   );
@@ -29,12 +29,13 @@ const Wrapper = styled.button`
   }
 
   @media screen and (max-width: 1024px) {
-    display: flex;
     background: none;
     border: none;
+    padding: 0;
   }
 `;
 
+const P = styled.p`
   @media screen and (max-width: 1024px) {
     display: none;
   }
@@ -42,6 +43,8 @@ const Wrapper = styled.button`
 
 const BookmarkAddIcon = styled(MaterialIcon)`
   @media screen and (min-width: 1025px) {
-  display: none;
+    && {
+      display: none;
+    }
   }
 `;

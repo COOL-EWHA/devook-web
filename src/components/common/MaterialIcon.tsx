@@ -20,7 +20,10 @@ export function MaterialIcon({ className, type, width, color, hoverColor }: IMat
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
   ${({ width, color, hoverColor }) => `
