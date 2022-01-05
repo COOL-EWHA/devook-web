@@ -33,7 +33,7 @@ const Wrapper = styled.header`
 
   @media screen and (min-width: 1024px) {
     max-width: ${DESKTOP_MAX_WIDTH};
-    height: 68px;
+    height: 4.8rem;
   }
 
   @media screen and (max-width: 1023px) {
@@ -46,7 +46,7 @@ const Wrapper = styled.header`
 
 const LogoLabel = styled.p`
   @media screen and (min-width: 1024px) {
-    width: 200px;
+    width: 14.3rem;
   }
 
   font-size: 2rem;
@@ -78,7 +78,7 @@ const IconsWrapper = styled.div`
 `;
 
 const BookmarkAddButton = styled.button`
-  width: 120px;
+  width: 8.5rem;
   height: 2.5rem;
 
   border-radius: 8px;
@@ -86,7 +86,7 @@ const BookmarkAddButton = styled.button`
   background: none;
   font-size: 1.2rem;
   color: ${GREY[500]};
-  margin: 0 8px;
+  margin: 0 0.6rem;
   cursor: pointer;
 
   @media screen and (max-width: 1023px) {

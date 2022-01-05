@@ -26,15 +26,16 @@ const Nav = styled.nav`
   display: flex;
 
   @media screen and (min-width: 1024px) {
-    top: 98px;
+    top: 7rem;
 
-    width: 200px;
-    height: 200px;
+    width: 14.3rem;
+    height: 14.3rem;
 
     flex-direction: column;
     justify-content: space-around;
 
-    padding: 24px;
+    padding: 1.7rem;
+
     border-radius: 8px;
     border: 1px dashed ${GREY[400]};
   }
