@@ -14,7 +14,8 @@ Before you create this PR confirms that it meets all requirements listed below b
 
 - [ ] Component's all props are working properly
 - [ ] Checked for **breaking changes** and labeled appropriately
-- [ ] Run `yarn lint`
-- [ ] Run `yarn tsc`
-- [ ] Run `yarn test` or `yarn test -u` if you need to update snapshot.
+- [ ] Run `yarn test`
+- [ ] CI test passed
+- [ ] Preview Deployment success
+- [ ] No Conflicts with the base branch
 - [ ] I am willing to follow-up on review comments in a timely manner.
