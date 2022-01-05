@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalNavigationBar from '@/components/base/GlobalNavigationBar';
-import GlobalHeader from '@/components/base/header/GlobalHeader';
+import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
+import GlobalHeader from 'src/components/base/header/GlobalHeader';
 
-import { DESKTOP_MAX_WIDTH, MOBILE_MAX_WIDTH } from '@/constant';
+import { DESKTOP_MAX_WIDTH, MOBILE_MAX_WIDTH } from 'src/constant';
 
 interface IMainLayoutProps {
   children: React.ReactNode;

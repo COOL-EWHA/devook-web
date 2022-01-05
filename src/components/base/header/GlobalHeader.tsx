@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon } from '@/components/common';
+import { Icon } from 'src/components/common';
 
-import { CACTUS_GREEN, GREY } from '@/styles/colors';
-import { DESKTOP_MAX_WIDTH } from '@/constant';
+import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
 function GlobalHeader() {
   return (

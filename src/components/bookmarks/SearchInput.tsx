@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from '@/styles/colors';
-import { Icon } from '@/components/common';
+import { GREY } from 'src/styles/colors';
+import { Icon } from 'src/components/common';
 
 function SearchInput() {
   return (

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon } from '@/components/common';
+import { Icon } from 'src/components/common';
 
-import { GREY } from '@/styles/colors';
-import { NAV_ITEMS } from '@/constant';
+import { GREY } from 'src/styles/colors';
+import { NAV_ITEMS } from 'src/constant';
 
 function GlobalNavigationBar() {
   return (
