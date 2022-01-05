@@ -1,29 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import SearchBar from '@/components/bookmarks/SearchBar';
+import { Icon } from '@/components/common';
 
 import { CACTUS_GREEN, GREY } from '@/styles/colors';
-import { MOBILE_MAX_WIDTH, DESKTOP_MAX_WIDTH } from '@/constant';
+import { DESKTOP_MAX_WIDTH } from '@/constant';
 
 function GlobalHeader() {
   return (
-    <GlobalHeaderWrapper>
+    <Wrapper>
       <LogoLabel>Devook</LogoLabel>
-      <SearchBar className="header-searchbar-desktop" />
       <IconsWrapper>
-        <BookmarkAddButton>+ bookmark</BookmarkAddButton>
-        <span className="material-icons desktop-icon">notifications</span>
-        <span className="material-icons mobile-icon ">add</span>
-        <span className="material-icons">person</span>
+        <BookmarkAddButton>북마크 추가</BookmarkAddButton>
+        <ResponsiveIcon isMobile={false}>notifications</ResponsiveIcon>
+        <ResponsiveIcon isMobile>add</ResponsiveIcon>
+        <Icon>person</Icon>
       </IconsWrapper>
-    </GlobalHeaderWrapper>
+    </Wrapper>
   );
 }
 
 export default GlobalHeader;
 
-const GlobalHeaderWrapper = styled.header`
+const Wrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
@@ -38,10 +37,9 @@ const GlobalHeaderWrapper = styled.header`
   }
 
   @media screen and (max-width: 1023px) {
-    max-width: ${MOBILE_MAX_WIDTH};
     height: 4.4rem;
 
-    padding: 0 2rem;
+    padding: 0 1.2rem;
     border-bottom: 1px solid ${GREY[300]};
   }
 `;
@@ -70,18 +68,11 @@ const IconsWrapper = styled.div`
     :hover {
       color: ${GREY[900]};
     }
-  }
 
-  .desktop-icon {
-    display: block;
-    @media screen and (max-width: 1023px) {
-      display: none;
-    }
-  }
-  .mobile-icon {
-    display: none;
-    @media screen and (max-width: 1023px) {
-      display: block;
+    :last-child {
+      @media screen and (max-width: 1023px) {
+        margin-left: 0.4rem;
+      }
     }
   }
 `;
@@ -95,10 +86,25 @@ const BookmarkAddButton = styled.button`
   background: none;
   font-size: 1.2rem;
   color: ${GREY[500]};
-  margin-right: 4px;
+  margin: 0 8px;
   cursor: pointer;
 
   @media screen and (max-width: 1023px) {
     display: none;
   }
+`;
+
+const ResponsiveIcon = styled(Icon)<{ isMobile: boolean }>`
+  ${(props) =>
+    props.isMobile
+      ? `
+      display: none;
+      @media screen and (max-width: 1023px) {
+        display: block;
+      }`
+      : `
+      display: block;
+      @media screen and (max-width: 1023px) {
+        display: none;
+      }`}
 `;
