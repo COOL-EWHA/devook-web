@@ -22,8 +22,11 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "pretty": "prettier --write \"src/**/*.(ts|tsx)\"",
+    "tsc": "tsc",
+    "test": "yarn lint && yarn pretty && yarn tsc"
   },
   "eslintConfig": {
     "extends": [
