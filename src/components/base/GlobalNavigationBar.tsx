@@ -1,31 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Icon } from '@/components/common';
+
 import { GREY } from '@/styles/colors';
-import { MOBILE_MAX_WIDTH } from '@/constant';
+import { NAV_ITEMS } from '@/constant';
 
 function GlobalNavigationBar() {
   return (
-    <GlobalNavigationBarWrapper>
-      <NavigatorBlock>
-        <span className="material-icons">bookmarks</span>
-        <NavigatorLabel>북마크 목록</NavigatorLabel>
-      </NavigatorBlock>
-      <NavigatorBlock>
-        <span className="material-icons">event_available</span>
-        <NavigatorLabel>읽기 관리</NavigatorLabel>
-      </NavigatorBlock>
-      <NavigatorBlock>
-        <span className="material-icons">feed</span>
-        <NavigatorLabel>추천글 목록</NavigatorLabel>
-      </NavigatorBlock>
-    </GlobalNavigationBarWrapper>
+    <Nav>
+      {NAV_ITEMS.map(({ icon, label }) => (
+        <Li key={label}>
+          <Icon>{icon}</Icon>
+          <Label>{label}</Label>
+        </Li>
+      ))}
+    </Nav>
   );
 }
 
 export default GlobalNavigationBar;
 
-const GlobalNavigationBarWrapper = styled.div`
+const Nav = styled.nav`
   position: fixed;
   display: flex;
 
@@ -36,7 +32,7 @@ const GlobalNavigationBarWrapper = styled.div`
     height: 200px;
 
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
 
     padding: 24px;
     border-radius: 8px;
@@ -47,18 +43,16 @@ const GlobalNavigationBarWrapper = styled.div`
     bottom: 0;
 
     width: 100vw;
-    max-width: ${MOBILE_MAX_WIDTH};
     height: 6rem;
 
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 2rem;
     border-top: 1px solid ${GREY[300]};
   }
 `;
 
-const NavigatorBlock = styled.div`
+const Li = styled.li`
   display: flex;
   flex-direction: column;
 
@@ -72,8 +66,14 @@ const NavigatorBlock = styled.div`
       display: none;
     }
   }
+
+  @media screen and (max-width: 1023px) {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
-const NavigatorLabel = styled.p`
+const Label = styled.label`
   font-size: 1.2rem;
 `;
