@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from '@/data/colors';
+import { GREY } from '@/styles/colors';
 
 interface ISearchBarProps {
   className: string;
@@ -23,8 +23,18 @@ export default SearchBar;
 const SearchBarWrapper = styled.div<ISearchBarProps>`
   position: relative;
 
-  width: 100%;
   height: 2.5rem;
+
+  ${(props) =>
+    props.className === 'header-searchbar-desktop' &&
+    `
+    display: none;
+    @media screen and (min-width: 1024px) {
+      display: block;
+      flex: 1;
+      max-width: 850px;
+    }
+  `}
 `;
 
 const SearchIconWrapper = styled.div`
