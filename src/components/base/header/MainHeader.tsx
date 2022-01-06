@@ -11,7 +11,7 @@ function MainHeader() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <LogoLink>Devook</LogoLink>
+        <LogoLink to="/">Devook</LogoLink>
         <ButtonsWrapper>
           <BookmarkAddButton />
           <NotificationIcon />
@@ -53,7 +53,7 @@ const ContentWrapper = styled.div`
   margin: 0 auto;
 `;
 
-const LogoLink = styled.a`
+const LogoLink = styled(Link)`
   font-size: 2rem;
   font-weight: 700;
   color: ${CACTUS_GREEN[500]};
