@@ -35,7 +35,7 @@ function MainLayout({ children }: IMainLayoutProps) {
       )}
       <Wrapper>
         <GlobalNavigationBar />
-        <Main>{isMyPageOpened ? <MyPage setMyPageOpened={setMyPageOpened} /> : children}</Main>
+        <Main>{children}</Main>
       </Wrapper>
     </>
   );
