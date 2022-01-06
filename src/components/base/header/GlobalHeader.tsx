@@ -2,14 +2,16 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { BackHeader, MainHeader } from '.';
 
-const SUB_ROUTES = ['/my'];
+const SUB_ROUTES = [{ pathname: '/my', title: '마이페이지' }];
 
 function GlobalHeader() {
   const { pathname } = useLocation();
   return (
     <>
       <MainHeader />
-      {SUB_ROUTES.includes(pathname) && <BackHeader />}
+      {SUB_ROUTES.find((r) => r.pathname === pathname) && (
+        <BackHeader title={SUB_ROUTES.find((r) => r.pathname === pathname)?.title} />
+      )}
     </>
   );
 }
