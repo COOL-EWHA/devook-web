@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import { LoginButton } from 'src/components/auth';
 import { MaterialIcon } from 'src/components/common';
@@ -8,38 +9,44 @@ import { ReactComponent as GithubIcon } from 'src/assets/icons/github.svg';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google.svg';
 import { GREY, WHITE } from 'src/styles/colors';
 
-export default function MyPage() {
+interface IMyPageProps {
+  setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function MyPage({ setMyPageOpened }: IMyPageProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Overlay>
-      <Wrapper>
-        <CloseButton>
-          <MaterialIcon type="close" />
-        </CloseButton>
-        {isLoggedIn ? (
-          <>
-            <UserInfoBlock>
-              <UserName>eunko님 안녕하세요!</UserName>
-              <Email>koeun0712@ewhain.net</Email>
-            </UserInfoBlock>
-            <ButtonsWrapper>
-              <Button>로그아웃</Button>
-              <Button>회원탈퇴</Button>
-            </ButtonsWrapper>
-          </>
-        ) : (
-          <>
-            <Title>로그인 및 회원가입</Title>
-            <LoginButton platformType="github">
-              <GithubIcon width="2.5rem" height="2.5rem" />
-            </LoginButton>
-            <LoginButton platformType="google">
-              <GoogleIcon width="2.5rem" height="2.5rem" />
-            </LoginButton>
-          </>
-        )}
-      </Wrapper>
+      <OutsideClickHandler onOutsideClick={() => setMyPageOpened((prev) => !prev)}>
+        <Wrapper>
+          <CloseButton>
+            <MaterialIcon type="close" onClick={() => setMyPageOpened((prev) => !prev)} />
+          </CloseButton>
+          {isLoggedIn ? (
+            <>
+              <UserInfoBlock>
+                <UserName>eunko님 안녕하세요!</UserName>
+                <Email>koeun0712@ewhain.net</Email>
+              </UserInfoBlock>
+              <ButtonsWrapper>
+                <Button>로그아웃</Button>
+                <Button>회원탈퇴</Button>
+              </ButtonsWrapper>
+            </>
+          ) : (
+            <>
+              <Title>로그인 및 회원가입</Title>
+              <LoginButton platformType="github">
+                <GithubIcon width="2.5rem" height="2.5rem" />
+              </LoginButton>
+              <LoginButton platformType="google">
+                <GoogleIcon width="2.5rem" height="2.5rem" />
+              </LoginButton>
+            </>
+          )}
+        </Wrapper>
+      </OutsideClickHandler>
     </Overlay>
   );
 }
@@ -73,6 +80,18 @@ const Wrapper = styled.div`
     width: 50vw;
     min-height: 100vh;
   }
+
+  @keyframes openMyPage {
+    0% {
+      opacity: 0;
+      transform: translateX(300px) scale(0.75);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  animation: 0.4s ease-in-out openMyPage;
 `;
 
 const Title = styled.p`
@@ -109,6 +128,16 @@ const CloseButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+
+  .material-icons {
+    padding: 0.4rem;
+    border-radius: 50%;
+  }
+
+  transition: all 0.3s;
+  .material-icons:hover {
+    background: ${GREY[200]};
+  }
 
   @media screen and (max-width: 1024px) {
     display: none;
