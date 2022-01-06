@@ -2,21 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
+import AddButton from 'src/components/bookmarks/AddButton';
 
 import { GREY, WHITE } from 'src/styles/colors';
 
 interface IBackHeaderProps {
-  title?: string;
+  pageTitle?: string;
 }
 
-export default function BackHeader({ title }: IBackHeaderProps) {
+export default function BackHeader({ pageTitle }: IBackHeaderProps) {
   return (
     <Wrapper>
-      <TitleWrapper>
+      <PageTitleWrapper>
         <MaterialIcon type="arrow_back_ios" width="2.4rem" />
-        <P>{title}</P>
-      </TitleWrapper>
-      <MaterialIcon type="person" width="2.4rem" />
+        <P>{pageTitle}</P>
+      </PageTitleWrapper>
+      {pageTitle === '마이페이지' ? (
+        <MaterialIcon type="notifications" width="2.4rem" />
+      ) : (
+        <ButtonsWrapper>
+          <AddButton /> <ProfileIcon />
+        </ButtonsWrapper>
+      )}
     </Wrapper>
   );
 }
@@ -42,7 +49,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const TitleWrapper = styled.div`
+const PageTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -52,4 +59,13 @@ const P = styled.p`
   font-size: 2rem;
   margin-left: 1.6rem;
   color: ${GREY[700]};
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person', width: '2.4rem' })`
+  margin-left: 0.4rem;
 `;
