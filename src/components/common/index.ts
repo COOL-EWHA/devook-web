@@ -1,3 +1,4 @@
-import { MaterialIcon } from './MaterialIcon';
+import MaterialIcon from './MaterialIcon';
+import Link from './Link';
 
-export { MaterialIcon };
+export { MaterialIcon, Link };

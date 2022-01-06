@@ -45,19 +45,19 @@ const GlobalStyle = createGlobalStyle`
   @media (min-width:961px)  { 
     /* tablet, landscape iPad, lo-res laptops ands desktops */
     html{
-      font-size: 12px;
+      font-size: 11.5px;
     } 
   }
   @media (min-width:1025px) { 
     /* big landscape tablets, laptops, and desktops */
     html{
-      font-size: 12px;
+      font-size: 11.5px;
     } 
   }
   @media (min-width:1281px) { 
     /* hi-res laptops and desktops */
     html{
-      font-size: 12.5px;
+      font-size: 12px;
     } 
   }
 `;

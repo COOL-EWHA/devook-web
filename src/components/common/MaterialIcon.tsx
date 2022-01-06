@@ -1,6 +1,7 @@
 import React from 'react';
-import { GREY } from 'src/styles/colors';
 import styled from 'styled-components';
+
+import { GREY } from 'src/styles/colors';
 
 interface IMaterialIconProps {
   className?: string;
@@ -8,11 +9,12 @@ interface IMaterialIconProps {
   width?: number | string;
   color?: string;
   hoverColor?: string;
+  onClick?: () => void;
 }
 
-export function MaterialIcon({ className, type, width, color, hoverColor }: IMaterialIconProps) {
+export default function MaterialIcon({ className, type, width, color, hoverColor, onClick }: IMaterialIconProps) {
   return (
-    <Wrapper className={className}>
+    <Wrapper className={className} onClick={onClick}>
       <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor}>
         {type}
       </Icon>
@@ -23,6 +25,7 @@ export function MaterialIcon({ className, type, width, color, hoverColor }: IMat
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
