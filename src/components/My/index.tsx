@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import OutsideClickHandler from 'react-outside-click-handler';
 
@@ -8,20 +8,27 @@ import { MaterialIcon } from 'src/components/common';
 import { ReactComponent as GithubIcon } from 'src/assets/icons/github.svg';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google.svg';
 import { GREY, WHITE } from 'src/styles/colors';
+import { useNavigate } from 'react-router-dom';
 
-interface IMyPageProps {
-  setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function MyPage({ setMyPageOpened }: IMyPageProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function My() {
+  const isLoggedIn = false;
+  const navigate = useNavigate();
 
   return (
     <Overlay>
-      <OutsideClickHandler onOutsideClick={() => setMyPageOpened((prev) => !prev)}>
+      <OutsideClickHandler
+        onOutsideClick={() => {
+          navigate(-1);
+        }}
+      >
         <Wrapper>
           <CloseButton>
-            <MaterialIcon type="close" onClick={() => setMyPageOpened((prev) => !prev)} />
+            <MaterialIcon
+              type="close"
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
           </CloseButton>
           {isLoggedIn ? (
             <>
@@ -51,7 +58,7 @@ function MyPage({ setMyPageOpened }: IMyPageProps) {
   );
 }
 
-export default React.memo(MyPage);
+export default React.memo(My);
 
 const Overlay = styled.div`
   display: flex;

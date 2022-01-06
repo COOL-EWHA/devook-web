@@ -12,7 +12,7 @@ interface IMaterialIconProps {
   onClick?: () => void;
 }
 
-export function MaterialIcon({ className, type, width, color, hoverColor, onClick }: IMaterialIconProps) {
+export default function MaterialIcon({ className, type, width, color, hoverColor, onClick }: IMaterialIconProps) {
   return (
     <Wrapper className={className} onClick={onClick}>
       <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor}>

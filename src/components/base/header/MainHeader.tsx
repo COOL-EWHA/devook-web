@@ -2,16 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import BookmarkAddButton from 'src/components/bookmarks/AddButton';
-import { MaterialIcon } from 'src/components/common';
+import { MaterialIcon, Link } from 'src/components/common';
 
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
-interface IMainHeaderProps {
-  setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function MainHeader({ setMyPageOpened }: IMainHeaderProps) {
+function MainHeader() {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -19,7 +15,9 @@ function MainHeader({ setMyPageOpened }: IMainHeaderProps) {
         <ButtonsWrapper>
           <BookmarkAddButton />
           <NotificationIcon />
-          <ProfileIcon onClick={() => setMyPageOpened((prev) => !prev)} />
+          <Link to="/my">
+            <ProfileIcon />
+          </Link>
         </ButtonsWrapper>
       </ContentWrapper>
     </Wrapper>
