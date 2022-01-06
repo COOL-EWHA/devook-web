@@ -30,6 +30,10 @@ const Wrapper = styled.button`
   border: 1px solid ${GREY[400]};
   border-radius: 2.4rem;
   cursor: pointer;
+  transition: all 0.3s;
+  :hover {
+    background: ${GREY[200]};
+  }
 `;
 
 const P = styled.p`
