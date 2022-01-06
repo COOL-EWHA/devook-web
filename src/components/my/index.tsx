@@ -67,11 +67,10 @@ const Overlay = styled.div`
 const Wrapper = styled.div`
   background: ${WHITE};
   padding: 2rem;
+  min-height: 100vh;
 
   @media screen and (min-width: 1025px) {
     width: 480px;
-    min-height: 100vh;
-
     animation: 0.4s ease-in-out openMyPage;
   }
 
@@ -88,13 +87,11 @@ const Wrapper = styled.div`
 `;
 
 const CloseButton = styled.button`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-
+  display: block;
+  width: fit-content;
+  margin: 0 0 1.6rem auto;
   border: none;
   background: none;
-  margin-bottom: 1.4rem;
   cursor: pointer;
 
   @media screen and (max-width: 1024px) {
