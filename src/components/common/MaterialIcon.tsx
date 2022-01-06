@@ -1,6 +1,7 @@
 import React from 'react';
-import { GREY } from 'src/styles/colors';
 import styled from 'styled-components';
+
+import { GREY } from 'src/styles/colors';
 
 interface IMaterialIconProps {
   className?: string;
@@ -24,6 +25,7 @@ export function MaterialIcon({ className, type, width, color, hoverColor, onClic
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
