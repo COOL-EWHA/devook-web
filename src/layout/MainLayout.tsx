@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
 import GlobalHeader from 'src/components/base/header/GlobalHeader';
+
+import MyPage from 'src/pages/MyPage';
 
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
@@ -11,12 +13,14 @@ interface IMainLayoutProps {
 }
 
 function MainLayout({ children }: IMainLayoutProps) {
+  const [isMyPageOpened, setMyPageOpened] = useState(false);
+
   return (
     <>
-      <GlobalHeader />
+      <GlobalHeader setMyPageOpened={setMyPageOpened} />
       <Wrapper>
         <GlobalNavigationBar />
-        <Main>{children}</Main>
+        <Main>{isMyPageOpened ? <MyPage setMyPageOpened={setMyPageOpened} /> : children}</Main>
       </Wrapper>
     </>
   );

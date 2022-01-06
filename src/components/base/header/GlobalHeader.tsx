@@ -5,8 +5,13 @@ import BookmarkAddButton from 'src/components/bookmarks/AddButton';
 import { MaterialIcon } from 'src/components/common';
 
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
+import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
-function GlobalHeader() {
+interface IGlobalHeaderProps {
+  setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function GlobalHeader({ setMyPageOpened }: IGlobalHeaderProps) {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -14,7 +19,7 @@ function GlobalHeader() {
         <ButtonsWrapper>
           <BookmarkAddButton />
           <NotificationIcon />
-          <MyIcon />
+          <MyIcon onClick={() => setMyPageOpened((prev) => !prev)} />
         </ButtonsWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -43,7 +48,7 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
+  max-width: ${DESKTOP_MAX_WIDTH};
   width: 100%;
   height: 100%;
   padding: 0 2rem;
