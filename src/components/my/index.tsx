@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import OutsideClickHandler from 'react-outside-click-handler';
 
 import UserInfoCard from './UserInfoCard';
 import LoginButtons from './LoginButtons';
@@ -22,24 +21,22 @@ function My() {
   };
 
   return (
-    <Overlay>
-      <OutsideClickHandler onOutsideClick={handleClose}>
-        <Wrapper onClick={handleWrapperClick}>
-          <CloseButton>
-            <MaterialIcon type="close" onClick={handleClose} />
-          </CloseButton>
-          {isLoggedIn && (
-            <>
-              <UserInfoCard />
-              <ButtonsWrapper>
-                <Button>로그아웃</Button>
-                <Button>회원탈퇴</Button>
-              </ButtonsWrapper>
-            </>
-          )}
-          {!isLoggedIn && <LoginButtons />}
-        </Wrapper>
-      </OutsideClickHandler>
+    <Overlay onClick={handleClose}>
+      <Wrapper onClick={handleWrapperClick}>
+        <CloseButton>
+          <MaterialIcon type="close" onClick={handleClose} />
+        </CloseButton>
+        {isLoggedIn && (
+          <>
+            <UserInfoCard />
+            <ButtonsWrapper>
+              <Button>로그아웃</Button>
+              <Button>회원탈퇴</Button>
+            </ButtonsWrapper>
+          </>
+        )}
+        {!isLoggedIn && <LoginButtons />}
+      </Wrapper>
     </Overlay>
   );
 }
