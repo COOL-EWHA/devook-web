@@ -33,11 +33,11 @@ const Wrapper = styled.header`
   background-color: ${WHITE};
 
   @media screen and (min-width: 1025px) {
-    height: 5.2rem;
+    height: 6rem;
   }
 
   @media screen and (max-width: 1024px) {
-    height: 4.4rem;
+    height: 5.2rem;
     border-bottom: 1px solid ${GREY[300]};
   }
 `;
