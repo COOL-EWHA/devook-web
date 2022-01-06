@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
-import GlobalHeader from 'src/components/base/header/GlobalHeader';
+import { BackHeader, GlobalHeader } from 'src/components/base/header';
 
 import MyPage from 'src/pages/MyPage';
 
@@ -14,10 +14,25 @@ interface IMainLayoutProps {
 
 function MainLayout({ children }: IMainLayoutProps) {
   const [isMyPageOpened, setMyPageOpened] = useState(false);
+  const [headerType, setHeaderType] = useState<'BackHeader' | 'GlobalHeader'>('GlobalHeader');
+
+  useEffect(() => {
+    /* @TO_BE_IMPROVED: 라우팅 추가후에 
+    상세페이지,마이페이지,알림목록페이지를 제외하고는 GlobalHeader를 띄우도록 로직 수정 */
+    if (isMyPageOpened) {
+      setHeaderType('BackHeader');
+    } else {
+      setHeaderType('GlobalHeader');
+    }
+  }, [isMyPageOpened]);
 
   return (
     <>
-      <GlobalHeader setMyPageOpened={setMyPageOpened} />
+      {headerType === 'GlobalHeader' ? (
+        <GlobalHeader setMyPageOpened={setMyPageOpened} />
+      ) : (
+        <BackHeader pageTitle={isMyPageOpened ? '마이페이지' : undefined} />
+      )}
       <Wrapper>
         <GlobalNavigationBar />
         <Main>{isMyPageOpened ? <MyPage setMyPageOpened={setMyPageOpened} /> : children}</Main>
@@ -31,11 +46,9 @@ export default MainLayout;
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
+  max-width: ${DESKTOP_MAX_WIDTH};
   min-height: 100vh;
   margin: 0 auto;
-
-  max-width: ${DESKTOP_MAX_WIDTH};
-
   padding: 0 2rem;
 `;
 
