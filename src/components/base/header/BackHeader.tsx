@@ -8,10 +8,10 @@ import AddButton from 'src/components/bookmarks/AddButton';
 import { GREY, WHITE } from 'src/styles/colors';
 
 interface IBackHeaderProps {
-  pageTitle?: string;
+  title?: string;
 }
 
-export default function BackHeader({ pageTitle }: IBackHeaderProps) {
+export default function BackHeader({ title }: IBackHeaderProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -20,12 +20,12 @@ export default function BackHeader({ pageTitle }: IBackHeaderProps) {
 
   return (
     <Wrapper>
-      <PageTitleWrapper>
+      <TitleWrapper>
         <MaterialIcon type="arrow_back_ios" width="2.4rem" onClick={handleBack} />
-        <P>{pageTitle}</P>
-      </PageTitleWrapper>
-      {pageTitle === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
-      {pageTitle !== '마이페이지' && (
+        <P>{title}</P>
+      </TitleWrapper>
+      {title === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
+      {title !== '마이페이지' && (
         <ButtonsWrapper>
           <AddButton /> <ProfileIcon />
         </ButtonsWrapper>
@@ -56,7 +56,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const PageTitleWrapper = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -64,7 +64,7 @@ const PageTitleWrapper = styled.div`
 
 const P = styled.p`
   font-size: 2rem;
-  margin-left: 1.6rem;
+  margin-left: 0.8rem;
   color: ${GREY[700]};
 `;
 
