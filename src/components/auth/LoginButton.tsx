@@ -38,6 +38,6 @@ const Wrapper = styled.button`
 
 const P = styled.p`
   margin-left: 0.8rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: ${GREY[700]};
 `;

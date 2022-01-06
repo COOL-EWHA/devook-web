@@ -13,7 +13,7 @@ interface IMyPageProps {
   setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MyPage({ setMyPageOpened }: IMyPageProps) {
+function MyPage({ setMyPageOpened }: IMyPageProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
@@ -38,10 +38,10 @@ export default function MyPage({ setMyPageOpened }: IMyPageProps) {
             <>
               <Title>로그인 및 회원가입</Title>
               <LoginButton platformType="github">
-                <GithubIcon width="2.5rem" height="2.5rem" />
+                <GithubIcon width="2rem" height="2rem" />
               </LoginButton>
               <LoginButton platformType="google">
-                <GoogleIcon width="2.5rem" height="2.5rem" />
+                <GoogleIcon width="2rem" height="2rem" />
               </LoginButton>
             </>
           )}
@@ -50,6 +50,8 @@ export default function MyPage({ setMyPageOpened }: IMyPageProps) {
     </Overlay>
   );
 }
+
+export default React.memo(MyPage);
 
 const Overlay = styled.div`
   display: flex;
@@ -77,8 +79,10 @@ const Wrapper = styled.div`
   padding: 2rem;
 
   @media screen and (min-width: 1025px) {
-    width: 50vw;
+    width: 480px;
     min-height: 100vh;
+
+    animation: 0.4s ease-in-out openMyPage;
   }
 
   @keyframes openMyPage {
@@ -91,7 +95,6 @@ const Wrapper = styled.div`
       transform: translateX(0px);
     }
   }
-  animation: 0.4s ease-in-out openMyPage;
 `;
 
 const Title = styled.p`
@@ -127,17 +130,8 @@ const CloseButton = styled.button`
 
   border: none;
   background: none;
+  margin-bottom: 1.4rem;
   cursor: pointer;
-
-  .material-icons {
-    padding: 0.4rem;
-    border-radius: 50%;
-  }
-
-  transition: all 0.3s;
-  .material-icons:hover {
-    background: ${GREY[200]};
-  }
 
   @media screen and (max-width: 1024px) {
     display: none;

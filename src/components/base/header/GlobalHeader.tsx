@@ -19,7 +19,7 @@ function GlobalHeader({ setMyPageOpened }: IGlobalHeaderProps) {
         <ButtonsWrapper>
           <BookmarkAddButton />
           <NotificationIcon />
-          <MyIcon onClick={() => setMyPageOpened((prev) => !prev)} />
+          <ProfileIcon onClick={() => setMyPageOpened((prev) => !prev)} />
         </ButtonsWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -66,7 +66,6 @@ const LogoLink = styled.a`
 const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
-  }
 `;
 
 // @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
@@ -80,6 +79,6 @@ const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', wid
 `;
 
 // @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
-const MyIcon = styled(MaterialIcon).attrs({ type: 'person', width: '2.4rem' })`
+const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person', width: '2.4rem' })`
   margin-left: 0.4rem;
 `;
