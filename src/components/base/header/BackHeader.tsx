@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import { MaterialIcon } from 'src/components/common';
 import AddButton from 'src/components/bookmarks/AddButton';
@@ -11,15 +12,20 @@ interface IBackHeaderProps {
 }
 
 export default function BackHeader({ pageTitle }: IBackHeaderProps) {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Wrapper>
       <PageTitleWrapper>
-        <MaterialIcon type="arrow_back_ios" width="2.4rem" />
+        <MaterialIcon type="arrow_back_ios" width="2.4rem" onClick={handleBack} />
         <P>{pageTitle}</P>
       </PageTitleWrapper>
-      {pageTitle === '마이페이지' ? (
-        <MaterialIcon type="notifications" width="2.4rem" />
-      ) : (
+      {pageTitle === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
+      {pageTitle !== '마이페이지' && (
         <ButtonsWrapper>
           <AddButton /> <ProfileIcon />
         </ButtonsWrapper>
