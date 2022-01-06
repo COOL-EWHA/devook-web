@@ -1,4 +1,4 @@
 import BackHeader from './BackHeader';
-import GlobalHeader from './GlobalHeader';
+import MainHeader from './MainHeader';
 
-export { BackHeader, GlobalHeader };
+export { BackHeader, MainHeader };

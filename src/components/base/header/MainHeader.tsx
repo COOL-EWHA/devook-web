@@ -7,11 +7,11 @@ import { MaterialIcon } from 'src/components/common';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
-interface IGlobalHeaderProps {
+interface IMainHeaderProps {
   setMyPageOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function GlobalHeader({ setMyPageOpened }: IGlobalHeaderProps) {
+function MainHeader({ setMyPageOpened }: IMainHeaderProps) {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -26,7 +26,7 @@ function GlobalHeader({ setMyPageOpened }: IGlobalHeaderProps) {
   );
 }
 
-export default GlobalHeader;
+export default MainHeader;
 
 const Wrapper = styled.header`
   position: fixed;

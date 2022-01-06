@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
-import { BackHeader, GlobalHeader } from 'src/components/base/header';
+import { BackHeader, MainHeader } from 'src/components/base/header';
 
 import MyPage from 'src/pages/MyPage';
 
@@ -14,22 +14,22 @@ interface IMainLayoutProps {
 
 function MainLayout({ children }: IMainLayoutProps) {
   const [isMyPageOpened, setMyPageOpened] = useState(false);
-  const [headerType, setHeaderType] = useState<'BackHeader' | 'GlobalHeader'>('GlobalHeader');
+  const [headerType, setHeaderType] = useState<'BackHeader' | 'MainHeader'>('MainHeader');
 
   useEffect(() => {
     /* @TO_BE_IMPROVED: 라우팅 추가후에 
-    상세페이지,마이페이지,알림목록페이지를 제외하고는 GlobalHeader를 띄우도록 로직 수정 */
+    상세페이지,마이페이지,알림목록페이지를 제외하고는 MainHeader를 띄우도록 로직 수정 */
     if (isMyPageOpened) {
       setHeaderType('BackHeader');
     } else {
-      setHeaderType('GlobalHeader');
+      setHeaderType('MainHeader');
     }
   }, [isMyPageOpened]);
 
   return (
     <>
-      {headerType === 'GlobalHeader' ? (
-        <GlobalHeader setMyPageOpened={setMyPageOpened} />
+      {headerType === 'MainHeader' ? (
+        <MainHeader setMyPageOpened={setMyPageOpened} />
       ) : (
         <BackHeader pageTitle={isMyPageOpened ? '마이페이지' : undefined} />
       )}
