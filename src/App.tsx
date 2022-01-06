@@ -3,7 +3,7 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 
 import GlobalStyle from 'src/styles/global';
 import MainLayout from 'src/layout/MainLayout';
-import My from 'src/components/My';
+import My from 'src/components/my';
 
 function App() {
   return (

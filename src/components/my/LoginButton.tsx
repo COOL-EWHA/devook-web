@@ -8,7 +8,7 @@ interface ILoginButtonProps {
   children: React.ReactNode;
 }
 
-export default function LoginButton({ platform, children: platformLogoIcon }: ILoginButtonProps) {
+export default function MyLoginButton({ platform, children: platformLogoIcon }: ILoginButtonProps) {
   return (
     <Wrapper>
       {platformLogoIcon}
