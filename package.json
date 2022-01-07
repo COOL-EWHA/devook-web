@@ -26,7 +26,7 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "pretty": "prettier --write \"src/**/*.(ts|tsx)\"",
     "tsc": "tsc",
-    "test": "jest"
+    "test": "yarn lint && yarn pretty && yarn tsc && yarn jest"
   },
   "eslintConfig": {
     "extends": [
