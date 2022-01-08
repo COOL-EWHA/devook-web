@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import BookmarkAddButton from 'src/components/bookmarks/AddButton';
 import { MaterialIcon, Link } from 'src/components/common';
-
+import LogoIcon from 'src/components/assets/icons/logo';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
@@ -11,7 +11,10 @@ function MainHeader() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <LogoLink to="/">Devook</LogoLink>
+        <LogoLink to="/">
+          <LogoIcon />
+          <LogoText>Devook</LogoText>
+        </LogoLink>
         <ButtonsWrapper>
           <BookmarkAddButton />
           <NotificationIcon />
@@ -54,11 +57,18 @@ const ContentWrapper = styled.div`
 `;
 
 const LogoLink = styled(Link)`
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${CACTUS_GREEN[500]};
+  display: flex;
+  align-items: center;
   cursor: pointer;
   margin-right: auto;
+`;
+
+const LogoText = styled.p`
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: ${CACTUS_GREEN[500]};
+  margin-top: 0.4rem;
 `;
 
 const ButtonsWrapper = styled.div`
