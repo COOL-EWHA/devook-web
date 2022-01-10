@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components';
 import { MaterialIcon } from 'src/components/common';
 import { GREY, CACTUS_GREEN } from 'src/styles/colors';
 
-type ButtonType = 'text' | 'icon' | 'border';
-type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
+export type ButtonType = 'text' | 'icon' | 'border';
+export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
 
 interface IButtonProps {
   text: string;
@@ -41,14 +41,7 @@ export default function Button({
   if (href) {
     return (
       <A href={href} target="_blank" rel="noopener">
-        <Wrapper
-          isBlock
-          height={height}
-          color={color}
-          hasBorder={type === 'border'}
-          disabled={disabled}
-          onClick={onClick}
-        >
+        <Wrapper isBlock height={height} color={color} hasBorder disabled={disabled} onClick={onClick}>
           <P>{text}</P>
         </Wrapper>
       </A>
