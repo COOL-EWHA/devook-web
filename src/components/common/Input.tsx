@@ -32,7 +32,7 @@ export default function Input({ type = 'INPUT', label, placeholder }: IInputProp
 
 const Wrapper = styled.div`
   position: relative;
-  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const StyledInput = styled.input`
@@ -45,6 +45,10 @@ const StyledInput = styled.input`
   :focus {
     outline: none;
     border: 1px solid ${CACTUS_GREEN[500]};
+  }
+  ::placeholder {
+    color: ${GREY[500]};
+    font-size: 1.2rem;
   }
 `;
 
@@ -59,6 +63,10 @@ const StyledTextArea = styled.textarea`
   :focus {
     outline: none;
     border: 1px solid ${CACTUS_GREEN[500]};
+  }
+  ::placeholder {
+    color: ${GREY[500]};
+    font-size: 1.2rem;
   }
 `;
 
