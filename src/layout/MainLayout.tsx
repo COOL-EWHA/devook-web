@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
 import { GlobalHeader } from 'src/components/base/header';
+import { Modal } from 'src/components/common';
 
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
@@ -11,13 +12,16 @@ interface IMainLayoutProps {
 }
 
 function MainLayout({ children }: IMainLayoutProps) {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   return (
     <>
-      <GlobalHeader />
+      <GlobalHeader isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened} />
       <Wrapper>
         <GlobalNavigationBar />
         <Main>{children}</Main>
       </Wrapper>
+      {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} title="북마크 추가하기" />}
     </>
   );
 }

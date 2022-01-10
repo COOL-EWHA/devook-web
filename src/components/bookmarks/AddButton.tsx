@@ -1,16 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MaterialIcon } from 'src/components/common';
+import { MaterialIcon, Modal } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
+interface IAddButtonProps {
+  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpened: boolean;
+}
 // @TO_BE_IMPROVED: 로그인 안된 상태에서는 안보이도록
-function AddButton() {
+function AddButton({ setIsModalOpened, isModalOpened }: IAddButtonProps) {
+  const handleAddButtonClick = () => {
+    setIsModalOpened(true);
+  };
+
   return (
-    <Wrapper>
-      <P>북마크 추가</P>
-      <BookmarkAddIcon type="add" width="2.4rem" />
-    </Wrapper>
+    <>
+      <Wrapper onClick={handleAddButtonClick}>
+        <P>북마크 추가</P>
+        <BookmarkAddIcon type="add" width="2.4rem" />
+      </Wrapper>
+      {/* {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} title="북마크 추가하기" />} */}
+    </>
   );
 }
 

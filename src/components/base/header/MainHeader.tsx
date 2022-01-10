@@ -7,7 +7,12 @@ import LogoIcon from 'src/components/assets/icons/logo';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
-function MainHeader() {
+interface IMainHeaderProps {
+  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpened: boolean;
+}
+
+function MainHeader({ setIsModalOpened, isModalOpened }: IMainHeaderProps) {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -16,7 +21,7 @@ function MainHeader() {
           <LogoText>Devook</LogoText>
         </LogoLink>
         <ButtonsWrapper>
-          <BookmarkAddButton />
+          <BookmarkAddButton isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened} />
           <NotificationIcon />
           <Link to="/my">
             <ProfileIcon />
