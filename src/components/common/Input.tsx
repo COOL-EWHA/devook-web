@@ -3,27 +3,33 @@ import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE, GREY } from 'src/styles/colors';
 
-type InputType = 'TEXTAREA' | 'INPUT';
+export type InputType = 'TEXTAREA' | 'INPUT';
 
-interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   type?: InputType;
   label?: string;
 }
 
-export default function Input({ type = 'INPUT', label, placeholder }: IInputProps) {
+export default function Input({ type = 'INPUT', label, placeholder, onChange }: IInputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <Wrapper>
       {label && <Label isFocused={isFocused}>{label}</Label>}
       {type === 'INPUT' && (
-        <StyledInput onBlur={() => setIsFocused(false)} onFocus={() => setIsFocused(true)} placeholder={placeholder} />
+        <StyledInput
+          onBlur={() => setIsFocused(false)}
+          onFocus={() => setIsFocused(true)}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
       )}
       {type === 'TEXTAREA' && (
         <StyledTextArea
           onBlur={() => setIsFocused(false)}
           onFocus={() => setIsFocused(true)}
           placeholder={placeholder}
+          onChange={onChange}
         />
       )}
     </Wrapper>
