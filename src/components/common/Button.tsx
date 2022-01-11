@@ -60,6 +60,7 @@ const getDisabledStyle = (disabled: boolean, buttonType: ButtonType) => {
       cursor: default;
       color: ${GREY[500]};
       border-color: ${buttonType === 'line' && GREY[500]};
+      background: ${buttonType === 'primary' ? GREY[200] : 'none'};
       .material-icons {
         color: ${GREY[500]};
         cursor: default;
@@ -71,7 +72,12 @@ const getDisabledStyle = (disabled: boolean, buttonType: ButtonType) => {
   `;
 };
 
-const getHoverStyle = (color: ButtonColorType) => {
+const getHoverStyle = (type: ButtonType, color: ButtonColorType) => {
+  if (type === 'primary') {
+    return css`
+      background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[600] : GREY[600]};
+    `;
+  }
   return css`
     color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
     border-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
@@ -85,9 +91,10 @@ const getButtonStyle = (type: ButtonType, color: ButtonColorType) => {
   switch (type) {
     case 'primary':
       return css`
-        background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
+        background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[500]};
         color: ${WHITE};
         border-radius: 8px;
+        padding: 0.4rem 1rem;
       `;
     case 'line':
       return css`
@@ -114,21 +121,16 @@ const Wrapper = styled.button<{
 }>`
   display: flex;
   align-items: center;
-
   background: none;
   outline: none;
   border: none;
   padding: 0;
-
   width: ${({ isBlock }) => (isBlock ? '100%' : 'fit-content')};
   height: ${({ height }) => `${height}` ?? 'fit-content'};
-
   ${({ buttonType, color }) => getButtonStyle(buttonType, color)};
-
   ${({ disabled, buttonType }) => getDisabledStyle(disabled, buttonType)}
-
   :hover {
-    ${({ color, disabled }) => !disabled && getHoverStyle(color)}
+    ${({ buttonType, color, disabled }) => !disabled && getHoverStyle(buttonType, color)}
   }
   transition: all 0.2s;
 `;
