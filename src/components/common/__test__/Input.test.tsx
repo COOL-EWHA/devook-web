@@ -2,11 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Input, { InputType } from 'src/components/common/Input';
+import Input from 'src/components/common/Input';
 
 describe('<Input />', () => {
-  const setup = ({ type = 'INPUT', label }: { type?: InputType; label?: string }) => {
-    return render(<Input type={type} label={label} />);
+  const setup = ({ label }: { label?: string }) => {
+    return render(<Input label={label} />);
   };
 
   it('label props가 있을때 잘 작동하는지 테스트', () => {
