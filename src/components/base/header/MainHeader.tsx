@@ -71,7 +71,7 @@ const LogoLink = styled(Link)`
 
 const LogoText = styled.p`
   font-family: 'Ubuntu Condensed', sans-serif;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 400;
   color: ${CACTUS_GREEN[500]};
   margin-top: 0.4rem;
