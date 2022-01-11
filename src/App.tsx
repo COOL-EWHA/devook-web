@@ -3,7 +3,7 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 
 import GlobalStyle from 'src/styles/global';
 import MainLayout from 'src/layout/MainLayout';
-import My from 'src/components/my';
+import MyPage from 'src/pages/my';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
               </>
             }
           >
-            <Route path="my" element={<My />} />
+            <Route path="my" element={<MyPage />} />
           </Route>
         </Routes>
       </MainLayout>

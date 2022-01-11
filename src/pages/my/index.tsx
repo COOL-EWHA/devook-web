@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import UserInfoCard from './UserInfoCard';
-import LoginButtons from './LoginButtons';
+import { UserInfoCard, LoginButtons } from 'src/components/my/';
 import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
