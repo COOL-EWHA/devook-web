@@ -7,17 +7,17 @@ import { Button, MaterialIcon } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
 interface ICloseHeaderProps {
-  onClose?: () => void;
+  onClose?: React.Dispatch<React.SetStateAction<boolean>>;
   onComplete?: () => void;
   title: string;
 }
 
-export default function CloseHeader({ onClose, onComplete, title }: ICloseHeaderProps) {
+export default function CloseHeader({ onClose: setIsModalOpened, onComplete, title }: ICloseHeaderProps) {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    if (onClose) {
-      onClose();
+    if (setIsModalOpened) {
+      setIsModalOpened(false);
     } else {
       navigate(-1);
     }

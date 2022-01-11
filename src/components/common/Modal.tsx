@@ -1,31 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Input } from 'src/components/common';
-import { ModalHeader } from 'src/components/base/header';
+import { BackHeader, CloseHeader } from 'src/components/base/header';
 
 import { GREY, WHITE } from 'src/styles/colors';
 
 interface IModalProps {
   title: string;
-  hasStep?: boolean;
+  headerType?: 'close' | 'back';
   setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  onBack?: () => void;
+  onComplete?: () => void;
+  children?: React.ReactNode;
+  className?: string;
 }
 
-export default function Modal({ title, hasStep = false, setIsModalOpened }: IModalProps) {
+export default function Modal({
+  title,
+  headerType = 'close',
+  setIsModalOpened,
+  onBack,
+  onComplete,
+  children,
+  className,
+}: IModalProps) {
+  const handleClickOverlay = () => {
+    setIsModalOpened(false);
+  };
+
+  const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <Overlay onClick={() => setIsModalOpened(false)}>
-      <Wrapper
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <ModalHeader title={title} hasStep={hasStep} setIsModalOpened={setIsModalOpened} />
+    <Overlay onClick={handleClickOverlay}>
+      <Wrapper onClick={handleWrapperClick}>
+        {headerType === 'close' && <CloseHeader title={title} onClose={setIsModalOpened} onComplete={onComplete} />}
+        {headerType === 'back' && <BackHeader title={title} onBack={onBack} onComplete={onComplete} />}
         <Divider />
-        <InputWrapper>
-          <Input label="링크 추가" placeholder="북마크할 링크를 추가해주세요" />
-          <Input label="메모 추가" type="TEXTAREA" placeholder="이 북마크와 관련된 메모를 추가해보세요" />
-        </InputWrapper>
+        <ContentWrapper className={className}>{children}</ContentWrapper>
       </Wrapper>
     </Overlay>
   );
@@ -76,12 +89,10 @@ const Wrapper = styled.div`
   }
 `;
 
-const InputWrapper = styled.div`
-  padding: 2rem;
-`;
-
 const Divider = styled.div`
   width: 100%;
   height: 0.1rem;
   background-color: ${GREY[400]};
 `;
+
+const ContentWrapper = styled.div<{ className?: string }>``;
