@@ -71,8 +71,8 @@ const getDisabledStyle = (disabled: boolean, buttonType: ButtonType) => {
   `;
 };
 
-const getHoverStyle = (type: ButtonType, color: ButtonColorType) => {
-  if (type === 'primary') {
+const getHoverStyle = (buttonType: ButtonType, color: ButtonColorType) => {
+  if (buttonType === 'primary') {
     return `
       background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[600] : GREY[600]};
     `;
@@ -86,8 +86,8 @@ const getHoverStyle = (type: ButtonType, color: ButtonColorType) => {
   `;
 };
 
-const getButtonStyle = (type: ButtonType, color: ButtonColorType) => {
-  switch (type) {
+const getButtonStyle = (buttonType: ButtonType, color: ButtonColorType) => {
+  switch (buttonType) {
     case 'primary':
       return `
         background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[500]};
