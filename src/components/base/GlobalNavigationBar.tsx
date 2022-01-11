@@ -26,27 +26,27 @@ export default GlobalNavigationBar;
 const Nav = styled.nav`
   background-color: ${WHITE};
   @media screen and (min-width: 1025px) {
-    margin: 6.4rem 2rem 0 0;
-  }
-`;
-
-const Ul = styled.ul`
-  @media screen and (min-width: 1025px) {
     padding: 1.2rem 0;
     border-radius: 0.8rem;
     border: 1px dashed ${GREY[400]};
   }
-
   @media screen and (max-width: 1024px) {
     position: fixed;
     left: 0;
     bottom: 0;
-    display: flex;
     width: 100vw;
     height: 6rem;
+    border-top: 1px solid ${GREY[300]};
+  }
+`;
+
+const Ul = styled.ul`
+  @media screen and (max-width: 1024px) {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid ${GREY[300]};
+    width: 100%;
+    height: 100%;
   }
 `;
 
