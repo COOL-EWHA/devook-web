@@ -8,7 +8,7 @@ import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
 
-function My() {
+export default function My() {
   const isLoggedIn = false;
   const navigate = useNavigate();
 
@@ -41,8 +41,6 @@ function My() {
   );
 }
 
-export default My;
-
 const Overlay = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -53,6 +51,7 @@ const Overlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 11;
 
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
@@ -90,6 +89,7 @@ const CloseButton = styled.button`
   display: block;
   width: fit-content;
   margin: 0 0 1.6rem auto;
+  padding: 0;
   border: none;
   background: none;
   cursor: pointer;

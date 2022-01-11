@@ -32,7 +32,6 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  position: relative;
   flex: 1;
   margin-top: 7.2rem;
   @media screen and (max-width: 1024px) {
