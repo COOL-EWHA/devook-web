@@ -71,6 +71,8 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 641px) {
     width: 100%;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   @keyframes openModal {
