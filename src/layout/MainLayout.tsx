@@ -21,7 +21,6 @@ function MainLayout({ children }: IMainLayoutProps) {
         <GlobalNavigationBar />
         <Main>{children}</Main>
       </Wrapper>
-      {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} title="북마크 추가하기" />}
     </>
   );
 }
@@ -38,6 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
+  position: relative;
   flex: 1;
   margin-top: 7.2rem;
   @media screen and (max-width: 1024px) {

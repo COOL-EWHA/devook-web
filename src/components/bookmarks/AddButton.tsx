@@ -20,7 +20,7 @@ function AddButton({ setIsModalOpened, isModalOpened }: IAddButtonProps) {
         <P>북마크 추가</P>
         <BookmarkAddIcon type="add" width="2.4rem" />
       </Wrapper>
-      {/* {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} title="북마크 추가하기" />} */}
+      {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} title="북마크 추가하기" />}
     </>
   );
 }
