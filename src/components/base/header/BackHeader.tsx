@@ -9,11 +9,9 @@ import { GREY, WHITE } from 'src/styles/colors';
 
 interface IBackHeaderProps {
   title?: string;
-  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpened: boolean;
 }
 
-export default function BackHeader({ title, setIsModalOpened, isModalOpened }: IBackHeaderProps) {
+export default function BackHeader({ title }: IBackHeaderProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -29,7 +27,7 @@ export default function BackHeader({ title, setIsModalOpened, isModalOpened }: I
       {title === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
       {title !== '마이페이지' && (
         <ButtonsWrapper>
-          <AddButton isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened} /> <ProfileIcon />
+          <AddButton /> <ProfileIcon />
         </ButtonsWrapper>
       )}
     </Wrapper>

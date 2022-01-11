@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon, Modal } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
-interface IAddButtonProps {
-  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpened: boolean;
-}
 // @TO_BE_IMPROVED: 로그인 안된 상태에서는 안보이도록
-function AddButton({ setIsModalOpened, isModalOpened }: IAddButtonProps) {
+export default function AddButton() {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   const handleAddButtonClick = () => {
     setIsModalOpened(true);
   };
@@ -24,8 +22,6 @@ function AddButton({ setIsModalOpened, isModalOpened }: IAddButtonProps) {
     </>
   );
 }
-
-export default AddButton;
 
 const Wrapper = styled.button`
   @media screen and (min-width: 1025px) {

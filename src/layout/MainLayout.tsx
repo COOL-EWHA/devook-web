@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
 import { GlobalHeader } from 'src/components/base/header';
-import { Modal } from 'src/components/common';
 
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
@@ -11,12 +10,10 @@ interface IMainLayoutProps {
   children: React.ReactNode;
 }
 
-function MainLayout({ children }: IMainLayoutProps) {
-  const [isModalOpened, setIsModalOpened] = useState(false);
-
+export default function MainLayout({ children }: IMainLayoutProps) {
   return (
     <>
-      <GlobalHeader isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened} />
+      <GlobalHeader />
       <Wrapper>
         <GlobalNavigationBar />
         <Main>{children}</Main>
@@ -24,8 +21,6 @@ function MainLayout({ children }: IMainLayoutProps) {
     </>
   );
 }
-
-export default MainLayout;
 
 const Wrapper = styled.div`
   display: flex;
