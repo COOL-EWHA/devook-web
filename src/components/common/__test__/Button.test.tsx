@@ -8,10 +8,9 @@ import { GREY, CACTUS_GREEN } from 'src/styles/colors';
 
 describe('<Button />', () => {
   const onClick = jest.fn();
-
   const setup = ({
     text,
-    type = 'text',
+    buttonType = 'text',
     href,
     onClick,
     color = 'CACTUS_GREEN',
@@ -20,18 +19,18 @@ describe('<Button />', () => {
     disabled = false,
   }: {
     text: string;
-    type?: ButtonType;
+    buttonType?: ButtonType;
     href?: string;
     onClick?: jest.Mock<void, []>;
     color?: ButtonColorType;
-    height?: number | undefined;
+    height?: string;
     isBlock?: boolean;
     disabled?: boolean;
   }) => {
     return render(
       <Button
         text={text}
-        type={type}
+        buttonType={buttonType}
         href={href}
         color={color}
         onClick={onClick}
@@ -46,12 +45,10 @@ describe('<Button />', () => {
     setup({
       text: '버튼 텍스트가 잘 전달되었을까',
       color: 'GREY',
-      height: 4,
+      height: '4rem',
       isBlock: true,
     });
-
     const button = screen.getByRole('button');
-
     expect(button).toHaveTextContent('버튼 텍스트가 잘 전달되었을까');
     expect(button).toHaveStyle({
       color: `${GREY[700]}`,
@@ -65,23 +62,19 @@ describe('<Button />', () => {
 
   it('버튼 클릭 이벤트가 동작하는지 테스트', () => {
     setup({ text: 'example', onClick });
-
     const button = screen.getByRole('button');
-
     userEvent.click(button);
-
     expect(onClick).toHaveBeenCalled();
   });
 
   it('href가 있을때, 자동으로 border 스타일을 가지는지 테스트', () => {
     setup({
+      buttonType: 'line',
       text: 'example',
       href: 'https://github.com/testing-library/jest-dom#tohavestyle',
       onClick,
     });
-
     const button = screen.getByRole('button');
-
     expect(button).toHaveStyle({
       color: `${CACTUS_GREEN[500]}`,
       border: `1px solid ${CACTUS_GREEN[500]}`,

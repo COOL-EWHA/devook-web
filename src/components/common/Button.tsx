@@ -2,17 +2,17 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
-import { GREY, CACTUS_GREEN } from 'src/styles/colors';
+import { GREY, CACTUS_GREEN, WHITE } from 'src/styles/colors';
 
-export type ButtonType = 'text' | 'icon' | 'border';
+export type ButtonType = 'primary' | 'line' | 'text';
 export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
 
 interface IButtonProps {
   text: string;
-  type?: ButtonType;
+  buttonType?: ButtonType;
   iconType?: string;
   color?: ButtonColorType;
-  height?: number | undefined;
+  height?: string;
   isBlock?: boolean;
   disabled?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
@@ -21,7 +21,7 @@ interface IButtonProps {
 
 export default function Button({
   text,
-  type = 'text',
+  buttonType = 'text',
   iconType,
   color = 'CACTUS_GREEN',
   height,
@@ -30,18 +30,10 @@ export default function Button({
   onClick,
   href,
 }: IButtonProps) {
-  if (type === 'icon' && iconType) {
-    return (
-      <Wrapper isBlock={isBlock} height={height} color={color} onClick={onClick} disabled={disabled}>
-        <MaterialIcon color={color} type={iconType} />
-        <P hasMarginLeft>{text}</P>
-      </Wrapper>
-    );
-  }
   if (href) {
     return (
       <A href={href} target="_blank" rel="noopener">
-        <Wrapper isBlock height={height} color={color} hasBorder disabled={disabled} onClick={onClick}>
+        <Wrapper buttonType={buttonType} color={color} isBlock height={height} disabled={disabled} onClick={onClick}>
           <P>{text}</P>
         </Wrapper>
       </A>
@@ -49,66 +41,28 @@ export default function Button({
   }
   return (
     <Wrapper
+      buttonType={buttonType}
+      color={color}
       isBlock={isBlock}
       height={height}
-      color={color}
-      hasBorder={type === 'border'}
       disabled={disabled}
       onClick={onClick}
     >
-      <P>{text}</P>
+      {iconType && <MaterialIcon color={color} type={iconType} />}
+      <P hasMarginLeft={iconType}>{text}</P>
     </Wrapper>
   );
 }
 
-interface IButtonStyleProps {
-  isBlock: boolean;
-  height: number | undefined;
-  color: ButtonColorType;
-  disabled: boolean;
-  hasBorder?: boolean;
-}
-
-const Wrapper = styled.button<IButtonStyleProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: ${({ isBlock }) => (isBlock ? '100%' : 'fit-content')};
-  height: ${({ height }) => `${height}rem` ?? 'fit-content'};
-
-  background: none;
-  outline: none;
-  border: none;
-  padding: 0;
-  color: ${({ color }) => (color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700])};
-
-  ${({ hasBorder, color }) => getBorderStyle(color, hasBorder)}
-
-  ${({ disabled }) => getDisabledStyle(disabled)}
-
-  :hover {
-    ${({ color, disabled }) => !disabled && getHoverStyle(color)}
-  }
-  transition: all 0.2s;
-`;
-
-const P = styled.p<{ hasMarginLeft?: boolean }>`
-  font-size: 1.4rem;
-  margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? 1 : 0)}rem;
-`;
-
-const A = styled.a`
-  text-decoration: none;
-`;
-
-const getDisabledStyle = (disabled: boolean) => {
+const getDisabledStyle = (disabled: boolean, buttonType: ButtonType) => {
   if (disabled)
     return css`
       cursor: default;
-      color: ${GREY[700]};
+      color: ${GREY[500]};
+      border-color: ${buttonType === 'line' && GREY[500]};
       .material-icons {
-        color: ${GREY[700]};
+        color: ${GREY[500]};
+        cursor: default;
       }
     `;
 
@@ -118,35 +72,72 @@ const getDisabledStyle = (disabled: boolean) => {
 };
 
 const getHoverStyle = (color: ButtonColorType) => {
-  if (color === 'CACTUS_GREEN')
-    return css`
-      color: ${CACTUS_GREEN[700]};
-      border-color: ${CACTUS_GREEN[700]};
-      .material-icons {
-        color: ${CACTUS_GREEN[700]};
-      }
-    `;
-
   return css`
-    color: ${GREY[900]};
-    border-color: ${GREY[900]};
+    color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
+    border-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
     .material-icons {
-      color: ${GREY[900]};
+      color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
     }
   `;
 };
 
-const getBorderStyle = (color: ButtonColorType, hasBorder?: boolean) => {
-  if (hasBorder) {
-    if (color === 'CACTUS_GREEN')
+const getButtonStyle = (type: ButtonType, color: ButtonColorType) => {
+  switch (type) {
+    case 'primary':
       return css`
+        background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
+        color: ${WHITE};
         border-radius: 8px;
-        border: 1px solid ${CACTUS_GREEN[500]};
       `;
-    return css`
-      border-radius: 8px;
-      border: 1px solid ${GREY[700]};
-    `;
+    case 'line':
+      return css`
+        color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
+        border-radius: 8px;
+        padding: 0.4rem 1rem;
+        border: 1px solid ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
+      `;
+    case 'text':
+      return css`
+        color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
+      `;
+    default:
+      return null;
   }
-  return null;
 };
+
+const Wrapper = styled.button<{
+  buttonType: ButtonType;
+  color: ButtonColorType;
+  disabled: boolean;
+  isBlock?: boolean;
+  height?: string;
+}>`
+  display: flex;
+  align-items: center;
+
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0;
+
+  width: ${({ isBlock }) => (isBlock ? '100%' : 'fit-content')};
+  height: ${({ height }) => `${height}` ?? 'fit-content'};
+
+  ${({ buttonType, color }) => getButtonStyle(buttonType, color)};
+
+  ${({ disabled, buttonType }) => getDisabledStyle(disabled, buttonType)}
+
+  :hover {
+    ${({ color, disabled }) => !disabled && getHoverStyle(color)}
+  }
+  transition: all 0.2s;
+`;
+
+const P = styled.p<{ hasMarginLeft?: string }>`
+  font-size: 1.4rem;
+  margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? 1 : 0)}rem;
+`;
+
+const A = styled.a`
+  text-decoration: none;
+`;

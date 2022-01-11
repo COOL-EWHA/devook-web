@@ -16,15 +16,15 @@ export function TextButton() {
   );
 }
 export function IconButton() {
-  return <Button type="icon" iconType="person" text="아이콘 있는 버튼" />;
+  return <Button iconType="person" text="아이콘 있는 버튼" />;
 }
 export function BorderButton() {
   return (
     <Button
       text="border + external link 버튼"
-      type="border"
+      buttonType="line"
       href="https://github.com/COOL-EWHA/devook-web"
-      height={4}
+      height="4rem"
     />
   );
 }
