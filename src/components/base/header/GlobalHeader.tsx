@@ -2,8 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { BackHeader, MainHeader } from 'src/components/base/header';
-
-const SUB_ROUTES = [{ pathname: '/my', title: '마이페이지' }];
+import { SUB_ROUTES } from 'src/constant';
 
 export default function GlobalHeader() {
   const { pathname } = useLocation();
@@ -11,9 +10,7 @@ export default function GlobalHeader() {
   return (
     <>
       <MainHeader />
-      {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname) && (
-        <BackHeader title={SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title} />
-      )}
+      {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname) && <BackHeader />}
     </>
   );
 }

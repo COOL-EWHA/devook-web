@@ -1,18 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { MaterialIcon } from 'src/components/common';
-import AddButton from 'src/components/bookmarks/AddButton';
+import BookmarkAddButton from 'src/components/bookmarks/AddButton';
 
 import { GREY, WHITE } from 'src/styles/colors';
+import { SUB_ROUTES } from 'src/constant';
 
-interface IBackHeaderProps {
-  title?: string;
-}
-
-export default function BackHeader({ title }: IBackHeaderProps) {
+export default function BackHeader() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleBack = () => {
     navigate(-1);
@@ -22,12 +20,12 @@ export default function BackHeader({ title }: IBackHeaderProps) {
     <Wrapper>
       <TitleWrapper>
         <MaterialIcon type="arrow_back_ios" width="2.4rem" onClick={handleBack} />
-        <P>{title}</P>
+        <P>{SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title}</P>
       </TitleWrapper>
-      {title === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
-      {title !== '마이페이지' && (
+      {pathname === '마이페이지' && <MaterialIcon type="notifications" width="2.4rem" />}
+      {pathname !== '마이페이지' && (
         <ButtonsWrapper>
-          <AddButton /> <ProfileIcon />
+          <BookmarkAddButton /> <ProfileIcon />
         </ButtonsWrapper>
       )}
     </Wrapper>

@@ -15,3 +15,5 @@ export const NAV_ITEMS = [
     label: '추천 글 목록',
   },
 ];
+
+export const SUB_ROUTES = [{ pathname: '/my', title: '마이페이지' }];
