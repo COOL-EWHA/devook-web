@@ -12,9 +12,6 @@ interface IMainLayoutProps {
 }
 
 function MainLayout({ children }: IMainLayoutProps) {
-  const { pathname } = useLocation();
-  if (pathname === '/login-redirect') return children;
-
   return (
     <>
       <GlobalHeader />
