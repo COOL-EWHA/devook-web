@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
@@ -9,16 +8,20 @@ import { accessToken, accessTokenLoading } from 'src/lib/store/auth';
 import { AuthTokens } from 'src/types/auth';
 import { IUser } from 'src/interfaces/IUser';
 
-export const useAuthHeaderConfig = (token: 'accessToken' | 'refreshToken' = 'accessToken') => {
+type AuthToken = 'accessToken' | 'refreshToken';
+
+export const useAuthHeaderConfig = (token: AuthToken = 'accessToken') => {
+  const accessTokenValue = useRecoilValue(accessToken);
   return {
     headers: {
-      Authorization: `Bearer ${token === 'accessToken' ? useRecoilValue(accessToken) : Cookies.get('REFRESH_TOKEN')}`,
+      Authorization: `Bearer ${token === 'accessToken' ? accessTokenValue : Cookies.get('REFRESH_TOKEN')}`,
     },
   };
 };
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
+  const authHeaderConfig = useAuthHeaderConfig('refreshToken');
   const setAccessToken = useSetRecoilState(accessToken);
   const [loading, setLoading] = useRecoilState(accessTokenLoading);
 
@@ -35,17 +38,16 @@ export const useAuthRefresh = () => {
     try {
       setLoading(true);
       const { accessToken, refreshToken } = await authRefresh();
-      alert('리프레쉬 성공!');
       setAccessToken(accessToken);
       Cookies.set('REFRESH_TOKEN', refreshToken);
     } catch (err) {
-      alert('리프레쉬 실패!');
+      console.log(err);
     }
     setLoading(false);
   };
 
   const authRefresh = async (): Promise<AuthTokens> =>
-    apiClient.post('/auth/refresh', null, useAuthHeaderConfig('refreshToken')).then((res) => res.data);
+    apiClient.post('/auth/refresh', null, authHeaderConfig).then((res) => res.data);
 
   return { loading };
 };
