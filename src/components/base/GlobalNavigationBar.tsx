@@ -24,7 +24,6 @@ function GlobalNavigationBar() {
 export default GlobalNavigationBar;
 
 const Nav = styled.nav`
-  background-color: ${WHITE};
   @media screen and (min-width: 1025px) {
     margin: 6.4rem 2rem 0 0;
   }
@@ -41,11 +40,13 @@ const Ul = styled.ul`
     position: fixed;
     left: 0;
     bottom: 0;
+    z-index: 9;
     display: flex;
-    width: 100vw;
-    height: 6rem;
     justify-content: space-between;
     align-items: center;
+    width: 100vw;
+    height: 6rem;
+    background-color: ${WHITE};
     border-top: 1px solid ${GREY[300]};
   }
 `;
