@@ -1,6 +1,54 @@
-import React from 'react';
-import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+
+import { MaterialIcon } from 'src/components/common';
+import { Menu } from 'src/components/bookmarks';
+
+import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+
+interface IBookmarkCardProps {
+  title: string;
+  thumbnail: string;
+  description: string;
+  tags: string[];
+  type?: 'my' | 'recommended';
+}
+
+export default function BookmarkCard({ title, thumbnail, description, tags, type = 'my' }: IBookmarkCardProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMoreIconClick = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  return (
+    <Wrapper>
+      <ContentsWrapper>
+        <PBlock>
+          <P type="title">{title}</P>
+          <P type="description">{description}</P>
+        </PBlock>
+        <Img src={thumbnail} />
+      </ContentsWrapper>
+      <FooterBlock>
+        <TagsWrapper>
+          {tags.map((tag) => (
+            <P type="tag">#{tag}</P>
+          ))}
+        </TagsWrapper>
+        <MenuWrapper>
+          {type === 'my' && (
+            <>
+              <MoreIcon onClick={handleMoreIconClick} />
+              <Menu isMenuOpen={isMenuOpen} />
+            </>
+          )}
+          {type === 'recommended' && <MaterialIcon type="bookmark_border" />}
+        </MenuWrapper>
+      </FooterBlock>
+    </Wrapper>
+  );
+}
 
 type PStyleType = 'title' | 'description' | 'tag';
 
@@ -8,12 +56,16 @@ const getPStyle = (type: PStyleType) => {
   switch (type) {
     case 'title':
       return css`
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-weight: 500;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.6rem;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        height: 2rem;
       `;
     case 'description':
       return css`
@@ -30,42 +82,14 @@ const getPStyle = (type: PStyleType) => {
       `;
     case 'tag':
       return css`
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         color: ${CACTUS_GREEN[500]};
+        margin-right: 0.8rem;
       `;
     default:
       return null;
   }
 };
-
-interface IBookmarkCardProps {
-  title: string;
-  thumbnail: string;
-  description: string;
-  tags: string[];
-}
-
-export default function BookmarkCard({ title, thumbnail, description, tags }: IBookmarkCardProps) {
-  return (
-    <Wrapper>
-      <ContentBlock>
-        <PBlock>
-          <P type="title">{title}</P>
-          <P type="description">{description}</P>
-        </PBlock>
-        <Img src={thumbnail} />
-      </ContentBlock>
-      <FooterBlock>
-        <TagsWrapper>
-          {tags.map((tag) => (
-            <P type="tag">{tag}</P>
-          ))}
-        </TagsWrapper>
-        <SettingMenu />
-      </FooterBlock>
-    </Wrapper>
-  );
-}
 
 const Wrapper = styled.div`
   margin-bottom: 1rem;
@@ -90,27 +114,35 @@ const Img = styled.img`
   }
 `;
 
-const SettingMenu = styled.div`
-  // @TO_BE_IMPROVED: 메뉴 컴포넌트 만든후에 대체하기
-`;
-
 const FooterBlock = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin: 0.8rem 0;
 `;
 
-const ContentBlock = styled.div`
+const MenuWrapper = styled.div`
+  @media screen and (max-width: 1024px) {
+    position: relative;
+  }
+`;
+
+const PBlock = styled.div``;
+
+const ContentsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const PBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
 `;
 
 const TagsWrapper = styled.div`
   display: flex;
+`;
+
+const MoreIcon = styled(MaterialIcon).attrs({
+  type: 'more_horiz',
+  color: CACTUS_GREEN[500],
+  hoverColor: CACTUS_GREEN[700],
+})`
+  @media screen and (min-width: 1025px) {
+    display: none;
+  }
 `;
