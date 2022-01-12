@@ -25,7 +25,7 @@ export default function CloseHeader({ onClose: setIsModalOpened, onComplete, tit
 
   return (
     <Wrapper>
-      <MaterialIcon type="close" width="2.4rem" onClick={handleClose} />
+      <MaterialIcon type="close" onClick={handleClose} />
       <P>{title}</P>
       {onComplete && <Button text="완료" onClick={onComplete} />}
     </Wrapper>

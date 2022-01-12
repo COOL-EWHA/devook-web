@@ -12,7 +12,7 @@ function GlobalNavigationBar() {
       <Ul>
         {NAV_ITEMS.map(({ iconType, label }) => (
           <Li key={label}>
-            <MaterialIcon type={iconType} width="2.4rem" />
+            <MaterialIcon type={iconType} />
             <Label>{label}</Label>
           </Li>
         ))}

@@ -20,7 +20,7 @@ export default function AddButton() {
     <>
       <Wrapper onClick={handleAddButtonClick}>
         <P>북마크 추가</P>
-        <BookmarkAddIcon type="add" width="2.4rem" />
+        <BookmarkAddIcon type="add" />
       </Wrapper>
       {isModalOpened && (
         <Modal setIsModalOpened={setIsModalOpened} onComplete={handleCompleteButtonClick} title="북마크 추가하기">
