@@ -4,19 +4,12 @@ import styled from 'styled-components';
 // eslint-disable-next-line import/order
 import LoginButton from './LoginButton';
 import { GREY } from 'src/styles/colors';
-import GithubIcon from 'src/components/assets/icons/github';
-import GoogleIcon from 'src/components/assets/icons/google';
 
 export default function LoginButtons() {
   return (
     <>
       <Title>로그인</Title>
-      <LoginButton platform="github">
-        <GithubIcon />
-      </LoginButton>
-      <LoginButton platform="google">
-        <GoogleIcon />
-      </LoginButton>
+      <LoginButton platform="google" />
     </>
   );
 }

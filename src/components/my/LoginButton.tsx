@@ -2,22 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GREY, WHITE } from 'src/styles/colors';
+import { OAUTH_DATA } from 'src/constant';
+import { getQueryString } from 'src/lib/utils';
 
 interface ILoginButtonProps {
-  platform: 'github' | 'google';
-  children: React.ReactNode;
+  platform: 'google';
 }
 
-export default function MyLoginButton({ platform, children: platformLogoIcon }: ILoginButtonProps) {
+export default function LoginButton({ platform }: ILoginButtonProps) {
+  const { Icon, params } = OAUTH_DATA[platform];
+  const oauthLink = `https://accounts.google.com/o/oauth2/v2/auth${getQueryString(params)}`;
+
   return (
-    <Wrapper>
-      {platformLogoIcon}
+    <A href={oauthLink}>
+      <Icon />
       <P>{platform.toUpperCase()} 계정으로 시작하기</P>
-    </Wrapper>
+    </A>
   );
 }
 
-const Wrapper = styled.button`
+const A = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,6 +35,8 @@ const Wrapper = styled.button`
   border-radius: 2.4rem;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
+
   :hover {
     background: ${GREY[200]};
   }

@@ -3,16 +3,24 @@ import styled from 'styled-components';
 
 import { GREY } from 'src/styles/colors';
 
-function UserInfoCard() {
+import { useUserProfile } from 'src/lib/hooks/users';
+
+function UserProfileCard() {
+  const { data } = useUserProfile();
+
+  if (!data) return null;
+
+  const { email, nickname } = data;
+
   return (
     <Wrapper>
-      <UserName>eunko님 안녕하세요!</UserName>
-      <Email>koeun0712@ewhain.net</Email>
+      <UserName>{nickname}님 안녕하세요!</UserName>
+      <Email>{email}</Email>
     </Wrapper>
   );
 }
 
-export default UserInfoCard;
+export default UserProfileCard;
 
 const Wrapper = styled.div`
   position: relative;

@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
-import UserInfoCard from './UserInfoCard';
+import UserProfileCard from './UserProfileCard';
 import LoginButtons from './LoginButtons';
+import LogoutButton from './LogoutButton';
+import WithdrawButton from './WithdrawButton';
 import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
+import { accessToken } from 'src/lib/store/auth';
 
 function My() {
-  const isLoggedIn = false;
+  const isLoggedIn = !!useRecoilValue(accessToken);
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -28,10 +32,10 @@ function My() {
         </CloseButton>
         {isLoggedIn && (
           <>
-            <UserInfoCard />
+            <UserProfileCard />
             <ButtonsWrapper>
-              <Button>로그아웃</Button>
-              <Button>회원탈퇴</Button>
+              <LogoutButton />
+              <WithdrawButton />
             </ButtonsWrapper>
           </>
         )}
