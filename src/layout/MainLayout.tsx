@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
 import { GlobalHeader } from 'src/components/base/header';
@@ -7,10 +8,10 @@ import { GlobalHeader } from 'src/components/base/header';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
 interface IMainLayoutProps {
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
-function MainLayout({ children }: IMainLayoutProps) {
+export default function MainLayout({ children }: IMainLayoutProps) {
   return (
     <>
       <GlobalHeader />
@@ -21,8 +22,6 @@ function MainLayout({ children }: IMainLayoutProps) {
     </>
   );
 }
-
-export default MainLayout;
 
 const Wrapper = styled.div`
   display: flex;
