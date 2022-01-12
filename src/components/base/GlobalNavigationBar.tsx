@@ -76,6 +76,6 @@ const Li = styled.li`
 `;
 
 const Label = styled.label`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-top: 0.4rem;
 `;

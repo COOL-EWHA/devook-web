@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 
 import MainLayout from 'src/layout/MainLayout';
-import My from 'src/components/my';
+import My from 'src/pages/my';
 import OauthRedirect from 'src/components/OauthRedirect';
 import TestLogin from './components/TestLogin';
 

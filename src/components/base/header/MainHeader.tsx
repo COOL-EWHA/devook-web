@@ -7,7 +7,7 @@ import LogoIcon from 'src/components/assets/icons/logo';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
-function MainHeader() {
+export default function MainHeader() {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -27,10 +27,9 @@ function MainHeader() {
   );
 }
 
-export default MainHeader;
-
 const Wrapper = styled.header`
   position: fixed;
+  z-index: 10;
   top: 0;
   width: 100%;
   background-color: ${WHITE};
@@ -65,7 +64,7 @@ const LogoLink = styled(Link)`
 
 const LogoText = styled.p`
   font-family: 'Ubuntu Condensed', sans-serif;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 400;
   color: ${CACTUS_GREEN[500]};
   margin-top: 0.4rem;

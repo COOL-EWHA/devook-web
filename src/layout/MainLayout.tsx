@@ -11,7 +11,7 @@ interface IMainLayoutProps {
   children: JSX.Element;
 }
 
-function MainLayout({ children }: IMainLayoutProps) {
+export default function MainLayout({ children }: IMainLayoutProps) {
   return (
     <>
       <GlobalHeader />
@@ -22,8 +22,6 @@ function MainLayout({ children }: IMainLayoutProps) {
     </>
   );
 }
-
-export default MainLayout;
 
 const Wrapper = styled.div`
   display: flex;
