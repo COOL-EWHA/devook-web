@@ -3,8 +3,52 @@ import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+
 import apiClient from '../api';
+import { accessToken, accessTokenLoading } from 'src/lib/store/auth';
+import { AuthTokens } from 'src/types/auth';
 import { IUser } from 'src/interfaces/IUser';
+
+export const useAuthHeaderConfig = (token: 'accessToken' | 'refreshToken' = 'accessToken') => {
+  return {
+    headers: {
+      Authorization: `Bearer ${token === 'accessToken' ? useRecoilValue(accessToken) : Cookies.get('REFRESH_TOKEN')}`,
+    },
+  };
+};
+
+export const useAuthRefresh = () => {
+  const { pathname } = useLocation();
+  const setAccessToken = useSetRecoilState(accessToken);
+  const [loading, setLoading] = useRecoilState(accessTokenLoading);
+
+  useEffect(() => {
+    refreshAuthTokens();
+  }, []);
+
+  const refreshAuthTokens = async () => {
+    if (pathname === '/oauth-redirect' || !Cookies.get('REFRESH_TOKEN')) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const { accessToken, refreshToken } = await authRefresh();
+      alert('리프레쉬 성공!');
+      setAccessToken(accessToken);
+      Cookies.set('REFRESH_TOKEN', refreshToken);
+    } catch (err) {
+      alert('리프레쉬 실패!');
+    }
+    setLoading(false);
+  };
+
+  const authRefresh = async (): Promise<AuthTokens> =>
+    apiClient.post('/auth/refresh', null, useAuthHeaderConfig('refreshToken')).then((res) => res.data);
+
+  return { loading };
+};
 
 export const useAuthLogin = () => {
   const [searchParams, _] = useSearchParams();
