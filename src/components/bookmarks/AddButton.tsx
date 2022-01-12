@@ -4,16 +4,43 @@ import styled from 'styled-components';
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
-// @TO_BE_IMPROVED: 로그인 안된 상태에서는 안보이도록
+import { useAuthHeaderConfig } from 'src/lib/hooks/auth';
+import { addToBookmarkList } from 'src/lib/api/bookmark';
+
 export default function AddButton() {
+  const authHeaderConfig = useAuthHeaderConfig();
+
   const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const [url, setUrl] = useState('');
+  const [memo, setMemo] = useState('');
 
   const handleAddButtonClick = () => {
     setIsModalOpened(true);
   };
 
-  const handleCompleteButtonClick = () => {
-    //
+  const handleErrorStatus = (status: number) => {
+    console.log('status', status);
+    if (status === 405) {
+      alert('로그인을 먼저 해주세요!');
+      return;
+    }
+    alert('북마크 추가과정에서 오류가 발생하였습니다!');
+  };
+
+  const handleCompleteButtonClick = async () => {
+    if (!url) {
+      alert('링크를 입력해주세요!');
+      return;
+    }
+    try {
+      await addToBookmarkList({ url, memo, authHeaderConfig });
+      alert('북마크에 추가되었습니다!');
+      setIsModalOpened(false);
+    } catch (error: any) {
+      console.log('북마크 추가 에러', error.response);
+      handleErrorStatus(error.response.status);
+    }
   };
 
   return (
@@ -25,8 +52,20 @@ export default function AddButton() {
       {isModalOpened && (
         <Modal setIsModalOpened={setIsModalOpened} onComplete={handleCompleteButtonClick} title="북마크 추가하기">
           <InputWrapper>
-            <Input label="링크 추가" placeholder="북마크할 링크를 추가해주세요" />
-            <Textarea label="메모 추가" placeholder="이 북마크와 관련된 메모를 추가해보세요" />
+            <Input
+              label="링크 추가"
+              placeholder="북마크할 링크를 추가해주세요"
+              onChange={(e) => {
+                setUrl(e.target.value);
+              }}
+            />
+            <Textarea
+              label="메모 추가"
+              placeholder="이 북마크와 관련된 메모를 추가해보세요"
+              onChange={(e) => {
+                setMemo(e.target.value);
+              }}
+            />
           </InputWrapper>
         </Modal>
       )}
