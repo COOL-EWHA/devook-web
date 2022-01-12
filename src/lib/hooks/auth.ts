@@ -67,10 +67,12 @@ export const useAuthLogin = () => {
       return;
     }
 
+    const scope = searchParams.get('scope');
+    const provider = scope?.includes('google') ? 'google' : 'github';
+
     try {
       Cookies.remove('REFRESH_TOKEN'); // 혹시 미리 있을 수 있는 REFRESH_TOKEN 제거
-
-      const { accessToken, refreshToken } = await authLogin('google', code);
+      const { accessToken, refreshToken } = await authLogin(provider, code);
       alert('로그인 성공!');
       setAccessToken(accessToken);
 
