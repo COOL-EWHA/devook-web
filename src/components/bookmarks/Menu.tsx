@@ -50,8 +50,8 @@ const SettingMenu = styled.div<{ isMenuOpen: boolean }>`
     animation: 0.3s ease-in-out openMenu;
   }
   @media screen and (min-width: 1025px) {
+    display: flex;
     justify-content: space-between;
     width: 15rem;
-    display: ${({ isMenuOpen }) => (isMenuOpen ? 'none' : 'flex')};
   }
 `;
