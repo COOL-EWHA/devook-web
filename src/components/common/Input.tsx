@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { MaterialIcon } from 'src/components/common';
 import { CACTUS_GREEN, WHITE, GREY } from 'src/styles/colors';
 
 interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  iconType?: string;
 }
 
-export default function Input({ label, placeholder, onChange, value }: IInputProps) {
+export default function Input({ label, iconType, placeholder, onChange, value }: IInputProps) {
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
-      <StyledInput placeholder={placeholder} onChange={onChange} value={value} />
+      {iconType && <Icon type={iconType} width="2rem" />}
+      <StyledInput placeholder={placeholder} onChange={onChange} value={value} iconType={iconType} />
     </Wrapper>
   );
 }
@@ -37,12 +40,21 @@ export const Wrapper = styled.div`
   
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ iconType?: string }>`
   width: 100%;
   padding: 1.2rem 1rem;
-  border-radius: 8px;
   font-size: 1.4rem;
+  border-radius: 8px;
   border: 1px solid ${GREY[700]};
+  padding-left: ${({ iconType }) => iconType && '3.4rem'};
+  ${({ iconType }) =>
+    iconType === 'search' &&
+    `
+    height: 4rem;
+    background-color: ${GREY[300]};
+    border: none;
+    outline: none;
+  `}
 
   :focus {
     outline: none;
@@ -51,5 +63,19 @@ const StyledInput = styled.input`
   ::placeholder {
     color: ${GREY[500]};
     font-size: 1.2rem;
+  }
+`;
+
+const Icon = styled(MaterialIcon)`
+  position: absolute;
+  width: 3.4rem;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .material-icons {
+    color: ${GREY[600]};
   }
 `;
