@@ -7,9 +7,10 @@ import LoginButtons from './LoginButtons';
 import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
+import { accessToken } from 'src/lib/store/auth';
 
 function My() {
-  const isLoggedIn = false;
+  const isLoggedIn = !!useRecoilValue(accessToken);
   const navigate = useNavigate();
 
   const handleClose = () => {
