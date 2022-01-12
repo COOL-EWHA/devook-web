@@ -11,6 +11,7 @@ interface IButtonProps {
   text: string;
   buttonType?: ButtonType;
   iconType?: string;
+  iconWidth?: string;
   color?: ButtonColorType;
   height?: string;
   isBlock?: boolean;
@@ -23,6 +24,7 @@ export default function Button({
   text,
   buttonType = 'text',
   iconType,
+  iconWidth,
   color = 'CACTUS_GREEN',
   height,
   isBlock = false,
@@ -48,7 +50,7 @@ export default function Button({
       disabled={disabled}
       onClick={onClick}
     >
-      {iconType && <MaterialIcon color={color} type={iconType} />}
+      {iconType && <MaterialIcon color={color} type={iconType} width={iconWidth} />}
       <P hasMarginLeft={iconType}>{text}</P>
     </Wrapper>
   );
