@@ -24,9 +24,9 @@ export const OAUTH_DATA = {
     params: {
       include_granted_scopes: true,
       state: 'state_parameter_passthrough_value',
-      scope: 'email',
+      scope: 'email+profile',
       response_type: 'code',
-      redirect_uri: process.env.REACT_APP_LOGIN_REDIRECT_URI,
+      redirect_uri: process.env.REACT_APP_OAUTH_REDIRECT_URI,
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     },
   },
