@@ -20,7 +20,6 @@ export default function AddButton() {
   };
 
   const handleErrorStatus = (status: number) => {
-    console.log('status', status);
     if (status === 405) {
       alert('로그인을 먼저 해주세요!');
       return;
