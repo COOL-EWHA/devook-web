@@ -5,6 +5,8 @@ import { useRecoilValue } from 'recoil';
 
 import UserProfileCard from './UserProfileCard';
 import LoginButtons from './LoginButtons';
+import LogoutButton from './LogoutButton';
+import WithdrawButton from './WithdrawButton';
 import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
@@ -32,8 +34,8 @@ function My() {
           <>
             <UserProfileCard />
             <ButtonsWrapper>
-              <Button>로그아웃</Button>
-              <Button>회원탈퇴</Button>
+              <LogoutButton />
+              <WithdrawButton />
             </ButtonsWrapper>
           </>
         )}

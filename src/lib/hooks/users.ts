@@ -29,3 +29,23 @@ export const useUserLogout = () => {
 
   return { logout };
 };
+
+export const useUserWithdraw = () => {
+  const authHeaderConfig = useAuthHeaderConfig();
+  const { logout } = useUserLogout();
+
+  const withdraw = async () => {
+    try {
+      await deleteUser();
+      alert('회원탈퇴가 정상적으로 처리되었습니다.');
+      logout({ alert: false });
+    } catch (err) {
+      alert('회원탈퇴가 정상적으로 처리되지 않았습니다.');
+      console.log(err);
+    }
+  };
+
+  const deleteUser = async (): Promise<void> => apiClient.delete('/users', authHeaderConfig).then((res) => res.data);
+
+  return { withdraw };
+};
