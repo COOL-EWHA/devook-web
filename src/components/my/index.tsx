@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
-import UserInfoCard from './UserInfoCard';
+import UserProfileCard from './UserProfileCard';
 import LoginButtons from './LoginButtons';
 import { MaterialIcon } from 'src/components/common';
 
@@ -29,7 +30,7 @@ function My() {
         </CloseButton>
         {isLoggedIn && (
           <>
-            <UserInfoCard />
+            <UserProfileCard />
             <ButtonsWrapper>
               <Button>로그아웃</Button>
               <Button>회원탈퇴</Button>

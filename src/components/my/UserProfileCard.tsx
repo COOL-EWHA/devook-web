@@ -5,7 +5,7 @@ import { GREY } from 'src/styles/colors';
 
 import { useUserProfile } from 'src/lib/hooks/users';
 
-function UserInfoCard() {
+function UserProfileCard() {
   const { data } = useUserProfile();
 
   if (!data) return null;
@@ -20,7 +20,7 @@ function UserInfoCard() {
   );
 }
 
-export default UserInfoCard;
+export default UserProfileCard;
 
 const Wrapper = styled.div`
   position: relative;
