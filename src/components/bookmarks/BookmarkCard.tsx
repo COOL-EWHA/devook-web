@@ -5,16 +5,27 @@ import { MaterialIcon } from 'src/components/common';
 import { Menu } from 'src/components/bookmarks';
 
 import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+import NotificationInfoMenu from './NotificationInfo';
 
 interface IBookmarkCardProps {
   title: string;
   thumbnail: string;
   description: string;
   tags: string[];
-  type?: 'my' | 'recommended';
+  isReminderActivated?: boolean;
+  readingDueDate?: Date;
+  type?: 'my' | 'recommended' | 'readingManagement';
 }
 
-export default function BookmarkCard({ title, thumbnail, description, tags, type = 'my' }: IBookmarkCardProps) {
+export default function BookmarkCard({
+  title,
+  thumbnail,
+  description,
+  tags,
+  isReminderActivated,
+  readingDueDate,
+  type = 'my',
+}: IBookmarkCardProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMoreIconClick = () => {
@@ -31,13 +42,14 @@ export default function BookmarkCard({ title, thumbnail, description, tags, type
         <Img src={thumbnail} />
       </ContentsWrapper>
       <FooterBlock>
-        <TagsWrapper>
-          {tags.map((tag) => (
-            <P type="tag">#{tag}</P>
-          ))}
-        </TagsWrapper>
+        <InfoWrapper>
+          {type !== 'readingManagement' && tags.map((tag) => <P type="tag">#{tag}</P>)}
+          {type === 'readingManagement' && (
+            <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
+          )}
+        </InfoWrapper>
         <MenuWrapper>
-          {type === 'my' && (
+          {type !== 'recommended' && (
             <>
               <MoreIcon onClick={handleMoreIconClick} />
               <Menu isMenuOpen={isMenuOpen} />
@@ -133,7 +145,7 @@ const ContentsWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const TagsWrapper = styled.div`
+const InfoWrapper = styled.div`
   display: flex;
 `;
 
