@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from 'src/styles/global';
 import MainLayout from 'src/layout/MainLayout';
 import My from 'src/components/my';
-import LoginRedirect from 'src/components/login-redirect';
+import OauthRedirect from 'src/components/OauthRedirect';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           >
             <Route path="my" element={<My />} />
           </Route>
-          <Route path="/login-redirect" element={<LoginRedirect />} />
+            <Route path="/oauth-redirect" element={<OauthRedirect />} />
         </Routes>
       </MainLayout>
   );
