@@ -9,8 +9,6 @@ import LoginRedirect from 'src/components/login-redirect';
 
 function App() {
   return (
-    <RecoilRoot>
-      <GlobalStyle />
       <MainLayout>
         <Routes>
           <Route
@@ -27,7 +25,6 @@ function App() {
           <Route path="/login-redirect" element={<LoginRedirect />} />
         </Routes>
       </MainLayout>
-    </RecoilRoot>
   );
 }
 
