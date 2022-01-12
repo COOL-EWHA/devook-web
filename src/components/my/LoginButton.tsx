@@ -3,18 +3,16 @@ import styled from 'styled-components';
 
 import { GREY, WHITE } from 'src/styles/colors';
 import { OAUTH_DATA } from 'src/constant';
-import { getQueryString } from 'src/lib/utils';
 
 interface ILoginButtonProps {
-  platform: 'google';
+  platform: 'google' | 'github';
 }
 
 export default function LoginButton({ platform }: ILoginButtonProps) {
-  const { Icon, params } = OAUTH_DATA[platform];
-  const oauthLink = `https://accounts.google.com/o/oauth2/v2/auth${getQueryString(params)}`;
+  const { Icon, link } = OAUTH_DATA[platform];
 
   return (
-    <A href={oauthLink}>
+    <A href={link}>
       <Icon />
       <P>{platform.toUpperCase()} 계정으로 시작하기</P>
     </A>
