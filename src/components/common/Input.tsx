@@ -7,11 +7,11 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export default function Input({ label, placeholder, onChange, value }: IInputProps) {
+export default function Input({ label, placeholder, onChange, value, name }: IInputProps) {
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
-      <StyledInput placeholder={placeholder} onChange={onChange} value={value} />
+      <StyledInput placeholder={placeholder} onChange={onChange} value={value} name={name} />
     </Wrapper>
   );
 }
