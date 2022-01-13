@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
@@ -23,8 +23,8 @@ export default function AddButton() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleErrorStatus = (status?: number) => {
-    if (status === 401) {
+  const handleSubmitError = (response?: AxiosResponse) => {
+    if (response?.status === 401) {
       alert('로그인을 먼저 해주세요!');
       return;
     }
@@ -49,7 +49,7 @@ export default function AddButton() {
       setIsModalOpen(false);
     } catch (error) {
       const { response } = error as AxiosError;
-      handleErrorStatus(response?.status);
+      handleSubmitError(response);
       console.log('북마크 추가 에러', error);
     }
   };
