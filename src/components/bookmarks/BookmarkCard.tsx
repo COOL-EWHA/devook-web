@@ -68,7 +68,7 @@ const getPStyle = (type: PStyleType) => {
   switch (type) {
     case 'title':
       return css`
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         font-weight: 500;
         margin-bottom: 0.6rem;
         overflow: hidden;
@@ -77,11 +77,10 @@ const getPStyle = (type: PStyleType) => {
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         word-wrap: break-word;
-        height: 2rem;
       `;
     case 'description':
       return css`
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         margin-bottom: 0.4rem;
         overflow: hidden;
         text-overflow: ellipsis;
