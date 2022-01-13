@@ -1,19 +1,57 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
-// @TO_BE_IMPROVED: 로그인 안된 상태에서는 안보이도록
+import { useAuthHeaderConfig } from 'src/lib/hooks/auth';
+import { createBookmark } from 'src/lib/api/bookmark';
+
 export default function AddButton() {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const authHeaderConfig = useAuthHeaderConfig();
+
+  const [form, setForm] = useState({ url: '', memo: '' });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddButtonClick = () => {
-    setIsModalOpened(true);
+    setIsModalOpen(true);
   };
 
-  const handleCompleteButtonClick = () => {
-    //
+  const handleFormChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmitError = (response?: AxiosResponse) => {
+    if (response?.status === 401) {
+      alert('로그인을 먼저 해주세요!');
+      return;
+    }
+    alert('북마크 추가과정에서 오류가 발생하였습니다!');
+  };
+
+  const isFormValid = () => {
+    if (!form.url) {
+      alert('링크를 입력해주세요!');
+      return false;
+    }
+    return true;
+  };
+
+  const handleBookmarkSubmit = async () => {
+    if (!isFormValid) {
+      return;
+    }
+    try {
+      await createBookmark({ url: form.url, memo: form.memo, authHeaderConfig });
+      alert('북마크에 추가되었습니다!');
+      setIsModalOpen(false);
+    } catch (error) {
+      const { response } = error as AxiosError;
+      handleSubmitError(response);
+      console.log('북마크 추가 에러', error);
+    }
   };
 
   return (
@@ -22,11 +60,23 @@ export default function AddButton() {
         <P>북마크 추가</P>
         <BookmarkAddIcon type="add" width="2.4rem" />
       </Wrapper>
-      {isModalOpened && (
-        <Modal setIsModalOpened={setIsModalOpened} onComplete={handleCompleteButtonClick} title="북마크 추가하기">
+      {isModalOpen && (
+        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleBookmarkSubmit} title="북마크 추가하기">
           <InputWrapper>
-            <Input label="링크 추가" placeholder="북마크할 링크를 추가해주세요" />
-            <Textarea label="메모 추가" placeholder="이 북마크와 관련된 메모를 추가해보세요" />
+            <Input
+              name="url"
+              value={form.url}
+              onChange={handleFormChange}
+              label="링크"
+              placeholder="북마크할 링크를 입력해주세요"
+            />
+            <Textarea
+              name="memo"
+              value={form.memo}
+              onChange={handleFormChange}
+              label="메모"
+              placeholder="이 북마크와 관련된 메모를 입력해보세요"
+            />
           </InputWrapper>
         </Modal>
       )}
