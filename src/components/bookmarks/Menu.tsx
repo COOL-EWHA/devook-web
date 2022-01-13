@@ -4,21 +4,21 @@ import styled from 'styled-components';
 import { Button } from 'src/components/common';
 import { WHITE } from 'src/styles/colors';
 
-interface IMenuProps {
-  isMenuOpen: boolean;
+interface IBookmarkActionMenuProps {
+  isOpen: boolean;
 }
-function Menu({ isMenuOpen }: IMenuProps) {
+function BookmarkActionMenu({ isOpen }: IBookmarkActionMenuProps) {
   return (
-    <SettingMenu isMenuOpen={isMenuOpen}>
+    <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
       <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" />
-    </SettingMenu>
+    </Wrapper>
   );
 }
 
-export default Menu;
+export default BookmarkActionMenu;
 
-const SettingMenu = styled.div<{ isMenuOpen: boolean }>`
+const Wrapper = styled.div<{ isOpen: boolean }>`
   @keyframes openMenu {
     0% {
       opacity: 0;
@@ -38,20 +38,22 @@ const SettingMenu = styled.div<{ isMenuOpen: boolean }>`
     position: absolute;
     top: 2rem;
     right: 0;
-    display: ${({ isMenuOpen }) => (isMenuOpen ? 'flex' : 'none')};
+    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
-    justify-content: space-evenly;
-    width: 11rem;
-    height: 7rem;
-    padding: 0 1rem;
+    width: 10rem;
+    padding: 1.2rem;
     background-color: ${WHITE};
     border-radius: 0.8rem;
     box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 4%) 0px 8px 10px 1px, rgb(0 0 0 / 8%) 0px 3px 14px 2px;
     animation: 0.3s ease-in-out openMenu;
+    & > :first-child {
+      margin-bottom: 0.8rem;
+    }
   }
   @media screen and (min-width: 1025px) {
     display: flex;
-    justify-content: space-between;
-    width: 15rem;
+    & > :first-child {
+      margin-right: 1.2rem;
+    }
   }
 `;
