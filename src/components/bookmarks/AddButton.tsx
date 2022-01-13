@@ -38,7 +38,7 @@ const Wrapper = styled.button`
   @media screen and (min-width: 1025px) {
     width: 8rem;
     height: 2.4rem;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     border: 1px solid ${GREY[500]};
     background: none;
     font-size: 1.2rem;

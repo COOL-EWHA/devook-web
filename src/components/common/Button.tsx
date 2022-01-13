@@ -94,13 +94,13 @@ const getButtonStyle = (buttonType: ButtonType, color: ButtonColorType) => {
       return `
         background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[500]};
         color: ${WHITE};
-        border-radius: 8px;
+        border-radius: 0.8rem;
         padding: 0.4rem 1rem;
       `;
     case 'line':
       return `
         color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
-        border-radius: 8px;
+        border-radius: 0.8rem;
         padding: 0.4rem 1rem;
         border: 1px solid ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
       `;

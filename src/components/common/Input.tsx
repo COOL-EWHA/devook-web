@@ -44,7 +44,7 @@ const StyledInput = styled.input<{ iconType?: string }>`
   width: 100%;
   padding: 1.2rem 1rem;
   font-size: 1.4rem;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   border: 1px solid ${GREY[700]};
   padding-left: ${({ iconType }) => iconType && '3.4rem'};
   ${({ iconType }) =>

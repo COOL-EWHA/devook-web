@@ -26,7 +26,7 @@ const Input = styled.input`
   height: 100%;
 
   padding-left: 3rem;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   background-color: ${GREY[300]};
   border: none;
   outline: none;
