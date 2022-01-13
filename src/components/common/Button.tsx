@@ -50,8 +50,8 @@ export default function Button({
       disabled={disabled}
       onClick={onClick}
     >
-      {iconType && <MaterialIcon color={color} type={iconType} width={iconWidth} />}
-      <P hasMarginLeft={iconType}>{text}</P>
+      {iconType && <Icon color={color} type={iconType} width={iconWidth} />}
+      <P>{text}</P>
     </Wrapper>
   );
 }
@@ -139,11 +139,15 @@ const Wrapper = styled.button<{
   transition: all 0.2s;
 `;
 
-const P = styled.p<{ hasMarginLeft?: string }>`
+const P = styled.p`
   font-size: 1.4rem;
-  margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? 1 : 0)}rem;
 `;
 
 const A = styled.a`
   text-decoration: none;
+`;
+
+const Icon = styled(MaterialIcon)`
+  margin-top: 0.2rem;
+  margin-right: 0.4rem;
 `;
