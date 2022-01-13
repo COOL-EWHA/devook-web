@@ -115,6 +115,8 @@ const P = styled.p<{ type: PStyleType }>`
 const Img = styled.img`
   object-fit: cover;
   margin-left: 2rem;
+  border-radius: 0.4rem;
+
   @media screen and (min-width: 1025px) {
     width: 8rem;
     height: 8rem;
