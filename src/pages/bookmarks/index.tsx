@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { BookmarkCard } from 'src/components/bookmarks';
-import { Input } from 'src/components/common';
+import { Input, ScrollToTopButton } from 'src/components/common';
 
 import { BOOKMARK_LIST } from 'src/constant/mockData';
 
@@ -18,6 +18,7 @@ function BookmarkListPage() {
           tags={bookmark.tags}
         />
       ))}
+      <ScrollToTopButton />
       <Outlet />
     </>
   );
