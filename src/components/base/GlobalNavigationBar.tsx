@@ -31,10 +31,9 @@ const Nav = styled.nav`
 
 const Ul = styled.ul`
   @media screen and (min-width: 1025px) {
-    position: fixed;
-    top: 6.4rem;
     width: 14.2rem;
     padding: 1.2rem 0;
+    margin-top: 6.4rem;
     border-radius: 0.8rem;
     border: 1px dashed ${GREY[400]};
   }
