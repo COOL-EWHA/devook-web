@@ -5,5 +5,6 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Modal from './Modal';
 import ScrollToTopButton from './ScrollToTopButton';
+import PostCard from './PostCard';
 
-export { MaterialIcon, Link, Button, Input, Textarea, Modal, ScrollToTopButton };
+export { MaterialIcon, Link, Button, Input, Textarea, Modal, ScrollToTopButton, PostCard };

@@ -1,5 +1,3 @@
-import Menu from './Menu';
-import BookmarkCard from './BookmarkCard';
-import NotificationInfo from './NotificationInfo';
+import BookmarkActionDropdown from './ActionDropdown';
 
-export { Menu, BookmarkCard, NotificationInfo };
+export { BookmarkActionDropdown };

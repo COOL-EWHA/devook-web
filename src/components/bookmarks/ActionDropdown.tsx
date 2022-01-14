@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Button } from 'src/components/common';
 import { WHITE } from 'src/styles/colors';
 
-interface IBookmarkActionMenuProps {
+interface IBookmarkActionDropdownProps {
   isOpen: boolean;
 }
-function BookmarkActionMenu({ isOpen }: IBookmarkActionMenuProps) {
+function BookmarkActionDropdown({ isOpen }: IBookmarkActionDropdownProps) {
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
@@ -16,7 +16,7 @@ function BookmarkActionMenu({ isOpen }: IBookmarkActionMenuProps) {
   );
 }
 
-export default BookmarkActionMenu;
+export default BookmarkActionDropdown;
 
 const Wrapper = styled.div<{ isOpen: boolean }>`
   @keyframes openMenu {
