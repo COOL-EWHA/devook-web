@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BookmarkAddButton from 'src/components/bookmarks/AddButton';
+import { BookmarkAddButton } from 'src/components/bookmarks';
 import { MaterialIcon, Link } from 'src/components/common';
 import LogoIcon from 'src/components/assets/icons/logo';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';

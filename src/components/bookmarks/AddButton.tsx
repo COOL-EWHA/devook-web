@@ -8,7 +8,7 @@ import { GREY } from 'src/styles/colors';
 import { useAuthHeaderConfig } from 'src/lib/hooks/auth';
 import { createBookmark } from 'src/lib/api/bookmark';
 
-export default function AddButton() {
+export default function BookmarkAddButton() {
   const authHeaderConfig = useAuthHeaderConfig();
 
   const [form, setForm] = useState({ url: '', memo: '' });
