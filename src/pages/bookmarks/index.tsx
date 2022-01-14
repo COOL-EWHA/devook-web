@@ -1,17 +1,17 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { BookmarkCard } from 'src/components/bookmarks';
-import { Input, ScrollToTopButton } from 'src/components/common';
+import { Input, PostCard, ScrollToTopButton } from 'src/components/common';
 
 import { BOOKMARK_LIST } from 'src/constant/mockData';
 
 function BookmarkListPage() {
   return (
     <>
-      <Input iconType="search" placeholder="북마크한 글을 검색해보세요" />
+      <Input iconType="search" placeholder="북마크를 검색해보세요." />
       {BOOKMARK_LIST.map((bookmark) => (
-        <BookmarkCard
+        <PostCard
+          key={bookmark.title}
           title={bookmark.title}
           thumbnail={bookmark.thumbnail}
           description={bookmark.description}
