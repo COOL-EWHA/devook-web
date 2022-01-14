@@ -11,10 +11,10 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function Input({ label, iconType, placeholder, onChange, value }: IInputProps) {
   return (
-    <Wrapper>
+    <Wrapper iconType={iconType}>
       {label && <Label>{label}</Label>}
-      {iconType && <Icon type={iconType} width="2rem" />}
-      <StyledInput placeholder={placeholder} onChange={onChange} value={value} iconType={iconType} />
+      {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} />}
+      <StyledInput label={label} placeholder={placeholder} onChange={onChange} value={value} />
     </Wrapper>
   );
 }
@@ -29,53 +29,51 @@ export const Label = styled.label`
   font-size: 1.4rem;
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ iconType?: string }>`
+  display: flex;
   position: relative;
+  padding: 0.4rem 1.2rem;
   margin-bottom: 2rem;
-
-  :focus-within {
-    ${Label} {
-      color: ${CACTUS_GREEN[500]};
-    }
-  
-`;
-
-const StyledInput = styled.input<{ iconType?: string }>`
-  width: 100%;
-  padding: 1.2rem;
-  font-size: 1.4rem;
-  border-radius: 0.8rem;
   border: 1px solid ${GREY[700]};
-  padding-left: ${({ iconType }) => iconType && '3.4rem'};
+  border-radius: 0.8rem;
+
   ${({ iconType }) =>
     iconType === 'search' &&
     `
     height: 4rem;
     background-color: ${GREY[300]};
-    border: none;
+    border: 1px solid ${GREY[300]};
     outline: none;
-  `}
+    `}
 
-  :focus {
-    outline: none;
+  :focus-within {
     border: 1px solid ${CACTUS_GREEN[500]};
+    ${Label} {
+      color: ${CACTUS_GREEN[500]};
+    }
   }
+`;
+
+const StyledInput = styled.input<{ label?: string }>`
+  width: 100%;
+  padding: 0.8rem 0;
+  font-size: 1.4rem;
+  border: none;
+  outline: none;
+  background: inherit;
   ::placeholder {
     color: ${GREY[500]};
     font-size: 1.4rem;
   }
+  ${({ label }) =>
+    label &&
+    `
+    margin-top: 0.2rem;
+    `}
 `;
 
 const Icon = styled(MaterialIcon)`
-  position: absolute;
-  width: 3.4rem;
+  margin-right: 0.4rem;
+  margin-top: 0.1rem;
   height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .material-icons {
-    color: ${GREY[600]};
-  }
 `;
