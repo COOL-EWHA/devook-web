@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAuthTestLogin } from 'src/lib/hooks/auth';
+import { useAuthTestLogin } from 'src/lib/hooks';
 
 const TEST_EMAIL_1 = process.env.REACT_APP_TEST_EMAIL_1 as string;
 

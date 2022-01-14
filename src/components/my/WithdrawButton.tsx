@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GREY } from 'src/styles/colors';
-import { useUserWithdraw } from 'src/lib/hooks/users';
+import { useUserWithdraw } from 'src/lib/hooks';
 
 function WithdrawButton() {
   const { withdraw } = useUserWithdraw();

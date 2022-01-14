@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/styles/colors';
 
-import { useAuthHeaderConfig } from 'src/lib/hooks/auth';
+import { useAuthHeaderConfig } from 'src/lib/hooks';
 import { createBookmark } from 'src/lib/api/bookmark';
 
 export default function BookmarkAddButton() {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAuthLogin } from 'src/lib/hooks/auth';
+import { useAuthLogin } from 'src/lib/hooks';
 
 function OauthRedirectPage() {
   useAuthLogin();

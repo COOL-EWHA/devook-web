@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from 'src/layout/MainLayout';
 import { BookmarkListPage, MyPage, OauthRedirectPage, TestLoginPage } from 'src/pages';
 
-import { useAuthRefresh } from 'src/lib/hooks/auth';
+import { useAuthRefresh } from 'src/lib/hooks';
 
 function App() {
   const { loading } = useAuthRefresh();
