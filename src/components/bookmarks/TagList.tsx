@@ -50,7 +50,7 @@ const Wrapper = styled.div<{ isModalOpen: boolean }>`
   }
 
   @media screen and (max-width: 1024px) {
-    ${({ isModalOpen }) => isModalOpen && 'display:none;'}
+    ${({ isModalOpen }) => !isModalOpen && 'display:none;'}
   }
 `;
 
@@ -65,6 +65,9 @@ const Title = styled.p`
 const Description = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const BookmarkTagButtonWrapper = styled.div`
