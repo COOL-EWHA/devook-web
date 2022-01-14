@@ -1,12 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import My from 'src/pages/my';
-import BookmarkListPage from './pages/bookmarks';
-import TestLogin from './components/TestLogin';
-import OauthRedirect from './components/OauthRedirect';
-import { useAuthRefresh } from 'src/lib/hooks/auth';
 import MainLayout from 'src/layout/MainLayout';
+import MyPage from 'src/pages/MyPage';
+import BookmarkListPage from 'src/pages/BookmarkListPage';
+import OauthRedirectPage from 'src/pages/OauthRedirectPage';
+import TestLoginPage from 'src/pages/TestLoginPage';
+
+import { useAuthRefresh } from 'src/lib/hooks/auth';
 
 function App() {
   const { loading } = useAuthRefresh();
@@ -17,10 +18,10 @@ function App() {
         {!loading && (
           <>
             <Route path="/" element={<BookmarkListPage />}>
-              <Route path="my" element={<My />} />
+              <Route path="my" element={<MyPage />} />
             </Route>
-            <Route path="/oauth-redirect" element={<OauthRedirect />} />
-            <Route path="/test-login" element={<TestLogin />} />
+            <Route path="/oauth-redirect" element={<OauthRedirectPage />} />
+            <Route path="/test-login" element={<TestLoginPage />} />
           </>
         )}
       </Routes>

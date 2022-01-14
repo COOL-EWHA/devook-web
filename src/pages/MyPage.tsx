@@ -9,7 +9,7 @@ import { MaterialIcon } from 'src/components/common';
 import { GREY, WHITE } from 'src/styles/colors';
 import { accessToken } from 'src/lib/store/auth';
 
-export default function My() {
+export default function MyPage() {
   const isLoggedIn = !!useRecoilValue(accessToken);
   const navigate = useNavigate();
 
