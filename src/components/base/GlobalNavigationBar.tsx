@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
 
-import { GREY, WHITE } from 'src/styles/colors';
-import { NAV_ITEMS } from 'src/constant';
+import { GREY, WHITE, NAV_ITEMS } from 'src/constant';
 
 function GlobalNavigationBar() {
   return (

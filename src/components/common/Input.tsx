@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
-import { CACTUS_GREEN, WHITE, GREY } from 'src/styles/colors';
+import { CACTUS_GREEN, WHITE, GREY } from 'src/constant';
 
 interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;

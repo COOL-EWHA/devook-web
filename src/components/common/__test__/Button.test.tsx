@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import Button, { ButtonColorType, ButtonType } from 'src/components/common/Button';
 
-import { GREY, CACTUS_GREEN } from 'src/styles/colors';
+import { GREY, CACTUS_GREEN } from 'src/constant';
 
 describe('<Button />', () => {
   const onClick = jest.fn();

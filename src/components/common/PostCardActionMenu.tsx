@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import BookmarkActionDropdown from 'src/components/bookmarks/ActionDropdown';
+import { BookmarkActionDropdown } from 'src/components/bookmarks';
 import { MaterialIcon } from 'src/components/common';
 
-import { CACTUS_GREEN } from 'src/styles/colors';
+import { CACTUS_GREEN } from 'src/constant';
 
 interface IPostCardActionMenuProps {
   isBookmarked?: boolean;

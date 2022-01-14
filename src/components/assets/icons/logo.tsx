@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from '../icons';
 
-import { CACTUS_GREEN } from 'src/styles/colors';
+import { CACTUS_GREEN } from 'src/constant';
 
 export default function LogoIcon({ style = {}, fill = CACTUS_GREEN[500] }: IconProps) {
   return (

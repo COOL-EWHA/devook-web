@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
-import apiClient from '.';
+import { apiClient } from '.';
 
-const createBookmark = async ({
+export const createBookmark = async ({
   id,
   url,
   memo,
@@ -12,5 +12,3 @@ const createBookmark = async ({
   memo?: string;
   authHeaderConfig: AxiosRequestConfig;
 }) => apiClient.post(`/bookmarks`, { id, url, memo }, authHeaderConfig).then((res) => res.data);
-
-export { createBookmark };

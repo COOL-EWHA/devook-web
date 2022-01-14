@@ -1,14 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Input, PostCard, ScrollToTopButton } from 'src/components/common';
+import { BookmarkSearchInput } from 'src/components/bookmarks';
+import { PostCard, ScrollToTopButton } from 'src/components/common';
 
 import { BOOKMARK_LIST } from 'src/constant/mockData';
 
 function BookmarkListPage() {
   return (
     <>
-      <Input iconType="search" placeholder="북마크를 검색해보세요." />
+      <Outlet />
+      <BookmarkSearchInput />
       {BOOKMARK_LIST.map((bookmark) => (
         <PostCard
           key={bookmark.title}
@@ -19,7 +21,6 @@ function BookmarkListPage() {
         />
       ))}
       <ScrollToTopButton />
-      <Outlet />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, MaterialIcon } from 'src/components/common';
 
-import { GREY } from 'src/styles/colors';
+import { GREY } from 'src/constant';
 
 interface ICloseHeaderProps {
   onClose?: React.Dispatch<React.SetStateAction<boolean>>;

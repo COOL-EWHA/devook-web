@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from 'src/styles/colors';
-import { useUserLogout } from 'src/lib/hooks/users';
+import { GREY } from 'src/constant';
+import { useUserLogout } from 'src/lib/hooks';
 
 function LogoutButton() {
   const { logout } = useUserLogout();

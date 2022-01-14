@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+import { CACTUS_GREEN, GREY } from 'src/constant';
 import PostCardActionMenu from './PostCardActionMenu';
 
 interface IPostCardProps {
