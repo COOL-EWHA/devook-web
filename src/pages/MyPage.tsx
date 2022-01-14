@@ -7,7 +7,7 @@ import { UserProfileCard, LoginButtons, LogoutButton, WithdrawButton } from 'src
 import { MaterialIcon } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/styles/colors';
-import { accessToken } from 'src/lib/store/auth';
+import { accessToken } from 'src/lib/store';
 
 export default function MyPage() {
   const isLoggedIn = !!useRecoilValue(accessToken);

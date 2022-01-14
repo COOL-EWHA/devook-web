@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 
 import { apiClient } from 'src/lib/api';
-import { accessToken, accessTokenLoading } from 'src/lib/store/auth';
+import { accessToken, accessTokenLoading } from 'src/lib/store';
 import { AuthTokens } from 'src/types';
 import { IUser } from 'src/interfaces';
 
