@@ -9,12 +9,12 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconType?: string;
 }
 
-export default function Input({ label, iconType, placeholder, onChange, value }: IInputProps) {
+export default function Input({ label, iconType, placeholder, onChange, value, name }: IInputProps) {
   return (
     <Wrapper iconType={iconType}>
       {label && <Label>{label}</Label>}
       {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} />}
-      <StyledInput label={label} placeholder={placeholder} onChange={onChange} value={value} />
+      <StyledInput label={label} name={name} value={value} placeholder={placeholder} onChange={onChange} />
     </Wrapper>
   );
 }

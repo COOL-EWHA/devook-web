@@ -8,11 +8,11 @@ interface ITextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElemen
   label?: string;
 }
 
-export default function Textarea({ label, placeholder, onChange, value }: ITextareaProps) {
+export default function Textarea({ label, placeholder, onChange, value, name }: ITextareaProps) {
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
-      <StyledTextArea label={label} placeholder={placeholder} onChange={onChange} value={value} />
+      <StyledTextArea label={label} value={value} name={name} placeholder={placeholder} onChange={onChange} />
     </Wrapper>
   );
 }
