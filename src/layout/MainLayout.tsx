@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GlobalHeader, GlobalNavigationBar } from 'src/components/base';
-import { DESKTOP_MAX_WIDTH } from 'src/constant';
+import { CONTENT_MAX_WIDTH } from 'src/constant';
 
 interface IMainLayoutProps {
   children: JSX.Element;
@@ -23,7 +23,7 @@ export default function MainLayout({ children }: IMainLayoutProps) {
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${DESKTOP_MAX_WIDTH};
+  max-width: ${CONTENT_MAX_WIDTH};
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 2rem;

@@ -5,7 +5,7 @@ import { BookmarkAddButton } from 'src/components/bookmarks';
 import { MaterialIcon, Link } from 'src/components/common';
 import { LogoIcon } from 'src/components/assets/icons';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
-import { DESKTOP_MAX_WIDTH } from 'src/constant';
+import { CONTENT_MAX_WIDTH } from 'src/constant';
 
 export default function MainHeader() {
   return (
@@ -48,7 +48,7 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: ${DESKTOP_MAX_WIDTH};
+  max-width: ${CONTENT_MAX_WIDTH};
   width: 100%;
   height: 100%;
   padding: 0 2rem;
