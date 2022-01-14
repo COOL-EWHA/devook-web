@@ -5,8 +5,8 @@ import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 
 import apiClient from '../api';
 import { accessToken, accessTokenLoading } from 'src/lib/store/auth';
-import { AuthTokens } from 'src/types/auth';
-import { IUser } from 'src/interfaces/IUser';
+import { AuthTokens } from 'src/types';
+import { IUser } from 'src/interfaces';
 
 type AuthToken = 'accessToken' | 'refreshToken';
 

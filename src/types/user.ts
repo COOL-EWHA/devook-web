@@ -1,3 +1,3 @@
-import { IUser } from 'src/interfaces/IUser';
+import { IUser } from 'src/interfaces';
 
 export type UserProfile = Pick<IUser, 'email' | 'nickname'>;
