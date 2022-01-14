@@ -2,10 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import MainLayout from 'src/layout/MainLayout';
-import MyPage from 'src/pages/MyPage';
-import BookmarkListPage from 'src/pages/BookmarkListPage';
-import OauthRedirectPage from 'src/pages/OauthRedirectPage';
-import TestLoginPage from 'src/pages/TestLoginPage';
+import { BookmarkListPage, MyPage, OauthRedirectPage, TestLoginPage } from 'src/pages';
 
 import { useAuthRefresh } from 'src/lib/hooks/auth';
 
