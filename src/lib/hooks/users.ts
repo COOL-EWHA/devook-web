@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { AxiosResponse } from 'axios';
 import { useSetRecoilState } from 'recoil';
 
-import apiClient from 'src/lib/api';
+import { apiClient } from 'src/lib/api';
 import { accessToken } from 'src/lib/store/auth';
 import { useAuthHeaderConfig } from './auth';
 import { UserProfile } from 'src/types';
