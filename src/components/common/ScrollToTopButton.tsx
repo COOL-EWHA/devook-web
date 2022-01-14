@@ -5,17 +5,16 @@ import { MaterialIcon } from 'src/components/common';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 
 function ScrollToTopButton() {
-  const handleScrollToTop = () => {
-    const body = document.getElementsByTagName('body')[0];
+  const handleClick = () => {
     window.scroll({
       behavior: 'smooth',
-      top: body.offsetTop,
+      top: 0,
     });
   };
 
   return (
-    <Wrapper onClick={handleScrollToTop}>
-      <MaterialIcon type="expand_less" color={CACTUS_GREEN[500]} hoverColor={CACTUS_GREEN[500]} />
+    <Wrapper onClick={handleClick}>
+      <MaterialIcon type="expand_less" width="2.8rem" color={CACTUS_GREEN[500]} hoverColor={CACTUS_GREEN[700]} />
     </Wrapper>
   );
 }
@@ -26,8 +25,8 @@ const Wrapper = styled.button`
   position: fixed;
 
   @media screen and (min-width: 1025px) {
-    right: 3.4rem;
-    bottom: 3.4rem;
+    right: 3.2rem;
+    bottom: 3.2rem;
   }
 
   @media screen and (max-width: 1024px) {
