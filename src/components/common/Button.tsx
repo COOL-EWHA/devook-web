@@ -11,28 +11,32 @@ interface IButtonProps {
   text: string;
   buttonType?: ButtonType;
   iconType?: string;
+  iconWidth?: string;
   color?: ButtonColorType;
   height?: string;
   isBlock?: boolean;
   disabled?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   href?: string;
+  className?: string;
 }
 
 export default function Button({
   text,
   buttonType = 'text',
   iconType,
+  iconWidth,
   color = 'CACTUS_GREEN',
   height,
   isBlock = false,
   disabled = false,
   onClick,
   href,
+  className,
 }: IButtonProps) {
   if (href) {
     return (
-      <A href={href} target="_blank" rel="noopener">
+      <A className={className} href={href} target="_blank" rel="noopener">
         <Wrapper buttonType={buttonType} color={color} isBlock height={height} disabled={disabled} onClick={onClick}>
           <P>{text}</P>
         </Wrapper>
@@ -41,6 +45,7 @@ export default function Button({
   }
   return (
     <Wrapper
+      className={className}
       buttonType={buttonType}
       color={color}
       isBlock={isBlock}
@@ -48,8 +53,8 @@ export default function Button({
       disabled={disabled}
       onClick={onClick}
     >
-      {iconType && <MaterialIcon color={color} type={iconType} />}
-      <P hasMarginLeft={iconType}>{text}</P>
+      {iconType && <Icon color={color} type={iconType} width={iconWidth} />}
+      <P>{text}</P>
     </Wrapper>
   );
 }
@@ -92,13 +97,13 @@ const getButtonStyle = (buttonType: ButtonType, color: ButtonColorType) => {
       return `
         background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[500]};
         color: ${WHITE};
-        border-radius: 8px;
+        border-radius: 0.8rem;
         padding: 0.4rem 1rem;
       `;
     case 'line':
       return `
         color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
-        border-radius: 8px;
+        border-radius: 0.8rem;
         padding: 0.4rem 1rem;
         border: 1px solid ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
       `;
@@ -137,11 +142,15 @@ const Wrapper = styled.button<{
   transition: all 0.2s;
 `;
 
-const P = styled.p<{ hasMarginLeft?: string }>`
+const P = styled.p`
   font-size: 1.4rem;
-  margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? 1 : 0)}rem;
 `;
 
 const A = styled.a`
   text-decoration: none;
+`;
+
+const Icon = styled(MaterialIcon)`
+  margin-top: 0.2rem;
+  margin-right: 0.4rem;
 `;

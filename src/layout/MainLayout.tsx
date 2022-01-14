@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 
 import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
 import { GlobalHeader } from 'src/components/base/header';
@@ -33,8 +32,10 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  flex: 1;
-  margin-top: 7.2rem;
+  @media screen and (min-width: 1025px) {
+    margin-top: 6.4rem;
+    margin-left: 2.4rem;
+  }
   @media screen and (max-width: 1024px) {
     margin-top: 6rem;
     margin-bottom: 7.2rem;

@@ -58,7 +58,7 @@ export default function AddButton() {
     <>
       <Wrapper onClick={handleAddButtonClick}>
         <P>북마크 추가</P>
-        <BookmarkAddIcon type="add" width="2.4rem" />
+        <BookmarkAddIcon type="add" />
       </Wrapper>
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} onComplete={handleBookmarkSubmit} title="북마크 추가하기">
@@ -88,7 +88,7 @@ const Wrapper = styled.button`
   @media screen and (min-width: 1025px) {
     width: 8rem;
     height: 2.4rem;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     border: 1px solid ${GREY[500]};
     background: none;
     font-size: 1.2rem;

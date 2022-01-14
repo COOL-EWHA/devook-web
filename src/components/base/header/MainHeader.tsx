@@ -75,8 +75,8 @@ const ButtonsWrapper = styled.div`
   align-items: center;
 `;
 
-// @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
-const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', width: '2.4rem' })`
+// @TO_BE_IMPROVED: 후에 link 추가해야 함.
+const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications' })`
   @media screen and (max-width: 1024px) {
     && {
       display: none;
@@ -85,7 +85,6 @@ const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications', wid
   margin-left: 0.4rem;
 `;
 
-// @TO_BE_IMPROVED: 후에 link 추가하고 해당 컴포넌트에 margin-left: 0.4 주어야 함.
-const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person', width: '2.4rem' })`
+const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person' })`
   margin-left: 0.4rem;
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CACTUS_GREEN, GREY } from 'src/styles/colors';
+import { GREY } from 'src/styles/colors';
 import { Label, Wrapper } from './Input';
 
 interface ITextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -12,25 +12,25 @@ export default function Textarea({ label, placeholder, onChange, value, name }: 
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
-      <StyledTextArea placeholder={placeholder} onChange={onChange} value={value} name={name} />
+      <StyledTextArea label={label} value={value} name={name} placeholder={placeholder} onChange={onChange} />
     </Wrapper>
   );
 }
 
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.textarea<{ label?: string }>`
   width: 100%;
-  padding: 1.2rem 1rem;
-  border-radius: 8px;
+  padding: 0.8rem 0;
   font-size: 1.4rem;
-  border: 1px solid ${GREY[700]};
+  outline: none;
+  border: none;
   resize: none;
-
-  :focus {
-    outline: none;
-    border: 1px solid ${CACTUS_GREEN[500]};
-  }
   ::placeholder {
     color: ${GREY[500]};
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
+  ${({ label }) =>
+    label &&
+    `
+    margin-top: 0.2rem;
+    `}
 `;
