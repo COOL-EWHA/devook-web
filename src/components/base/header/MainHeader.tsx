@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import { BookmarkAddButton } from 'src/components/bookmarks';
 import { MaterialIcon, Link } from 'src/components/common';
 import { LogoIcon } from 'src/components/assets/icons';
-import { CACTUS_GREEN, GREY, WHITE } from 'src/constant';
-import { CONTENT_MAX_WIDTH } from 'src/constant';
+import { CACTUS_GREEN, GREY, WHITE, CONTENT_MAX_WIDTH } from 'src/constant';
 
 export default function MainHeader() {
   return (
