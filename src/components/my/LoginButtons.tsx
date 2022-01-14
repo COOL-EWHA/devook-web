@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // eslint-disable-next-line import/order
 import LoginButton from './LoginButton';
-import { GREY } from 'src/styles/colors';
+import { GREY } from 'src/constant';
 
 export default function LoginButtons() {
   return (

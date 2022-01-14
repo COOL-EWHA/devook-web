@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
-import { WHITE } from 'src/styles/colors';
+import { WHITE } from 'src/constant';
 
 interface IBookmarkActionDropdownProps {
   isOpen: boolean;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { BackHeader, CloseHeader } from 'src/components/base/header';
 
-import { GREY, WHITE } from 'src/styles/colors';
+import { GREY, WHITE } from 'src/constant';
 
 interface IModalProps {
   title: string;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
-import { GREY } from 'src/styles/colors';
+import { GREY } from 'src/constant';
 
 import { useAuthHeaderConfig } from 'src/lib/hooks';
 import { createBookmark } from 'src/lib/api/bookmark';

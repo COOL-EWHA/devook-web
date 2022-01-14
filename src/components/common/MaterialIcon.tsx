@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from 'src/styles/colors';
+import { GREY } from 'src/constant';
 
 interface IMaterialIconProps {
   className?: string;

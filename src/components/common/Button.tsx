@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
-import { GREY, CACTUS_GREEN, WHITE } from 'src/styles/colors';
+import { GREY, CACTUS_GREEN, WHITE } from 'src/constant';
 
 export type ButtonType = 'primary' | 'line' | 'text';
 export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';

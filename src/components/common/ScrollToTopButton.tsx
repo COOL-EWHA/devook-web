@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
-import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
+import { CACTUS_GREEN, GREY, WHITE } from 'src/constant';
 
 function ScrollToTopButton() {
   const handleClick = () => {

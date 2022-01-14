@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, MaterialIcon } from 'src/components/common';
 
-import { GREY, WHITE } from 'src/styles/colors';
+import { GREY, WHITE } from 'src/constant';
 import { SUB_ROUTES } from 'src/constant';
 
 interface IBackHeaderProps {

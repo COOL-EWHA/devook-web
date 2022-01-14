@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY, WHITE } from 'src/styles/colors';
+import { GREY, WHITE } from 'src/constant';
 import { OAUTH_DATA } from 'src/constant';
 
 interface ILoginButtonProps {
