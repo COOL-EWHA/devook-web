@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GlobalNavigationBar from 'src/components/base/GlobalNavigationBar';
-import { GlobalHeader } from 'src/components/base/header';
-
+import { GlobalHeader, GlobalNavigationBar } from 'src/components/base';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 
 interface IMainLayoutProps {
