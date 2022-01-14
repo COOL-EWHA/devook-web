@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { BookmarkActionDropdown } from 'src/components/bookmarks';
+import BookmarkActionDropdown from 'src/components/bookmarks/ActionDropdown';
 import { MaterialIcon } from 'src/components/common';
 
 import { CACTUS_GREEN } from 'src/styles/colors';
