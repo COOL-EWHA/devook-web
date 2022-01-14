@@ -19,7 +19,7 @@ export default function Textarea({ label, placeholder, onChange, value }: ITexta
 
 const StyledTextArea = styled.textarea`
   width: 100%;
-  padding: 1.2rem 1rem;
+  padding: 1.2rem;
   border-radius: 0.8rem;
   font-size: 1.4rem;
   border: 1px solid ${GREY[700]};
@@ -31,6 +31,6 @@ const StyledTextArea = styled.textarea`
   }
   ::placeholder {
     color: ${GREY[500]};
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 `;

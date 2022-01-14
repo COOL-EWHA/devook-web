@@ -42,7 +42,7 @@ export const Wrapper = styled.div`
 
 const StyledInput = styled.input<{ iconType?: string }>`
   width: 100%;
-  padding: 1.2rem 1rem;
+  padding: 1.2rem;
   font-size: 1.4rem;
   border-radius: 0.8rem;
   border: 1px solid ${GREY[700]};
@@ -62,7 +62,7 @@ const StyledInput = styled.input<{ iconType?: string }>`
   }
   ::placeholder {
     color: ${GREY[500]};
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 `;
 
