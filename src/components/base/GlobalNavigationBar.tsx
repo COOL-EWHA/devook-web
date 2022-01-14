@@ -53,8 +53,6 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  color: ${GREY[700]};
-
   .material-icons {
     text-align: center;
     font-size: 1.8rem;
@@ -78,6 +76,9 @@ const Li = styled.li`
 `;
 
 const Label = styled.label`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-top: 0.4rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.4rem;
+  }
 `;
