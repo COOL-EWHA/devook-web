@@ -18,6 +18,7 @@ interface IButtonProps {
   disabled?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   href?: string;
+  className?: string;
 }
 
 export default function Button({
@@ -31,10 +32,11 @@ export default function Button({
   disabled = false,
   onClick,
   href,
+  className,
 }: IButtonProps) {
   if (href) {
     return (
-      <A href={href} target="_blank" rel="noopener">
+      <A className={className} href={href} target="_blank" rel="noopener">
         <Wrapper buttonType={buttonType} color={color} isBlock height={height} disabled={disabled} onClick={onClick}>
           <P>{text}</P>
         </Wrapper>
@@ -43,6 +45,7 @@ export default function Button({
   }
   return (
     <Wrapper
+      className={className}
       buttonType={buttonType}
       color={color}
       isBlock={isBlock}
