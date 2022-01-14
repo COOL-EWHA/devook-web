@@ -33,9 +33,8 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   @media screen and (min-width: 1025px) {
-    width: calc(100% - 14.2rem);
     margin-top: 6.4rem;
-    margin-left: 2.6rem;
+    margin-left: 2.4rem;
   }
   @media screen and (max-width: 1024px) {
     margin-top: 6rem;
