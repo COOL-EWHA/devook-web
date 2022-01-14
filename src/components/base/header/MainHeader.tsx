@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { BookmarkAddButton } from 'src/components/bookmarks';
 import { MaterialIcon, Link } from 'src/components/common';
-import LogoIcon from 'src/components/assets/icons/logo';
+import { LogoIcon } from 'src/components/assets/icons';
 import { CACTUS_GREEN, GREY, WHITE } from 'src/styles/colors';
 import { DESKTOP_MAX_WIDTH } from 'src/constant';
 

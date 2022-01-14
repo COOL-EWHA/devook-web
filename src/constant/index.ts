@@ -1,5 +1,4 @@
-import GithubIcon from 'src/components/assets/icons/github';
-import GoogleIcon from 'src/components/assets/icons/google';
+import { GithubIcon, GoogleIcon } from 'src/components/assets/icons';
 import { getQueryString } from 'src/lib/utils';
 
 export const MOBILE_MAX_WIDTH = '60rem';

@@ -1,3 +1,7 @@
+import GithubIcon from './github';
+import GoogleIcon from './google';
+import LogoIcon from './logo';
+
 export type IconProps = {
   style?: React.CSSProperties;
   fill?: string;
@@ -6,3 +10,5 @@ export type IconProps = {
   fillDot?: string;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
+
+export { GithubIcon, GoogleIcon, LogoIcon };
