@@ -23,7 +23,7 @@ export default function BookmarkTagButton({
   };
 
   useEffect(() => {
-    if (isResetButtonClicked) {
+    if (isResetButtonClicked && isSelected) {
       setIsSelected(false);
       setIsResetButtonClicked(false);
     }
