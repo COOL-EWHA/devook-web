@@ -31,31 +31,33 @@ export default function BookmarkTagButton({
 
   return (
     <Wrapper isModalOpen={isModalOpen} onClick={handleClick} isSelected={isSelected}>
-      <P>{text}</P>
+      <P>#{text}</P>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.button<{ isModalOpen: boolean; isSelected: boolean }>`
   max-width: 100%;
-  margin: 0.4rem 0.4rem 0 0;
+  padding: 0.2rem 0.8rem;
+  margin: 0 0.4rem 0.8rem 0;
+  ${({ isSelected }) => `
+  background-color: ${isSelected ? CACTUS_GREEN[100] : WHITE};
+  color: ${isSelected ? CACTUS_GREEN[700] : CACTUS_GREEN[500]};
+  border: 1px solid ${isSelected ? CACTUS_GREEN[700] : CACTUS_GREEN[500]};
+  `}
   border-radius: 0.4rem;
-  border: none;
-  background-color: ${({ isModalOpen }) => (isModalOpen ? GREY[200] : WHITE)};
-  color: ${CACTUS_GREEN[500]};
 
   :hover {
-    background-color: ${({ isModalOpen }) => (isModalOpen ? GREY[300] : GREY[300])};
+    color: ${CACTUS_GREEN[700]};
+    border-color: ${CACTUS_GREEN[700]};
     cursor: pointer;
   }
-
-  ${({ isSelected }) => isSelected && `background-color:${CACTUS_GREEN[100]};`}
 
   transition: all 0.2s;
 `;
 
 const P = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
