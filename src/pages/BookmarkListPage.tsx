@@ -17,11 +17,16 @@ function BookmarkListPage() {
     });
   };
 
-  const handleModalOpenState = () => {
+  const handleFixedTagButtonClick = () => {
     setIsModalOpen(true);
   };
 
+  const handleTagSubmit = () => {
+    //
+  };
+
   const handleResize = () => {
+    // @TO_BE_IMPROVED: debounce 적용
     if (window.innerWidth > 1024) {
       setIsModalOpen(false);
     }
@@ -49,24 +54,21 @@ function BookmarkListPage() {
           />
         ))}
       </BookmarksWrapper>
-      <FixedButton buttonType="tag" iconType="tag" onClick={handleModalOpenState} />
-      <FixedButton buttonType="scroll" iconType="expand_less" onClick={handleScrollTopButtonClick} />
       {!isModalOpen && <BookmarkTagList tags={TAG_LIST} isModalOpen={isModalOpen} />}
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleModalOpenState} title="태그 선택">
+        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleTagSubmit} title="태그 선택">
           <BookmarkTagList tags={TAG_LIST} isModalOpen={isModalOpen} />
         </Modal>
       )}
+      <FixedButton buttonType="tag" iconType="tag" onClick={handleFixedTagButtonClick} />
+      <FixedButton buttonType="scroll" iconType="expand_less" onClick={handleScrollTopButtonClick} />
     </Wrapper>
   );
 }
 
 export default BookmarkListPage;
 
-const BookmarksWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const BookmarksWrapper = styled.div``;
 
 const Wrapper = styled.div`
   display: flex;
