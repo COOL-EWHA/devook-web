@@ -20,8 +20,7 @@ export default function BookmarkTagList({ tags, isModalOpen }: IBookmarkTagListP
 
   return (
     <Wrapper isModalOpen={isModalOpen}>
-      <Title>내 태그 목록</Title>
-      <Description>태그를 누르면, 그 태그와 관련된 글들만 모아서 볼 수 있어요 !</Description>
+      <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
         {tags.map((tag) => (
           <BookmarkTagButton
@@ -39,7 +38,7 @@ export default function BookmarkTagList({ tags, isModalOpen }: IBookmarkTagListP
 }
 
 const Wrapper = styled.div<{ isModalOpen: boolean }>`
-  padding: 2rem;
+  padding: 2rem 1.6rem;
 
   @media screen and (min-width: 1025px) {
     width: 20rem;
@@ -56,15 +55,7 @@ const Wrapper = styled.div<{ isModalOpen: boolean }>`
 
 const Title = styled.p`
   font-size: 1.8rem;
-  margin-bottom: 0.6rem;
-  @media screen and (max-width: 1024px) {
-    display: none;
-  }
-`;
-
-const Description = styled.p`
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   @media screen and (max-width: 1024px) {
     display: none;
   }
