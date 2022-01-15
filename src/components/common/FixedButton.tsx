@@ -17,7 +17,7 @@ export default function FixedButton({ onClick, buttonType, iconType }: IFixedBut
     <Wrapper onClick={onClick} buttonType={buttonType}>
       <MaterialIcon
         type={iconType}
-        width={buttonType === 'tag' ? '2.4rem' : '2.8rem'}
+        width={buttonType === 'tag' ? '2.2rem' : '2.8rem'}
         color={CACTUS_GREEN[500]}
         hoverColor={CACTUS_GREEN[700]}
       />
