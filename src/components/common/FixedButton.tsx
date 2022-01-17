@@ -8,16 +8,16 @@ type FixedButtonType = 'tag' | 'scroll';
 
 interface IFixedButtonProps {
   onClick?: () => void;
-  buttonType: FixedButtonType;
+  type: FixedButtonType;
   iconType: string;
 }
 
-export default function FixedButton({ onClick, buttonType, iconType }: IFixedButtonProps) {
+export default function FixedButton({ onClick, type, iconType }: IFixedButtonProps) {
   return (
-    <Wrapper onClick={onClick} buttonType={buttonType}>
+    <Wrapper onClick={onClick} buttonType={type}>
       <MaterialIcon
         type={iconType}
-        width={buttonType === 'tag' ? '2.2rem' : '2.8rem'}
+        width={type === 'tag' ? '2.2rem' : '2.8rem'}
         color={CACTUS_GREEN[500]}
         hoverColor={CACTUS_GREEN[700]}
       />
