@@ -3,14 +3,10 @@ import Cookies from 'js-cookie';
 import { AxiosResponse } from 'axios';
 import { useSetRecoilState } from 'recoil';
 
-import { apiClient } from 'src/lib/api';
 import { accessToken } from 'src/lib/store';
-import { useAuthHeaderConfig } from './auth';
-import { UserProfile } from 'src/types';
+import { deleteUser, getUser, initAuthHeader } from 'src/lib/api';
 
 export const useUserProfile = () => {
-  const authHeaderConfig = useAuthHeaderConfig();
-  const getUser = async (): Promise<AxiosResponse<UserProfile, any>> => apiClient.get('/users', authHeaderConfig);
   const { isLoading, error, data } = useQuery('userProfile', getUser);
 
   return { isLoading, error, data: data?.data };
@@ -31,7 +27,6 @@ export const useUserLogout = () => {
 };
 
 export const useUserWithdraw = () => {
-  const authHeaderConfig = useAuthHeaderConfig();
   const { logout } = useUserLogout();
 
   const withdraw = async () => {
@@ -44,8 +39,6 @@ export const useUserWithdraw = () => {
       console.log(err);
     }
   };
-
-  const deleteUser = async (): Promise<void> => apiClient.delete('/users', authHeaderConfig).then((res) => res.data);
 
   return { withdraw };
 };

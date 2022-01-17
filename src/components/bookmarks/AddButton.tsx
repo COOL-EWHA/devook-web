@@ -5,12 +5,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/constant';
 
-import { useAuthHeaderConfig } from 'src/lib/hooks';
-import { createBookmark } from 'src/lib/api/bookmark';
+import { createBookmark } from 'src/lib/api';
 
 export default function BookmarkAddButton() {
-  const authHeaderConfig = useAuthHeaderConfig();
-
   const [form, setForm] = useState({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -44,13 +41,12 @@ export default function BookmarkAddButton() {
       return;
     }
     try {
-      await createBookmark({ url: form.url, memo: form.memo, authHeaderConfig });
+      await createBookmark({ url: form.url, memo: form.memo });
       alert('북마크에 추가되었습니다!');
       setIsModalOpen(false);
     } catch (error) {
       const { response } = error as AxiosError;
       handleSubmitError(response);
-      console.log('북마크 추가 에러', error);
     }
   };
 
