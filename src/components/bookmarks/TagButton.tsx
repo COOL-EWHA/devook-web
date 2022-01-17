@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { CACTUS_GREEN, GREY, WHITE } from 'src/constant';
+import { CACTUS_GREEN, WHITE } from 'src/constant';
 
 interface IBookmarkTagButtonProps {
   text: string;
   isModalOpen: boolean;
-  isResetButtonClicked: boolean;
-  setIsResetButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function BookmarkTagButton({
-  text,
-  isModalOpen = false,
-  isResetButtonClicked,
-  setIsResetButtonClicked,
-}: IBookmarkTagButtonProps) {
+export default function BookmarkTagButton({ text, isModalOpen = false }: IBookmarkTagButtonProps) {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
     setIsSelected((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (isResetButtonClicked && isSelected) {
-      setIsSelected(false);
-      setIsResetButtonClicked(false);
-    }
-  }, [isResetButtonClicked]);
 
   return (
     <Wrapper isModalOpen={isModalOpen} onClick={handleClick} isSelected={isSelected}>

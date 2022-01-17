@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { Button } from 'src/components/common';
-import { BookmarkTagButton } from 'src/components/bookmarks';
+import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookmarks';
 
 import { GREY } from 'src/constant';
 
@@ -12,27 +11,15 @@ interface IBookmarkTagListProps {
 }
 
 export default function BookmarkTagList({ tags, isModalOpen }: IBookmarkTagListProps) {
-  const [isResetButtonClicked, setIsResetButtonClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsResetButtonClicked(true);
-  };
-
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
         {tags.map((tag) => (
-          <BookmarkTagButton
-            key={tag}
-            text={tag}
-            isModalOpen={isModalOpen}
-            isResetButtonClicked={isResetButtonClicked}
-            setIsResetButtonClicked={setIsResetButtonClicked}
-          />
+          <BookmarkTagButton key={tag} text={tag} isModalOpen={isModalOpen} />
         ))}
       </BookmarkTagButtonWrapper>
-      <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={handleClick} />
+      <BookmarkTagResetButton />
     </Wrapper>
   );
 }
