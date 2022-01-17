@@ -30,16 +30,15 @@ export const useAuthRefresh = () => {
   }, []);
 
   const refreshAuthTokens = async () => {
-    if (pathname === '/oauth-redirect' || !Cookies.get('REFRESH_TOKEN')) {
+    if (pathname === '/oauth-redirect') {
       setLoading(false);
       return;
     }
 
     try {
       setLoading(true);
-      const { accessToken, refreshToken } = await authRefresh();
+      const { accessToken } = await authRefresh();
       setAccessToken(accessToken);
-      Cookies.set('REFRESH_TOKEN', refreshToken);
     } catch (err) {
       console.log(err);
     }
@@ -71,15 +70,9 @@ export const useAuthLogin = () => {
     const provider = scope?.includes('google') ? 'google' : 'github';
 
     try {
-      Cookies.remove('REFRESH_TOKEN'); // 혹시 미리 있을 수 있는 REFRESH_TOKEN 제거
-      const { accessToken, refreshToken } = await authLogin(provider, code);
+      const { accessToken } = await authLogin(provider, code);
       alert('로그인 성공!');
       setAccessToken(accessToken);
-
-      // 개발 환경에서는 httpOnly 쿠키 set 안 되는 상태이기 때문에 해당 코드 추가
-      if (!Cookies.get('REFRESH_TOKEN')) {
-        Cookies.set('REFRESH_TOKEN', refreshToken);
-      }
       navigate('/');
     } catch (err) {
       alert('로그인 실패!');
@@ -97,16 +90,9 @@ export const useAuthTestLogin = () => {
 
   const testLogin = async (email: string) => {
     try {
-      Cookies.remove('REFRESH_TOKEN'); // 혹시 미리 있을 수 있는 REFRESH_TOKEN 제거
-
-      const { accessToken, refreshToken } = await authTestLogin(email);
+      const { accessToken } = await authTestLogin(email);
       alert('로그인 성공!');
       setAccessToken(accessToken);
-
-      // 개발 환경에서는 httpOnly 쿠키 set 안 되는 상태이기 때문에 해당 코드 추가
-      if (!Cookies.get('REFRESH_TOKEN')) {
-        Cookies.set('REFRESH_TOKEN', refreshToken);
-      }
       navigate('/');
     } catch (err) {
       alert('로그인 실패!');
