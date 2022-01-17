@@ -5,4 +5,7 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
-export * from './bookmark';
+
+export * from './auth';
+export * from './bookmarks';
+export * from './users';
