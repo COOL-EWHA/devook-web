@@ -1,6 +1,4 @@
 import { useQuery } from 'react-query';
-import Cookies from 'js-cookie';
-import { AxiosResponse } from 'axios';
 import { useSetRecoilState } from 'recoil';
 
 import { accessToken } from 'src/lib/store';
@@ -17,8 +15,7 @@ export const useUserLogout = () => {
 
   const logout = (param = { alert: true }) => {
     setAccessToken(undefined);
-    Cookies.remove('REFRESH_TOKEN');
-    if (param.alert === true) {
+    if (param.alert) {
       alert('로그아웃되었습니다!');
     }
   };
