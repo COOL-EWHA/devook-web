@@ -7,13 +7,14 @@ import { deleteUser, getUser, initAuthHeader } from 'src/lib/api';
 export const useUserProfile = () => {
   const { isLoading, error, data } = useQuery('userProfile', getUser);
 
-  return { isLoading, error, data: data?.data };
+  return { isLoading, error, data };
 };
 
 export const useUserLogout = () => {
   const setAccessToken = useSetRecoilState(accessToken);
 
   const logout = (param = { alert: true }) => {
+    initAuthHeader();
     setAccessToken(undefined);
     if (param.alert) {
       alert('로그아웃되었습니다!');
