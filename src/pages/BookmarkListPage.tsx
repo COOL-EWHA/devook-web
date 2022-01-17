@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { BookmarkSearchInput } from 'src/components/bookmarks';
-import { PostCard, TagListButton, ScrollToTopButton } from 'src/components/common';
+import { PostCard, FixedButtons } from 'src/components/common';
 
 import { BOOKMARK_LIST } from 'src/constant/mockData';
 
@@ -23,8 +23,7 @@ function BookmarkListPage() {
           />
         ))}
       </BookmarksWrapper>
-      <TagListButton />
-      <ScrollToTopButton />
+      <FixedButtons />
     </Wrapper>
   );
 }

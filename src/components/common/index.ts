@@ -5,6 +5,7 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Modal from './Modal';
 import FixedButton from './FixedButton';
+import FixedButtons from './FixedButtons';
 import ScrollToTopButton from './ScrollToTopButton';
 import TagListButton from './TagListButton';
 import PostCard from './PostCard';
@@ -18,6 +19,7 @@ export {
   Textarea,
   Modal,
   FixedButton,
+  FixedButtons,
   ScrollToTopButton,
   TagListButton,
   PostCard,
