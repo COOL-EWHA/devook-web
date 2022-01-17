@@ -5,12 +5,12 @@ import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookma
 
 import { GREY } from 'src/constant';
 
-interface IBookmarkTagListProps {
+interface ITagListProps {
   tags: string[];
   isModalOpen: boolean;
 }
 
-export default function BookmarkTagList({ tags, isModalOpen }: IBookmarkTagListProps) {
+export default function TagList({ tags, isModalOpen }: ITagListProps) {
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>

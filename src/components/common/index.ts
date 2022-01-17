@@ -6,5 +6,6 @@ import Textarea from './Textarea';
 import Modal from './Modal';
 import FixedButton from './FixedButton';
 import PostCard from './PostCard';
+import TagList from './TagList';
 
-export { MaterialIcon, Link, Button, Input, Textarea, Modal, FixedButton, PostCard };
+export { MaterialIcon, Link, Button, Input, Textarea, Modal, FixedButton, PostCard, TagList };
