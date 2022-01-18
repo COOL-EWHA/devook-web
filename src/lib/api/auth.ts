@@ -9,3 +9,5 @@ export const authLogin = (provider: string, code: string): Promise<IUser> =>
 
 export const authTestLogin = (email: string): Promise<IUser> =>
   apiClient.post('/auth/test-login', { email }).then((res) => res.data);
+
+export const authLogout = (): Promise<void> => apiClient.post('/auth/logout').then((res) => res.data);
