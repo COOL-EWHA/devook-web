@@ -9,7 +9,7 @@ import { BookmarkPostPreview } from 'src/types';
 
 function BookmarkListPage() {
   const { ref, inView } = useInView({
-    threshold: 0.5,
+    threshold: 0,
   });
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBookmarkList();
 
@@ -40,7 +40,7 @@ function BookmarkListPage() {
           )),
         )
       )}
-      <div ref={ref} />
+      <div style={{ height: '1rem' }} ref={ref} />
       <ScrollToTopButton />
     </>
   );
