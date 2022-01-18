@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/constant';
 
-import { useAuthHeaderConfig } from 'src/lib/hooks';
-import { createBookmark } from 'src/lib/api/bookmark';
+import { createBookmark } from 'src/lib/api';
+import { accessToken } from 'src/lib/store';
 
 export default function BookmarkAddButton() {
-  const authHeaderConfig = useAuthHeaderConfig();
-
+  const navigate = useNavigate();
+  const isLoggedIn = !!useRecoilValue(accessToken);
   const [form, setForm] = useState({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,10 +27,11 @@ export default function BookmarkAddButton() {
 
   const handleSubmitError = (response?: AxiosResponse) => {
     if (response?.status === 401) {
-      alert('로그인을 먼저 해주세요!');
+      alert('로그인이 필요한 기능입니다.');
+      navigate('/my');
       return;
     }
-    alert('북마크 추가과정에서 오류가 발생하였습니다!');
+    alert('북마크 생성 과정에서 오류가 발생했습니다.');
   };
 
   const isFormValid = () => {
@@ -40,17 +43,20 @@ export default function BookmarkAddButton() {
   };
 
   const handleBookmarkSubmit = async () => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요한 기능입니다.');
+      navigate('/my');
+    }
     if (!isFormValid) {
       return;
     }
     try {
-      await createBookmark({ url: form.url, memo: form.memo, authHeaderConfig });
-      alert('북마크에 추가되었습니다!');
+      await createBookmark({ url: form.url, memo: form.memo });
+      alert('북마크가 생성되었습니다.');
       setIsModalOpen(false);
     } catch (error) {
       const { response } = error as AxiosError;
       handleSubmitError(response);
-      console.log('북마크 추가 에러', error);
     }
   };
 
