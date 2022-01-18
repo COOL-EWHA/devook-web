@@ -33,7 +33,9 @@ export default function PostCard({
         <Img src={thumbnail} />
       </ContentWrapper>
       <Footer>
-        {tags && tags.map((tag) => <Tag key={tag}>#{tag}</Tag>)}
+        {tags?.map((tag) => (
+          <Tag key={tag}>#{tag}</Tag>
+        ))}
         {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
           {type === 'todo' && (
             <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />

@@ -12,10 +12,10 @@ interface IPostCardActionMenuProps {
 }
 
 export default function PostCardActionMenu({ bookmarkId, isBookmarked = true }: IPostCardActionMenuProps) {
-  const [isDropdownOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMoreIconClick = () => {
-    setIsMenuOpen((prev) => !prev);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
