@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 import { GREY } from 'src/constant';
 
 import { createBookmark } from 'src/lib/api';
+import { accessToken } from 'src/lib/store';
 
 export default function BookmarkAddButton() {
+  const navigate = useNavigate();
+  const isLoggedIn = !!useRecoilValue(accessToken);
   const [form, setForm] = useState({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,6 +28,7 @@ export default function BookmarkAddButton() {
   const handleSubmitError = (response?: AxiosResponse) => {
     if (response?.status === 401) {
       alert('로그인이 필요한 기능입니다.');
+      navigate('/my');
       return;
     }
     alert('북마크 생성 과정에서 오류가 발생했습니다.');
@@ -37,6 +43,10 @@ export default function BookmarkAddButton() {
   };
 
   const handleBookmarkSubmit = async () => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요한 기능입니다.');
+      navigate('/my');
+    }
     if (!isFormValid) {
       return;
     }
