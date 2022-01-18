@@ -8,11 +8,11 @@ function LogoutButton() {
   const { logout } = useUserLogout();
 
   // Logout 함수에 alert params 있어서 핸들러 따로 선언
-  const handleLogoutButtonClick = () => {
+  const handleClick = () => {
     logout();
   };
 
-  return <Button onClick={handleLogoutButtonClick}>로그아웃</Button>;
+  return <Button onClick={handleClick}>로그아웃</Button>;
 }
 
 export default LogoutButton;
