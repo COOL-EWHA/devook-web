@@ -22,10 +22,10 @@ export default function BookmarkAddButton() {
 
   const handleSubmitError = (response?: AxiosResponse) => {
     if (response?.status === 401) {
-      alert('로그인을 먼저 해주세요!');
+      alert('로그인이 필요한 기능입니다.');
       return;
     }
-    alert('북마크 추가과정에서 오류가 발생하였습니다!');
+    alert('북마크 생성 과정에서 오류가 발생했습니다.');
   };
 
   const isFormValid = () => {
@@ -42,7 +42,7 @@ export default function BookmarkAddButton() {
     }
     try {
       await createBookmark({ url: form.url, memo: form.memo });
-      alert('북마크에 추가되었습니다!');
+      alert('북마크가 생성되었습니다.');
       setIsModalOpen(false);
     } catch (error) {
       const { response } = error as AxiosError;

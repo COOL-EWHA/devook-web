@@ -54,12 +54,12 @@ export const useAuthLogin = () => {
 
     try {
       const { accessToken } = await authLogin(provider, code);
-      alert('로그인 성공!');
+      alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setAccessToken(accessToken);
       navigate('/');
     } catch (err) {
-      alert('로그인 실패!');
+      alert('로그인에 실패하였습니다.');
     }
   };
 };
@@ -72,12 +72,12 @@ export const useAuthTestLogin = () => {
   const testLogin = async (email: string) => {
     try {
       const { accessToken } = await authTestLogin(email);
-      alert('로그인 성공!');
+      alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setAccessToken(accessToken);
       navigate('/');
     } catch (err) {
-      alert('로그인 실패!');
+      alert('로그인에 실패하였습니다.');
     }
   };
 

@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 
 import { accessToken } from 'src/lib/store';
-import { deleteUser, getUser, initAuthHeader } from 'src/lib/api';
+import { authLogout, deleteUser, getUser, initAuthHeader } from 'src/lib/api';
 
 export const useUserProfile = () => {
   const { isLoading, error, data } = useQuery('userProfile', getUser);
@@ -13,14 +13,18 @@ export const useUserProfile = () => {
 export const useUserLogout = () => {
   const setAccessToken = useSetRecoilState(accessToken);
 
-  const logout = (param = { alert: true }) => {
-    initAuthHeader();
-    setAccessToken(undefined);
-    if (param.alert) {
-      alert('로그아웃되었습니다!');
+  const logout = async (param = { alert: true }) => {
+    try {
+      await authLogout();
+      initAuthHeader();
+      setAccessToken(undefined);
+      if (param.alert) {
+        alert('로그아웃되었습니다.');
+      }
+    } catch (err) {
+      alert('로그아웃에 실패하였습니다.');
     }
   };
-
   return { logout };
 };
 
