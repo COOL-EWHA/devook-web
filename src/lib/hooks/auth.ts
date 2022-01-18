@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 
@@ -26,9 +27,22 @@ export const useAuthRefresh = () => {
       updateAuthHeader(accessToken);
       setAccessToken(accessToken);
     } catch (err) {
-      console.log(err);
+      handleRefreshError(err as AxiosError);
     }
     setLoading(false);
+  };
+
+  const handleRefreshError = ({ response }: AxiosError) => {
+    switch ((response as AxiosResponse).status) {
+      case 400:
+        // REFRESH_TOKEN 빈 문자열
+        break;
+      case 404:
+        // REFRESH_TOKEN 값 있으나 DB에서 값 찾을 수 없음
+        break;
+      default:
+      // 그 외 Error
+    }
   };
 
   return { loading };
