@@ -14,6 +14,7 @@ function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownP
   const handleClick = async () => {
     try {
       await deleteBookmark({ id: bookmarkId });
+      alert('삭제되었습니다!');
     } catch (err) {
       console.log('북마크 삭제과정 에러', err);
     }
