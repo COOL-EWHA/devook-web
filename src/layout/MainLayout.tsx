@@ -30,6 +30,7 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
+  width: 100%;
   @media screen and (min-width: 1025px) {
     margin-top: 6.4rem;
     margin-left: 2.4rem;
