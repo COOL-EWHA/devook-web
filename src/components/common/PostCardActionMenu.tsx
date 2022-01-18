@@ -7,7 +7,7 @@ import { MaterialIcon } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
 interface IPostCardActionMenuProps {
-  bookmarkId?: number;
+  bookmarkId: number;
   isBookmarked?: boolean;
 }
 

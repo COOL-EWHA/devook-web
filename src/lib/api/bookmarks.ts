@@ -1,11 +1,11 @@
 import { apiClient } from '.';
 
-import { BookmarkPostPreview, CreateBookmarkParams } from 'src/types';
+import { BookmarkPostPreview, CreateBookmarkParams, BookmarkId } from 'src/types';
 
 export const createBookmark = (params: CreateBookmarkParams): Promise<void> =>
   apiClient.post(`/bookmarks`, params).then((res) => res.data);
 
-export const deleteBookmark = ({ id }: { id?: number }) => apiClient.delete(`/bookmarks/${id}`).then((res) => res.data);
+export const deleteBookmark = ({ id }: BookmarkId) => apiClient.delete(`/bookmarks/${id}`).then((res) => res.data);
 
 export const getBookmarkList = ({
   tags,

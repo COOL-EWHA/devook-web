@@ -6,7 +6,7 @@ import { deleteBookmark } from 'src/lib/api';
 import { WHITE } from 'src/constant';
 
 interface IBookmarkActionDropdownProps {
-  bookmarkId?: number;
+  bookmarkId: number;
   isOpen: boolean;
 }
 
