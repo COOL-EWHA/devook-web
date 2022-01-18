@@ -2,16 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
+import { deleteBookmark } from 'src/lib/api';
 import { WHITE } from 'src/constant';
 
 interface IBookmarkActionDropdownProps {
+  bookmarkId?: number;
   isOpen: boolean;
 }
-function BookmarkActionDropdown({ isOpen }: IBookmarkActionDropdownProps) {
+
+function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
+  const handleClick = async () => {
+    try {
+      await deleteBookmark({ id: bookmarkId });
+    } catch (err) {
+      console.log('북마크 삭제과정 에러', err);
+    }
+  };
+
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
-      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" />
+      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={handleClick} />
     </Wrapper>
   );
 }

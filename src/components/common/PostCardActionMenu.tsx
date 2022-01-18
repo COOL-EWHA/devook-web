@@ -7,10 +7,11 @@ import { MaterialIcon } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
 interface IPostCardActionMenuProps {
+  bookmarkId?: number;
   isBookmarked?: boolean;
 }
 
-export default function PostCardActionMenu({ isBookmarked = true }: IPostCardActionMenuProps) {
+export default function PostCardActionMenu({ bookmarkId, isBookmarked = true }: IPostCardActionMenuProps) {
   const [isDropdownOpen, setIsMenuOpen] = useState(false);
 
   const handleMoreIconClick = () => {
@@ -22,7 +23,7 @@ export default function PostCardActionMenu({ isBookmarked = true }: IPostCardAct
       {isBookmarked && (
         <>
           <MoreIcon onClick={handleMoreIconClick} />
-          <BookmarkActionDropdown isOpen={isDropdownOpen} />
+          <BookmarkActionDropdown bookmarkId={bookmarkId} isOpen={isDropdownOpen} />
         </>
       )}
       {!isBookmarked && <MaterialIcon type="bookmark_border" />}
