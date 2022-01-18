@@ -17,8 +17,10 @@ export const useInfiniteBookmarkList = () => {
     }
   };
 
-  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } =
-    useInfiniteQuery('bookmarks', ({ pageParam }) => fetchInfiniteBookmarkList({ cursor: pageParam }), {
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    'bookmarks',
+    ({ pageParam }) => fetchInfiniteBookmarkList({ cursor: pageParam }),
+    {
       getNextPageParam: (lastPage, pages) => {
         if (lastPage?.length === BOOKMARK_FETCH_LIMIT) {
           let lastBookmarkPostId;
@@ -34,7 +36,8 @@ export const useInfiniteBookmarkList = () => {
         }
         return false;
       },
-    });
+    },
+  );
 
   return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage };
 };
