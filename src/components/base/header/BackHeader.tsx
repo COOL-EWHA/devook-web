@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Button, MaterialIcon } from 'src/components/common';
+import { Button, MaterialIcon, P } from 'src/components/common';
 
 import { GREY, WHITE, SUB_ROUTES } from 'src/constant';
 
@@ -27,7 +27,9 @@ export default function BackHeader({ onBack, onComplete, title }: IBackHeaderPro
   return (
     <Wrapper isForModal={title}>
       <MaterialIcon type="arrow_back_ios" onClick={handleBack} />
-      <P isForModal={title}>{SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title ?? title}</P>
+      <P fontSize={title ? '1.6rem' : '2rem'}>
+        {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title ?? title}
+      </P>
       {/* // @TO_BE_IMPROVED: 마이페이지 백헤더에 있는 알림 아이콘은 로그인시에만 보이게끔 수정해야함 */}
       {pathname === '/my' && <MaterialIcon type="notifications" />}
       {onComplete && <Button text="설정" onClick={onComplete} />}
@@ -71,9 +73,4 @@ const getWrapperStyle = (isForModal?: string) => {
 
 const Wrapper = styled.div<{ isForModal?: string }>`
   ${({ isForModal }) => getWrapperStyle(isForModal)};
-`;
-
-const P = styled.p<{ isForModal?: string }>`
-  font-size: ${({ isForModal }) => (isForModal ? 1.6 : 2)}rem;
-  color: ${GREY[700]};
 `;

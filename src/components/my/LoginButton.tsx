@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { P } from 'src/components/common';
 import { GREY, WHITE, OAUTH_DATA } from 'src/constant';
 
 interface ILoginButtonProps {
@@ -13,7 +14,7 @@ export default function LoginButton({ platform }: ILoginButtonProps) {
   return (
     <A href={link}>
       <Icon />
-      <P>{platform.toUpperCase()} 계정으로 시작하기</P>
+      <Text>{platform.toUpperCase()} 계정으로 시작하기</Text>
     </A>
   );
 }
@@ -39,8 +40,8 @@ const A = styled.a`
   }
 `;
 
-const P = styled.p`
-  margin-left: 0.8rem;
-  font-size: 1.4rem;
-  color: ${GREY[700]};
+const Text = styled(P).attrs({
+  color: GREY[700],
+})`
+  margin: 0 0 0.1rem 0.8rem;
 `;

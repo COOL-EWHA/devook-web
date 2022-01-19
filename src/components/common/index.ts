@@ -1,3 +1,4 @@
+import P from './P';
 import MaterialIcon from './MaterialIcon';
 import Link from './Link';
 import Button from './Button';
@@ -7,4 +8,4 @@ import Modal from './Modal';
 import ScrollToTopButton from './ScrollToTopButton';
 import PostCard from './PostCard';
 
-export { MaterialIcon, Link, Button, Input, Textarea, Modal, ScrollToTopButton, PostCard };
+export { MaterialIcon, Link, Button, Input, Textarea, Modal, ScrollToTopButton, PostCard, P };
