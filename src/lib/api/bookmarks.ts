@@ -1,6 +1,6 @@
 import { apiClient } from '.';
 
-import { BookmarkPreview, BookmarkCreateBody, BookmarkDeleteParams, BookmarkListQueries } from 'src/types';
+import { BookmarkPreview, BookmarkCreateBody, BookmarkDeleteParams, BookmarkListQuery } from 'src/types';
 import { getQueryString } from 'src/lib/utils';
 
 export const createBookmark = (body: BookmarkCreateBody): Promise<void> =>
@@ -9,5 +9,5 @@ export const createBookmark = (body: BookmarkCreateBody): Promise<void> =>
 export const deleteBookmark = ({ id }: BookmarkDeleteParams): Promise<void> =>
   apiClient.delete(`/bookmarks/${id}`).then((res) => res.data);
 
-export const getBookmarkList = (query: BookmarkListQueries): Promise<BookmarkPreview[]> =>
+export const getBookmarkList = (query: BookmarkListQuery): Promise<BookmarkPreview[]> =>
   apiClient.get(`/bookmarks${getQueryString(query)}`).then((res) => res.data);

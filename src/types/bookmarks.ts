@@ -6,5 +6,5 @@ export type BookmarkDeleteParams = Pick<IBookmark, 'id'>;
 export type BookmarkListQuery = {
   cursor?: number;
   limit?: number;
+  tags?: string;
 };
-export type BookmarkListQueries = BookmarkListQuery & Pick<IBookmark, 'tags'>;
