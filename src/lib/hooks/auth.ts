@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
 import { accessToken, accessTokenLoading } from 'src/lib/store';
@@ -96,4 +96,18 @@ export const useAuthTestLogin = () => {
   };
 
   return { testLogin };
+};
+
+export const useLoginStatus = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = !!useRecoilValue(accessToken);
+
+  const checkIsLoggedIn = () => {
+    if (isLoggedIn) return true;
+    alert('로그인이 필요한 기능입니다.');
+    navigate('/my');
+    return false;
+  };
+
+  return { checkIsLoggedIn };
 };

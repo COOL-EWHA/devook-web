@@ -5,15 +5,17 @@ import { CACTUS_GREEN, GREY } from 'src/constant';
 import PostCardActionMenu from './PostCardActionMenu';
 
 interface IPostCardProps {
+  id: number;
   title: string;
   thumbnail: string;
   description: string;
-  tags: string[];
+  tags?: string[];
   type?: 'default' | 'todo';
   isBookmarked?: boolean;
 }
 
 export default function PostCard({
+  id,
   title,
   thumbnail,
   description,
@@ -31,14 +33,14 @@ export default function PostCard({
         <Img src={thumbnail} />
       </ContentWrapper>
       <Footer>
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
         {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
           {type === 'todo' && (
             <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
           )} */}
-        <PostCardActionMenu isBookmarked={isBookmarked} />
+        <PostCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
       </Footer>
     </Wrapper>
   );
