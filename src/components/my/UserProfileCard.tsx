@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { P } from 'src/components/common';
 import { GREY } from 'src/constant';
 
 import { useUserProfile } from 'src/lib/hooks';
@@ -14,8 +15,12 @@ function UserProfileCard() {
 
   return (
     <Wrapper>
-      <UserName>{nickname}님 안녕하세요!</UserName>
-      <Email>{email}</Email>
+      <P fontSize="1.6rem" fontWeight={500}>
+        {nickname}님 안녕하세요!
+      </P>
+      <P fontSize="1.2rem" color={GREY[600]}>
+        {email}
+      </P>
     </Wrapper>
   );
 }
@@ -28,15 +33,4 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 7rem;
-`;
-
-const UserName = styled.p`
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: ${GREY[800]};
-`;
-
-const Email = styled.p`
-  font-size: 1.2rem;
-  color: ${GREY[600]};
 `;

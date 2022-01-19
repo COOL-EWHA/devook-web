@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { P } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 import PostCardActionMenu from './PostCardActionMenu';
 
@@ -27,53 +28,40 @@ export default function PostCard({
     <Wrapper>
       <ContentWrapper>
         <PWrapper>
-          <Title>{title}</Title>
-          <Description>{description}</Description>
+          <Title fontSize="1.8rem" fontWeight={500} ellipsis numOfLines={1}>
+            {title}
+          </Title>
+          <Description fontSize="1.4rem" numOfLines={2} ellipsis lineHeight="1.8rem" height="3.6rem">
+            {description}
+          </Description>
         </PWrapper>
         <Img src={thumbnail} />
       </ContentWrapper>
       <Footer>
         {tags?.map((tag) => (
-          <Tag key={tag}>#{tag}</Tag>
+          <Tag key={tag} color={CACTUS_GREEN[500]}>
+            #{tag}
+          </Tag>
         ))}
         {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
-          {type === 'todo' && (
-            <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
-          )} */}
+        {type === 'todo' && (
+        <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
+        )} */}
         <PostCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
       </Footer>
     </Wrapper>
   );
 }
 
-const Title = styled.p`
-  font-size: 1.8rem;
-  font-weight: 500;
+const Title = styled(P)`
   margin-bottom: 0.6rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
 `;
 
-const Description = styled.p`
-  font-size: 1.4rem;
+const Description = styled(P)`
   margin-bottom: 0.4rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  line-height: 1.8rem;
-  height: 3.6rem;
 `;
 
-const Tag = styled.p`
-  font-size: 1.4rem;
-  color: ${CACTUS_GREEN[500]};
+const Tag = styled(P)`
   margin-right: 0.8rem;
 `;
 

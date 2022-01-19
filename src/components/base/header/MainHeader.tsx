@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BookmarkAddButton } from 'src/components/bookmarks';
-import { MaterialIcon, Link } from 'src/components/common';
+import { MaterialIcon, Link, P } from 'src/components/common';
 import { LogoIcon } from 'src/components/assets/icons';
-import { CACTUS_GREEN, GREY, WHITE, CONTENT_MAX_WIDTH } from 'src/constant';
+import { GREY, WHITE, CONTENT_MAX_WIDTH, CACTUS_GREEN } from 'src/constant';
 
 export default function MainHeader() {
   return (
@@ -12,7 +12,9 @@ export default function MainHeader() {
       <ContentWrapper>
         <LogoLink to="/">
           <LogoIcon />
-          <LogoText>Devook</LogoText>
+          <LogoText fontSize="2.2rem" fontWeight={400} color={CACTUS_GREEN[500]}>
+            Devook
+          </LogoText>
         </LogoLink>
         <ButtonsWrapper>
           <BookmarkAddButton />
@@ -61,11 +63,8 @@ const LogoLink = styled(Link)`
   margin-right: auto;
 `;
 
-const LogoText = styled.p`
+const LogoText = styled(P)`
   font-family: 'Ubuntu Condensed', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: ${CACTUS_GREEN[500]};
   margin-top: 0.4rem;
 `;
 

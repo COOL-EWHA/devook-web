@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { P } from 'src/components/common';
 import LoginButton from './LoginButton';
-import { GREY } from 'src/constant';
-
 import { useAuthTestLogin } from 'src/lib/hooks';
 
 const TEST_EMAIL_1 = process.env.REACT_APP_TEST_EMAIL_1 as string;
@@ -19,16 +18,15 @@ export default function LoginButtons() {
 
   return (
     <>
-      <Title>로그인</Title>
+      <Title fontSize="2rem" fontWeight={500}>
+        로그인
+      </Title>
       <LoginButton platform="google" />
       <LoginButton platform="github" />
     </>
   );
 }
 
-const Title = styled.p`
-  font-size: 2rem;
-  font-weight: 500;
-  color: ${GREY[800]};
+const Title = styled(P)`
   margin-bottom: 2.2rem;
 `;

@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, MaterialIcon } from 'src/components/common';
-
-import { GREY } from 'src/constant';
+import { Button, MaterialIcon, P } from 'src/components/common';
 
 interface ICloseHeaderProps {
   onClose?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +24,7 @@ export default function CloseHeader({ onClose: setIsModalOpened, onComplete, tit
   return (
     <Wrapper>
       <MaterialIcon type="close" onClick={handleClose} />
-      <P>{title}</P>
+      <P fontSize="1.6rem">{title}</P>
       {onComplete && <Button text="완료" onClick={onComplete} />}
     </Wrapper>
   );
@@ -37,9 +35,4 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.6rem 2rem;
-`;
-
-const P = styled.p`
-  font-size: 1.6rem;
-  color: ${GREY[700]};
 `;
