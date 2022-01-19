@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
+import { createBookmark } from 'src/lib/api';
+import { useLoginStatusCheck } from 'src/lib/hooks';
 import { GREY } from 'src/constant';
 
-import { createBookmark } from 'src/lib/api';
-import { accessToken } from 'src/lib/store';
-
 export default function BookmarkAddButton() {
-  const navigate = useNavigate();
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const { navigate, isLoggedIn } = useLoginStatusCheck();
+
   const [form, setForm] = useState({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
 

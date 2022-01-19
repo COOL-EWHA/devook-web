@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
 import { deleteBookmark } from 'src/lib/api';
+import { useLoginStatusCheck } from 'src/lib/hooks';
 import { WHITE } from 'src/constant';
 
 interface IBookmarkActionDropdownProps {
@@ -11,19 +12,25 @@ interface IBookmarkActionDropdownProps {
 }
 
 function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
-  const handleClick = async () => {
+  const { navigate, isLoggedIn } = useLoginStatusCheck();
+
+  const handleDeleteButtonClick = async () => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요한 기능입니다.');
+      navigate('/my');
+    }
     try {
       await deleteBookmark({ id: bookmarkId });
-      alert('삭제되었습니다!');
+      alert('북마크가 삭제되었습니다!');
     } catch (err) {
-      console.log('북마크 삭제과정 에러', err);
+      // console.log('북마크 삭제과정 에러', err);
     }
   };
 
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
-      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={handleClick} />
+      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={handleDeleteButtonClick} />
     </Wrapper>
   );
 }

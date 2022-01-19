@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
 import { accessToken, accessTokenLoading } from 'src/lib/store';
@@ -96,4 +96,11 @@ export const useAuthTestLogin = () => {
   };
 
   return { testLogin };
+};
+
+export const useLoginStatusCheck = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = !!useRecoilValue(accessToken);
+
+  return { navigate, isLoggedIn };
 };
