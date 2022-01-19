@@ -98,9 +98,16 @@ export const useAuthTestLogin = () => {
   return { testLogin };
 };
 
-export const useLoginStatusCheck = () => {
+export const useLoginStatus = () => {
   const navigate = useNavigate();
   const isLoggedIn = !!useRecoilValue(accessToken);
 
-  return { navigate, isLoggedIn };
+  const checkIsLoggedIn = () => {
+    if (isLoggedIn) return true;
+    alert('로그인이 필요한 기능입니다.');
+    navigate('/my');
+    return false;
+  };
+
+  return { checkIsLoggedIn };
 };

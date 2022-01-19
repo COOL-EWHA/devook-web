@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
 import { deleteBookmark } from 'src/lib/api';
-import { useLoginStatusCheck } from 'src/lib/hooks';
+import { useLoginStatus } from 'src/lib/hooks';
 import { WHITE } from 'src/constant';
 
 interface IBookmarkActionDropdownProps {
@@ -12,12 +12,11 @@ interface IBookmarkActionDropdownProps {
 }
 
 function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
-  const { navigate, isLoggedIn } = useLoginStatusCheck();
+  const { checkIsLoggedIn } = useLoginStatus();
 
   const handleDeleteButtonClick = async () => {
-    if (!isLoggedIn) {
-      alert('로그인이 필요한 기능입니다.');
-      navigate('/my');
+    if (!checkIsLoggedIn()) {
+      return;
     }
     try {
       await deleteBookmark({ id: bookmarkId });
