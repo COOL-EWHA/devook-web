@@ -1,19 +1,13 @@
 import { apiClient } from '.';
 
-import { BookmarkPostPreview, CreateBookmarkParams, BookmarkId } from 'src/types';
+import { BookmarkPreview, BookmarkCreateBody, BookmarkDeleteParams, BookmarkListQueries } from 'src/types';
+import { getQueryString } from 'src/lib/utils';
 
-export const createBookmark = (params: CreateBookmarkParams): Promise<void> =>
-  apiClient.post(`/bookmarks`, params).then((res) => res.data);
+export const createBookmark = (body: BookmarkCreateBody): Promise<void> =>
+  apiClient.post(`/bookmarks`, body).then((res) => res.data);
 
-export const deleteBookmark = ({ id }: BookmarkId) => apiClient.delete(`/bookmarks/${id}`).then((res) => res.data);
+export const deleteBookmark = ({ id }: BookmarkDeleteParams): Promise<void> =>
+  apiClient.delete(`/bookmarks/${id}`).then((res) => res.data);
 
-export const getBookmarkList = ({
-  tags,
-  cursor,
-  limit,
-}: {
-  tags?: string;
-  cursor: number;
-  limit: number;
-}): Promise<BookmarkPostPreview[]> =>
-  apiClient.get(`/bookmarks?tags=${tags}&cursor=${cursor}&limit=${limit}`).then((res) => res.data);
+export const getBookmarkList = (query: BookmarkListQueries): Promise<BookmarkPreview[]> =>
+  apiClient.get(`/bookmarks${getQueryString(query)}`).then((res) => res.data);

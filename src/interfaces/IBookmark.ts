@@ -1,4 +1,4 @@
-export interface IBookmarkPost {
+export interface IBookmark {
   id: number;
   title: string;
   thumbnail: string;
