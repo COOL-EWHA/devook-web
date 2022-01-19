@@ -14,9 +14,7 @@ export default function LoginButton({ platform }: ILoginButtonProps) {
   return (
     <A href={link}>
       <Icon />
-      <Text fontSize="1.4rem" color={GREY[700]}>
-        {platform.toUpperCase()} 계정으로 시작하기
-      </Text>
+      <Text>{platform.toUpperCase()} 계정으로 시작하기</Text>
     </A>
   );
 }
@@ -42,6 +40,8 @@ const A = styled.a`
   }
 `;
 
-const Text = styled(P)`
+const Text = styled(P).attrs({
+  color: GREY[700],
+})`
   margin: 0 0 0.1rem 0.8rem;
 `;

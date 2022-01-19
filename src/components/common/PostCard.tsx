@@ -28,20 +28,14 @@ export default function PostCard({
     <Wrapper>
       <ContentWrapper>
         <PWrapper>
-          <Title fontSize="1.8rem" fontWeight={500} ellipsis numOfLines={1}>
-            {title}
-          </Title>
-          <Description fontSize="1.4rem" numOfLines={2} ellipsis lineHeight="1.8rem" height="3.6rem">
-            {description}
-          </Description>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
         </PWrapper>
         <Img src={thumbnail} />
       </ContentWrapper>
       <Footer>
         {tags?.map((tag) => (
-          <Tag key={tag} color={CACTUS_GREEN[500]}>
-            #{tag}
-          </Tag>
+          <Tag key={tag}>#{tag}</Tag>
         ))}
         {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
         {type === 'todo' && (
@@ -53,15 +47,28 @@ export default function PostCard({
   );
 }
 
-const Title = styled(P)`
+const Title = styled(P).attrs({
+  fontSize: '1.8rem',
+  fontWeight: 500,
+  ellipsis: true,
+  numOfLines: 1,
+})`
   margin-bottom: 0.6rem;
 `;
 
-const Description = styled(P)`
+const Description = styled(P).attrs({
+  fontSize: '1.4rem',
+  height: '3.6rem',
+  lineHeight: '1.8rem',
+  ellipsis: true,
+  numOfLines: 2,
+})`
   margin-bottom: 0.4rem;
 `;
 
-const Tag = styled(P)`
+const Tag = styled(P).attrs({
+  color: CACTUS_GREEN[500],
+})`
   margin-right: 0.8rem;
 `;
 

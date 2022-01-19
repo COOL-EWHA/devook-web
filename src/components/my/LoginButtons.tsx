@@ -18,15 +18,16 @@ export default function LoginButtons() {
 
   return (
     <>
-      <Title fontSize="2rem" fontWeight={500}>
-        로그인
-      </Title>
+      <Title>로그인</Title>
       <LoginButton platform="google" />
       <LoginButton platform="github" />
     </>
   );
 }
 
-const Title = styled(P)`
+const Title = styled(P).attrs({
+  fontSize: '2rem',
+  fontWeight: 500,
+})`
   margin-bottom: 2.2rem;
 `;

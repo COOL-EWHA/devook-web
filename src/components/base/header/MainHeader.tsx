@@ -12,9 +12,7 @@ export default function MainHeader() {
       <ContentWrapper>
         <LogoLink to="/">
           <LogoIcon />
-          <LogoText fontSize="2.2rem" fontWeight={400} color={CACTUS_GREEN[500]}>
-            Devook
-          </LogoText>
+          <LogoText>Devook</LogoText>
         </LogoLink>
         <ButtonsWrapper>
           <BookmarkAddButton />
@@ -63,7 +61,11 @@ const LogoLink = styled(Link)`
   margin-right: auto;
 `;
 
-const LogoText = styled(P)`
+const LogoText = styled(P).attrs({
+  fontSize: '2.2rem',
+  fontWeight: 400,
+  color: CACTUS_GREEN[500],
+})`
   font-family: 'Ubuntu Condensed', sans-serif;
   margin-top: 0.4rem;
 `;
