@@ -13,9 +13,14 @@ const BOOKMARK_FETCH_LIMIT = 10;
 
 export const useBookmarkList = () => {
   const filter = useRecoilValue(bookmarkListFilter);
+  const resetFilter = useResetRecoilState(bookmarkListFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
   });
+
+  useEffect(() => {
+    return resetFilter;
+  }, []);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
