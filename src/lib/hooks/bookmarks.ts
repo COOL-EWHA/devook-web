@@ -2,40 +2,27 @@ import React from 'react';
 import { useInfiniteQuery } from 'react-query';
 
 import { getBookmarkList } from 'src/lib/api';
+import { BookmarkPreview } from 'src/types';
 
 const BOOKMARK_FETCH_LIMIT = 10;
 
-export const useInfiniteBookmarkList = () => {
-  // 맨 처음에는, 본 북마크들 중 마지막 것의 아이디를 아는 것이 불가능하여 입력할 수 있는 최대의 숫자를 넣어줌
+export const useBookmarkList = () => {
   // eslint-disable-next-line consistent-return
-  const fetchInfiniteBookmarkList = async ({ cursor = Number.MAX_SAFE_INTEGER }) => {
-    try {
-      const data = await getBookmarkList({ tags: '', cursor, limit: BOOKMARK_FETCH_LIMIT });
-      return data;
-    } catch (err) {
-      console.log('err', err);
+  const getNextPageParam = (fetchResponse?: BookmarkPreview[]) => {
+    if (fetchResponse) {
+      if (fetchResponse.length < BOOKMARK_FETCH_LIMIT) {
+        return undefined;
+      }
+      const lastBookmarkId = fetchResponse[fetchResponse.length - 1]?.id;
+      return lastBookmarkId;
     }
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    'bookmarks',
-    ({ pageParam }) => fetchInfiniteBookmarkList({ cursor: pageParam }),
+    'bookmarkList',
+    ({ pageParam }) => getBookmarkList({ cursor: pageParam }),
     {
-      getNextPageParam: (lastPage, pages) => {
-        if (lastPage?.length === BOOKMARK_FETCH_LIMIT) {
-          let lastBookmarkPostId;
-          pages.forEach((bookmarkList) =>
-            bookmarkList?.forEach((bookmark, index) => {
-              if (bookmarkList.length === index + 1) {
-                lastBookmarkPostId = bookmark.id;
-              }
-            }),
-          );
-
-          return lastBookmarkPostId;
-        }
-        return false;
-      },
+      getNextPageParam,
     },
   );
 
