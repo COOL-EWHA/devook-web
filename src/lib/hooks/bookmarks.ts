@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { useEffect, useState } from 'react';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 
-import { getBookmarkList } from 'src/lib/api';
-import { BookmarkPreview } from 'src/types';
+import { bookmarkKeys } from 'src/lib/utils/queryKeys';
+import { bookmarkListFilter } from 'src/lib/store/bookmarks';
+import { createBookmark, deleteBookmark, getBookmarkList } from 'src/lib/api';
+import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
+import { useLoginStatus } from '.';
 
 const BOOKMARK_FETCH_LIMIT = 10;
 
 export const useBookmarkList = () => {
+  const filter = useRecoilValue(bookmarkListFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
   });
@@ -18,6 +23,8 @@ export const useBookmarkList = () => {
     }
   }, [inView]);
 
+  const fetchBookmarkList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
+
   const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
     if (!lastPage || lastPage.length < BOOKMARK_FETCH_LIMIT) {
       return undefined;
@@ -27,8 +34,8 @@ export const useBookmarkList = () => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    'bookmarkList',
-    ({ pageParam }) => getBookmarkList({ cursor: pageParam }),
+    bookmarkKeys.list(filter),
+    fetchBookmarkList,
     {
       getNextPageParam,
     },
