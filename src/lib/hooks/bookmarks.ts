@@ -97,3 +97,25 @@ export const useBookmarkCreate = () => {
   return { openModal, isModalOpen, setIsModalOpen, form, onChange: handleFormChange, onSubmit: handleSubmit };
 };
 
+export const useBookmarkDelete = (id: number) => {
+  const queryClient = useQueryClient();
+  const { checkIsLoggedIn } = useLoginStatus();
+
+  const mutationFn = (id: number) => deleteBookmark(id);
+
+  const { mutate } = useMutation(mutationFn, {
+    mutationKey: bookmarkKeys.delete(),
+    onSuccess: () => {
+      queryClient.invalidateQueries(bookmarkKeys.all);
+    },
+  });
+
+  const handleDelete = () => {
+    if (!checkIsLoggedIn()) {
+      return;
+    }
+    mutate(id);
+  };
+
+  return { onDelete: handleDelete };
+};
