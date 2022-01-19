@@ -1,15 +1,23 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
 import { ScrollToTopButton } from 'src/components/common';
+import { accessToken } from 'src/lib/store';
 
 function BookmarkListPage() {
+  const isLoggedIn = !!useRecoilValue(accessToken);
+
   return (
     <>
       <Outlet />
-      <BookmarkSearchInput />
-      <BookmarkList />
+      {isLoggedIn && (
+        <>
+          <BookmarkSearchInput />
+          <BookmarkList />
+        </>
+      )}
       <ScrollToTopButton />
     </>
   );
