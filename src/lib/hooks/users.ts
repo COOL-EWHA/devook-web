@@ -38,7 +38,6 @@ export const useUserWithdraw = () => {
       logout({ alert: false });
     } catch (err) {
       alert('회원탈퇴가 정상적으로 처리되지 않았습니다.');
-      console.log(err);
     }
   };
 

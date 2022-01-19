@@ -23,7 +23,7 @@ function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownP
       await deleteBookmark({ id: bookmarkId });
       alert('북마크가 삭제되었습니다!');
     } catch (err) {
-      // console.log('북마크 삭제과정 에러', err);
+      alert('북마크 삭제가 정상적으로 처리되지 않았습니다.');
     }
   };
 
