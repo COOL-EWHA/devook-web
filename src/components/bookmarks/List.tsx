@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import React from 'react';
 import styled from 'styled-components';
 
 import { PostCard } from 'src/components/common';
@@ -7,23 +6,12 @@ import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 
 function BookmarkList() {
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useBookmarkList();
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView]);
+  const { data, isLoading, listEndRef } = useBookmarkList();
 
   return (
     <Wrapper>
-      {isLoading ? (
-        // @TO_BE_IMPROVED: 후에 스켈레톤 추가
-        <div>loading...</div>
-      ) : (
+      {isLoading && <div>loading...</div>}
+      {!isLoading &&
         data?.pages.map((bookmarks) =>
           bookmarks?.map((bookmark: BookmarkPreview) => (
             <PostCard
@@ -35,9 +23,8 @@ function BookmarkList() {
               tags={bookmark.tags}
             />
           )),
-        )
-      )}
-      <div style={{ height: '1rem' }} ref={ref} />
+        )}
+      <div style={{ height: '1rem' }} ref={listEndRef} />
     </Wrapper>
   );
 }
