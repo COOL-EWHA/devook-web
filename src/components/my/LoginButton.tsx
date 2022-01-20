@@ -26,7 +26,7 @@ const A = styled.a`
 
   width: 100%;
   padding: 1rem;
-  margin: 1.2rem 0;
+  margin-bottom: 1.2rem;
 
   background: ${WHITE};
   border: 1px solid ${GREY[400]};

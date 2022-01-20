@@ -1,29 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P } from 'src/components/common';
-import { CACTUS_GREEN, GREY } from 'src/constant';
-import PostCardActionMenu from './PostCardActionMenu';
+import { P, MaterialIcon, Button } from 'src/components/common';
+import { CACTUS_GREEN } from 'src/constant';
+import { useBookmark, useBookmarkDelete } from 'src/lib/hooks';
 
 interface IPostCardProps {
-  id: number;
-  title: string;
-  thumbnail: string;
-  description: string;
-  tags?: string[];
-  type?: 'default' | 'todo';
   isBookmarked?: boolean;
 }
 
-export default function PostCard({
-  id,
-  title,
-  thumbnail,
-  description,
-  tags,
-  type = 'default',
-  isBookmarked = true,
-}: IPostCardProps) {
+function PostCard({ isBookmarked = true }: IPostCardProps) {
+  const { bookmarkId, data, isLoading } = useBookmark();
+  const { onDelete } = useBookmarkDelete(Number(bookmarkId));
+
+  if (isLoading) return <div>loading...</div>;
+
+  if (!data) return null;
+
+  const { title, description, thumbnail, tags, url } = data;
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -37,34 +32,30 @@ export default function PostCard({
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
-        {type === 'todo' && (
-        <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
-        )} */}
-        <PostCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
+        {isBookmarked && <DeleteIcon onClick={onDelete} />}
       </Footer>
+      <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
   );
 }
 
+export default PostCard;
+
 const Title = styled(P).attrs({
-  fontSize: '1.8rem',
+  fontSize: '2rem',
   fontWeight: 500,
-  ellipsis: true,
-  numOfLines: 1,
+  width: '100%',
 })`
-  margin-bottom: 0.6rem;
+  word-wrap: break-word;
+  margin-bottom: 1.2rem;
 `;
 
 const Description = styled(P).attrs({
-  fontSize: '1.4rem',
-  height: '3.6rem',
-  lineHeight: '1.8rem',
+  fontSize: '1.6rem',
   ellipsis: true,
-  numOfLines: 2,
-})`
-  margin-bottom: 0.4rem;
-`;
+  numOfLines: 3,
+  width: '100%',
+})``;
 
 const Tag = styled(P).attrs({
   color: CACTUS_GREEN[500],
@@ -73,34 +64,38 @@ const Tag = styled(P).attrs({
 `;
 
 const Wrapper = styled.div`
-  margin-bottom: 1rem;
-  border-bottom: 1px solid ${GREY[300]};
+  width: 100%;
 `;
 
 const Img = styled.img`
   object-fit: cover;
   margin-left: 2rem;
   border-radius: 0.4rem;
-
-  @media screen and (min-width: 1025px) {
-    width: 8rem;
-    height: 8rem;
-  }
-
-  @media screen and (max-width: 1024px) {
-    width: 6rem;
-    height: 6rem;
-  }
+  width: 10rem;
+  height: 10rem;
 `;
 
 const Footer = styled.div`
   display: flex;
-  margin: 0.8rem 0;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.8rem 0 1.2rem;
 `;
 
-const PWrapper = styled.div``;
+const PWrapper = styled.div`
+  max-width: calc(100% - 12rem);
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.2rem;
+`;
+
+const DeleteIcon = styled(MaterialIcon).attrs({
+  type: 'delete_outline',
+  color: CACTUS_GREEN[500],
+  width: '2rem',
+})`
+  margin-left: auto;
 `;

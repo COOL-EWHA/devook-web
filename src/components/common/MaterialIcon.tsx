@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 
 const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
   ${({ width, color, hoverColor }) => `
-  font-size:${width ?? '2.4rem'};
+  font-size: ${width ?? '2.4rem'};
   color: ${color || GREY[700]};
   :hover {
     color: ${hoverColor || GREY[900]};

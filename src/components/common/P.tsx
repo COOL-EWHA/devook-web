@@ -6,7 +6,7 @@ import { GREY } from 'src/constant';
 export interface IPProps extends React.HTMLAttributes<HTMLParagraphElement> {
   className?: string;
   fontSize?: number | string;
-  fontWeight?: number;
+  fontWeight?: number | string;
   color?: string;
   width?: string;
   height?: string;

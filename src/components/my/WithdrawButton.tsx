@@ -14,13 +14,14 @@ export default WithdrawButton;
 
 // @TO_BE_IMPROVED: 후에 공용 버튼으로 대체
 const Button = styled.button`
-  height: 4rem;
-
+  width: fit-content;
+  height: 2rem;
   font-size: 1.2rem;
   color: ${GREY[700]};
   font-weight: 500;
   border: none;
   background: none;
+  margin: 1.2rem 0rem;
   padding: 0;
   cursor: pointer;
 `;

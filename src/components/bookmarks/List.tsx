@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostCard } from 'src/components/common';
+import { PostPreviewCard } from 'src/components/common';
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 
@@ -14,7 +14,7 @@ function BookmarkList() {
       {!isLoading &&
         data?.pages.map((bookmarks) =>
           bookmarks?.map((bookmark: BookmarkPreview) => (
-            <PostCard
+            <PostPreviewCard
               key={bookmark.id}
               id={bookmark.id}
               title={bookmark.title}

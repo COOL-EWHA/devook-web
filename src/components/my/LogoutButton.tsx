@@ -19,8 +19,8 @@ export default LogoutButton;
 
 // @TO_BE_IMPROVED: 후에 공용 버튼으로 대체
 const Button = styled.button`
-  height: 4rem;
-
+  width: fit-content;
+  height: 2rem;
   font-size: 1.2rem;
   color: ${GREY[700]};
   font-weight: 500;
