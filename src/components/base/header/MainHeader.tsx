@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Link, P } from 'src/components/common';
 import { BookmarkAddButton } from 'src/components/bookmarks';
-import { MaterialIcon, Link, P } from 'src/components/common';
+import { SidebarToggleButton } from 'src/components/my';
 import { LogoIcon } from 'src/components/assets/icons';
 import { GREY, WHITE, CONTENT_MAX_WIDTH, CACTUS_GREEN } from 'src/constant';
 
@@ -16,10 +17,7 @@ export default function MainHeader() {
         </LogoLink>
         <ButtonsWrapper>
           <BookmarkAddButton />
-          <NotificationIcon />
-          <Link to="/my">
-            <ProfileIcon />
-          </Link>
+          <SidebarToggleButton />
         </ButtonsWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -73,18 +71,4 @@ const LogoText = styled(P).attrs({
 const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
-`;
-
-// @TO_BE_IMPROVED: 후에 link 추가해야 함.
-const NotificationIcon = styled(MaterialIcon).attrs({ type: 'notifications' })`
-  @media screen and (max-width: 1024px) {
-    && {
-      display: none;
-    }
-  }
-  margin-left: 0.4rem;
-`;
-
-const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person' })`
-  margin-left: 0.4rem;
 `;
