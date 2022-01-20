@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
-import { createBookmark, deleteBookmark, getBookmarkList } from 'src/lib/api';
+import { createBookmark, deleteBookmark, getBookmarkList, getBookmarkDetail, editBookmarkMemo } from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 
@@ -66,6 +67,7 @@ export const useBookmarkCreate = () => {
     },
     onError: () => {
       alert('북마크 생성에 실패하였습니다.');
+      setForm(initialData);
     },
   });
 
@@ -99,12 +101,17 @@ export const useBookmarkCreate = () => {
 export const useBookmarkDelete = (id: number) => {
   const queryClient = useQueryClient();
   const { checkIsLoggedIn } = useLoginStatus();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const mutationFn = (id: number) => deleteBookmark(id);
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
+      if (pathname.includes('/bookmarks')) {
+        navigate(-1);
+      }
     },
   });
 
@@ -116,4 +123,57 @@ export const useBookmarkDelete = (id: number) => {
   };
 
   return { onDelete: handleDelete };
+};
+
+export const useBookmarkMemoEdit = () => {
+  const params = useParams();
+  const id = params.id ?? '';
+
+  const queryClient = useQueryClient();
+  const { checkIsLoggedIn } = useLoginStatus();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [memo, setMemo] = useState('');
+
+  const mutationFn = (id: number) => editBookmarkMemo({ id, memo });
+
+  const { mutate } = useMutation(mutationFn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(bookmarkKeys.detail(Number(id)));
+      setMemo('');
+      setIsModalOpen(false);
+    },
+    onError: () => {
+      alert('북마크 메모 수정에 실패하였습니다.');
+      setMemo('');
+    },
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    setMemo(value);
+  };
+
+  const handleSubmit = () => {
+    if (!checkIsLoggedIn()) {
+      return;
+    }
+    mutate(Number(id));
+  };
+
+  return { openModal, isModalOpen, setIsModalOpen, memo, onChange: handleMemoChange, onSubmit: handleSubmit };
+};
+
+export const useBookmarkDetail = () => {
+  const params = useParams();
+  const bookmarkId = params.id ?? '';
+
+  const queryFn = () => getBookmarkDetail(Number(bookmarkId));
+  const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
+
+  return { bookmarkId, data, isLoading };
 };
