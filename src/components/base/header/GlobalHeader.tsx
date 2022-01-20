@@ -10,7 +10,7 @@ export default function GlobalHeader() {
   return (
     <>
       <MainHeader />
-      {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname) && <BackHeader />}
+      {SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname)) && <BackHeader />}
     </>
   );
 }

@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
 import { MaterialIcon } from 'src/components/common';
-
 import { GREY, WHITE, NAV_ITEMS } from 'src/constant';
 
 function GlobalNavigationBar() {
+  const { pathname } = useLocation();
+
   return (
-    <Nav>
+    <Nav isVisible={!pathname.includes('/bookmarks')}>
       <Ul>
         {NAV_ITEMS.map(({ iconType, label }) => (
           <Li key={label}>
@@ -22,9 +24,12 @@ function GlobalNavigationBar() {
 
 export default GlobalNavigationBar;
 
-const Nav = styled.nav`
+const Nav = styled.nav<{ isVisible: boolean }>`
   @media screen and (min-width: 1025px) {
     width: 14.2rem;
+  }
+  @media screen and (max-width: 1024px) {
+    display: ${({ isVisible }) => !isVisible && 'none'};
   }
 `;
 

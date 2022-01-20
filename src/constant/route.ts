@@ -13,4 +13,7 @@ export const NAV_ITEMS = [
   },
 ];
 
-export const SUB_ROUTES = [{ pathname: '/my', title: '마이페이지' }];
+export const SUB_ROUTES = [
+  { pathname: '/my', title: '마이페이지' },
+  { pathname: '/bookmarks', title: '' },
+];
