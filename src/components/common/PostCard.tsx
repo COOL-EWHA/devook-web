@@ -3,36 +3,42 @@ import styled from 'styled-components';
 
 import { P, MaterialIcon, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
+import { useBookmarkDetail, useBookmarkDelete } from 'src/lib/hooks';
 
 interface IPostCardProps {
-  title: string;
-  thumbnail: string;
-  description: string;
-  url?: string;
-  tags?: string[];
   isBookmarked?: boolean;
 }
 
-function PostCard({ title, thumbnail, description, url, tags, isBookmarked = true }: IPostCardProps) {
+function PostCard({ isBookmarked = true }: IPostCardProps) {
+  const { bookmarkId, data, isLoading } = useBookmarkDetail();
+  const { onDelete } = useBookmarkDelete(Number(bookmarkId));
+
   return (
-    <Wrapper>
-      <ContentWrapper>
-        <PWrapper>
-          <Title>{title}</Title>
-          <Description>{description}</Description>
-        </PWrapper>
-        <Img src={thumbnail} />
-      </ContentWrapper>
-      <Footer>
-        <TagsWrapper>
-          {tags?.map((tag) => (
-            <Tag key={tag}>#{tag}</Tag>
-          ))}
-        </TagsWrapper>
-        {isBookmarked && <MaterialIcon type="delete_outline" color={CACTUS_GREEN[500]} width="2rem" />}
-      </Footer>
-      <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" />
-    </Wrapper>
+    <>
+      {isLoading && <div>loading...</div>}
+      {data && (
+        <Wrapper>
+          <ContentWrapper>
+            <PWrapper>
+              <Title>{data.title}</Title>
+              <Description>{data.description}</Description>
+            </PWrapper>
+            <Img src={data.thumbnail} />
+          </ContentWrapper>
+          <Footer>
+            <TagsWrapper>
+              {data.tags?.map((tag) => (
+                <Tag key={tag}>#{tag}</Tag>
+              ))}
+            </TagsWrapper>
+            {isBookmarked && (
+              <MaterialIcon type="delete_outline" color={CACTUS_GREEN[500]} width="2rem" onClick={onDelete} />
+            )}
+          </Footer>
+          <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={data.url} />
+        </Wrapper>
+      )}
+    </>
   );
 }
 

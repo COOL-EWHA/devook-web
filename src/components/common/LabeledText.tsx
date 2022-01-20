@@ -6,7 +6,7 @@ import { GREY } from 'src/constant';
 
 interface ILabeledTextProps {
   label: string;
-  value: string;
+  value?: string;
 }
 
 function LabeledText({ label, value }: ILabeledTextProps) {
