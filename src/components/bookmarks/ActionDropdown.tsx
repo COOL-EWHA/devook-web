@@ -4,14 +4,20 @@ import styled from 'styled-components';
 import { Button } from 'src/components/common';
 import { WHITE } from 'src/constant';
 
+import { useBookmarkDelete } from 'src/lib/hooks';
+
 interface IBookmarkActionDropdownProps {
+  bookmarkId: number;
   isOpen: boolean;
 }
-function BookmarkActionDropdown({ isOpen }: IBookmarkActionDropdownProps) {
+
+function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
+  const { onDelete } = useBookmarkDelete(bookmarkId);
+
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
-      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" />
+      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={onDelete} />
     </Wrapper>
   );
 }

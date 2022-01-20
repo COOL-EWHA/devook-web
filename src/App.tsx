@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import MainLayout from 'src/layout/MainLayout';
-import { BookmarkListPage, MyPage, OauthRedirectPage, TestLoginPage } from 'src/pages';
+import { BookmarkListPage, MyPage, OauthRedirectPage } from 'src/pages';
 
 import { useAuthRefresh } from 'src/lib/hooks';
 
@@ -18,7 +18,6 @@ function App() {
               <Route path="my" element={<MyPage />} />
             </Route>
             <Route path="/oauth-redirect" element={<OauthRedirectPage />} />
-            <Route path="/test-login" element={<TestLoginPage />} />
           </>
         )}
       </Routes>

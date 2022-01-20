@@ -1,3 +1,4 @@
+import P from './P';
 import MaterialIcon from './MaterialIcon';
 import Link from './Link';
 import Button from './Button';
@@ -12,6 +13,7 @@ import PostCard from './PostCard';
 import TagList from './TagList';
 
 export {
+  P,
   MaterialIcon,
   Link,
   Button,

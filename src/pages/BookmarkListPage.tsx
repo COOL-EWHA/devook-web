@@ -1,37 +1,26 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
-import { BookmarkSearchInput } from 'src/components/bookmarks';
-import { PostCard, FixedButtons } from 'src/components/common';
-
-import { BOOKMARK_LIST } from 'src/constant/mockData';
+import { ScrollToTopButton } from 'src/components/common';
+import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
+import { accessToken } from 'src/lib/store';
 
 function BookmarkListPage() {
+  const isLoggedIn = !!useRecoilValue(accessToken);
+
   return (
-    <Wrapper>
+    <>
       <Outlet />
-      <BookmarksWrapper>
-        <BookmarkSearchInput />
-        {BOOKMARK_LIST.map((bookmark) => (
-          <PostCard
-            key={bookmark.title}
-            title={bookmark.title}
-            thumbnail={bookmark.thumbnail}
-            description={bookmark.description}
-            tags={bookmark.tags}
-          />
-        ))}
-      </BookmarksWrapper>
-      <FixedButtons />
-    </Wrapper>
+      {isLoggedIn && (
+        <>
+          <BookmarkSearchInput />
+          <BookmarkList />
+        </>
+      )}
+      <ScrollToTopButton />
+    </>
   );
 }
 
 export default BookmarkListPage;
-
-const BookmarksWrapper = styled.div``;
-
-const Wrapper = styled.div`
-  display: flex;
-`;
