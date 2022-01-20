@@ -54,7 +54,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${WHITE};
   padding: 2rem;
-  min-height: 100vh;
+  min-height: 100%;
   width: 320px;
   @media (min-width: 641px) {
     html {
