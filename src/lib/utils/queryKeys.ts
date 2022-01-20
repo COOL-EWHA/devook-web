@@ -4,6 +4,4 @@ export const bookmarkKeys = {
   list: (filters: object) => [...bookmarkKeys.lists(), filters] as const,
   details: () => [...bookmarkKeys.all, 'detail'] as const,
   detail: (id: number) => [...bookmarkKeys.details(), id] as const,
-  create: () => [...bookmarkKeys.all, 'create'] as const,
-  delete: () => [...bookmarkKeys.all, 'delete'] as const,
 };

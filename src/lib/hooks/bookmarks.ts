@@ -59,7 +59,6 @@ export const useBookmarkCreate = () => {
   const mutationFn = (data: BookmarkCreateParams) => createBookmark(data);
 
   const { mutate } = useMutation(mutationFn, {
-    mutationKey: bookmarkKeys.create(),
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
       setForm(initialData);
@@ -104,7 +103,6 @@ export const useBookmarkDelete = (id: number) => {
   const mutationFn = (id: number) => deleteBookmark(id);
 
   const { mutate } = useMutation(mutationFn, {
-    mutationKey: bookmarkKeys.delete(),
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
     },
