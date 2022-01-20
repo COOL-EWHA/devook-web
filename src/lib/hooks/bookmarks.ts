@@ -67,7 +67,6 @@ export const useBookmarkCreate = () => {
     },
     onError: () => {
       alert('북마크 생성에 실패하였습니다.');
-      setForm(initialData);
     },
   });
 
