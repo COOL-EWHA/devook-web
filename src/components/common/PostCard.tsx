@@ -47,7 +47,9 @@ export default PostCard;
 const Title = styled(P).attrs({
   fontSize: '2rem',
   fontWeight: 500,
+  width: '100%',
 })`
+  word-wrap: break-word;
   margin-bottom: 1.2rem;
 `;
 
@@ -55,6 +57,7 @@ const Description = styled(P).attrs({
   fontSize: '1.6rem',
   ellipsis: true,
   numOfLines: 3,
+  width: '100%',
 })``;
 
 const Tag = styled(P).attrs({
@@ -75,9 +78,8 @@ const Img = styled.img`
   object-fit: cover;
   margin-left: 2rem;
   border-radius: 0.4rem;
-
-  width: 11.2rem;
-  height: 11.2rem;
+  width: 10rem;
+  height: 10rem;
 `;
 
 const Footer = styled.div`
@@ -87,11 +89,12 @@ const Footer = styled.div`
   margin: 0.8rem 0 1.2rem;
 `;
 
-const PWrapper = styled.div``;
+const PWrapper = styled.div`
+  max-width: calc(100% - 12rem);
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
   margin-bottom: 1.2rem;
 `;

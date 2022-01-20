@@ -53,6 +53,7 @@ const Title = styled(P).attrs({
   fontWeight: 500,
   ellipsis: true,
   numOfLines: 1,
+  width: '100%',
 })`
   margin-bottom: 0.6rem;
 `;
@@ -62,6 +63,7 @@ const Description = styled(P).attrs({
   lineHeight: '2rem',
   ellipsis: true,
   numOfLines: 2,
+  width: '100%',
 })`
   margin-bottom: 0.4rem;
 `;
@@ -90,7 +92,9 @@ const Footer = styled.div`
   margin: 0.8rem 0;
 `;
 
-const PWrapper = styled.div``;
+const PWrapper = styled.div`
+  max-width: calc(100% - 9.2rem);
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
