@@ -125,6 +125,7 @@ const Wrapper = styled.button<{
 }>`
   display: flex;
   align-items: center;
+  justify-content: center;
   background: none;
   outline: none;
   border: none;

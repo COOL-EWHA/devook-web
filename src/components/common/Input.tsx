@@ -9,32 +9,40 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconType?: string;
 }
 
-export default function Input({ label, iconType, placeholder, onChange, value, name }: IInputProps) {
+export default function Input({ label, iconType, placeholder, onChange, value, name, disabled }: IInputProps) {
   return (
-    <Wrapper iconType={iconType}>
-      {label && <Label>{label}</Label>}
+    <Wrapper iconType={iconType} disabled={disabled}>
+      {label && <Label disabled={disabled}>{label}</Label>}
       {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} />}
-      <StyledInput label={label} name={name} value={value} placeholder={placeholder} onChange={onChange} />
+      <StyledInput
+        label={label}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        disabled={disabled}
+      />
     </Wrapper>
   );
 }
 
-export const Label = styled.label`
+export const Label = styled.label<{ disabled?: boolean }>`
   position: absolute;
   top: -0.5rem;
   left: 1rem;
 
   padding: 0 0.4rem;
+  color: ${({ disabled }) => (disabled ? GREY[500] : GREY[900])};
   background-color: ${WHITE};
   font-size: 1.4rem;
 `;
 
-export const Wrapper = styled.div<{ iconType?: string }>`
+export const Wrapper = styled.div<{ iconType?: string; disabled?: boolean }>`
   display: flex;
   position: relative;
   padding: 0.4rem 1.2rem;
   margin-bottom: 2rem;
-  border: 1px solid ${GREY[700]};
+  border: 1px solid ${({ disabled }) => (disabled ? GREY[500] : GREY[700])};
   border-radius: 0.8rem;
 
   ${({ iconType }) =>
@@ -45,7 +53,6 @@ export const Wrapper = styled.div<{ iconType?: string }>`
     border: 1px solid ${GREY[300]};
     outline: none;
     `}
-
   :focus-within {
     border: 1px solid ${CACTUS_GREEN[500]};
     ${Label} {
@@ -70,6 +77,9 @@ const StyledInput = styled.input<{ label?: string }>`
     `
     margin-top: 0.2rem;
     `}
+  &:disabled {
+    color: ${GREY[500]};
+  }
 `;
 
 const Icon = styled(MaterialIcon)`
