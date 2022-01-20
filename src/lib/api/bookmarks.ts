@@ -13,7 +13,7 @@ export const deleteBookmark = (id: number): Promise<void> =>
 export const getBookmarkList = (params: BookmarkListParams): Promise<BookmarkPreview[]> =>
   apiClient.get(`/bookmarks${getQueryString(params)}`).then((res) => res.data);
 
-export const getBookmarkDetail = (id: number): Promise<IBookmark> =>
+export const getBookmark = (id: number): Promise<IBookmark> =>
   apiClient.get(`/bookmarks/${id}`).then((res) => res.data);
 
 export const editBookmarkMemo = ({ id, memo }: BookmarkMemoEditParams): Promise<void> =>

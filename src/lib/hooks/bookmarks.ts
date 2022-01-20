@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
-import { createBookmark, deleteBookmark, getBookmarkList, getBookmarkDetail, editBookmarkMemo } from 'src/lib/api';
+import { createBookmark, deleteBookmark, getBookmarkList, getBookmark, editBookmarkMemo } from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 
@@ -154,7 +154,7 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     setIsModalOpen(true);
   };
 
-  const handleMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setMemo(value);
   };
@@ -166,14 +166,14 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     mutate(Number(id));
   };
 
-  return { openModal, isModalOpen, setIsModalOpen, memo, onChange: handleMemoChange, onSubmit: handleSubmit };
+  return { openModal, isModalOpen, setIsModalOpen, memo, onChange: handleChange, onSubmit: handleSubmit };
 };
 
-export const useBookmarkDetail = () => {
+export const useBookmark = () => {
   const params = useParams();
   const bookmarkId = params.id ?? '';
 
-  const queryFn = () => getBookmarkDetail(Number(bookmarkId));
+  const queryFn = () => getBookmark(Number(bookmarkId));
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { bookmarkId, data, isLoading };
