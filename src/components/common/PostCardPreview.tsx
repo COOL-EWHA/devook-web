@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P } from 'src/components/common';
+import { P, PostCardActionMenu } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
-import PostCardActionMenu from './PostCardActionMenu';
 
-interface IPostCardProps {
+interface IPostCardPreviewProps {
   id: number;
   title: string;
   thumbnail: string;
@@ -15,7 +14,7 @@ interface IPostCardProps {
   isBookmarked?: boolean;
 }
 
-export default function PostCard({
+export default function PostCardPreview({
   id,
   title,
   thumbnail,
@@ -23,7 +22,7 @@ export default function PostCard({
   tags,
   type = 'default',
   isBookmarked = true,
-}: IPostCardProps) {
+}: IPostCardPreviewProps) {
   return (
     <Wrapper>
       <ContentWrapper>

@@ -6,6 +6,18 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Modal from './Modal';
 import ScrollToTopButton from './ScrollToTopButton';
-import PostCard from './PostCard';
+import PostCardPreview from './PostCardPreview';
+import PostCardActionMenu from './PostCardActionMenu';
 
-export { MaterialIcon, Link, Button, Input, Textarea, Modal, ScrollToTopButton, PostCard, P };
+export {
+  P,
+  MaterialIcon,
+  Link,
+  Button,
+  Input,
+  Textarea,
+  Modal,
+  ScrollToTopButton,
+  PostCardPreview,
+  PostCardActionMenu,
+};
