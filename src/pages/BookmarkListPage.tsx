@@ -2,8 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
 import { ScrollToTopButton } from 'src/components/common';
+import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
 import { accessToken } from 'src/lib/store';
 
 function BookmarkListPage() {

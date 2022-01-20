@@ -54,6 +54,7 @@ const Overlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 10;
 
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
@@ -64,7 +65,7 @@ const Overlay = styled.div`
 `;
 
 const Wrapper = styled.div`
-  min-width: 38rem;
+  width: 38rem;
   border-radius: 1.4rem;
   background: ${WHITE};
   animation: 0.4s ease-in-out openModal;
