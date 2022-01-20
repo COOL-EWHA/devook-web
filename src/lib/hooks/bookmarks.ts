@@ -119,13 +119,16 @@ export const useBookmarkDelete = (id: number) => {
     if (!checkIsLoggedIn()) {
       return;
     }
-    mutate(id);
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('해당 북마크를 삭제하시겠습니까?')) {
+      mutate(id);
+    }
   };
 
   return { onDelete: handleDelete };
 };
 
-export const useBookmarkMemoEdit = () => {
+export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string }) => {
   const params = useParams();
   const id = params.id ?? '';
 
@@ -133,19 +136,17 @@ export const useBookmarkMemoEdit = () => {
   const { checkIsLoggedIn } = useLoginStatus();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [memo, setMemo] = useState('');
+  const [memo, setMemo] = useState(originalMemo);
 
   const mutationFn = (id: number) => editBookmarkMemo({ id, memo });
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.detail(Number(id)));
-      setMemo('');
       setIsModalOpen(false);
     },
     onError: () => {
       alert('북마크 메모 수정에 실패하였습니다.');
-      setMemo('');
     },
   });
 

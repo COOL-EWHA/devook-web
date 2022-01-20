@@ -14,7 +14,9 @@ interface ISectionProps {
 
 function Section({ type = 'primary', title, isEditable = false, children }: ISectionProps) {
   const { data } = useBookmarkDetail();
-  const { isModalOpen, openModal, onSubmit, onChange, memo, setIsModalOpen } = useBookmarkMemoEdit();
+  const { isModalOpen, openModal, onSubmit, onChange, memo, setIsModalOpen } = useBookmarkMemoEdit({
+    originalMemo: data?.memo,
+  });
 
   return (
     <>
