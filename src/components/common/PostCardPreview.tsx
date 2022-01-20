@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, PostCardActionMenu } from 'src/components/common';
+import { P, PostCardActionMenu, Link } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
 interface IPostCardPreviewProps {
@@ -25,13 +25,15 @@ export default function PostCardPreview({
 }: IPostCardPreviewProps) {
   return (
     <Wrapper>
-      <ContentWrapper>
-        <PWrapper>
-          <Title>{title}</Title>
-          <Description>{description}</Description>
-        </PWrapper>
-        <Img src={thumbnail} />
-      </ContentWrapper>
+      <Link to={`bookmarks/${id}`}>
+        <ContentWrapper>
+          <PWrapper>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </PWrapper>
+          <Img src={thumbnail} />
+        </ContentWrapper>
+      </Link>
       <Footer>
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
