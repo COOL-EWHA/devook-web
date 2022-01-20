@@ -8,7 +8,7 @@ import Modal from './Modal';
 import FixedButton from './FixedButton';
 import FixedButtons from './FixedButtons';
 import ScrollToTopButton from './ScrollToTopButton';
-import PostCardPreview from './PostCardPreview';
+import PostPreviewCard from './PostPreviewCard';
 import PostCardActionMenu from './PostCardActionMenu';
 import LabeledText from './LabeledText';
 import Section from './Section';
@@ -25,7 +25,7 @@ export {
   Textarea,
   Modal,
   ScrollToTopButton,
-  PostCardPreview,
+  PostPreviewCard,
   PostCard,
   PostCardActionMenu,
   LabeledText,

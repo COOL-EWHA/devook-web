@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { P, PostCardActionMenu, Link } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
-interface IPostCardPreviewProps {
+interface IPostPreviewCardProps {
   id: number;
   title: string;
   thumbnail: string;
@@ -14,7 +14,7 @@ interface IPostCardPreviewProps {
   isBookmarked?: boolean;
 }
 
-export default function PostCardPreview({
+export default function PostPreviewCard({
   id,
   title,
   thumbnail,
@@ -22,7 +22,7 @@ export default function PostCardPreview({
   tags,
   type = 'default',
   isBookmarked = true,
-}: IPostCardPreviewProps) {
+}: IPostPreviewCardProps) {
   return (
     <Wrapper>
       <Link to={`bookmarks/${id}`}>
