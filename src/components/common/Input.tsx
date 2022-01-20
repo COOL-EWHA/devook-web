@@ -49,8 +49,8 @@ export const Wrapper = styled.div<{ iconType?: string; disabled?: boolean }>`
     iconType === 'search' &&
     `
     height: 4rem;
-    background-color: ${GREY[300]};
-    border: 1px solid ${GREY[300]};
+    background-color: ${GREY[200]};
+    border: 1px solid ${GREY[200]};
     outline: none;
     `}
   :focus-within {
