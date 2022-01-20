@@ -13,30 +13,29 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
   const { bookmarkId, data, isLoading } = useBookmark();
   const { onDelete } = useBookmarkDelete(Number(bookmarkId));
 
+  if (isLoading) return <div>loading...</div>;
+
   if (!data) return null;
 
   const { title, description, thumbnail, tags, url } = data;
 
   return (
-    <>
-      {isLoading && <div>loading...</div>}
-      <Wrapper>
-        <ContentWrapper>
-          <PWrapper>
-            <Title>{title}</Title>
-            <Description>{description}</Description>
-          </PWrapper>
-          <Img src={thumbnail} />
-        </ContentWrapper>
-        <Footer>
-          {tags?.map((tag) => (
-            <Tag key={tag}>#{tag}</Tag>
-          ))}
-          {isBookmarked && <DeleteIcon onClick={onDelete} />}
-        </Footer>
-        <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <ContentWrapper>
+        <PWrapper>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
+        </PWrapper>
+        <Img src={thumbnail} />
+      </ContentWrapper>
+      <Footer>
+        {tags?.map((tag) => (
+          <Tag key={tag}>#{tag}</Tag>
+        ))}
+        {isBookmarked && <DeleteIcon onClick={onDelete} />}
+      </Footer>
+      <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
+    </Wrapper>
   );
 }
 
