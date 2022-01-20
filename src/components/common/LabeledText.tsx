@@ -25,5 +25,5 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
 `;
