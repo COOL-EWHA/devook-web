@@ -1,20 +1,20 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, MaterialIcon, P } from 'src/components/common';
 
-import { GREY, WHITE, SUB_ROUTES } from 'src/constant';
+import { GREY, WHITE } from 'src/constant';
 
 interface IBackHeaderProps {
   onBack?: () => void;
   onComplete?: () => void;
-  title?: string;
+  title: string;
 }
 
 export default function BackHeader({ onBack, onComplete, title }: IBackHeaderProps) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const isModalHeader = !!onComplete;
 
   const handleBack = () => {
     if (onBack) {
@@ -25,18 +25,22 @@ export default function BackHeader({ onBack, onComplete, title }: IBackHeaderPro
   };
 
   return (
-    <Wrapper isForModal={title}>
+    <Wrapper isModalHeader={isModalHeader}>
       <MaterialIcon type="arrow_back_ios" onClick={handleBack} />
-      <P fontSize={title ? '1.6rem' : '2rem'}>
-        {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title ?? title}
-      </P>
+      <Title
+        fontSize={isModalHeader ? '1.6rem' : '2rem'}
+        fontWeight={isModalHeader ? 400 : 500}
+        isModalHeader={isModalHeader}
+      >
+        {title}
+      </Title>
       {onComplete && <Button text="설정" onClick={onComplete} />}
     </Wrapper>
   );
 }
 
-const getWrapperStyle = (isForModal?: string) => {
-  if (isForModal) {
+const getWrapperStyle = (isModalHeader?: boolean) => {
+  if (isModalHeader) {
     return css`
       display: flex;
       justify-content: space-between;
@@ -58,7 +62,6 @@ const getWrapperStyle = (isForModal?: string) => {
     background-color: ${WHITE};
 
     @media screen and (min-width: 1025px) {
-      height: 6rem;
       display: none;
     }
 
@@ -69,6 +72,11 @@ const getWrapperStyle = (isForModal?: string) => {
   `;
 };
 
-const Wrapper = styled.div<{ isForModal?: string }>`
-  ${({ isForModal }) => getWrapperStyle(isForModal)};
+const Wrapper = styled.div<{ isModalHeader?: boolean }>`
+  ${({ isModalHeader }) => getWrapperStyle(isModalHeader)};
+`;
+
+const Title = styled(P)<{ isModalHeader?: boolean }>`
+  margin: 0 auto;
+  padding-right: ${({ isModalHeader }) => (isModalHeader ? 0 : '2.4rem')};
 `;
