@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
 import { MaterialIcon } from 'src/components/common';
-import { GREY, WHITE, NAV_ITEMS } from 'src/constant';
+import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES } from 'src/constant';
 
 function GlobalNavigationBar() {
   const { pathname } = useLocation();
+  const isVisible = !SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
 
   return (
-    <Nav isVisible={!pathname.includes('/bookmarks')}>
+    <Nav isVisible={isVisible}>
       <Ul>
         {NAV_ITEMS.map(({ iconType, label }) => (
           <Li key={label}>
