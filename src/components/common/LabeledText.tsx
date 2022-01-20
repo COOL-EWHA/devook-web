@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { P } from 'src/components/common';
-import { GREY } from 'src/constant';
 
 interface ILabeledTextProps {
   label: string;
@@ -12,8 +11,10 @@ interface ILabeledTextProps {
 function LabeledText({ label, value }: ILabeledTextProps) {
   return (
     <Wrapper>
-      <P>{label}</P>
-      <P color={GREY[700]}>{value}</P>
+      <P fontSize="1.6rem" fontWeight={500}>
+        {label}
+      </P>
+      <P fontSize="1.6rem">{value}</P>
     </Wrapper>
   );
 }

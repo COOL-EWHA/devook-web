@@ -22,7 +22,7 @@ function Section({ type = 'primary', title, isEditable = false, children }: ISec
     <>
       <Wrapper>
         <Header>
-          <P fontSize={type === 'primary' ? '2.2rem' : '1.8rem'} fontWeight={type === 'primary' ? 500 : 'normal'}>
+          <P fontSize={type === 'primary' ? '2.2rem' : '1.8rem'} fontWeight={500}>
             {title}
           </P>
           {isEditable && <Button buttonType="text" text="수정" color="GREY" onClick={openModal} />}
