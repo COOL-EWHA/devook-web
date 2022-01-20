@@ -30,8 +30,6 @@ export default function BackHeader({ onBack, onComplete, title }: IBackHeaderPro
       <P fontSize={title ? '1.6rem' : '2rem'}>
         {SUB_ROUTES.find((subRoute) => subRoute.pathname === pathname)?.title ?? title}
       </P>
-      {/* // @TO_BE_IMPROVED: 마이페이지 백헤더에 있는 알림 아이콘은 로그인시에만 보이게끔 수정해야함 */}
-      {pathname === '/my' && <MaterialIcon type="notifications" />}
       {onComplete && <Button text="설정" onClick={onComplete} />}
     </Wrapper>
   );
