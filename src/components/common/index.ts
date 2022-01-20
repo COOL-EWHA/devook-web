@@ -7,7 +7,10 @@ import Textarea from './Textarea';
 import Modal from './Modal';
 import ScrollToTopButton from './ScrollToTopButton';
 import PostCardPreview from './PostCardPreview';
+import PostCard from './PostCard';
 import PostCardActionMenu from './PostCardActionMenu';
+import LabeledText from './LabeledText';
+import Section from './Section';
 
 export {
   P,
@@ -19,5 +22,8 @@ export {
   Modal,
   ScrollToTopButton,
   PostCardPreview,
+  PostCard,
   PostCardActionMenu,
+  LabeledText,
+  Section,
 };
