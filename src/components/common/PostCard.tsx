@@ -3,41 +3,39 @@ import styled from 'styled-components';
 
 import { P, MaterialIcon, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
-import { useBookmarkDetail, useBookmarkDelete } from 'src/lib/hooks';
+import { useBookmark, useBookmarkDelete } from 'src/lib/hooks';
 
 interface IPostCardProps {
   isBookmarked?: boolean;
 }
 
 function PostCard({ isBookmarked = true }: IPostCardProps) {
-  const { bookmarkId, data, isLoading } = useBookmarkDetail();
+  const { bookmarkId, data, isLoading } = useBookmark();
   const { onDelete } = useBookmarkDelete(Number(bookmarkId));
+
+  if (!data) return null;
+
+  const { title, description, thumbnail, tags, url } = data;
 
   return (
     <>
       {isLoading && <div>loading...</div>}
-      {data && (
-        <Wrapper>
-          <ContentWrapper>
-            <PWrapper>
-              <Title>{data.title}</Title>
-              <Description>{data.description}</Description>
-            </PWrapper>
-            <Img src={data.thumbnail} />
-          </ContentWrapper>
-          <Footer>
-            <TagsWrapper>
-              {data.tags?.map((tag) => (
-                <Tag key={tag}>#{tag}</Tag>
-              ))}
-            </TagsWrapper>
-            {isBookmarked && (
-              <MaterialIcon type="delete_outline" color={CACTUS_GREEN[500]} width="2rem" onClick={onDelete} />
-            )}
-          </Footer>
-          <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={data.url} />
-        </Wrapper>
-      )}
+      <Wrapper>
+        <ContentWrapper>
+          <PWrapper>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </PWrapper>
+          <Img src={thumbnail} />
+        </ContentWrapper>
+        <Footer>
+          {tags?.map((tag) => (
+            <Tag key={tag}>#{tag}</Tag>
+          ))}
+          {isBookmarked && <DeleteIcon onClick={onDelete} />}
+        </Footer>
+        <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
+      </Wrapper>
     </>
   );
 }
@@ -64,10 +62,6 @@ const Tag = styled(P).attrs({
   color: CACTUS_GREEN[500],
 })`
   margin-right: 0.8rem;
-`;
-
-const TagsWrapper = styled.div`
-  display: flex;
 `;
 
 const Wrapper = styled.div`
@@ -97,4 +91,12 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.2rem;
+`;
+
+const DeleteIcon = styled(MaterialIcon).attrs({
+  type: 'delete_outline',
+  color: CACTUS_GREEN[500],
+  width: '2rem',
+})`
+  margin-left: auto;
 `;
