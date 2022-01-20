@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
-import { deleteBookmark } from 'src/lib/api';
-import { useLoginStatus } from 'src/lib/hooks';
 import { WHITE } from 'src/constant';
+
+import { useBookmarkDelete } from 'src/lib/hooks';
 
 interface IBookmarkActionDropdownProps {
   bookmarkId: number;
@@ -12,24 +12,12 @@ interface IBookmarkActionDropdownProps {
 }
 
 function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
-  const { checkIsLoggedIn } = useLoginStatus();
-
-  const handleDeleteButtonClick = async () => {
-    if (!checkIsLoggedIn()) {
-      return;
-    }
-    try {
-      await deleteBookmark({ id: bookmarkId });
-      alert('북마크가 삭제되었습니다!');
-    } catch (err) {
-      alert('북마크 삭제가 정상적으로 처리되지 않았습니다.');
-    }
-  };
+  const { onDelete } = useBookmarkDelete(bookmarkId);
 
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" iconWidth="1.8rem" />
-      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={handleDeleteButtonClick} />
+      <Button iconType="delete_outline" text="삭제" iconWidth="1.8rem" onClick={onDelete} />
     </Wrapper>
   );
 }
