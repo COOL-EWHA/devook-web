@@ -36,7 +36,7 @@ const Main = styled.main`
     margin-left: 2.4rem;
   }
   @media screen and (max-width: 1024px) {
-    margin-top: 6rem;
+    margin-top: 6.8rem;
     margin-bottom: 7.2rem;
   }
 `;
