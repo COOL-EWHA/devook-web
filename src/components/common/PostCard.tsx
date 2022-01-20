@@ -45,22 +45,17 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
 export default PostCard;
 
 const Title = styled(P).attrs({
-  fontSize: '1.8rem',
+  fontSize: '2rem',
   fontWeight: 500,
-  ellipsis: true,
-  numOfLines: 1,
 })`
-  margin-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
 `;
 
 const Description = styled(P).attrs({
-  height: '5.4rem',
-  lineHeight: '1.8rem',
+  fontSize: '1.6rem',
   ellipsis: true,
   numOfLines: 3,
-})`
-  margin-bottom: 0.4rem;
-`;
+})``;
 
 const Tag = styled(P).attrs({
   color: CACTUS_GREEN[500],
@@ -72,29 +67,24 @@ const TagsWrapper = styled.div`
   display: flex;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 const Img = styled.img`
   object-fit: cover;
   margin-left: 2rem;
   border-radius: 0.4rem;
 
-  @media screen and (min-width: 1025px) {
-    width: 8rem;
-    height: 8rem;
-  }
-
-  @media screen and (max-width: 1024px) {
-    width: 6rem;
-    height: 6rem;
-  }
+  width: 11.2rem;
+  height: 11.2rem;
 `;
 
 const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0.8rem 0;
+  margin: 0.8rem 0 1.2rem;
 `;
 
 const PWrapper = styled.div``;
@@ -102,4 +92,6 @@ const PWrapper = styled.div``;
 const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1.2rem;
 `;

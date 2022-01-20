@@ -59,8 +59,7 @@ const Title = styled(P).attrs({
 
 const Description = styled(P).attrs({
   fontSize: '1.4rem',
-  height: '3.6rem',
-  lineHeight: '1.8rem',
+  lineHeight: '2rem',
   ellipsis: true,
   numOfLines: 2,
 })`
@@ -82,16 +81,8 @@ const Img = styled.img`
   object-fit: cover;
   margin-left: 2rem;
   border-radius: 0.4rem;
-
-  @media screen and (min-width: 1025px) {
-    width: 8rem;
-    height: 8rem;
-  }
-
-  @media screen and (max-width: 1024px) {
-    width: 6rem;
-    height: 6rem;
-  }
+  width: 7.2rem;
+  height: 7.2rem;
 `;
 
 const Footer = styled.div`
