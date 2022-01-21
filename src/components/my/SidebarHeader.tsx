@@ -1,17 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import { MaterialIcon } from 'src/components/common';
+
+import { accessToken } from 'src/lib/store';
 
 export type IMySidebarProps = { onCloseButtonClick: () => void };
 
 export default function MySidebarHeader({ onCloseButtonClick }: IMySidebarProps) {
+  const isLoggedIn = !!useRecoilValue(accessToken);
+
   return (
     <Wrapper>
       <CloseButton>
         <MaterialIcon type="close" onClick={onCloseButtonClick} />
       </CloseButton>
-      <NotificationIcon />
+      {isLoggedIn && <NotificationIcon />}
     </Wrapper>
   );
 }
