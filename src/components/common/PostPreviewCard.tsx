@@ -24,7 +24,7 @@ export default function PostPreviewCard({
   isBookmarked = true,
 }: IPostPreviewCardProps) {
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src = 'https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image-620x600.jpg';
+    e.currentTarget.src = '/favicon.svg';
   };
 
   return (
