@@ -6,20 +6,19 @@ import { useBookmarkTag } from 'src/lib/hooks';
 
 interface IBookmarkTagButtonProps {
   text: string;
-  isModalOpen: boolean;
 }
 
-export default function BookmarkTagButton({ text, isModalOpen }: IBookmarkTagButtonProps) {
+export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
   const { isSelected, setSelectedState: handleClick } = useBookmarkTag(text);
 
   return (
-    <Wrapper isModalOpen={isModalOpen} onClick={handleClick} isSelected={isSelected}>
+    <Wrapper onClick={handleClick} isSelected={isSelected}>
       <P>#{text}</P>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.button<{ isModalOpen: boolean; isSelected: boolean }>`
+const Wrapper = styled.button<{ isSelected: boolean }>`
   max-width: 100%;
   padding: 0.2rem 0.8rem;
   margin: 0 0.4rem 0.8rem 0;

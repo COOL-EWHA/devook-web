@@ -17,7 +17,7 @@ export default function TagList({ isModalOpen }: ITagListProps) {
       <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
         {data?.map((tag) => (
-          <BookmarkTagButton key={tag} text={tag} isModalOpen={isModalOpen} />
+          <BookmarkTagButton key={tag} text={tag} />
         ))}
       </BookmarkTagButtonWrapper>
       <BookmarkTagResetButton />
