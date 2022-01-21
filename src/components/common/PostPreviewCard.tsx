@@ -23,6 +23,10 @@ export default function PostPreviewCard({
   type = 'default',
   isBookmarked = true,
 }: IPostPreviewCardProps) {
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = 'https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image-620x600.jpg';
+  };
+
   return (
     <Wrapper>
       <Link to={`bookmarks/${id}`}>
@@ -31,7 +35,7 @@ export default function PostPreviewCard({
             <Title>{title}</Title>
             <Description>{description}</Description>
           </PWrapper>
-          <Img src={thumbnail} />
+          <Img src={thumbnail} onError={handleImgError} />
         </ContentWrapper>
       </Link>
       <Footer>

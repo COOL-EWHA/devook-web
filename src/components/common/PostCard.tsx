@@ -13,6 +13,10 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
   const { bookmarkId, data, isLoading } = useBookmark();
   const { onDelete } = useBookmarkDelete(Number(bookmarkId));
 
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = 'https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image-620x600.jpg';
+  };
+
   if (isLoading) return <div>loading...</div>;
 
   if (!data) return null;
@@ -26,7 +30,7 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
           <Title>{title}</Title>
           <Description>{description}</Description>
         </PWrapper>
-        <Img src={thumbnail} />
+        <Img src={thumbnail} alt="북마크한 글의 썸네일 이미지" onError={handleImgError} />
       </ContentWrapper>
       <Footer>
         {tags?.map((tag) => (
