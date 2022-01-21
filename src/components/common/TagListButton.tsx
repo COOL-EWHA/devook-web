@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
-import { TAG_LIST } from 'src/constant/mockData';
 
 function TagListButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,10 +30,10 @@ function TagListButton() {
   return (
     <>
       <FixedButton type="tag" iconType="tag" onClick={handleClick} />
-      {!isModalOpen && <TagList tags={TAG_LIST} isModalOpen={isModalOpen} />}
+      {!isModalOpen && <TagList isModalOpen={isModalOpen} />}
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} onComplete={handleTagSubmit} title="태그 선택">
-          <TagList tags={TAG_LIST} isModalOpen={isModalOpen} />
+          <TagList isModalOpen={isModalOpen} />
         </Modal>
       )}
     </>

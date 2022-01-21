@@ -1,21 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
 
 import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookmarks';
-
+import { getBookmarkTagList } from 'src/lib/api';
+import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { GREY } from 'src/constant';
 
 interface ITagListProps {
-  tags: string[];
   isModalOpen: boolean;
 }
 
-export default function TagList({ tags, isModalOpen }: ITagListProps) {
+export default function TagList({ isModalOpen }: ITagListProps) {
+  const queryFn = () => getBookmarkTagList();
+  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
+
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
-        {tags.map((tag) => (
+        {data?.map((tag) => (
           <BookmarkTagButton key={tag} text={tag} isModalOpen={isModalOpen} />
         ))}
       </BookmarkTagButtonWrapper>
@@ -28,7 +32,7 @@ const Wrapper = styled.div<{ isModalOpen: boolean }>`
   padding: 2rem 1.6rem;
 
   @media screen and (min-width: 1025px) {
-    width: 20rem;
+    width: 24rem;
     height: 100%;
     margin-left: 2.4rem;
     border-radius: 0.8rem;
