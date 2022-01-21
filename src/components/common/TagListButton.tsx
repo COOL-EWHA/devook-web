@@ -1,10 +1,15 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
 import { useBookmarkTag } from 'src/lib/hooks';
+import { accessToken } from 'src/lib/store';
 
 function TagListButton() {
+  const isLoggedIn = !!useRecoilValue(accessToken);
   const { isModalOpen, setIsModalOpen, setModalOpenState: handleClick, handleTagSubmit } = useBookmarkTag();
+
+  if (!isLoggedIn) return null;
 
   return (
     <>
