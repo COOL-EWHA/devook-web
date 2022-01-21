@@ -9,7 +9,7 @@ interface IBookmarkTagButtonProps {
 }
 
 export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
-  const { isSelected, setSelectedState: handleClick } = useBookmarkTagFilter(text);
+  const { isSelected, toggleSelect: handleClick } = useBookmarkTagFilter(text);
 
   return (
     <Wrapper onClick={handleClick} isSelected={isSelected}>

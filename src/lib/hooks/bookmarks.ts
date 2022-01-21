@@ -218,44 +218,14 @@ export const useBookmarkTagList = () => {
 export const useBookmarkTagFilter = (text: string) => {
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
   const { tags } = filter;
+  const isSelected = tags?.includes(text) || false;
 
-  const [isSelected, setIsSelected] = useState(false);
-
-  useEffect(() => {
-    setInitialState();
-  }, []);
-
-  useEffect(() => {
-    if (tags?.length === 0) {
-      setIsSelected(false);
-    }
-  }, [tags]);
-
-  useEffect(() => {
-    if (text) {
-      if (isSelected) {
-        setFilter({ ...filter, tags: tags?.concat(text) });
-      } else {
-        setFilter({ ...filter, tags: tags?.filter((tag) => tag !== text) });
-      }
-    }
-  }, [isSelected]);
-
-  const setInitialState = () => {
-    tags?.forEach((tag) => tag === text && setIsSelected(true));
-  };
-
-  const setSelectedState = () => {
-    setIsSelected((prev) => !prev);
-  };
-
-  const resetTag = () => {
-    setFilter({ ...bookmarkListFilter, tags: [] });
+  const toggleSelect = () => {
+    setFilter({ ...filter, tags: isSelected ? tags?.filter((tag) => tag !== text) : tags?.concat(text) });
   };
 
   return {
     isSelected,
-    setSelectedState,
-    resetTag,
+    toggleSelect,
   };
 };

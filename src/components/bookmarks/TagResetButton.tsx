@@ -1,12 +1,18 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 
 import { Button } from 'src/components/common';
-import { useBookmarkTagFilter } from 'src/lib/hooks';
+
+import { bookmarkListFilter } from 'src/lib/store/bookmarks';
 
 function BookmarkTagResetButton() {
-  const { resetTag: handleClick } = useBookmarkTagFilter();
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
 
-  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={handleClick} iconWidth="1.8rem" />;
+  const resetFilter = () => {
+    setFilter({ ...filter, tags: [] });
+  };
+
+  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={resetFilter} iconWidth="1.8rem" />;
 }
 
 export default BookmarkTagResetButton;
