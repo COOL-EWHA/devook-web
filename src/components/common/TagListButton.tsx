@@ -7,7 +7,7 @@ import { accessToken } from 'src/lib/store';
 
 function TagListButton() {
   const isLoggedIn = !!useRecoilValue(accessToken);
-  const { isModalOpen, setIsModalOpen, setModalOpenState: handleClick, handleTagSubmit } = useBookmarkTag();
+  const { isModalOpen, setIsModalOpen, setModalOpen: handleClick, setModalClose: handleClose } = useBookmarkTag();
 
   if (!isLoggedIn) return null;
 
@@ -16,7 +16,7 @@ function TagListButton() {
       <FixedButton type="tag" iconType="tag" onClick={handleClick} />
       {!isModalOpen && <TagList isModalOpen={isModalOpen} />}
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleTagSubmit} title="태그 선택">
+        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleClose} title="태그 선택">
           <TagList isModalOpen={isModalOpen} />
         </Modal>
       )}

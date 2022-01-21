@@ -186,8 +186,9 @@ export const useBookmark = () => {
 };
 
 export const useBookmarkTag = (text?: string) => {
-  const { tags } = useRecoilValue(bookmarkListFilter);
   const setBookmarkListFilter = useSetRecoilState(bookmarkListFilter);
+  const filter = useRecoilValue(bookmarkListFilter);
+  const { tags } = filter;
 
   const queryFn = () => getBookmarkTagList();
   const { data } = useQuery(bookmarkKeys.tags(), queryFn);
@@ -213,16 +214,14 @@ export const useBookmarkTag = (text?: string) => {
   }, [tags]);
 
   useEffect(() => {
-    if (isSelected && text) {
-      setBookmarkListFilter({ ...bookmarkListFilter, tags: tags?.concat(text) });
-    } else {
-      setBookmarkListFilter({ ...bookmarkListFilter, tags: tags?.filter((tag) => tag !== text) });
+    if (text) {
+      if (isSelected) {
+        setBookmarkListFilter({ ...filter, tags: tags?.concat(text) });
+      } else {
+        setBookmarkListFilter({ ...filter, tags: tags?.filter((tag) => tag !== text) });
+      }
     }
   }, [isSelected]);
-
-  const handleTagSubmit = () => {
-    // @TO_BE_IMPROVED: fetch tag filtering api
-  };
 
   const handleResize = () => {
     // @TO_BE_IMPROVED: debounce 적용
@@ -231,8 +230,12 @@ export const useBookmarkTag = (text?: string) => {
     }
   };
 
-  const setModalOpenState = () => {
+  const setModalOpen = () => {
     setIsModalOpen(true);
+  };
+
+  const setModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const setInitialState = () => {
@@ -253,8 +256,8 @@ export const useBookmarkTag = (text?: string) => {
     resetTag,
     isModalOpen,
     setIsModalOpen,
-    handleTagSubmit,
-    setModalOpenState,
+    setModalClose,
+    setModalOpen,
     data,
   };
 };

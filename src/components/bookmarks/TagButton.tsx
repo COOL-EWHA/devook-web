@@ -9,7 +9,7 @@ interface IBookmarkTagButtonProps {
   isModalOpen: boolean;
 }
 
-export default function BookmarkTagButton({ text, isModalOpen = false }: IBookmarkTagButtonProps) {
+export default function BookmarkTagButton({ text, isModalOpen }: IBookmarkTagButtonProps) {
   const { isSelected, setSelectedState: handleClick } = useBookmarkTag(text);
 
   return (
