@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
-import { createBookmark, deleteBookmark, getBookmarkList, getBookmark, editBookmarkMemo } from 'src/lib/api';
+import {
+  createBookmark,
+  deleteBookmark,
+  getBookmarkList,
+  getBookmark,
+  editBookmarkMemo,
+  getBookmarkTagList,
+} from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 
@@ -176,4 +183,78 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { bookmarkId, data, isLoading };
+};
+
+export const useBookmarkTag = (text?: string) => {
+  const { tags } = useRecoilValue(bookmarkListFilter);
+  const setBookmarkListFilter = useSetRecoilState(bookmarkListFilter);
+
+  const queryFn = () => getBookmarkTagList();
+  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
+
+  const [isSelected, setIsSelected] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setInitialState();
+  }, []);
+
+  useEffect(() => {
+    if (tags?.length === 0) {
+      setIsSelected(false);
+    }
+  }, [tags]);
+
+  useEffect(() => {
+    if (isSelected && text) {
+      setBookmarkListFilter({ ...bookmarkListFilter, tags: tags?.concat(text) });
+    } else {
+      setBookmarkListFilter({ ...bookmarkListFilter, tags: tags?.filter((tag) => tag !== text) });
+    }
+  }, [isSelected]);
+
+  const handleTagSubmit = () => {
+    // @TO_BE_IMPROVED: fetch tag filtering api
+  };
+
+  const handleResize = () => {
+    // @TO_BE_IMPROVED: debounce 적용
+    if (window.innerWidth > 1024) {
+      setIsModalOpen(false);
+    }
+  };
+
+  const setModalOpenState = () => {
+    setIsModalOpen(true);
+  };
+
+  const setInitialState = () => {
+    tags?.forEach((tag) => tag === text && setIsSelected(true));
+  };
+
+  const setSelectedState = () => {
+    setIsSelected((prev) => !prev);
+  };
+
+  const resetTag = () => {
+    setBookmarkListFilter({ ...bookmarkListFilter, tags: [] });
+  };
+
+  return {
+    isSelected,
+    setSelectedState,
+    resetTag,
+    isModalOpen,
+    setIsModalOpen,
+    handleTagSubmit,
+    setModalOpenState,
+    data,
+  };
 };

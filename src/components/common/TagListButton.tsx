@@ -1,31 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
+import { useBookmarkTag } from 'src/lib/hooks';
 
 function TagListButton() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const handleTagSubmit = () => {
-    // @TO_BE_IMPROVED: fetch tag filtering api
-  };
-
-  const handleResize = () => {
-    // @TO_BE_IMPROVED: debounce 적용
-    if (window.innerWidth > 1024) {
-      setIsModalOpen(false);
-    }
-  };
-
-  const handleClick = () => {
-    setIsModalOpen(true);
-  };
+  const { isModalOpen, setIsModalOpen, setModalOpenState: handleClick, handleTagSubmit } = useBookmarkTag();
 
   return (
     <>

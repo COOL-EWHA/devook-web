@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
 
 import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookmarks';
-import { getBookmarkTagList } from 'src/lib/api';
-import { bookmarkKeys } from 'src/lib/utils/queryKeys';
+import { useBookmarkTag } from 'src/lib/hooks';
 import { GREY } from 'src/constant';
 
 interface ITagListProps {
@@ -12,8 +10,7 @@ interface ITagListProps {
 }
 
 export default function TagList({ isModalOpen }: ITagListProps) {
-  const queryFn = () => getBookmarkTagList();
-  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
+  const { data } = useBookmarkTag();
 
   return (
     <Wrapper isModalOpen={isModalOpen}>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE } from 'src/constant';
+import { useBookmarkTag } from 'src/lib/hooks';
 
 interface IBookmarkTagButtonProps {
   text: string;
@@ -9,11 +10,7 @@ interface IBookmarkTagButtonProps {
 }
 
 export default function BookmarkTagButton({ text, isModalOpen = false }: IBookmarkTagButtonProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handleClick = () => {
-    setIsSelected((prev) => !prev);
-  };
+  const { isSelected, setSelectedState: handleClick } = useBookmarkTag(text);
 
   return (
     <Wrapper isModalOpen={isModalOpen} onClick={handleClick} isSelected={isSelected}>
