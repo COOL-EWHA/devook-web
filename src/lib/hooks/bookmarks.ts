@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -185,23 +185,41 @@ export const useBookmark = () => {
   return { bookmarkId, data, isLoading };
 };
 
-export const useBookmarkTag = (text?: string) => {
-  const setBookmarkListFilter = useSetRecoilState(bookmarkListFilter);
-  const filter = useRecoilValue(bookmarkListFilter);
-  const { tags } = filter;
-
+export const useBookmarkTagList = () => {
   const queryFn = () => getBookmarkTagList();
   const { data } = useQuery(bookmarkKeys.tags(), queryFn);
-
-  const [isSelected, setIsSelected] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    const handleResize = () => {
+      // @TO_BE_IMPROVED: debounce 적용
+      if (window.innerWidth > 1024) {
+        setIsModalOpen(false);
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
+};
+
+export const useBookmarkTagFilter = (text: string) => {
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
+  const { tags } = filter;
+
+  const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
     setInitialState();
@@ -216,27 +234,12 @@ export const useBookmarkTag = (text?: string) => {
   useEffect(() => {
     if (text) {
       if (isSelected) {
-        setBookmarkListFilter({ ...filter, tags: tags?.concat(text) });
+        setFilter({ ...filter, tags: tags?.concat(text) });
       } else {
-        setBookmarkListFilter({ ...filter, tags: tags?.filter((tag) => tag !== text) });
+        setFilter({ ...filter, tags: tags?.filter((tag) => tag !== text) });
       }
     }
   }, [isSelected]);
-
-  const handleResize = () => {
-    // @TO_BE_IMPROVED: debounce 적용
-    if (window.innerWidth > 1024) {
-      setIsModalOpen(false);
-    }
-  };
-
-  const setModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const setModalClose = () => {
-    setIsModalOpen(false);
-  };
 
   const setInitialState = () => {
     tags?.forEach((tag) => tag === text && setIsSelected(true));
@@ -247,17 +250,12 @@ export const useBookmarkTag = (text?: string) => {
   };
 
   const resetTag = () => {
-    setBookmarkListFilter({ ...bookmarkListFilter, tags: [] });
+    setFilter({ ...bookmarkListFilter, tags: [] });
   };
 
   return {
     isSelected,
     setSelectedState,
     resetTag,
-    isModalOpen,
-    setIsModalOpen,
-    setModalClose,
-    setModalOpen,
-    data,
   };
 };

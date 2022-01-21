@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE } from 'src/constant';
-import { useBookmarkTag } from 'src/lib/hooks';
+import { useBookmarkTagFilter } from 'src/lib/hooks';
 
 interface IBookmarkTagButtonProps {
   text: string;
 }
 
 export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
-  const { isSelected, setSelectedState: handleClick } = useBookmarkTag(text);
+  const { isSelected, setSelectedState: handleClick } = useBookmarkTagFilter(text);
 
   return (
     <Wrapper onClick={handleClick} isSelected={isSelected}>

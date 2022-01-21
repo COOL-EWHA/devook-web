@@ -2,16 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookmarks';
-import { useBookmarkTag } from 'src/lib/hooks';
 import { GREY } from 'src/constant';
 
 interface ITagListProps {
   isModalOpen: boolean;
+  data: string[] | undefined;
 }
 
-export default function TagList({ isModalOpen }: ITagListProps) {
-  const { data } = useBookmarkTag();
-
+export default function TagList({ isModalOpen, data }: ITagListProps) {
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>
@@ -37,7 +35,7 @@ const Wrapper = styled.div<{ isModalOpen: boolean }>`
   }
 
   @media screen and (max-width: 1024px) {
-    ${({ isModalOpen }) => !isModalOpen && 'display:none;'}
+    ${({ isModalOpen }) => !isModalOpen && 'display: none;'}
   }
 `;
 
