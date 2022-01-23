@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 
 import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
@@ -191,12 +192,11 @@ export const useBookmarkTagList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      // @TO_BE_IMPROVED: debounce 적용
+    const handleResize = debounce(() => {
       if (window.innerWidth > 1024) {
         setIsModalOpen(false);
       }
-    };
+    }, 1000);
 
     window.addEventListener('resize', handleResize);
     return () => {
