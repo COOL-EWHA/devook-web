@@ -13,7 +13,7 @@ export default function Skeleton({ width, height, margin }: ISkeletonProps) {
   return <Wrapper width={width} height={height} margin={margin} />;
 }
 
-const loading = keyframes`
+const loadingGradient = keyframes`
   0% {
       background-color: rgba(165, 165, 165, 0.1);
   }
@@ -26,13 +26,13 @@ const loading = keyframes`
 `;
 
 const Wrapper = styled.div<ISkeletonProps>`
-  animation: ${loading} 1.8s infinite ease-in-out;
+  animation: ${loadingGradient} 1.8s infinite ease-in-out;
   border-radius: 0.4rem;
   background-color: ${GREY[200]};
 
   ${({ width, height, margin }) => `
-    width: ${width};
+    width: ${width ?? '100%'};
     height: ${height};
-    margin: ${margin};
+    margin: ${margin ?? 0};
     `}
 `;
