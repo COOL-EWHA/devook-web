@@ -1,13 +1,18 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 
 import { Button } from 'src/components/common';
 
+import { bookmarkListFilter } from 'src/lib/store/bookmarks';
+
 function BookmarkTagResetButton() {
-  const handleClick = () => {
-    // @TO_BE_IMPROVED: 선택된 태그 목록 -> 전역 상태로 관리
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
+
+  const resetFilter = () => {
+    setFilter({ ...filter, tags: [] });
   };
 
-  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={handleClick} />;
+  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={resetFilter} iconWidth="1.8rem" />;
 }
 
 export default BookmarkTagResetButton;

@@ -23,6 +23,10 @@ export default function PostPreviewCard({
   type = 'default',
   isBookmarked = true,
 }: IPostPreviewCardProps) {
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = '/favicon.svg';
+  };
+
   return (
     <Wrapper>
       <Link to={`bookmarks/${id}`}>
@@ -31,7 +35,7 @@ export default function PostPreviewCard({
             <Title>{title}</Title>
             <Description>{description}</Description>
           </PWrapper>
-          <Img src={thumbnail} />
+          <Img src={thumbnail} onError={handleImgError} />
         </ContentWrapper>
       </Link>
       <Footer>

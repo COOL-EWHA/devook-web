@@ -1,8 +1,8 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { ScrollToTopButton } from 'src/components/common';
+import { FixedButtons } from 'src/components/common';
 import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
 import { accessToken } from 'src/lib/store';
 
@@ -10,17 +10,24 @@ function BookmarkListPage() {
   const isLoggedIn = !!useRecoilValue(accessToken);
 
   return (
-    <>
-      <Outlet />
+    <Wrapper>
       {isLoggedIn && (
-        <>
+        <BookmarkListWrapper>
           <BookmarkSearchInput />
           <BookmarkList />
-        </>
+        </BookmarkListWrapper>
       )}
-      <ScrollToTopButton />
-    </>
+      <FixedButtons />
+    </Wrapper>
   );
 }
 
 export default BookmarkListPage;
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const BookmarkListWrapper = styled.div`
+  width: 100%;
+`;

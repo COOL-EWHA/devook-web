@@ -18,3 +18,5 @@ export const getBookmark = (id: number): Promise<IBookmark> =>
 
 export const editBookmarkMemo = ({ id, memo }: BookmarkMemoEditParams): Promise<void> =>
   apiClient.patch(`/bookmarks/${id}`, { memo }).then((res) => res.data);
+
+export const getBookmarkTagList = (): Promise<string[]> => apiClient.get('/bookmarks/tags').then((res) => res.data);

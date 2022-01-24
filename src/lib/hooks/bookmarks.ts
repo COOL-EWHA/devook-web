@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 
 import { bookmarkKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
-import { createBookmark, deleteBookmark, getBookmarkList, getBookmark, editBookmarkMemo } from 'src/lib/api';
+import {
+  createBookmark,
+  deleteBookmark,
+  getBookmarkList,
+  getBookmark,
+  editBookmarkMemo,
+  getBookmarkTagList,
+} from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 
@@ -176,4 +184,48 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { bookmarkId, data, isLoading };
+};
+
+export const useBookmarkTagList = () => {
+  const queryFn = () => getBookmarkTagList();
+  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (isModalOpen && window.innerWidth > 1024) {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isModalOpen]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
+};
+
+export const useBookmarkTagFilter = (text: string) => {
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
+  const { tags } = filter;
+  const isSelected = tags?.includes(text) || false;
+
+  const toggleSelect = () => {
+    setFilter({ ...filter, tags: isSelected ? tags?.filter((tag) => tag !== text) : tags?.concat(text) });
+  };
+
+  return {
+    isSelected,
+    toggleSelect,
+  };
 };

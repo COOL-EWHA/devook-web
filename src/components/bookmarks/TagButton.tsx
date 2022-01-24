@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE } from 'src/constant';
+import { useBookmarkTagFilter } from 'src/lib/hooks';
 
 interface IBookmarkTagButtonProps {
   text: string;
-  isModalOpen: boolean;
 }
 
-export default function BookmarkTagButton({ text, isModalOpen = false }: IBookmarkTagButtonProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handleClick = () => {
-    setIsSelected((prev) => !prev);
-  };
+export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
+  const { isSelected, toggleSelect: handleClick } = useBookmarkTagFilter(text);
 
   return (
-    <Wrapper isModalOpen={isModalOpen} onClick={handleClick} isSelected={isSelected}>
+    <Wrapper onClick={handleClick} isSelected={isSelected}>
       <P>#{text}</P>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.button<{ isModalOpen: boolean; isSelected: boolean }>`
+const Wrapper = styled.button<{ isSelected: boolean }>`
   max-width: 100%;
   padding: 0.2rem 0.8rem;
   margin: 0 0.4rem 0.8rem 0;

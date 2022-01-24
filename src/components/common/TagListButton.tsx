@@ -1,42 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
-import { TAG_LIST } from 'src/constant/mockData';
+import { useBookmarkTagList } from 'src/lib/hooks';
+import { accessToken } from 'src/lib/store';
 
 function TagListButton() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = !!useRecoilValue(accessToken);
+  const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = useBookmarkTagList();
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const handleTagSubmit = () => {
-    // @TO_BE_IMPROVED: fetch tag filtering api
-  };
-
-  const handleResize = () => {
-    // @TO_BE_IMPROVED: debounce 적용
-    if (window.innerWidth > 1024) {
-      setIsModalOpen(false);
-    }
-  };
-
-  const handleClick = () => {
-    setIsModalOpen(true);
-  };
+  if (!isLoggedIn) return null;
 
   return (
     <>
-      <FixedButton type="tag" iconType="tag" onClick={handleClick} />
-      {!isModalOpen && <TagList tags={TAG_LIST} isModalOpen={isModalOpen} />}
+      <FixedButton type="tag" iconType="tag" onClick={openModal} />
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={handleTagSubmit} title="태그 선택">
-          <TagList tags={TAG_LIST} isModalOpen={isModalOpen} />
+        <Modal setIsModalOpen={setIsModalOpen} onComplete={closeModal} title="태그 선택">
+          <TagList isModalOpen={isModalOpen} data={data} />
         </Modal>
       )}
+      {!isModalOpen && <TagList isModalOpen={isModalOpen} data={data} />}
     </>
   );
 }

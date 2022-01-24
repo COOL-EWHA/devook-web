@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
-import { MaterialIcon } from 'src/components/common';
-import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES } from 'src/constant';
+import { MaterialIcon, Link } from 'src/components/common';
+import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES, CACTUS_GREEN } from 'src/constant';
 
 function GlobalNavigationBar() {
   const { pathname } = useLocation();
@@ -12,11 +12,13 @@ function GlobalNavigationBar() {
   return (
     <Nav isVisible={isVisible}>
       <Ul>
-        {NAV_ITEMS.map(({ iconType, label }) => (
-          <Li key={label}>
-            <MaterialIcon type={iconType} />
-            <Label>{label}</Label>
-          </Li>
+        {NAV_ITEMS.map(({ iconType, label, to }) => (
+          <Link to={to} key={label}>
+            <Li>
+              <MaterialIcon type={iconType} color={pathname === to ? CACTUS_GREEN[500] : GREY[900]} />
+              <Label isActive={pathname === to}>{label}</Label>
+            </Li>
+          </Link>
         ))}
       </Ul>
     </Nav>
@@ -81,7 +83,8 @@ const Li = styled.li`
   }
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ isActive: boolean }>`
   font-size: 1.4rem;
   margin-top: 0.4rem;
+  color: ${({ isActive }) => (isActive ? CACTUS_GREEN[500] : GREY[900])};
 `;

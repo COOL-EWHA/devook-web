@@ -16,4 +16,5 @@ export default Link;
 
 const StyledLink = styled(RouterLink)`
   text-decoration: none;
+  width: 100%;
 `;
