@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, MaterialIcon, Button } from 'src/components/common';
+import { P, MaterialIcon, Button, PostCardSkeleton } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 import { useBookmark, useBookmarkDelete } from 'src/lib/hooks';
 
@@ -17,7 +17,7 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
     e.currentTarget.src = '/favicon.svg';
   };
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <PostCardSkeleton />;
 
   if (!data) return null;
 

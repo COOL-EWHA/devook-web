@@ -10,20 +10,19 @@ function BookmarkList() {
 
   return (
     <Wrapper>
-      {isLoading && <div>loading...</div>}
-      {!isLoading &&
-        data?.pages.map((bookmarks) =>
-          bookmarks?.map((bookmark: BookmarkPreview) => (
-            <PostPreviewCard
-              key={bookmark.id}
-              id={bookmark.id}
-              title={bookmark.title}
-              thumbnail={bookmark.thumbnail}
-              description={bookmark.description}
-              tags={bookmark.tags}
-            />
-          )),
-        )}
+      {data?.pages.map((bookmarks) =>
+        bookmarks?.map((bookmark: BookmarkPreview) => (
+          <PostPreviewCard
+            key={bookmark.id}
+            id={bookmark.id}
+            title={bookmark.title}
+            thumbnail={bookmark.thumbnail}
+            description={bookmark.description}
+            tags={bookmark.tags}
+            isLoading={isLoading}
+          />
+        )),
+      )}
       <div style={{ height: '1rem' }} ref={listEndRef} />
     </Wrapper>
   );
