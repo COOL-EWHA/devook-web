@@ -232,20 +232,20 @@ export const useBookmarkTagFilter = (text: string) => {
 
 export const useBookmarkSearch = () => {
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
-  const [keyword, setKeyword] = useState('');
+  const [query, setQuery] = useState('');
 
-  const debounceSearch = useCallback(
-    debounce((keyword) => {
-      setFilter({ ...filter, q: keyword });
+  const search = useCallback(
+    debounce((query) => {
+      setFilter({ ...filter, q: query });
     }, 500),
     [],
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setKeyword(value);
-    debounceSearch(value);
+    setQuery(value);
+    search(value);
   };
 
-  return { keyword, handleChange };
+  return { query, handleChange };
 };
