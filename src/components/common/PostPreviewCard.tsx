@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, PostCardActionMenu, Link, PostPreviewCardSkeleton } from 'src/components/common';
+import { P, PostCardActionMenu, Link } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
 interface IPostPreviewCardProps {
@@ -12,7 +12,6 @@ interface IPostPreviewCardProps {
   tags?: string[];
   type?: 'default' | 'todo';
   isBookmarked?: boolean;
-  isLoading: boolean;
 }
 
 export default function PostPreviewCard({
@@ -23,15 +22,10 @@ export default function PostPreviewCard({
   tags,
   type = 'default',
   isBookmarked = true,
-  isLoading,
 }: IPostPreviewCardProps) {
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
   };
-
-  if (isLoading) {
-    return <PostPreviewCardSkeleton />;
-  }
 
   return (
     <Wrapper>
