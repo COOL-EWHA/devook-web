@@ -11,10 +11,14 @@ function BookmarkInfo() {
     return <BookmarkInfoSkeleton />;
   }
 
+  if (!data) return null;
+
+  const { createdAt, memo } = data;
+
   return (
     <Section title="북마크 정보" rightComponent={<BookmarkEditButton />} type="secondary">
-      <LabeledText label="생성 날짜" value={data?.createdAt.toString()} />
-      <LabeledText label="메모" value={data?.memo} />
+      <LabeledText label="생성 날짜" value={createdAt.toString()} />
+      <LabeledText label="메모" value={memo} />
     </Section>
   );
 }
