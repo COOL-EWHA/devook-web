@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { PostPreviewCard, PostPreviewCardSkeleton } from 'src/components/common';
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
+import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
 
 function BookmarkList() {
   const { data, isLoading, listEndRef } = useBookmarkList();
@@ -11,7 +12,7 @@ function BookmarkList() {
   if (isLoading) {
     return (
       <SkeletonWrapper>
-        {[...Array(10)].map((_, index) => (
+        {[...Array(BOOKMARK_FETCH_LIMIT)].map((_, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <PostPreviewCardSkeleton key={index} />
         ))}
