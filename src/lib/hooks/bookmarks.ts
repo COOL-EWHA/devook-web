@@ -192,17 +192,17 @@ export const useBookmarkTagList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = debounce(() => {
-      if (window.innerWidth > 1024) {
-        setIsModalOpen(false);
+    const handleResize = () => {
+      if (isModalOpen && window.innerWidth > 1024) {
+        closeModal();
       }
-    }, 1000);
+    };
 
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isModalOpen]);
 
   const openModal = () => {
     setIsModalOpen(true);
