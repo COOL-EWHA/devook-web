@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
@@ -228,4 +228,24 @@ export const useBookmarkTagFilter = (text: string) => {
     isSelected,
     toggleSelect,
   };
+};
+
+export const useBookmarkSearch = () => {
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
+  const [keyword, setKeyword] = useState('');
+
+  const debounceSearch = useCallback(
+    debounce((keyword) => {
+      setFilter({ ...filter, q: keyword });
+    }, 500),
+    [],
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setKeyword(value);
+    debounceSearch(value);
+  };
+
+  return { keyword, handleChange };
 };
