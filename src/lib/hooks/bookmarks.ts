@@ -17,8 +17,7 @@ import {
 } from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
-
-const BOOKMARK_FETCH_LIMIT = 10;
+import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = () => {
   const filter = useRecoilValue(bookmarkListFilter);
