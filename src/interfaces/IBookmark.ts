@@ -1,10 +1,6 @@
-export interface IBookmark {
-  id: number;
-  title: string;
-  thumbnail: string;
-  description: string;
-  url: string;
-  tags?: string[];
+import { IPost } from '.';
+
+export interface IBookmark extends IPost {
   createdAt: Date;
   memo?: string;
 }

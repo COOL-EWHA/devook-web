@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PostCard } from 'src/components/common';
+import { RelatedPostList, PostCard } from 'src/components/common';
 import { BookmarkInfo } from 'src/components/bookmarks';
 
 function BookmarkDetailPage() {
@@ -8,6 +8,7 @@ function BookmarkDetailPage() {
     <>
       <PostCard isBookmarked />
       <BookmarkInfo />
+      <RelatedPostList />
     </>
   );
 }

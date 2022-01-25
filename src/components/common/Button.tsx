@@ -7,8 +7,8 @@ import { GREY, CACTUS_GREEN, WHITE } from 'src/constant';
 export type ButtonType = 'primary' | 'line' | 'text';
 export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
 
-interface IButtonProps {
-  text: string;
+export interface IButtonProps {
+  text?: string;
   buttonType?: ButtonType;
   iconType?: string;
   iconWidth?: string;
@@ -25,7 +25,7 @@ export default function Button({
   text,
   buttonType = 'text',
   iconType,
-  iconWidth,
+  iconWidth = '1.8rem',
   color = 'CACTUS_GREEN',
   height,
   isBlock = false,
@@ -53,7 +53,7 @@ export default function Button({
       disabled={disabled}
       onClick={onClick}
     >
-      {iconType && <Icon color={color} type={iconType} width={iconWidth} />}
+      {iconType && <Icon color={color} type={iconType} width={iconWidth} text={text} />}
       <P>{text}</P>
     </Wrapper>
   );
@@ -151,7 +151,7 @@ const A = styled.a`
   text-decoration: none;
 `;
 
-const Icon = styled(MaterialIcon)`
-  margin-top: 0.2rem;
-  margin-right: 0.4rem;
+const Icon = styled(MaterialIcon)<{ text?: string }>`
+  margin-top: 0.1rem;
+  margin-right: ${({ text }) => (text ? '0.2rem' : 0)};
 `;

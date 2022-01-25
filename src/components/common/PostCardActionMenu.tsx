@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { BookmarkActionDropdown } from 'src/components/bookmarks';
-import { MaterialIcon } from 'src/components/common';
-
-import { CACTUS_GREEN } from 'src/constant';
+import { Button } from 'src/components/common';
 
 interface IPostCardActionMenuProps {
   bookmarkId: number;
@@ -14,7 +12,7 @@ interface IPostCardActionMenuProps {
 export default function PostCardActionMenu({ bookmarkId, isBookmarked = true }: IPostCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleMoreIconClick = () => {
+  const handleMoreButtonClick = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
@@ -22,11 +20,11 @@ export default function PostCardActionMenu({ bookmarkId, isBookmarked = true }: 
     <Wrapper>
       {isBookmarked && (
         <>
-          <MoreIcon onClick={handleMoreIconClick} />
+          <MoreButton onClick={handleMoreButtonClick} />
           <BookmarkActionDropdown bookmarkId={bookmarkId} isOpen={isDropdownOpen} />
         </>
       )}
-      {!isBookmarked && <MaterialIcon type="bookmark_border" />}
+      {!isBookmarked && <Button iconType="bookmark_border" />}
     </Wrapper>
   );
 }
@@ -38,10 +36,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const MoreIcon = styled(MaterialIcon).attrs({
-  type: 'more_horiz',
-  color: CACTUS_GREEN[500],
-  hoverColor: CACTUS_GREEN[700],
+const MoreButton = styled(Button).attrs({
+  iconType: 'more_horiz',
 })`
   @media screen and (min-width: 1025px) {
     display: none;

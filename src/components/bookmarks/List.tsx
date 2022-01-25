@@ -1,27 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCard, PostPreviewCardSkeleton } from 'src/components/common';
+import { PostPreviewCard } from 'src/components/common';
+import { BookmarkListSkeleton } from '.';
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
-import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
 
 function BookmarkList() {
   const { data, isLoading, listEndRef } = useBookmarkList();
 
-  if (isLoading) {
-    return (
-      <SkeletonWrapper>
-        {[...Array(BOOKMARK_FETCH_LIMIT)].map((_, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <PostPreviewCardSkeleton key={index} />
-        ))}
-      </SkeletonWrapper>
-    );
-  }
-
   return (
     <Wrapper>
+      {isLoading && <BookmarkListSkeleton />}
       {data?.pages.map((bookmarks) =>
         bookmarks?.map((bookmark: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags } = bookmark;
@@ -45,4 +35,3 @@ function BookmarkList() {
 export default BookmarkList;
 
 const Wrapper = styled.div``;
-const SkeletonWrapper = styled.div``;

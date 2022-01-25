@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button, { ButtonColorType, ButtonType } from 'src/components/common/Button';
+import { Button } from 'src/components/common';
+import { IButtonProps } from 'src/components/common/Button';
 
 import { GREY, CACTUS_GREEN } from 'src/constant';
 
@@ -17,16 +18,7 @@ describe('<Button />', () => {
     height,
     isBlock,
     disabled = false,
-  }: {
-    text: string;
-    buttonType?: ButtonType;
-    href?: string;
-    onClick?: jest.Mock<void, []>;
-    color?: ButtonColorType;
-    height?: string;
-    isBlock?: boolean;
-    disabled?: boolean;
-  }) => {
+  }: IButtonProps) => {
     return render(
       <Button
         text={text}

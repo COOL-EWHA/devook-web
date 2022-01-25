@@ -12,7 +12,7 @@ function BookmarkTagResetButton() {
     setFilter({ ...filter, tags: [] });
   };
 
-  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={resetFilter} iconWidth="1.8rem" />;
+  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={resetFilter} />;
 }
 
 export default BookmarkTagResetButton;

@@ -36,7 +36,7 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {isBookmarked && <DeleteIcon onClick={onDelete} />}
+        {isBookmarked && <DeleteButton onClick={onDelete} />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
@@ -63,6 +63,7 @@ const Description = styled(P).attrs({
 
 const Tag = styled(P).attrs({
   color: CACTUS_GREEN[500],
+  fontSize: '1.6rem',
 })`
   margin-right: 0.8rem;
 `;
@@ -96,10 +97,9 @@ const ContentWrapper = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-const DeleteIcon = styled(MaterialIcon).attrs({
-  type: 'delete_outline',
-  color: CACTUS_GREEN[500],
-  width: '2rem',
+const DeleteButton = styled(Button).attrs({
+  iconType: 'delete_outline',
+  iconWidth: '2rem',
 })`
   margin-left: auto;
 `;
