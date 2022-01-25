@@ -7,6 +7,7 @@ import BookmarkList from './List';
 import BookmarkInfo from './Info';
 import BookmarkEditButton from './EditButton';
 import BookmarkInfoSkeleton from './InfoSkeleton';
+import BookmarkListSkeleton from './ListSkeleton';
 
 export {
   BookmarkActionDropdown,
@@ -18,4 +19,5 @@ export {
   BookmarkTagResetButton,
   BookmarkEditButton,
   BookmarkInfoSkeleton,
+  BookmarkListSkeleton,
 };
