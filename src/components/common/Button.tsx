@@ -7,7 +7,7 @@ import { GREY, CACTUS_GREEN, WHITE } from 'src/constant';
 export type ButtonType = 'primary' | 'line' | 'text';
 export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
 
-interface IButtonProps {
+export interface IButtonProps {
   text?: string;
   buttonType?: ButtonType;
   iconType?: string;
