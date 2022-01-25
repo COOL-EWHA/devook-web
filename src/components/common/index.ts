@@ -18,6 +18,8 @@ import TagList from './TagList';
 import Skeleton from './Skeleton';
 import PostPreviewCardSkeleton from './PostPreviewCardSkeleton';
 import PostCardSkeleton from './PostCardSkeleton';
+import RelatedPostList from './RelatedPostList';
+import RelatedPostListSkeleton from './RelatedPostListSkeleton';
 
 export {
   P,
@@ -40,4 +42,6 @@ export {
   Skeleton,
   PostPreviewCardSkeleton,
   PostCardSkeleton,
+  RelatedPostList,
+  RelatedPostListSkeleton,
 };
