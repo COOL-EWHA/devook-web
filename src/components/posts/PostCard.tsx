@@ -1,30 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, MaterialIcon, Button, PostCardSkeleton } from 'src/components/common';
+import { P, Button, Link } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
-import { useBookmark, useBookmarkDelete } from 'src/lib/hooks';
+
+import { useBookmarkDelete } from 'src/lib/hooks';
+import { IPost, IBookmark } from 'src/interfaces';
+import { BookmarkAddButton } from 'src/components/bookmarks';
 
 interface IPostCardProps {
-  isBookmarked?: boolean;
+  data: IPost | IBookmark;
+  bookmarkId?: number;
+  postId?: number;
 }
 
-function PostCard({ isBookmarked = true }: IPostCardProps) {
-  const { bookmarkId, data, isLoading } = useBookmark();
+function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
   const { onDelete } = useBookmarkDelete(Number(bookmarkId));
+
+  const { title, description, thumbnail, tags, url } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
   };
 
-  if (isLoading) return <PostCardSkeleton />;
-
-  if (!data) return null;
-
-  const { title, description, thumbnail, tags, url } = data;
-
   return (
-    <Wrapper>
+    <Wrapper to={`/posts/${postId}`} disabled={!postId}>
       <ContentWrapper>
         <PWrapper>
           <Title>{title}</Title>
@@ -36,7 +36,8 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {isBookmarked && <DeleteButton onClick={onDelete} />}
+        {bookmarkId && <DeleteButton onClick={onDelete} />}
+        {postId && <BookmarkAddButton postId={postId} iconWidth="2rem" />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
@@ -44,6 +45,10 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
 }
 
 export default PostCard;
+
+const Wrapper = styled(Link)`
+  width: 100%;
+`;
 
 const Title = styled(P).attrs({
   fontSize: '2rem',
@@ -66,10 +71,6 @@ const Tag = styled(P).attrs({
   fontSize: '1.6rem',
 })`
   margin-right: 0.8rem;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
 `;
 
 const Img = styled.img`

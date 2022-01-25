@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Skeleton } from '.';
+import { Skeleton } from 'src/components/common';
 
 function PostCardSkeleton() {
   return (

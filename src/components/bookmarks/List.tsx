@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCard } from 'src/components/common';
+import { PostPreviewCard } from 'src/components/posts';
 import { BookmarkListSkeleton } from '.';
+
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 

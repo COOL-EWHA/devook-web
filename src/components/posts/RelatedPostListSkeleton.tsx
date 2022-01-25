@@ -18,5 +18,5 @@ function RelatedPostListSkeleton() {
 export default RelatedPostListSkeleton;
 
 const Wrapper = styled.div`
-  margin: 3.2rem 0;
+  margin: 2rem 0;
 `;

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCard, RelatedPostListSkeleton, Section } from '.';
+import { PostPreviewCard, RelatedPostListSkeleton } from 'src/components/posts';
+import { Section } from 'src/components/common';
+
+import { GREY } from 'src/constant';
 import { useRelatedPostList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
-import { GREY } from 'src/constant';
 
 function RelatedPostList() {
   const { data, isLoading } = useRelatedPostList();
@@ -36,14 +38,15 @@ function RelatedPostList() {
 export default RelatedPostList;
 
 const Divider = styled.div`
+  margin-top: 2rem;
+  height: 0.8rem;
   @media screen and (max-width: 1024px) {
-    height: 0.8rem;
-    margin: 0 -2rem;
+    margin-right: -2rem;
+    margin-left: -2rem;
     background-color: ${GREY[200]};
   }
 
   @media screen and (min-width: 1025px) {
-    height: 0.2rem;
     background-color: ${GREY[300]};
   }
 `;

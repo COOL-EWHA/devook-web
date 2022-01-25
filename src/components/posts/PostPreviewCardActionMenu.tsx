@@ -4,12 +4,15 @@ import styled from 'styled-components';
 import { BookmarkActionDropdown } from 'src/components/bookmarks';
 import { Button } from 'src/components/common';
 
-interface IPostCardActionMenuProps {
+interface IPostPreviewCardActionMenuProps {
   bookmarkId: number;
   isBookmarked?: boolean;
 }
 
-export default function PostCardActionMenu({ bookmarkId, isBookmarked = true }: IPostCardActionMenuProps) {
+export default function PostPreviewCardActionMenu({
+  bookmarkId,
+  isBookmarked = true,
+}: IPostPreviewCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMoreButtonClick = () => {

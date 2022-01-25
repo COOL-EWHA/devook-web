@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, PostCardActionMenu, Link } from 'src/components/common';
+import { PostPreviewCardActionMenu } from 'src/components/posts';
+import { P, Link } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
 interface IPostPreviewCardProps {
@@ -29,7 +30,7 @@ export default function PostPreviewCard({
 
   return (
     <Wrapper>
-      <Link to={`/bookmarks/${id}`}>
+      <Link to={`/${isBookmarked ? 'bookmarks' : 'posts'}/${id}`}>
         <ContentWrapper>
           <PWrapper>
             <Title>{title}</Title>
@@ -46,7 +47,7 @@ export default function PostPreviewCard({
         {type === 'todo' && (
         <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
         )} */}
-        <PostCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
+        <PostPreviewCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
       </Footer>
     </Wrapper>
   );
