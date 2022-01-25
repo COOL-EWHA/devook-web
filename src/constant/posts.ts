@@ -1,0 +1,1 @@
+export const RELATED_POST_FETCH_LIMIT = 4;
