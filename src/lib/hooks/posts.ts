@@ -1,16 +1,21 @@
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
-import { getBookmarkRelatedPost } from 'src/lib/api';
-import { bookmarkKeys } from 'src/lib/utils/queryKeys';
+import { getRelatedPostList } from 'src/lib/api';
+import { postKeys } from 'src/lib/utils/queryKeys';
 
-export const useBookmarkRelatedPostList = () => {
-  const params = useParams();
-  const id = params.id ?? '';
+export const useRelatedPostList = () => {
+  const { pathname } = useLocation();
+  const { id = '' } = useParams();
 
-  const queryFn = () => getBookmarkRelatedPost({ bookmarkId: Number(id), limit: RELATED_POST_FETCH_LIMIT });
-  const { data, isLoading } = useQuery(bookmarkKeys.bookmarkRelatedPost(Number(id)), queryFn);
+  const filter = {
+    ...(pathname.includes('bookmarks') ? { bookmarkId: Number(id) } : { postId: Number(id) }),
+    limit: RELATED_POST_FETCH_LIMIT,
+  };
+
+  const queryFn = () => getRelatedPostList(filter);
+  const { data, isLoading } = useQuery(postKeys.list(filter), queryFn);
 
   return { data, isLoading };
 };

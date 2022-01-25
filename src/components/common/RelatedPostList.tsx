@@ -2,25 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostPreviewCard, RelatedPostListSkeleton, Section } from '.';
-import { useBookmarkRelatedPostList } from 'src/lib/hooks';
+import { useRelatedPostList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 import { GREY } from 'src/constant';
 
 function RelatedPostList() {
-  const { data, isLoading } = useBookmarkRelatedPostList();
+  const { data, isLoading } = useRelatedPostList();
 
-  if (isLoading) {
-    return (
-      <>
-        <Divider />
-        <RelatedPostListSkeleton />
-      </>
-    );
-  }
   return (
     <>
       <Divider />
       <Section title="더 읽어보기">
+        {isLoading && <RelatedPostListSkeleton />}
         {data?.map((post: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags } = post;
           return (

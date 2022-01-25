@@ -1,6 +1,6 @@
 import { apiClient } from '.';
-import { BookmarkPreview, BookmarkRelatedPostListParams } from 'src/types';
+import { PostPreview, RelatedPostListParams } from 'src/types';
 import { getQueryString } from 'src/lib/utils';
 
-export const getBookmarkRelatedPost = (params: BookmarkRelatedPostListParams): Promise<BookmarkPreview[]> =>
+export const getRelatedPostList = (params: RelatedPostListParams): Promise<PostPreview[]> =>
   apiClient.get(`/posts${getQueryString(params)}`).then((res) => res.data);
