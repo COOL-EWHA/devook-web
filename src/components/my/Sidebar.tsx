@@ -5,12 +5,12 @@ import { useRecoilValue } from 'recoil';
 import { UserProfileCard, LoginButtons, LogoutButton, WithdrawButton, SidebarHeader } from 'src/components/my';
 import { WHITE } from 'src/constant';
 
-import { accessToken } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 
 export type IMySidebarProps = { onClose: () => void };
 
 export default function MySidebar({ onClose }: IMySidebarProps) {
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();

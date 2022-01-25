@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil';
 
 import { FixedButtons } from 'src/components/common';
 import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
-import { accessToken } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 
 function BookmarkListPage() {
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   return (
     <Wrapper>

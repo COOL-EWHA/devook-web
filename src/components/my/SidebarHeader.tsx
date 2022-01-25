@@ -4,12 +4,12 @@ import { useRecoilValue } from 'recoil';
 
 import { MaterialIcon } from 'src/components/common';
 
-import { accessToken } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 
 export type IMySidebarProps = { onCloseButtonClick: () => void };
 
 export default function MySidebarHeader({ onCloseButtonClick }: IMySidebarProps) {
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   return (
     <Wrapper>
