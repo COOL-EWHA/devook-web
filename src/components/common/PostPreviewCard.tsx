@@ -29,7 +29,7 @@ export default function PostPreviewCard({
 
   return (
     <Wrapper>
-      <Link to={`bookmarks/${id}`}>
+      <Link to={`/bookmarks/${id}`}>
         <ContentWrapper>
           <PWrapper>
             <Title>{title}</Title>
