@@ -5,6 +5,13 @@ export const bookmarkKeys = {
   tags: () => [...bookmarkKeys.all, 'tags'] as const,
   details: () => [...bookmarkKeys.all, 'detail'] as const,
   detail: (id: number) => [...bookmarkKeys.details(), id] as const,
-  bookmarkRelatedPosts: () => [...bookmarkKeys.all, 'bookmarkRelatedPost'] as const,
-  bookmarkRelatedPost: (id: number) => [...bookmarkKeys.bookmarkRelatedPosts(), id] as const,
+};
+
+export const postKeys = {
+  all: ['posts'] as const,
+  lists: () => [...postKeys.all, 'list'] as const,
+  list: (filters: object) => [...postKeys.lists(), filters] as const,
+  tags: () => [...postKeys.all, 'tags'] as const,
+  details: () => [...postKeys.all, 'detail'] as const,
+  detail: (id: number) => [...postKeys.details(), id] as const,
 };
