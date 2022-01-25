@@ -25,7 +25,7 @@ export default function Button({
   text,
   buttonType = 'text',
   iconType,
-  iconWidth,
+  iconWidth = '1.8rem',
   color = 'CACTUS_GREEN',
   height,
   isBlock = false,
