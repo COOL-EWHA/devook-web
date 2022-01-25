@@ -1,5 +1,5 @@
 import BookmarkActionDropdown from './ActionDropdown';
-import BookmarkAddButton from './AddButton';
+import BookmarkCreateButton from './CreateButton';
 import BookmarkSearchInput from './SearchInput';
 import BookmarkTagButton from './TagButton';
 import BookmarkTagResetButton from './TagResetButton';
@@ -11,7 +11,7 @@ import BookmarkListSkeleton from './ListSkeleton';
 
 export {
   BookmarkActionDropdown,
-  BookmarkAddButton,
+  BookmarkCreateButton,
   BookmarkSearchInput,
   BookmarkList,
   BookmarkInfo,

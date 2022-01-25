@@ -5,7 +5,7 @@ import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
 
 import { useBookmarkCreate } from 'src/lib/hooks/bookmarks';
 
-export default function BookmarkAddButton() {
+export default function BookmarkCreateButton() {
   const { form, onChange, onSubmit, openModal, isModalOpen, setIsModalOpen } = useBookmarkCreate();
   const { url, memo } = form;
 
