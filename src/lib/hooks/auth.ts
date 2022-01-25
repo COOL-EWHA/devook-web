@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
-import { accessToken, accessTokenLoading } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
-  const setAccessToken = useSetRecoilState(accessToken);
-  const [loading, setLoading] = useRecoilState(accessTokenLoading);
+  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
     refreshAuthTokens();
@@ -17,19 +16,16 @@ export const useAuthRefresh = () => {
 
   const refreshAuthTokens = async () => {
     if (pathname === '/oauth-redirect') {
-      setLoading(false);
       return;
     }
 
     try {
-      setLoading(true);
       const { accessToken } = await authRefresh();
       updateAuthHeader(accessToken);
-      setAccessToken(accessToken);
+      setIsLoggedIn(!!accessToken);
     } catch (err) {
       handleRefreshError(err as AxiosError);
     }
-    setLoading(false);
   };
 
   const handleRefreshError = ({ response }: AxiosError) => {
@@ -44,14 +40,12 @@ export const useAuthRefresh = () => {
       // 그 외 Error
     }
   };
-
-  return { loading };
 };
 
 export const useAuthLogin = () => {
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
-  const setAccessToken = useSetRecoilState(accessToken);
+  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
     login();
@@ -70,7 +64,7 @@ export const useAuthLogin = () => {
       const { accessToken } = await authLogin(provider, code);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
-      setAccessToken(accessToken);
+      setIsLoggedIn(!!accessToken);
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
@@ -81,14 +75,14 @@ export const useAuthLogin = () => {
 // 개발, 테스트용 로그인
 export const useAuthTestLogin = () => {
   const navigate = useNavigate();
-  const setAccessToken = useSetRecoilState(accessToken);
+  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   const testLogin = async (email: string) => {
     try {
       const { accessToken } = await authTestLogin(email);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
-      setAccessToken(accessToken);
+      setIsLoggedIn(!!accessToken);
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
@@ -100,7 +94,7 @@ export const useAuthTestLogin = () => {
 
 export const useLoginStatus = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const isLoggedIn = !!useRecoilValue(isUserLoggedIn);
 
   const checkIsLoggedIn = () => {
     if (isLoggedIn) return true;

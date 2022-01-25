@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 
-import { accessToken } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 import { authLogout, deleteUser, getUser, initAuthHeader } from 'src/lib/api';
 
 export const useUserProfile = () => {
@@ -11,13 +11,13 @@ export const useUserProfile = () => {
 };
 
 export const useUserLogout = () => {
-  const setAccessToken = useSetRecoilState(accessToken);
+  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   const logout = async (param = { alert: true }) => {
     try {
       await authLogout();
       initAuthHeader();
-      setAccessToken(undefined);
+      setIsLoggedIn(false);
       if (param.alert) {
         alert('로그아웃되었습니다.');
       }

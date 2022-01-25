@@ -3,10 +3,10 @@ import { useRecoilValue } from 'recoil';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
 import { useBookmarkTagList } from 'src/lib/hooks';
-import { accessToken } from 'src/lib/store';
+import { isUserLoggedIn } from 'src/lib/store';
 
 function TagListButton() {
-  const isLoggedIn = !!useRecoilValue(accessToken);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
   const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = useBookmarkTagList();
 
   if (!isLoggedIn) return null;

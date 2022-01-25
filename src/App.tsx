@@ -7,18 +7,14 @@ import { BookmarkDetailPage, BookmarkListPage, OauthRedirectPage } from 'src/pag
 import { useAuthRefresh } from 'src/lib/hooks';
 
 function App() {
-  const { loading } = useAuthRefresh();
+  useAuthRefresh();
 
   return (
     <MainLayout>
       <Routes>
-        {!loading && (
-          <>
-            <Route path="/" element={<BookmarkListPage />} />
-            <Route path="/oauth-redirect" element={<OauthRedirectPage />} />
-            <Route path="/bookmarks/:id" element={<BookmarkDetailPage />} />
-          </>
-        )}
+        <Route path="/" element={<BookmarkListPage />} />
+        <Route path="/oauth-redirect" element={<OauthRedirectPage />} />
+        <Route path="/bookmarks/:id" element={<BookmarkDetailPage />} />
       </Routes>
     </MainLayout>
   );
