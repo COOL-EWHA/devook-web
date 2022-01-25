@@ -94,7 +94,7 @@ export const useAuthTestLogin = () => {
 
 export const useLoginStatus = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!useRecoilValue(isUserLoggedIn);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   const checkIsLoggedIn = () => {
     if (isLoggedIn) return true;
