@@ -14,7 +14,7 @@ interface ISectionProps {
 function Section({ type = 'primary', title, rightComponent, children }: ISectionProps) {
   return (
     <Wrapper>
-      <Header hasBorderBottom={type === 'secondary'}>
+      <Header hasDivider={type === 'secondary'}>
         <P fontSize={type === 'primary' ? '2.2rem' : '1.8rem'} fontWeight={500}>
           {title}
         </P>
@@ -32,11 +32,11 @@ const Wrapper = styled.div`
   margin: 3.2rem 0;
 `;
 
-const Header = styled.div<{ hasBorderBottom: boolean }>`
+const Header = styled.div<{ hasDivider: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
-  ${({ hasBorderBottom }) => hasBorderBottom && `border-bottom: 1px solid ${GREY[300]};`}
+  ${({ hasDivider }) => hasDivider && `border-bottom: 1px solid ${GREY[300]};`}
   margin-bottom: 1.2rem;
 `;
