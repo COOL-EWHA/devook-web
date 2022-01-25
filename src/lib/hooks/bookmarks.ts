@@ -5,9 +5,10 @@ import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
-import { bookmarkKeys } from 'src/lib/utils/queryKeys';
+import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
 import {
+  addBookmark,
   createBookmark,
   deleteBookmark,
   getBookmarkList,
@@ -104,6 +105,31 @@ export const useBookmarkCreate = () => {
   return { openModal, isModalOpen, setIsModalOpen, form, onChange: handleFormChange, onSubmit: handleSubmit };
 };
 
+export const useBookmarkAdd = (postId: number) => {
+  const queryClient = useQueryClient();
+  const { checkIsLoggedIn } = useLoginStatus();
+
+  const mutationFn = (postId: number) => addBookmark({ postId });
+
+  const { mutate } = useMutation(mutationFn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(postKeys.lists());
+    },
+    onError: () => {
+      alert('북마크 추가에 실패하였습니다.');
+    },
+  });
+
+  const handleAdd = () => {
+    if (!checkIsLoggedIn()) {
+      return;
+    }
+    mutate(postId);
+  };
+
+  return { onAdd: handleAdd };
+};
+
 export const useBookmarkDelete = (id: number) => {
   const queryClient = useQueryClient();
   const { checkIsLoggedIn } = useLoginStatus();
@@ -182,7 +208,7 @@ export const useBookmark = () => {
   const queryFn = () => getBookmark(Number(bookmarkId));
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
-  return { bookmarkId, data, isLoading };
+  return { id: Number(bookmarkId), data, isLoading };
 };
 
 export const useBookmarkTagList = () => {
