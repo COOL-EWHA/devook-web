@@ -93,6 +93,7 @@ const Img = styled.img`
 
 const Footer = styled.div`
   display: flex;
+  align-items: center;
   margin: 0.8rem 0;
 `;
 
