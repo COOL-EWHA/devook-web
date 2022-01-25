@@ -1,8 +1,8 @@
 import { IBookmark } from 'src/interfaces';
-import { ListRequestParams } from '.';
+import { PostListFilter, PostListParams, PostPreview } from '.';
 
-export type BookmarkPreview = Pick<IBookmark, 'id' | 'title' | 'thumbnail' | 'description' | 'url' | 'tags'>;
-export type BookmarkCreateParams = Pick<IBookmark, 'url' | 'memo'>;
-export type BookmarkListParams = ListRequestParams & Pick<IBookmark, 'tags'> & { q?: string };
-export type BookmarkListFilter = Pick<BookmarkListParams, 'tags' | 'q'>;
+export type BookmarkPreview = PostPreview;
+export type BookmarkListParams = PostListParams;
+export type BookmarkListFilter = PostListFilter;
+export type BookmarkCreateParams = Partial<Pick<IBookmark, 'id' | 'url' | 'memo'>>;
 export type BookmarkMemoEditParams = Pick<IBookmark, 'id' | 'memo'>;
