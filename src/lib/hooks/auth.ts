@@ -93,13 +93,12 @@ export const useAuthTestLogin = () => {
 };
 
 export const useLoginStatus = () => {
-  const navigate = useNavigate();
+  // @TO_BE_IMPROVED: isSidebarOpen 상태 글로벌로 만들고 로그인 필요할 때 열리게 수정
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   const checkIsLoggedIn = () => {
     if (isLoggedIn) return true;
     alert('로그인이 필요한 기능입니다.');
-    navigate('/my');
     return false;
   };
 
