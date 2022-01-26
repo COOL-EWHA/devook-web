@@ -12,14 +12,15 @@ import PostPreviewCard from './PostPreviewCard';
 import PostCardActionMenu from './PostCardActionMenu';
 import LabeledText from './LabeledText';
 import Section from './Section';
-import TagListButton from './TagListButton';
 import PostCard from './PostCard';
-import TagList from './TagList';
 import Skeleton from './Skeleton';
 import PostPreviewCardSkeleton from './PostPreviewCardSkeleton';
 import PostCardSkeleton from './PostCardSkeleton';
 import RelatedPostList from './RelatedPostList';
 import RelatedPostListSkeleton from './RelatedPostListSkeleton';
+import TagResetButton from './TagResetButton';
+import TagList from './TagList';
+import TagButton from './TagButton';
 
 export {
   P,
@@ -37,11 +38,12 @@ export {
   Section,
   FixedButton,
   FixedButtons,
-  TagListButton,
-  TagList,
   Skeleton,
   PostPreviewCardSkeleton,
   PostCardSkeleton,
   RelatedPostList,
   RelatedPostListSkeleton,
+  TagResetButton,
+  TagList,
+  TagButton,
 };

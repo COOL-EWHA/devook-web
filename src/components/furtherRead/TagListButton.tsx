@@ -2,12 +2,12 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { FixedButton, Modal, TagList } from 'src/components/common';
-import { useBookmarkTagList } from 'src/lib/hooks';
+import { useRecommendedPostTagList } from 'src/lib/hooks';
 import { isUserLoggedIn } from 'src/lib/store';
 
-function TagListButton() {
+function RecommendedPostTagListButton() {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
-  const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = useBookmarkTagList();
+  const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = useRecommendedPostTagList();
 
   if (!isLoggedIn) return null;
 
@@ -24,4 +24,4 @@ function TagListButton() {
   );
 }
 
-export default TagListButton;
+export default RecommendedPostTagListButton;

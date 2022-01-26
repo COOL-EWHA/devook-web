@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { CACTUS_GREEN, WHITE } from 'src/constant';
 import { useBookmarkTagFilter } from 'src/lib/hooks';
 
-interface IBookmarkTagButtonProps {
+interface ITagButtonProps {
   text: string;
 }
 
-export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
+export default function TagButton({ text }: ITagButtonProps) {
   const { isSelected, toggleSelect: handleClick } = useBookmarkTagFilter(text);
 
   return (

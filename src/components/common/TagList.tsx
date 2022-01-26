@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BookmarkTagButton, BookmarkTagResetButton } from 'src/components/bookmarks';
+import { BookmarkTagResetButton } from 'src/components/bookmarks';
+import { TagButton } from 'src/components/common';
 import { GREY } from 'src/constant';
 
 interface ITagListProps {
@@ -15,7 +16,7 @@ export default function TagList({ isModalOpen, data }: ITagListProps) {
       <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
         {data?.map((tag) => (
-          <BookmarkTagButton key={tag} text={tag} />
+          <TagButton key={tag} text={tag} />
         ))}
       </BookmarkTagButtonWrapper>
       <BookmarkTagResetButton />
