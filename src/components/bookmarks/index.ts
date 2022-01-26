@@ -12,6 +12,8 @@ import BookmarkInfoSkeleton from './InfoSkeleton';
 import BookmarkListSkeleton from './ListSkeleton';
 import BookmarkRelatedPostListSkeleton from './RelatedPostListSkeleton';
 import BookmarkRelatedPostList from './RelatedPostList';
+import BookmarkDetailCardSkeleton from './DetailCardSkeleton';
+import BookmarkDetailCard from './DetailCard';
 
 export {
   BookmarkActionDropdown,
@@ -28,4 +30,6 @@ export {
   BookmarkListSkeleton,
   BookmarkRelatedPostListSkeleton,
   BookmarkRelatedPostList,
+  BookmarkDetailCardSkeleton,
+  BookmarkDetailCard,
 };

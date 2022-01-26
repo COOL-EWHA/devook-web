@@ -15,7 +15,7 @@ function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownP
   return (
     <Wrapper isOpen={isOpen}>
       <Button iconType="notifications_none" text="알림설정" />
-      <BookmarkDeleteButton bookmarkId={bookmarkId} />
+      <BookmarkDeleteButton id={bookmarkId} />
     </Wrapper>
   );
 }

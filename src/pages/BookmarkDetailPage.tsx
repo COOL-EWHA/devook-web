@@ -1,7 +1,12 @@
 import React from 'react';
 
-import { PostCard, PostCardSkeleton } from 'src/components/posts';
-import { BookmarkRelatedPostList, BookmarkInfoCard, BookmarkInfoSkeleton } from 'src/components/bookmarks';
+import {
+  BookmarkDetailCard,
+  BookmarkDetailCardSkeleton,
+  BookmarkRelatedPostList,
+  BookmarkInfoCard,
+  BookmarkInfoSkeleton,
+} from 'src/components/bookmarks';
 
 import { useBookmark } from 'src/lib/hooks';
 
@@ -12,13 +17,13 @@ function BookmarkDetailPage() {
     <>
       {isLoading && (
         <>
-          <PostCardSkeleton />
+          <BookmarkDetailCardSkeleton />
           <BookmarkInfoSkeleton />
         </>
       )}
       {data && (
         <>
-          <PostCard bookmarkId={id} data={data} />
+          <BookmarkDetailCard id={id} data={data} />
           <BookmarkInfoCard data={data} />
         </>
       )}

@@ -1,21 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, Button, Link } from 'src/components/common';
+import { BookmarkDeleteButton } from 'src/components/bookmarks';
+import { P, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
 import { IPost, IBookmark } from 'src/interfaces';
-import { BookmarkAddButton, BookmarkDeleteButton } from 'src/components/bookmarks';
 
-interface IPostCardProps {
+interface IBookmarkCardProps {
   data: IPost | IBookmark;
-  bookmarkId?: number;
-  postId?: number;
-  isBookmarked?: boolean;
+  id?: number;
 }
 
-function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
-  const { title, description, thumbnail, tags, url, isBookmarked = true } = data;
+function BookmarkDetailCard({ data, id }: IBookmarkCardProps) {
+  const { title, description, thumbnail, tags, url } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
@@ -34,15 +32,14 @@ function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {bookmarkId && <StyledDeleteButton bookmarkId={bookmarkId} />}
-        {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
+        {id && <StyledDeleteButton id={id} />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
   );
 }
 
-export default PostCard;
+export default BookmarkDetailCard;
 
 const Wrapper = styled.div`
   width: 100%;

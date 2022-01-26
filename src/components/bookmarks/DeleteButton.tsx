@@ -7,11 +7,11 @@ import { useBookmarkDelete } from 'src/lib/hooks';
 
 interface IBookmarkDeleteButtonProps {
   className?: string;
-  bookmarkId: number;
+  id: number;
 }
 
-export default function BookmarkDeleteButton({ className, bookmarkId }: IBookmarkDeleteButtonProps) {
-  const { onDelete } = useBookmarkDelete(bookmarkId);
+export default function BookmarkDeleteButton({ className, id }: IBookmarkDeleteButtonProps) {
+  const { onDelete } = useBookmarkDelete(id);
 
   return <StyledButton className={className} onClick={onDelete} />;
 }

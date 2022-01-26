@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Skeleton } from 'src/components/common';
 
-function PostCardSkeleton() {
+function BookmarkDetailCardSkeleton() {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -22,7 +22,7 @@ function PostCardSkeleton() {
   );
 }
 
-export default PostCardSkeleton;
+export default BookmarkDetailCardSkeleton;
 
 const Wrapper = styled.div``;
 
