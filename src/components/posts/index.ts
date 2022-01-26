@@ -1,7 +1,7 @@
-import PostPreviewCardActionMenu from './PostPreviewCardActionMenu';
-import PostPreviewCard from './PostPreviewCard';
-import PostPreviewCardSkeleton from './PostPreviewCardSkeleton';
-import PostCard from './PostCard';
-import PostCardSkeleton from './PostCardSkeleton';
+import PostPreviewCardActionMenu from './PreviewCardActionMenu';
+import PostPreviewCard from './PreviewCard';
+import PostPreviewCardSkeleton from './PreviewCardSkeleton';
+import PostCard from './Card';
+import PostCardSkeleton from './CardSkeleton';
 
 export { PostPreviewCardActionMenu, PostPreviewCard, PostPreviewCardSkeleton, PostCard, PostCardSkeleton };
