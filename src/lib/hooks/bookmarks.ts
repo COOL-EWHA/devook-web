@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import produce from 'immer';
 
-import { bookmarkListFilter, postListFilter } from 'src/lib/store';
+import { bookmarkListFilter } from 'src/lib/store';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import {
   addBookmark,
@@ -264,21 +264,6 @@ export const useBookmarkTagList = () => {
   };
 
   return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
-};
-
-export const useTagFilter = (text: string, type: 'bookmark' | 'post') => {
-  const [filter, setFilter] = useRecoilState(type === 'bookmark' ? bookmarkListFilter : postListFilter);
-  const { tags } = filter;
-  const isSelected = tags?.includes(text) || false;
-
-  const toggleSelect = () => {
-    setFilter({ ...filter, tags: isSelected ? tags?.filter((tag) => tag !== text) : tags?.concat(text) });
-  };
-
-  return {
-    isSelected,
-    toggleSelect,
-  };
 };
 
 export const useBookmarkSearch = () => {

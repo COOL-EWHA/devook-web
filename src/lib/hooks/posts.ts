@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce';
 
 import { getRelatedPostList, getRecommendedPostList, getRecommendedPostTagList } from 'src/lib/api';
 import { postKeys } from 'src/lib/utils/queryKeys';
-import { postListFilter } from 'src/lib/store';
+import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 import { PostPreview } from 'src/types';
 import { RECOMMENDED_POST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
 
@@ -108,4 +108,19 @@ export const useRecommendedPostTagList = () => {
   };
 
   return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
+};
+
+export const useTagFilter = (text: string, type: 'bookmark' | 'post') => {
+  const [filter, setFilter] = useRecoilState(type === 'bookmark' ? bookmarkListFilter : postListFilter);
+  const { tags } = filter;
+  const isSelected = tags?.includes(text) || false;
+
+  const toggleSelect = () => {
+    setFilter({ ...filter, tags: isSelected ? tags?.filter((tag) => tag !== text) : tags?.concat(text) });
+  };
+
+  return {
+    isSelected,
+    toggleSelect,
+  };
 };
