@@ -6,7 +6,8 @@ import { P, Link } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
 interface IPostPreviewCardProps {
-  id: number;
+  postId?: number;
+  bookmarkId?: number;
   title: string;
   thumbnail: string;
   description: string;
@@ -16,7 +17,8 @@ interface IPostPreviewCardProps {
 }
 
 export default function PostPreviewCard({
-  id,
+  postId,
+  bookmarkId,
   title,
   thumbnail,
   description,
@@ -28,9 +30,11 @@ export default function PostPreviewCard({
     e.currentTarget.src = '/favicon.svg';
   };
 
+  const pathname = bookmarkId ? `/bookmarks/${bookmarkId}` : `/posts/${postId}`;
+
   return (
     <Wrapper>
-      <Link to={`/${isBookmarked ? 'bookmarks' : 'posts'}/${id}`}>
+      <Link to={pathname}>
         <ContentWrapper>
           <PWrapper>
             <Title>{title}</Title>
@@ -47,7 +51,7 @@ export default function PostPreviewCard({
         {type === 'todo' && (
         <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
         )} */}
-        <PostPreviewCardActionMenu bookmarkId={id} isBookmarked={isBookmarked} />
+        <PostPreviewCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} />
       </Footer>
     </Wrapper>
   );
@@ -102,7 +106,13 @@ const PWrapper = styled.div`
   max-width: calc(100% - 9.2rem);
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.button`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  background: none;
+  outline: none;
+  border: none;
+  cursor pointer;
 `;

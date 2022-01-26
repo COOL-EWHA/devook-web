@@ -19,7 +19,7 @@ function BookmarkList() {
           return (
             <PostPreviewCard
               key={id}
-              id={id}
+              bookmarkId={id}
               title={title}
               thumbnail={thumbnail}
               description={description}

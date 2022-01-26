@@ -17,12 +17,12 @@ function RelatedPostList() {
       <Section title="더 읽어보기">
         {isLoading && <RelatedPostListSkeleton />}
         {data?.map((post: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags } = post;
+          const { id, title, thumbnail, description, tags, isBookmarked } = post;
           return (
             <PostPreviewCard
-              isBookmarked={false}
               key={id}
-              id={id}
+              postId={id}
+              isBookmarked={isBookmarked}
               title={title}
               thumbnail={thumbnail}
               description={description}
@@ -39,14 +39,14 @@ export default RelatedPostList;
 
 const Divider = styled.div`
   margin-top: 2rem;
-  height: 0.8rem;
+  background-color: ${GREY[200]};
   @media screen and (max-width: 1024px) {
     margin-right: -2rem;
     margin-left: -2rem;
-    background-color: ${GREY[200]};
+    height: 0.8rem;
   }
 
   @media screen and (min-width: 1025px) {
-    background-color: ${GREY[300]};
+    height: 0.4rem;
   }
 `;
