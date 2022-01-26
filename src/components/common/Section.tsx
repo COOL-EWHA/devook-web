@@ -29,7 +29,7 @@ export default Section;
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: 3.2rem 0;
+  margin: 2rem 0;
 `;
 
 const Header = styled.div<{ hasDivider: boolean }>`

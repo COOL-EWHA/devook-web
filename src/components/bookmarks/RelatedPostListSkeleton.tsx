@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
-import { PostPreviewCardSkeleton } from '.';
+import { PostPreviewCardSkeleton } from 'src/components/posts';
 
-function RelatedPostListSkeleton() {
+function BookmarkRelatedPostListSkeleton() {
   return (
     <Wrapper>
       {[...Array(RELATED_POST_FETCH_LIMIT)].map((_, index) => (
@@ -15,8 +15,8 @@ function RelatedPostListSkeleton() {
   );
 }
 
-export default RelatedPostListSkeleton;
+export default BookmarkRelatedPostListSkeleton;
 
 const Wrapper = styled.div`
-  margin: 3.2rem 0;
+  margin: 2rem 0;
 `;

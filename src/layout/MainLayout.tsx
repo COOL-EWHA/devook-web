@@ -2,19 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GlobalHeader, GlobalNavigationBar } from 'src/components/base';
-import { CONTENT_MAX_WIDTH } from 'src/constant';
+import { CONTENT_MAX_WIDTH, SUB_ROUTES } from 'src/constant';
+
+import { useLocation } from 'react-router-dom';
 
 interface IMainLayoutProps {
   children: JSX.Element;
 }
 
 export default function MainLayout({ children }: IMainLayoutProps) {
+  const { pathname } = useLocation();
+  const isSubRoute = !!SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
+
   return (
     <>
       <GlobalHeader />
       <Wrapper>
         <GlobalNavigationBar />
-        <Main>{children}</Main>
+        <Main isSubRoute={isSubRoute}>{children}</Main>
       </Wrapper>
     </>
   );
@@ -29,7 +34,7 @@ const Wrapper = styled.div`
   padding: 0 2rem;
 `;
 
-const Main = styled.main`
+const Main = styled.main<{ isSubRoute: boolean }>`
   width: 100%;
   @media screen and (min-width: 1025px) {
     margin-top: 6.4rem;
@@ -37,6 +42,6 @@ const Main = styled.main`
   }
   @media screen and (max-width: 1024px) {
     margin-top: 6.8rem;
-    margin-bottom: 7.2rem;
+    margin-bottom: ${({ isSubRoute }) => (isSubRoute ? 0 : '6rem')};
   }
 `;

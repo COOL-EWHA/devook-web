@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCardSkeleton } from 'src/components/common';
+import { PostPreviewCardSkeleton } from 'src/components/posts';
 
 interface IListSkeletonProps {
   fetchLimit: number;
@@ -21,5 +21,5 @@ function ListSkeleton({ fetchLimit }: IListSkeletonProps) {
 export default ListSkeleton;
 
 const Wrapper = styled.div`
-  margin: 3.2rem 0;
+  margin: 2rem 0;
 `;

@@ -1,27 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import { RECOMMENDED_POST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
 import { getRelatedPostList, getRecommendedPostList, getRecommendedPostTagList } from 'src/lib/api';
 import { postKeys } from 'src/lib/utils/queryKeys';
 import { postListFilter } from 'src/lib/store';
 import { PostPreview } from 'src/types';
+import { RECOMMENDED_POST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
 
-export const useRelatedPostList = () => {
-  const { pathname } = useLocation();
-  const { id = '' } = useParams();
-
+export const useRelatedPostList = (bookmarkId: number) => {
   const filter = {
-    ...(pathname.includes('bookmarks') ? { bookmarkId: Number(id) } : { postId: Number(id) }),
+    bookmarkId,
     limit: RELATED_POST_FETCH_LIMIT,
   };
 
   const queryFn = () => getRelatedPostList(filter);
-  const { data, isLoading } = useQuery(postKeys.list(filter), queryFn);
+  const { data, isLoading } = useQuery(postKeys.list(filter), queryFn, NO_REFETCH);
 
   return { data, isLoading };
 };

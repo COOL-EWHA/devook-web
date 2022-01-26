@@ -4,7 +4,7 @@ import { Link as RouterLink, LinkProps } from 'react-router-dom';
 
 type ILinkProps = LinkProps & React.RefAttributes<HTMLAnchorElement>;
 
-function Link({ to, children, className }: ILinkProps) {
+function Link({ className, to, children }: ILinkProps) {
   return (
     <StyledLink className={className} to={to}>
       {children}
@@ -17,4 +17,7 @@ export default Link;
 const StyledLink = styled(RouterLink)`
   text-decoration: none;
   width: 100%;
+  .disabled-link {
+    pointer-events: none;
+  }
 `;

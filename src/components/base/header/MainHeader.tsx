@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link, P } from 'src/components/common';
-import { BookmarkAddButton } from 'src/components/bookmarks';
+import { BookmarkCreateButton } from 'src/components/bookmarks';
 import { SidebarToggleButton } from 'src/components/my';
 import { LogoIcon } from 'src/components/assets/icons';
 import { GREY, WHITE, CONTENT_MAX_WIDTH, CACTUS_GREEN } from 'src/constant';
@@ -16,7 +16,7 @@ export default function MainHeader() {
           <LogoText>Devook</LogoText>
         </LogoLink>
         <ButtonsWrapper>
-          <BookmarkAddButton />
+          <BookmarkCreateButton />
           <SidebarToggleButton />
         </ButtonsWrapper>
       </ContentWrapper>
