@@ -1,21 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCard, RelatedPostListSkeleton } from 'src/components/posts';
+import { BookmarkRelatedPostListSkeleton } from '.';
+import { PostPreviewCard } from 'src/components/posts';
 import { Section } from 'src/components/common';
 
 import { GREY } from 'src/constant';
 import { useRelatedPostList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 
-function RelatedPostList() {
-  const { data, isLoading } = useRelatedPostList();
+interface IBookmarkRelatedPostListProps {
+  bookmarkId: number;
+}
+
+function BookmarkRelatedPostList({ bookmarkId }: IBookmarkRelatedPostListProps) {
+  const { data, isLoading } = useRelatedPostList(bookmarkId);
 
   return (
     <>
       <Divider />
       <Section title="더 읽어보기">
-        {isLoading && <RelatedPostListSkeleton />}
+        {isLoading && <BookmarkRelatedPostListSkeleton />}
         {data?.map((post: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked } = post;
           return (
@@ -35,7 +40,7 @@ function RelatedPostList() {
   );
 }
 
-export default RelatedPostList;
+export default BookmarkRelatedPostList;
 
 const Divider = styled.div`
   margin-top: 2rem;

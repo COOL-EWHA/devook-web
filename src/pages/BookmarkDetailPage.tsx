@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { PostCard, PostCardSkeleton, RelatedPostList } from 'src/components/posts';
-import { BookmarkInfoCard, BookmarkInfoSkeleton } from 'src/components/bookmarks';
+import { PostCard, PostCardSkeleton } from 'src/components/posts';
+import { BookmarkRelatedPostList, BookmarkInfoCard, BookmarkInfoSkeleton } from 'src/components/bookmarks';
 
 import { useBookmark } from 'src/lib/hooks';
 
@@ -22,7 +22,7 @@ function BookmarkDetailPage() {
           <BookmarkInfoCard data={data} />
         </>
       )}
-      <RelatedPostList />
+      <BookmarkRelatedPostList bookmarkId={id} />
     </>
   );
 }
