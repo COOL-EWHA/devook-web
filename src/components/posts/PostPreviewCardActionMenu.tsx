@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { BookmarkActionDropdown } from 'src/components/bookmarks';
+import { BookmarkActionDropdown, BookmarkAddButton } from 'src/components/bookmarks';
 import { Button } from 'src/components/common';
 
 interface IPostPreviewCardActionMenuProps {
-  bookmarkId: number;
+  bookmarkId?: number;
+  postId?: number;
   isBookmarked?: boolean;
 }
 
 export default function PostPreviewCardActionMenu({
   bookmarkId,
+  postId,
   isBookmarked = true,
 }: IPostPreviewCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,13 +23,13 @@ export default function PostPreviewCardActionMenu({
 
   return (
     <Wrapper>
-      {isBookmarked && (
+      {bookmarkId && (
         <>
           <MoreButton onClick={handleMoreButtonClick} />
           <BookmarkActionDropdown bookmarkId={bookmarkId} isOpen={isDropdownOpen} />
         </>
       )}
-      {!isBookmarked && <Button iconType="bookmark_border" />}
+      {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
     </Wrapper>
   );
 }
