@@ -5,4 +5,5 @@ export interface IPost {
   description: string;
   url: string;
   tags?: string[];
+  isBookmarked?: boolean;
 }

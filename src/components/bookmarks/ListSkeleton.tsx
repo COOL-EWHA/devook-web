@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { PostPreviewCardSkeleton } from 'src/components/posts';
 import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
-import { PostPreviewCardSkeleton } from '../common';
 
 function BookmarkListSkeleton() {
   return (
@@ -18,5 +18,5 @@ function BookmarkListSkeleton() {
 export default BookmarkListSkeleton;
 
 const Wrapper = styled.div`
-  margin: 3.2rem 0;
+  margin: 2rem 0;
 `;

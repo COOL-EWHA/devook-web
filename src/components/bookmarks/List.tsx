@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCard } from 'src/components/common';
+import { PostPreviewCard } from 'src/components/posts';
 import { BookmarkListSkeleton } from '.';
+
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
 
@@ -14,15 +15,16 @@ function BookmarkList() {
       {isLoading && <BookmarkListSkeleton />}
       {data?.pages.map((bookmarks) =>
         bookmarks?.map((bookmark: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags } = bookmark;
+          const { id, title, thumbnail, description, tags, url } = bookmark;
           return (
             <PostPreviewCard
               key={id}
-              id={id}
+              bookmarkId={id}
               title={title}
               thumbnail={thumbnail}
               description={description}
               tags={tags}
+              url={url}
             />
           );
         }),

@@ -1,18 +1,15 @@
 import React from 'react';
 
-import { BookmarkEditButton, BookmarkInfoSkeleton } from '.';
+import { BookmarkEditButton } from '.';
 import { LabeledText, Section } from 'src/components/common';
-import { useBookmark } from 'src/lib/hooks';
 
-function BookmarkInfo() {
-  const { data, isLoading } = useBookmark();
+import { IBookmark } from 'src/interfaces';
 
-  if (isLoading) {
-    return <BookmarkInfoSkeleton />;
-  }
+interface IBookmarkInfoCardProps {
+  data: IBookmark;
+}
 
-  if (!data) return null;
-
+function BookmarkInfoCard({ data }: IBookmarkInfoCardProps) {
   const { createdAt, memo } = data;
 
   return (
@@ -23,4 +20,4 @@ function BookmarkInfo() {
   );
 }
 
-export default BookmarkInfo;
+export default BookmarkInfoCard;

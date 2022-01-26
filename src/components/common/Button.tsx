@@ -25,7 +25,7 @@ export default function Button({
   text,
   buttonType = 'text',
   iconType,
-  iconWidth = '1.8rem',
+  iconWidth = '2rem',
   color = 'CACTUS_GREEN',
   height,
   isBlock = false,
@@ -152,6 +152,5 @@ const A = styled.a`
 `;
 
 const Icon = styled(MaterialIcon)<{ text?: string }>`
-  margin-top: 0.1rem;
   margin-right: ${({ text }) => (text ? '0.2rem' : 0)};
 `;

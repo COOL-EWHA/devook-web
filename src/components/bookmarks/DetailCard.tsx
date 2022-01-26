@@ -1,27 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { P, MaterialIcon, Button, PostCardSkeleton } from 'src/components/common';
+import { BookmarkDeleteButton } from 'src/components/bookmarks';
+import { P, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
-import { useBookmark, useBookmarkDelete } from 'src/lib/hooks';
 
-interface IPostCardProps {
-  isBookmarked?: boolean;
+import { IPost, IBookmark } from 'src/interfaces';
+
+interface IBookmarkCardProps {
+  data: IPost | IBookmark;
+  id?: number;
 }
 
-function PostCard({ isBookmarked = true }: IPostCardProps) {
-  const { bookmarkId, data, isLoading } = useBookmark();
-  const { onDelete } = useBookmarkDelete(Number(bookmarkId));
+function BookmarkDetailCard({ data, id }: IBookmarkCardProps) {
+  const { title, description, thumbnail, tags, url } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
   };
-
-  if (isLoading) return <PostCardSkeleton />;
-
-  if (!data) return null;
-
-  const { title, description, thumbnail, tags, url } = data;
 
   return (
     <Wrapper>
@@ -36,14 +32,18 @@ function PostCard({ isBookmarked = true }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {isBookmarked && <DeleteButton onClick={onDelete} />}
+        {id && <StyledDeleteButton id={id} />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
   );
 }
 
-export default PostCard;
+export default BookmarkDetailCard;
+
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 const Title = styled(P).attrs({
   fontSize: '2rem',
@@ -66,10 +66,6 @@ const Tag = styled(P).attrs({
   fontSize: '1.6rem',
 })`
   margin-right: 0.8rem;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
 `;
 
 const Img = styled.img`
@@ -97,9 +93,6 @@ const ContentWrapper = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-const DeleteButton = styled(Button).attrs({
-  iconType: 'delete_outline',
-  iconWidth: '2rem',
-})`
+const StyledDeleteButton = styled(BookmarkDeleteButton)`
   margin-left: auto;
 `;

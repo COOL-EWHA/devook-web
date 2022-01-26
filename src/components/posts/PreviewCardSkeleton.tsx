@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Skeleton } from 'src/components/common';
 import { GREY } from 'src/constant';
-import { Skeleton } from '.';
 
 function PostPreviewCardSkeleton() {
   return (
