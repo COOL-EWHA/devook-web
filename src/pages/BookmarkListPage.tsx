@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import { FixedButtons } from 'src/components/common';
-import { BookmarkSearchInput, BookmarkList } from 'src/components/bookmarks';
+import { BookmarkList, BookmarkSearchInput } from 'src/components/bookmarks';
 import { isUserLoggedIn } from 'src/lib/store';
 
 function BookmarkListPage() {
@@ -12,12 +12,14 @@ function BookmarkListPage() {
   return (
     <Wrapper>
       {isLoggedIn && (
-        <BookmarkListWrapper>
-          <BookmarkSearchInput />
-          <BookmarkList />
-        </BookmarkListWrapper>
+        <>
+          <BookmarkListWrapper>
+            <BookmarkSearchInput />
+            <BookmarkList />
+          </BookmarkListWrapper>
+          <FixedButtons />
+        </>
       )}
-      <FixedButtons />
     </Wrapper>
   );
 }
