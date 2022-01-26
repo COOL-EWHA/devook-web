@@ -16,7 +16,4 @@ export const NAV_ITEMS = [
   },
 ];
 
-export const SUB_ROUTES = [
-  { pathname: '/bookmarks', title: '북마크 상세' },
-  { pathname: '/posts', title: '글 상세' },
-];
+export const SUB_ROUTES = [{ pathname: '/bookmarks', title: '북마크 상세' }];
