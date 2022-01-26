@@ -22,7 +22,7 @@ function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
   };
 
   return (
-    <Wrapper to={`/posts/${postId}`} disabled={!postId}>
+    <Wrapper>
       <ContentWrapper>
         <PWrapper>
           <Title>{title}</Title>
@@ -44,7 +44,7 @@ function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
 
 export default PostCard;
 
-const Wrapper = styled(Link)`
+const Wrapper = styled.div`
   width: 100%;
 `;
 
