@@ -1,37 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { PostPreviewCard } from 'src/components/common';
-import { BookmarkListSkeleton } from '.';
+import { PostList } from 'src/components/posts';
 import { useBookmarkList } from 'src/lib/hooks';
-import { BookmarkPreview } from 'src/types';
 
 function BookmarkList() {
   const { data, isLoading, listEndRef } = useBookmarkList();
 
-  return (
-    <Wrapper>
-      {isLoading && <BookmarkListSkeleton />}
-      {data?.pages.map((bookmarks) =>
-        bookmarks?.map((bookmark: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags } = bookmark;
-          return (
-            <PostPreviewCard
-              key={id}
-              id={id}
-              title={title}
-              thumbnail={thumbnail}
-              description={description}
-              tags={tags}
-            />
-          );
-        }),
-      )}
-      <div style={{ height: '1rem' }} ref={listEndRef} />
-    </Wrapper>
-  );
+  return <PostList data={data} isLoading={isLoading} listEndRef={listEndRef} />;
 }
 
 export default BookmarkList;
-
-const Wrapper = styled.div``;
