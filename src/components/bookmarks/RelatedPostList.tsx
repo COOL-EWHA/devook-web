@@ -22,7 +22,7 @@ function BookmarkRelatedPostList({ bookmarkId }: IBookmarkRelatedPostListProps) 
       <Section title="더 읽어보기">
         {isLoading && <BookmarkRelatedPostListSkeleton />}
         {data?.map((post: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked } = post;
+          const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
           return (
             <PostPreviewCard
               key={id}
@@ -32,6 +32,7 @@ function BookmarkRelatedPostList({ bookmarkId }: IBookmarkRelatedPostListProps) 
               thumbnail={thumbnail}
               description={description}
               tags={tags}
+              url={url}
             />
           );
         })}

@@ -14,6 +14,7 @@ interface IPostPreviewCardProps {
   tags?: string[];
   type?: 'default' | 'todo';
   isBookmarked?: boolean;
+  url: string;
 }
 
 export default function PostPreviewCard({
@@ -25,16 +26,15 @@ export default function PostPreviewCard({
   tags,
   type = 'default',
   isBookmarked = true,
+  url,
 }: IPostPreviewCardProps) {
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
   };
 
-  const pathname = bookmarkId ? `/bookmarks/${bookmarkId}` : `/posts/${postId}`;
-
   return (
     <Wrapper>
-      <Link to={pathname}>
+      <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
         <ContentWrapper>
           <PWrapper>
             <Title>{title}</Title>
@@ -42,18 +42,28 @@ export default function PostPreviewCard({
           </PWrapper>
           <Img src={thumbnail} onError={handleImgError} />
         </ContentWrapper>
-      </Link>
+      </PostPreviewCardLink>
       <Footer>
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {/* @TO_BE_IMPROVED: 나중에 알림설정 API 확정되면 추가
-        {type === 'todo' && (
-        <NotificationInfoMenu isReminderActivated={isReminderActivated} readingDueDate={readingDueDate} />
-        )} */}
         <PostPreviewCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} />
       </Footer>
     </Wrapper>
+  );
+}
+
+type PostPreviewCardLinkProps = Pick<IPostPreviewCardProps, 'bookmarkId' | 'url'> & { children: React.ReactNode };
+
+function PostPreviewCardLink({ bookmarkId, url, children }: PostPreviewCardLinkProps) {
+  if (bookmarkId) {
+    return <Link to={`/bookmarks/${bookmarkId}`}>{children}</Link>;
+  }
+
+  return (
+    <A href={url} target="_blank">
+      {children}
+    </A>
   );
 }
 
@@ -106,13 +116,12 @@ const PWrapper = styled.div`
   max-width: calc(100% - 9.2rem);
 `;
 
-const ContentWrapper = styled.button`
+const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0;
-  background: none;
-  outline: none;
-  border: none;
-  cursor pointer;
+`;
+
+const A = styled.a`
+  text-decoration: none;
 `;

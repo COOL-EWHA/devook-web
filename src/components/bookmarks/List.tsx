@@ -15,7 +15,7 @@ function BookmarkList() {
       {isLoading && <BookmarkListSkeleton />}
       {data?.pages.map((bookmarks) =>
         bookmarks?.map((bookmark: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags } = bookmark;
+          const { id, title, thumbnail, description, tags, url } = bookmark;
           return (
             <PostPreviewCard
               key={id}
@@ -24,6 +24,7 @@ function BookmarkList() {
               thumbnail={thumbnail}
               description={description}
               tags={tags}
+              url={url}
             />
           );
         }),
