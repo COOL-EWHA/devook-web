@@ -4,6 +4,7 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-q
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
+import produce from 'immer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter } from 'src/lib/store/bookmarks';
@@ -19,6 +20,7 @@ import {
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
+import { IPost } from 'src/interfaces';
 
 export const useBookmarkList = () => {
   const filter = useRecoilValue(bookmarkListFilter);
@@ -111,11 +113,35 @@ export const useBookmarkAdd = (postId: number) => {
 
   const mutationFn = (postId: number) => addBookmark({ postId });
 
+  const postDetailKey = postKeys.detail(postId);
+  const postListsKey = postKeys.lists();
+
+  const updatePost = (old: IPost, action: 'commit' | 'rollback' = 'commit') =>
+    produce(old, (post) => {
+      if (post) {
+        // eslint-disable-next-line no-param-reassign
+        post.isBookmarked = action === 'commit';
+      }
+    });
+
+  const updatePostList = (oldList: IPost[], action: 'commit' | 'rollback' = 'commit') =>
+    produce(oldList, (posts) => {
+      const updatedPost = posts.find((post) => post.id === postId);
+      if (updatedPost) {
+        updatedPost.isBookmarked = action === 'commit';
+      }
+    });
+
   const { mutate } = useMutation(mutationFn, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(postKeys.lists());
+    onMutate: async () => {
+      await queryClient.cancelQueries(postDetailKey);
+      await queryClient.cancelQueries(postListsKey);
+      queryClient.setQueryData(postDetailKey, (old) => updatePost(old as IPost));
+      queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[]));
     },
     onError: () => {
+      queryClient.setQueryData(postDetailKey, (old) => updatePost(old as IPost, 'rollback'));
+      queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[], 'rollback'));
       alert('북마크 추가에 실패하였습니다.');
     },
   });
