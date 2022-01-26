@@ -1,1 +1,2 @@
+export const RECOMMENDED_POST_FETCH_LIMIT = 10;
 export const RELATED_POST_FETCH_LIMIT = 4;
