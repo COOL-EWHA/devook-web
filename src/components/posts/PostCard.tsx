@@ -34,7 +34,7 @@ function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {bookmarkId && <BookmarkDeleteButton bookmarkId={bookmarkId} />}
+        {bookmarkId && <StyledDeleteButton bookmarkId={bookmarkId} />}
         {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
@@ -94,4 +94,8 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.2rem;
+`;
+
+const StyledDeleteButton = styled(BookmarkDeleteButton)`
+  margin-left: auto;
 `;
