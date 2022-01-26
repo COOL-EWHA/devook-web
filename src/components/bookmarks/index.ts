@@ -1,3 +1,4 @@
+import BookmarkDeleteButton from './DeleteButton';
 import BookmarkActionDropdown from './ActionDropdown';
 import BookmarkCreateButton from './CreateButton';
 import BookmarkAddButton from './AddButton';
@@ -14,6 +15,7 @@ export {
   BookmarkActionDropdown,
   BookmarkCreateButton,
   BookmarkAddButton,
+  BookmarkDeleteButton,
   BookmarkSearchInput,
   BookmarkList,
   BookmarkInfo,

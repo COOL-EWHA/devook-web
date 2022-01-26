@@ -4,20 +4,18 @@ import styled from 'styled-components';
 import { P, Button, Link } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
-import { useBookmarkDelete } from 'src/lib/hooks';
 import { IPost, IBookmark } from 'src/interfaces';
-import { BookmarkAddButton } from 'src/components/bookmarks';
+import { BookmarkAddButton, BookmarkDeleteButton } from 'src/components/bookmarks';
 
 interface IPostCardProps {
   data: IPost | IBookmark;
   bookmarkId?: number;
   postId?: number;
+  isBookmarked?: boolean;
 }
 
 function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
-  const { onDelete } = useBookmarkDelete(Number(bookmarkId));
-
-  const { title, description, thumbnail, tags, url } = data;
+  const { title, description, thumbnail, tags, url, isBookmarked = true } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
@@ -36,8 +34,8 @@ function PostCard({ data, bookmarkId, postId }: IPostCardProps) {
         {tags?.map((tag) => (
           <Tag key={tag}>#{tag}</Tag>
         ))}
-        {bookmarkId && <DeleteButton onClick={onDelete} />}
-        {postId && <BookmarkAddButton postId={postId} iconWidth="2rem" />}
+        {bookmarkId && <BookmarkDeleteButton bookmarkId={bookmarkId} />}
+        {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
       </Footer>
       <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
     </Wrapper>
@@ -96,11 +94,4 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.2rem;
-`;
-
-const DeleteButton = styled(Button).attrs({
-  iconType: 'delete_outline',
-  iconWidth: '2rem',
-})`
-  margin-left: auto;
 `;
