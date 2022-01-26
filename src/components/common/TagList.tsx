@@ -8,15 +8,16 @@ import { GREY } from 'src/constant';
 interface ITagListProps {
   isModalOpen: boolean;
   data: string[] | undefined;
+  type: 'bookmark' | 'post';
 }
 
-export default function TagList({ isModalOpen, data }: ITagListProps) {
+export default function TagList({ isModalOpen, data, type }: ITagListProps) {
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>
       <BookmarkTagButtonWrapper>
         {data?.map((tag) => (
-          <TagButton key={tag} text={tag} />
+          <TagButton key={tag} text={tag} type={type} />
         ))}
       </BookmarkTagButtonWrapper>
       <BookmarkTagResetButton />

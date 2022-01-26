@@ -16,10 +16,10 @@ function RecommendedPostTagListButton() {
       <FixedButton type="tag" iconType="tag" onClick={openModal} />
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} onComplete={closeModal} title="태그 선택">
-          <TagList isModalOpen={isModalOpen} data={data} />
+          <TagList isModalOpen={isModalOpen} data={data} type="post" />
         </Modal>
       )}
-      {!isModalOpen && <TagList isModalOpen={isModalOpen} data={data} />}
+      {!isModalOpen && <TagList isModalOpen={isModalOpen} data={data} type="post" />}
     </>
   );
 }
