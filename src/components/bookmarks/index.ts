@@ -6,7 +6,7 @@ import BookmarkSearchInput from './SearchInput';
 import BookmarkTagButton from './TagButton';
 import BookmarkTagResetButton from './TagResetButton';
 import BookmarkList from './List';
-import BookmarkInfo from './Info';
+import BookmarkInfoCard from './InfoCard';
 import BookmarkEditButton from './EditButton';
 import BookmarkInfoSkeleton from './InfoSkeleton';
 import BookmarkListSkeleton from './ListSkeleton';
@@ -18,7 +18,7 @@ export {
   BookmarkDeleteButton,
   BookmarkSearchInput,
   BookmarkList,
-  BookmarkInfo,
+  BookmarkInfoCard,
   BookmarkTagButton,
   BookmarkTagResetButton,
   BookmarkEditButton,
