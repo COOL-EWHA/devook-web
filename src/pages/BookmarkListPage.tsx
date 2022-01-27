@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { PostList, PostSearchInput } from 'src/components/posts';
-import { FixedButtons } from 'src/components/common';
+import { PostList, PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
+import { ScrollToTopButton } from 'src/components/common';
 
 import { isUserLoggedIn } from 'src/lib/store';
 
@@ -18,9 +18,10 @@ function BookmarkListPage() {
             <PostSearchInput type="bookmark" />
             <PostList type="bookmark" />
           </BookmarkListWrapper>
-          <FixedButtons />
+          <PostTagListOpenButton />
         </>
       )}
+      <ScrollToTopButton />
     </Wrapper>
   );
 }

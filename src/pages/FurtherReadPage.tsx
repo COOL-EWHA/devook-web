@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { FixedButtons } from 'src/components/common';
-import { PostList, PostSearchInput } from 'src/components/posts';
+import { ScrollToTopButton } from 'src/components/common';
+import { PostList, PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
 
 import { isUserLoggedIn } from 'src/lib/store';
 
@@ -18,9 +18,10 @@ function FurtherReadPage() {
             <PostSearchInput />
             <PostList />
           </FurtherReadWrapper>
-          <FixedButtons />
+          <PostTagListOpenButton />
         </>
       )}
+      <ScrollToTopButton />
     </Wrapper>
   );
 }
