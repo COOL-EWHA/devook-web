@@ -1,16 +1,12 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { ScrollToTopButton } from 'src/components/common';
-import { BookmarkTagListButton } from 'src/components/bookmarks';
-import { RecommendedPostTagListButton } from 'src/components/furtherRead';
+import { PostTagListOpenButton } from 'src/components//posts';
 
 function FixedButtons() {
-  const { pathname } = useLocation();
-
   return (
     <>
-      {pathname === '/further-read' ? <RecommendedPostTagListButton /> : <BookmarkTagListButton />}
+      <PostTagListOpenButton />
       <ScrollToTopButton />
     </>
   );

@@ -10,9 +10,6 @@ import FixedButtons from './FixedButtons';
 import ScrollToTopButton from './ScrollToTopButton';
 import LabeledText from './LabeledText';
 import Section from './Section';
-import TagResetButton from './TagResetButton';
-import TagButton from './TagButton';
-import TagList from './TagList';
 import Skeleton from './Skeleton';
 
 export {
@@ -28,8 +25,5 @@ export {
   Section,
   FixedButton,
   FixedButtons,
-  TagResetButton,
-  TagList,
-  TagButton,
   Skeleton,
 };

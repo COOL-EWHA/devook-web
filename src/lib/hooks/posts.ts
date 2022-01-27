@@ -4,7 +4,13 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import { getRelatedPostList, getBookmarkList, getRecommendedPostList, getRecommendedPostTagList } from 'src/lib/api';
+import {
+  getRelatedPostList,
+  getBookmarkList,
+  getRecommendedPostList,
+  getRecommendedPostTagList,
+  getBookmarkTagList,
+} from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
@@ -84,9 +90,11 @@ export const useRecommendedPostSearch = () => {
   return { query, handleChange };
 };
 
-export const useRecommendedPostTagList = () => {
-  const queryFn = () => getRecommendedPostTagList();
-  const { data } = useQuery(postKeys.tags(), queryFn);
+export const usePostTagList = (type: PostType = 'post') => {
+  const [queryKeys, queryFn] =
+    type === 'bookmark' ? [bookmarkKeys, getBookmarkTagList] : [postKeys, getRecommendedPostTagList];
+  const { data } = useQuery(queryKeys.tags(), queryFn);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -113,7 +121,7 @@ export const useRecommendedPostTagList = () => {
   return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
 };
 
-export const useTagFilter = (text: string, type: 'bookmark' | 'post') => {
+export const usePostTagFilter = (text: string, type: PostType = 'post') => {
   const [filter, setFilter] = useRecoilState(type === 'bookmark' ? bookmarkListFilter : postListFilter);
   const { tags } = filter;
   const isSelected = tags?.includes(text) || false;

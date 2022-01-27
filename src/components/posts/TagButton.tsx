@@ -2,15 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE } from 'src/constant';
-import { useTagFilter } from 'src/lib/hooks';
 
-interface ITagButtonProps {
+import { usePostTagFilter } from 'src/lib/hooks';
+import { PostType } from 'src/types';
+
+interface IPostTagButtonProps {
   text: string;
-  type: 'bookmark' | 'post';
+  postType: PostType;
 }
 
-export default function TagButton({ text, type }: ITagButtonProps) {
-  const { isSelected, toggleSelect: handleClick } = useTagFilter(text, type);
+export default function PostTagButton({ text, postType }: IPostTagButtonProps) {
+  const { isSelected, toggleSelect: handleClick } = usePostTagFilter(text, postType);
 
   return (
     <Wrapper onClick={handleClick} isSelected={isSelected}>

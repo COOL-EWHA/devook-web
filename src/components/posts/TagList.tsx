@@ -1,26 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BookmarkTagResetButton } from 'src/components/bookmarks';
-import { TagButton } from 'src/components/common';
+import { PostTagButton, PostTagResetButton } from 'src/components/posts';
 import { GREY } from 'src/constant';
 
-interface ITagListProps {
+import { PostType } from 'src/types';
+
+interface IPostTagListProps {
   isModalOpen: boolean;
   data: string[] | undefined;
-  type: 'bookmark' | 'post';
+  postType: PostType;
 }
 
-export default function TagList({ isModalOpen, data, type }: ITagListProps) {
+export default function PostTagList({ isModalOpen, data, postType }: IPostTagListProps) {
   return (
     <Wrapper isModalOpen={isModalOpen}>
       <Title>태그 목록</Title>
-      <BookmarkTagButtonWrapper>
+      <ButtonsWrapper>
         {data?.map((tag) => (
-          <TagButton key={tag} text={tag} type={type} />
+          <PostTagButton key={tag} text={tag} postType={postType} />
         ))}
-      </BookmarkTagButtonWrapper>
-      <BookmarkTagResetButton />
+      </ButtonsWrapper>
+      <PostTagResetButton postType={postType} />
     </Wrapper>
   );
 }
@@ -49,6 +50,6 @@ const Title = styled.p`
   }
 `;
 
-const BookmarkTagButtonWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   margin-bottom: 1.2rem;
 `;

@@ -196,35 +196,6 @@ export const useBookmark = () => {
   return { id: Number(bookmarkId), data, isLoading };
 };
 
-export const useBookmarkTagList = () => {
-  const queryFn = () => getBookmarkTagList();
-  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (isModalOpen && window.innerWidth > 1024) {
-        closeModal();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isModalOpen]);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
-};
-
 export const useBookmarkSearch = () => {
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
   const [query, setQuery] = useState('');
