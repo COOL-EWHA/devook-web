@@ -24,7 +24,8 @@ function PostList({ type = 'post' }: IPostListProps) {
           return (
             <PostPreviewCard
               key={id}
-              bookmarkId={id}
+              bookmarkId={type === 'bookmark' ? id : undefined}
+              postId={type === 'post' ? id : undefined}
               title={title}
               thumbnail={thumbnail}
               description={description}
