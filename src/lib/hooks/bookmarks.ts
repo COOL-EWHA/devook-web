@@ -1,20 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import debounce from 'lodash/debounce';
 import produce from 'immer';
 
-import { bookmarkListFilter } from 'src/lib/store';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import {
-  addBookmark,
-  createBookmark,
-  deleteBookmark,
-  getBookmark,
-  editBookmarkMemo,
-  getBookmarkTagList,
-} from 'src/lib/api';
+import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmarkMemo } from 'src/lib/api';
 import { BookmarkCreateParams } from 'src/types';
 import { useLoginStatus } from '.';
 import { IPost } from 'src/interfaces';
@@ -194,24 +184,4 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { id: Number(bookmarkId), data, isLoading };
-};
-
-export const useBookmarkSearch = () => {
-  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
-  const [query, setQuery] = useState('');
-
-  const search = useCallback(
-    debounce((query) => {
-      setFilter({ ...filter, q: query });
-    }, 500),
-    [],
-  );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setQuery(value);
-    search(value);
-  };
-
-  return { query, handleChange };
 };

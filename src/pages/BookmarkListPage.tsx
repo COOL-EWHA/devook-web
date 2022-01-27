@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
+import { PostList, PostSearchInput } from 'src/components/posts';
 import { FixedButtons } from 'src/components/common';
-import { BookmarkList, BookmarkSearchInput } from 'src/components/bookmarks';
+
 import { isUserLoggedIn } from 'src/lib/store';
 
 function BookmarkListPage() {
@@ -14,8 +15,8 @@ function BookmarkListPage() {
       {isLoggedIn && (
         <>
           <BookmarkListWrapper>
-            <BookmarkSearchInput />
-            <BookmarkList />
+            <PostSearchInput type="bookmark" />
+            <PostList type="bookmark" />
           </BookmarkListWrapper>
           <FixedButtons />
         </>

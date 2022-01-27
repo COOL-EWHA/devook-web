@@ -70,8 +70,9 @@ export const usePostList = (type: PostType = 'post') => {
   return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
 };
 
-export const useRecommendedPostSearch = () => {
-  const [filter, setFilter] = useRecoilState(postListFilter);
+export const usePostSearch = (type: PostType = 'post') => {
+  const listFilter = type === 'bookmark' ? bookmarkListFilter : postListFilter;
+  const [filter, setFilter] = useRecoilState(listFilter);
   const [query, setQuery] = useState('');
 
   const search = useCallback(
