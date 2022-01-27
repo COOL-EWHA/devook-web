@@ -2,14 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { CACTUS_GREEN, WHITE } from 'src/constant';
-import { useBookmarkTagFilter } from 'src/lib/hooks';
 
-interface IBookmarkTagButtonProps {
+import { usePostTagFilter } from 'src/lib/hooks';
+import { PostType } from 'src/types';
+
+interface IPostTagButtonProps {
   text: string;
+  postType: PostType;
 }
 
-export default function BookmarkTagButton({ text }: IBookmarkTagButtonProps) {
-  const { isSelected, toggleSelect: handleClick } = useBookmarkTagFilter(text);
+export default function PostTagButton({ text, postType }: IPostTagButtonProps) {
+  const { isSelected, toggleSelect: handleClick } = usePostTagFilter(text, postType);
 
   return (
     <Wrapper onClick={handleClick} isSelected={isSelected}>

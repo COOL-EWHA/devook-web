@@ -6,12 +6,9 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Modal from './Modal';
 import FixedButton from './FixedButton';
-import FixedButtons from './FixedButtons';
 import ScrollToTopButton from './ScrollToTopButton';
 import LabeledText from './LabeledText';
 import Section from './Section';
-import TagListButton from './TagListButton';
-import TagList from './TagList';
 import Skeleton from './Skeleton';
 
 export {
@@ -26,8 +23,5 @@ export {
   LabeledText,
   Section,
   FixedButton,
-  FixedButtons,
-  TagListButton,
-  TagList,
   Skeleton,
 };

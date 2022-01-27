@@ -1,64 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
-import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import debounce from 'lodash/debounce';
 import produce from 'immer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import { bookmarkListFilter } from 'src/lib/store/bookmarks';
-import {
-  addBookmark,
-  createBookmark,
-  deleteBookmark,
-  getBookmarkList,
-  getBookmark,
-  editBookmarkMemo,
-  getBookmarkTagList,
-} from 'src/lib/api';
-import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
+import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmarkMemo } from 'src/lib/api';
+import { BookmarkCreateParams } from 'src/types';
 import { useLoginStatus } from '.';
-import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
 import { IPost } from 'src/interfaces';
-
-export const useBookmarkList = () => {
-  const filter = useRecoilValue(bookmarkListFilter);
-  const resetFilter = useResetRecoilState(bookmarkListFilter);
-  const { ref: listEndRef, inView } = useInView({
-    threshold: 0,
-  });
-
-  useEffect(() => {
-    return resetFilter;
-  }, []);
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView]);
-
-  const fetchBookmarkList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
-
-  const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
-    if (!lastPage || lastPage.length < BOOKMARK_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastBookmarkId = lastPage[lastPage.length - 1]?.id;
-    return lastBookmarkId;
-  };
-
-  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    bookmarkKeys.list(filter),
-    fetchBookmarkList,
-    {
-      getNextPageParam,
-    },
-  );
-
-  return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
-};
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();
@@ -235,68 +184,4 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { id: Number(bookmarkId), data, isLoading };
-};
-
-export const useBookmarkTagList = () => {
-  const queryFn = () => getBookmarkTagList();
-  const { data } = useQuery(bookmarkKeys.tags(), queryFn);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (isModalOpen && window.innerWidth > 1024) {
-        closeModal();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isModalOpen]);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
-};
-
-export const useBookmarkTagFilter = (text: string) => {
-  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
-  const { tags } = filter;
-  const isSelected = tags?.includes(text) || false;
-
-  const toggleSelect = () => {
-    setFilter({ ...filter, tags: isSelected ? tags?.filter((tag) => tag !== text) : tags?.concat(text) });
-  };
-
-  return {
-    isSelected,
-    toggleSelect,
-  };
-};
-
-export const useBookmarkSearch = () => {
-  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
-  const [query, setQuery] = useState('');
-
-  const search = useCallback(
-    debounce((query) => {
-      setFilter({ ...filter, q: query });
-    }, 500),
-    [],
-  );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setQuery(value);
-    search(value);
-  };
-
-  return { query, handleChange };
 };

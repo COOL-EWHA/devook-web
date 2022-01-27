@@ -2,23 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { PostList, PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
 import { ScrollToTopButton } from 'src/components/common';
+import { PostList, PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
 
 import { isUserLoggedIn } from 'src/lib/store';
 
-function BookmarkListPage() {
+function FurtherReadPage() {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   return (
     <Wrapper>
       {isLoggedIn && (
         <>
-          <BookmarkListWrapper>
-            <PostSearchInput type="bookmark" />
-            <PostList type="bookmark" />
-          </BookmarkListWrapper>
-          <PostTagListOpenButton postType="bookmark" />
+          <FurtherReadWrapper>
+            <PostSearchInput />
+            <PostList />
+          </FurtherReadWrapper>
+          <PostTagListOpenButton />
         </>
       )}
       <ScrollToTopButton />
@@ -26,12 +26,12 @@ function BookmarkListPage() {
   );
 }
 
-export default BookmarkListPage;
+export default FurtherReadPage;
 
 const Wrapper = styled.div`
   display: flex;
 `;
 
-const BookmarkListWrapper = styled.div`
+const FurtherReadWrapper = styled.div`
   width: 100%;
 `;

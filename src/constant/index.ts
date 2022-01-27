@@ -7,5 +7,4 @@ export const NO_REFETCH = {
 export * from './auth';
 export * from './route';
 export * from './color';
-export * from './bookmarks';
 export * from './posts';
