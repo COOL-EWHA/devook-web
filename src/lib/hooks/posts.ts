@@ -4,13 +4,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import {
-  getRelatedPostList,
-  getBookmarkList,
-  getRecommendedPostList,
-  getRecommendedPostTagList,
-  getBookmarkTagList,
-} from 'src/lib/api';
+import { getRelatedPostList, getBookmarkList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
@@ -29,10 +23,8 @@ export const useRelatedPostList = (bookmarkId: number) => {
 };
 
 export const usePostList = (type: PostType = 'post') => {
-  const [listQueryKeys, getList, listFilter] =
-    type === 'bookmark'
-      ? [bookmarkKeys, getBookmarkList, bookmarkListFilter]
-      : [postKeys, getRecommendedPostList, postListFilter];
+  const [queryKeys, getList, listFilter] =
+    type === 'bookmark' ? [bookmarkKeys, getBookmarkList, bookmarkListFilter] : [postKeys, getPostList, postListFilter];
   const filter = useRecoilValue(listFilter);
   const resetFilter = useResetRecoilState(listFilter);
   const { ref: listEndRef, inView } = useInView({
@@ -60,7 +52,7 @@ export const usePostList = (type: PostType = 'post') => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    listQueryKeys.list(filter),
+    queryKeys.list(filter),
     fetchList,
     {
       getNextPageParam,
@@ -92,8 +84,7 @@ export const usePostSearch = (type: PostType = 'post') => {
 };
 
 export const usePostTagList = (type: PostType = 'post') => {
-  const [queryKeys, queryFn] =
-    type === 'bookmark' ? [bookmarkKeys, getBookmarkTagList] : [postKeys, getRecommendedPostTagList];
+  const [queryKeys, queryFn] = type === 'bookmark' ? [bookmarkKeys, getBookmarkTagList] : [postKeys, getPostTagList];
   const { data } = useQuery(queryKeys.tags(), queryFn);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
