@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { FixedButton, Modal } from 'src/components/common';
@@ -7,10 +6,13 @@ import { PostTagList } from 'src/components/posts';
 
 import { usePostTagList } from 'src/lib/hooks';
 import { isUserLoggedIn } from 'src/lib/store';
+import { PostType } from 'src/types';
 
-function PostTagListOpenButton() {
-  const { pathname } = useLocation();
-  const postType = pathname === '/further-read' ? 'post' : 'bookmark';
+interface IPostTagListOpenButtonProps {
+  postType?: PostType;
+}
+
+function PostTagListOpenButton({ postType = 'post' }: IPostTagListOpenButtonProps) {
   const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = usePostTagList(postType);
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 

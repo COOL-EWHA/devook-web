@@ -18,7 +18,7 @@ function BookmarkListPage() {
             <PostSearchInput type="bookmark" />
             <PostList type="bookmark" />
           </BookmarkListWrapper>
-          <PostTagListOpenButton />
+          <PostTagListOpenButton postType="bookmark" />
         </>
       )}
       <ScrollToTopButton />
