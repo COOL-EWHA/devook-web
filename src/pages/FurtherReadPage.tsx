@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import { FixedButtons } from 'src/components/common';
+import { PostList } from 'src/components/posts';
+import { RecommendedPostSearchInput } from 'src/components/furtherRead';
+
 import { isUserLoggedIn } from 'src/lib/store';
-import { RecommendedPostList, RecommendedPostSearchInput } from 'src/components/furtherRead';
 
 function FurtherReadPage() {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
@@ -15,7 +17,7 @@ function FurtherReadPage() {
         <>
           <FurtherReadWrapper>
             <RecommendedPostSearchInput />
-            <RecommendedPostList />
+            <PostList />
           </FurtherReadWrapper>
           <FixedButtons />
         </>

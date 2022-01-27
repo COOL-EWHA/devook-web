@@ -4,11 +4,11 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import { getRelatedPostList, getRecommendedPostList, getRecommendedPostTagList } from 'src/lib/api';
-import { postKeys } from 'src/lib/utils/queryKeys';
+import { getRelatedPostList, getBookmarkList, getRecommendedPostList, getRecommendedPostTagList } from 'src/lib/api';
+import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
-import { PostPreview } from 'src/types';
-import { RECOMMENDED_POST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
+import { PostPreview, PostType } from 'src/types';
+import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
 
 export const useRelatedPostList = (bookmarkId: number) => {
   const filter = {
@@ -22,9 +22,13 @@ export const useRelatedPostList = (bookmarkId: number) => {
   return { data, isLoading };
 };
 
-export const useRecommendedPostList = () => {
-  const filter = useRecoilValue(postListFilter);
-  const resetFilter = useResetRecoilState(postListFilter);
+export const usePostList = (type: PostType = 'post') => {
+  const [listQueryKeys, getList, listFilter] =
+    type === 'bookmark'
+      ? [bookmarkKeys, getBookmarkList, bookmarkListFilter]
+      : [postKeys, getRecommendedPostList, postListFilter];
+  const filter = useRecoilValue(listFilter);
+  const resetFilter = useResetRecoilState(listFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
   });
@@ -39,20 +43,19 @@ export const useRecommendedPostList = () => {
     }
   }, [inView]);
 
-  const fetchRecommendedPostList = ({ pageParam = undefined }) =>
-    getRecommendedPostList({ cursor: pageParam, ...filter });
+  const fetchList = ({ pageParam = undefined }) => getList({ cursor: pageParam, ...filter });
 
   const getNextPageParam = (lastPage?: PostPreview[]) => {
-    if (!lastPage || lastPage.length < RECOMMENDED_POST_FETCH_LIMIT) {
+    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
       return undefined;
     }
-    const lastBookmarkId = lastPage[lastPage.length - 1]?.id;
-    return lastBookmarkId;
+    const lastItemId = lastPage[lastPage.length - 1]?.id;
+    return lastItemId;
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    postKeys.list(filter),
-    fetchRecommendedPostList,
+    listQueryKeys.list(filter),
+    fetchList,
     {
       getNextPageParam,
     },

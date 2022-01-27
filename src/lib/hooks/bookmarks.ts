@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
-import { useInView } from 'react-intersection-observer';
+import { useRecoilState } from 'recoil';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import produce from 'immer';
@@ -12,53 +11,13 @@ import {
   addBookmark,
   createBookmark,
   deleteBookmark,
-  getBookmarkList,
   getBookmark,
   editBookmarkMemo,
   getBookmarkTagList,
 } from 'src/lib/api';
-import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
+import { BookmarkCreateParams } from 'src/types';
 import { useLoginStatus } from '.';
-import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
 import { IPost } from 'src/interfaces';
-
-export const useBookmarkList = () => {
-  const filter = useRecoilValue(bookmarkListFilter);
-  const resetFilter = useResetRecoilState(bookmarkListFilter);
-  const { ref: listEndRef, inView } = useInView({
-    threshold: 0,
-  });
-
-  useEffect(() => {
-    return resetFilter;
-  }, []);
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView]);
-
-  const fetchBookmarkList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
-
-  const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
-    if (!lastPage || lastPage.length < BOOKMARK_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastBookmarkId = lastPage[lastPage.length - 1]?.id;
-    return lastBookmarkId;
-  };
-
-  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    bookmarkKeys.list(filter),
-    fetchBookmarkList,
-    {
-      getNextPageParam,
-    },
-  );
-
-  return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
-};
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();

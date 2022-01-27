@@ -1,23 +1,23 @@
 import React from 'react';
-import { InfiniteData } from 'react-query';
 import styled from 'styled-components';
 
-import { PostListSkeleton } from '.';
 import { PostPreviewCard } from 'src/components/posts';
-import { PostPreview } from 'src/types';
-import { BOOKMARK_FETCH_LIMIT } from 'src/constant';
+import { PostListSkeleton } from '.';
+import { POST_LIST_FETCH_LIMIT } from 'src/constant';
+
+import { PostPreview, PostType } from 'src/types';
+import { usePostList } from 'src/lib/hooks';
 
 interface IPostListProps {
-  isLoading: boolean;
-  data?: InfiniteData<PostPreview[]>;
-  listEndRef: (node?: Element | null | undefined) => void;
-  fetchLimit?: number;
+  type?: PostType;
 }
 
-function PostList({ isLoading, data, listEndRef, fetchLimit = BOOKMARK_FETCH_LIMIT }: IPostListProps) {
+function PostList({ type = 'post' }: IPostListProps) {
+  const { data, isLoading, listEndRef } = usePostList(type);
+
   return (
     <Wrapper>
-      {isLoading && <PostListSkeleton fetchLimit={fetchLimit} />}
+      {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
       {data?.pages.map((posts) =>
         posts?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
