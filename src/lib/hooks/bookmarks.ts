@@ -62,16 +62,7 @@ export const useBookmarkAdd = (postId: number) => {
 
   const mutationFn = (postId: number) => addBookmark({ postId });
 
-  const postDetailKey = postKeys.detail(postId);
   const postListsKey = postKeys.lists();
-
-  const updatePost = (old: IPost, action: 'commit' | 'rollback' = 'commit') =>
-    produce(old, (post) => {
-      if (post) {
-        // eslint-disable-next-line no-param-reassign
-        post.isBookmarked = action === 'commit';
-      }
-    });
 
   const updatePostList = (oldList: IPost[], action: 'commit' | 'rollback' = 'commit') =>
     produce(oldList, (posts) => {
@@ -83,13 +74,10 @@ export const useBookmarkAdd = (postId: number) => {
 
   const { mutate } = useMutation(mutationFn, {
     onMutate: async () => {
-      await queryClient.cancelQueries(postDetailKey);
       await queryClient.cancelQueries(postListsKey);
-      queryClient.setQueryData(postDetailKey, (old) => updatePost(old as IPost));
       queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[]));
     },
     onError: () => {
-      queryClient.setQueryData(postDetailKey, (old) => updatePost(old as IPost, 'rollback'));
       queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[], 'rollback'));
       alert('북마크 추가에 실패하였습니다.');
     },
