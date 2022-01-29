@@ -23,7 +23,7 @@ function BookmarkDetailPage() {
       )}
       {data && (
         <>
-          <BookmarkDetailCard id={id} data={data} />
+          <BookmarkDetailCard data={data} />
           <BookmarkInfoCard data={data} />
         </>
       )}

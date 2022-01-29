@@ -5,15 +5,14 @@ import { BookmarkDeleteButton } from 'src/components/bookmarks';
 import { P, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
-import { IPost, IBookmark } from 'src/interfaces';
+import { IBookmark } from 'src/interfaces';
 
-interface IBookmarkCardProps {
-  data: IPost | IBookmark;
-  id?: number;
+interface IBookmarkDetailCardProps {
+  data: IBookmark;
 }
 
-function BookmarkDetailCard({ data, id }: IBookmarkCardProps) {
-  const { title, description, thumbnail, tags, url } = data;
+function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
+  const { id, title, description, thumbnail, tags, url } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
