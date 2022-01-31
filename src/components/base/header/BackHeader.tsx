@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import { SidebarToggleButton } from 'src/components/my';
 import { Button, MaterialIcon, P } from 'src/components/common';
 
 import { GREY, WHITE } from 'src/constant';
@@ -34,7 +35,8 @@ export default function BackHeader({ onBack, onComplete, title }: IBackHeaderPro
       >
         {title}
       </Title>
-      {onComplete && <Button text="설정" onClick={onComplete} />}
+      {isModalHeader && <Button text="설정" onClick={onComplete} />}
+      {!isModalHeader && <SidebarToggleButton />}
     </Wrapper>
   );
 }
