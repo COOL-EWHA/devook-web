@@ -47,7 +47,11 @@ export const useBookmarkCreate = () => {
   };
 
   const handleSubmit = () => {
-    if (!checkIsLoggedIn() || !checkIsFormValid()) {
+    if (!checkIsLoggedIn()) {
+      setIsModalOpen(false);
+      return;
+    }
+    if (!checkIsFormValid()) {
       return;
     }
     mutate(form);
