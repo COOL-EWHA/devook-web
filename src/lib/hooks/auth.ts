@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
-import { isUserLoggedIn } from 'src/lib/store';
+import { isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
@@ -95,10 +95,12 @@ export const useAuthTestLogin = () => {
 export const useLoginStatus = () => {
   // @TO_BE_IMPROVED: isSidebarOpen 상태 글로벌로 만들고 로그인 필요할 때 열리게 수정
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
+  const setIsSidebarOpen = useSetRecoilState(isMySidebarOpen);
 
   const checkIsLoggedIn = () => {
     if (isLoggedIn) return true;
     alert('로그인이 필요한 기능입니다.');
+    setIsSidebarOpen(true);
     return false;
   };
 
