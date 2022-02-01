@@ -13,7 +13,7 @@ interface IPostTagListOpenButtonProps {
 }
 
 function PostTagListOpenButton({ postType = 'post' }: IPostTagListOpenButtonProps) {
-  const { data, isModalOpen, setIsModalOpen, openModal, closeModal } = usePostTagList(postType);
+  const { data, isModalOpen, openModal, closeModal } = usePostTagList(postType);
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   if (!isLoggedIn) return null;
@@ -22,7 +22,7 @@ function PostTagListOpenButton({ postType = 'post' }: IPostTagListOpenButtonProp
     <>
       <FixedButton type="tag" iconType="tag" onClick={openModal} />
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={closeModal} title="태그 선택">
+        <Modal onClose={closeModal} onComplete={closeModal} title="태그 선택">
           <PostTagList isModalOpen={isModalOpen} data={data} postType={postType} />
         </Modal>
       )}

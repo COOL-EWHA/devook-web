@@ -110,7 +110,7 @@ export const usePostTagList = (type: PostType = 'post') => {
     setIsModalOpen(false);
   };
 
-  return { data, isModalOpen, setIsModalOpen, openModal, closeModal };
+  return { data, isModalOpen, openModal, closeModal };
 };
 
 export const usePostTagFilter = (text: string, type: PostType = 'post') => {
