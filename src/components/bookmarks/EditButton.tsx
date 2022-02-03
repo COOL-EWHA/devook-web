@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Button, Modal, Input, Textarea } from 'src/components/common';
+
 import { useBookmarkMemoEdit, useBookmark } from 'src/lib/hooks';
 
 function BookmarkEditButton() {
@@ -12,7 +13,7 @@ function BookmarkEditButton() {
 
   return (
     <>
-      <Button buttonType="text" text="수정" color="GREY" onClick={openModal} />
+      <Button size="large" text="수정" onClick={openModal} />
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} onComplete={onSubmit} title="메모 수정하기">
           <InputWrapper>

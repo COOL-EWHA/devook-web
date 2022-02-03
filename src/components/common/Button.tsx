@@ -1,156 +1,128 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
 
 import { MaterialIcon } from 'src/components/common';
-import { GREY, CACTUS_GREEN, WHITE } from 'src/constant';
+import { BUTTON_FONT_SIZE, BUTTON_HEIGHT, BUTTON_ICON_WIDTH, CACTUS_GREEN, GREY, WHITE } from 'src/constant';
 
 export type ButtonType = 'primary' | 'line' | 'text';
-export type ButtonColorType = 'GREY' | 'CACTUS_GREEN';
+export type ButtonSize = 'large' | 'medium' | 'small';
 
 export interface IButtonProps {
-  text?: string;
-  buttonType?: ButtonType;
+  type?: ButtonType;
+  text: string;
   iconType?: string;
-  iconWidth?: string;
-  color?: ButtonColorType;
-  height?: string;
   isBlock?: boolean;
+  size?: ButtonSize;
   disabled?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   href?: string;
+  target?: '_self' | '_blank';
   className?: string;
 }
 
 export default function Button({
+  type = 'text',
   text,
-  buttonType = 'text',
   iconType,
-  iconWidth = '2rem',
-  color = 'CACTUS_GREEN',
-  height,
   isBlock = false,
+  size = 'medium',
   disabled = false,
   onClick,
   href,
+  target = '_self',
   className,
 }: IButtonProps) {
-  if (href) {
-    return (
-      <A className={className} href={href} target="_blank" rel="noopener">
-        <Wrapper buttonType={buttonType} color={color} isBlock height={height} disabled={disabled} onClick={onClick}>
-          <P>{text}</P>
-        </Wrapper>
-      </A>
-    );
-  }
   return (
     <Wrapper
       className={className}
-      buttonType={buttonType}
-      color={color}
+      buttonType={type}
+      size={size}
       isBlock={isBlock}
-      height={height}
-      disabled={disabled}
+      href={href}
+      target={target}
       onClick={onClick}
+      disabled={disabled}
     >
-      {iconType && <Icon color={color} type={iconType} width={iconWidth} text={text} />}
-      <P>{text}</P>
+      {iconType && (
+        <Icon color={type === 'primary' ? WHITE : CACTUS_GREEN[500]} type={iconType} width={BUTTON_ICON_WIDTH[size]} />
+      )}
+      {text}
     </Wrapper>
   );
 }
 
-const getDisabledStyle = (disabled: boolean, buttonType: ButtonType) => {
-  if (disabled)
-    return `
-      cursor: default;
-      color: ${GREY[500]};
-      border-color: ${buttonType === 'line' && GREY[500]};
-      background: ${buttonType === 'primary' ? GREY[200] : 'none'};
-      .material-icons {
-        color: ${GREY[500]};
-        cursor: default;
-      }
-    `;
-  return `
-    cursor: pointer;
-  `;
-};
-
-const getHoverStyle = (buttonType: ButtonType, color: ButtonColorType) => {
-  if (buttonType === 'primary') {
-    return `
-      background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[600] : GREY[600]};
-    `;
-  }
-  return `
-    color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
-    border-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
-    .material-icons {
-      color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[700] : GREY[800]};
-    }
-  `;
-};
-
-const getButtonStyle = (buttonType: ButtonType, color: ButtonColorType) => {
-  switch (buttonType) {
-    case 'primary':
-      return `
-        background-color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[500]};
-        color: ${WHITE};
-        border-radius: 0.8rem;
-        padding: 0.4rem 1rem;
-      `;
-    case 'line':
-      return `
-        color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
-        border-radius: 0.8rem;
-        padding: 0.4rem 1rem;
-        border: 1px solid ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
-      `;
-    case 'text':
-      return `
-        color: ${color === 'CACTUS_GREEN' ? CACTUS_GREEN[500] : GREY[700]};
-      `;
-    default:
-      return null;
-  }
-};
-
-const Wrapper = styled.button<{
+type ButtonWrapperProps = Omit<IButtonProps, 'type' | 'text' | 'iconType'> & {
   buttonType: ButtonType;
-  color: ButtonColorType;
-  disabled: boolean;
-  isBlock?: boolean;
-  height?: string;
-}>`
+  children: React.ReactNode;
+};
+
+function Wrapper(props: ButtonWrapperProps) {
+  const { href, target, children, ...commonProps } = props;
+
+  if (href) {
+    return (
+      <A href={href} target={target} {...commonProps}>
+        {children}
+      </A>
+    );
+  }
+
+  return <StyledButton {...commonProps}>{children}</StyledButton>;
+}
+
+type ButtonStyleProps = Pick<ButtonWrapperProps, 'size' | 'isBlock' | 'disabled' | 'buttonType'>;
+
+const getWrapper = (type: 'button' | 'a') => styled(type)<ButtonStyleProps>`
   display: flex;
   align-items: center;
+  line-height: 1.5;
   justify-content: center;
   background: none;
   outline: none;
   border: none;
-  padding: 0;
-
-  ${({ isBlock, height, buttonType, color, disabled }) => `
-    width:${isBlock ? '100%' : 'fit-content'};
-    height:${height ?? 'fit-content'};
-    ${getButtonStyle(buttonType, color)};
-    ${getDisabledStyle(disabled, buttonType)};
-    :hover{
-      ${!disabled && getHoverStyle(buttonType, color)}
-    }
-  `}
-  transition: all 0.2s;
-`;
-
-const P = styled.p`
-  font-size: 1.4rem;
-`;
-
-const A = styled.a`
   text-decoration: none;
+  border-radius: 0.8rem;
+  transition: all 0.2s;
+  ${({ isBlock, size = 'medium', buttonType }) =>
+    `
+    width: ${isBlock ? '100%' : 'fit-content'};
+    height: ${buttonType === 'text' ? 'fit-content' : BUTTON_HEIGHT[size]};
+    padding: ${buttonType === 'text' ? 0 : '0.4rem 1rem'};
+    font-size: ${BUTTON_FONT_SIZE[size]};
+  `}
+  ${({ buttonType, disabled }) =>
+    disabled
+      ? `
+      color: ${GREY[500]};
+      background-color: ${buttonType === 'primary' ? GREY[200] : WHITE};
+      border: 1px solid ${buttonType === 'line' ? GREY[500] : 'transparent'};
+      cursor: default;
+      .material-icons {
+          color: ${GREY[500]};
+          cursor: default;
+      }
+      `
+      : `
+      color: ${buttonType === 'primary' ? WHITE : CACTUS_GREEN[500]};
+      background-color: ${buttonType === 'primary' ? CACTUS_GREEN[700] : WHITE};
+      border: 1px solid ${buttonType === 'line' ? CACTUS_GREEN[500] : 'transparent'};
+      cursor: pointer;
+      :hover {
+          color: ${buttonType === 'primary' ? WHITE : CACTUS_GREEN[700]};
+          background-color: ${buttonType === 'primary' ? CACTUS_GREEN[900] : WHITE};
+          border: 1px solid ${buttonType === 'line' ? CACTUS_GREEN[700] : 'transparent'};
+          .material-icons {
+            color: ${buttonType === 'primary' ? WHITE : CACTUS_GREEN[700]};
+          }
+      }
+  `}
 `;
 
-const Icon = styled(MaterialIcon)<{ text?: string }>`
-  margin-right: ${({ text }) => (text ? '0.2rem' : 0)};
+const A = getWrapper('a');
+
+const StyledButton = getWrapper('button');
+
+const Icon = styled(MaterialIcon)`
+  margin-right: 0.2rem;
 `;
