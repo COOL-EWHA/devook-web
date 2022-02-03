@@ -18,7 +18,7 @@ export interface IIconButtonProps {
 export default function IconButton({
   type = 'secondary',
   iconType,
-  iconWidth = '2.4rem',
+  iconWidth,
   disabled = false,
   onClick,
   className,
