@@ -33,6 +33,10 @@ export const useBookmarkCreate = () => {
     setIsModalOpen(true);
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleFormChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -47,13 +51,17 @@ export const useBookmarkCreate = () => {
   };
 
   const handleSubmit = () => {
-    if (!checkIsLoggedIn() || !checkIsFormValid()) {
+    if (!checkIsLoggedIn()) {
+      setIsModalOpen(false);
+      return;
+    }
+    if (!checkIsFormValid()) {
       return;
     }
     mutate(form);
   };
 
-  return { openModal, isModalOpen, setIsModalOpen, form, onChange: handleFormChange, onSubmit: handleSubmit };
+  return { openModal, closeModal, isModalOpen, form, onChange: handleFormChange, onSubmit: handleSubmit };
 };
 
 export const useBookmarkAdd = (postId: number) => {
@@ -149,6 +157,10 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     setIsModalOpen(true);
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setMemo(value);
@@ -161,7 +173,7 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     mutate(Number(id));
   };
 
-  return { openModal, isModalOpen, setIsModalOpen, memo, onChange: handleChange, onSubmit: handleSubmit };
+  return { openModal, closeModal, isModalOpen, memo, onChange: handleChange, onSubmit: handleSubmit };
 };
 
 export const useBookmark = () => {

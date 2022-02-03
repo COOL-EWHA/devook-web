@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IconButton } from 'src/components/common';
 import { Sidebar } from '.';
+import { isMySidebarOpen } from 'src/lib/store';
 
 export default function MySidebarToggleButton() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(isMySidebarOpen);
 
   const handleOpen = () => {
     setIsOpen(true);

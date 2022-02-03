@@ -6,14 +6,14 @@ import { Modal, Input, Textarea, IconButton } from 'src/components/common';
 import { useBookmarkCreate } from 'src/lib/hooks/bookmarks';
 
 export default function BookmarkCreateButton() {
-  const { form, onChange, onSubmit, openModal, isModalOpen, setIsModalOpen } = useBookmarkCreate();
+  const { form, onChange, onSubmit, openModal, closeModal, isModalOpen } = useBookmarkCreate();
   const { url, memo } = form;
 
   return (
     <>
       <IconButton iconType="add" iconWidth="2.8rem" onClick={openModal} />
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={onSubmit} title="북마크 추가하기">
+        <Modal onClose={closeModal} onComplete={onSubmit} title="북마크 추가하기">
           <InputWrapper>
             <Input name="url" value={url} onChange={onChange} label="링크" placeholder="북마크할 링크를 입력해주세요" />
             <Textarea

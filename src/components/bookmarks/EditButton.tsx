@@ -7,7 +7,7 @@ import { useBookmarkMemoEdit, useBookmark } from 'src/lib/hooks';
 
 function BookmarkEditButton() {
   const { data } = useBookmark();
-  const { isModalOpen, openModal, onSubmit, onChange, memo, setIsModalOpen } = useBookmarkMemoEdit({
+  const { isModalOpen, openModal, closeModal, onSubmit, onChange, memo } = useBookmarkMemoEdit({
     originalMemo: data?.memo,
   });
 
@@ -15,7 +15,7 @@ function BookmarkEditButton() {
     <>
       <Button size="large" text="수정" onClick={openModal} />
       {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} onComplete={onSubmit} title="메모 수정하기">
+        <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
           <InputWrapper>
             <Input name="url" value={data?.createdAt.toString()} label="생성 날짜" disabled />
             <Textarea

@@ -8,7 +8,7 @@ import { GREY, WHITE } from 'src/constant';
 interface IModalProps {
   title: string;
   headerType?: 'close' | 'back';
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
   onBack?: () => void;
   onComplete?: () => void;
   children?: React.ReactNode;
@@ -18,24 +18,20 @@ interface IModalProps {
 export default function Modal({
   title,
   headerType = 'close',
-  setIsModalOpen,
+  onClose,
   onBack,
   onComplete,
   children,
   className,
 }: IModalProps) {
-  const handleClickOverlay = () => {
-    setIsModalOpen(false);
-  };
-
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
 
   return (
-    <Overlay onClick={handleClickOverlay}>
+    <Overlay onClick={onClose}>
       <Wrapper onClick={handleWrapperClick}>
-        {headerType === 'close' && <CloseHeader title={title} onClose={setIsModalOpen} onComplete={onComplete} />}
+        {headerType === 'close' && <CloseHeader title={title} onClose={onClose} onComplete={onComplete} />}
         {headerType === 'back' && <BackHeader title={title} onBack={onBack} onComplete={onComplete} />}
         <Divider />
         <ContentWrapper className={className}>{children}</ContentWrapper>
