@@ -25,14 +25,12 @@ export default function IconButton({
 }: IIconButtonProps) {
   return (
     <Wrapper className={className} onClick={onClick} disabled={disabled}>
-      {iconType && (
-        <MaterialIcon
-          color={type === 'primary' ? CACTUS_GREEN[500] : GREY[700]}
-          hoverColor={type === 'primary' ? CACTUS_GREEN[700] : GREY[900]}
-          type={iconType}
-          width={iconWidth}
-        />
-      )}
+      <MaterialIcon
+        color={type === 'primary' ? CACTUS_GREEN[500] : GREY[700]}
+        hoverColor={type === 'primary' ? CACTUS_GREEN[700] : GREY[900]}
+        type={iconType}
+        width={iconWidth}
+      />
     </Wrapper>
   );
 }
