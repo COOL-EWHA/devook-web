@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
 
@@ -10,21 +11,35 @@ export default {
 export function TextButton() {
   return (
     <>
-      <Button text="일반 텍스트 버튼" />
-      <Button text="일반 텍스트 버튼(disabled)" disabled />
+      <StyledButton size="large" type="primary" text="글 읽기" isBlock />
+      <StyledButton size="large" type="line" text="글 읽기" isBlock />
+      <StyledButton size="large" type="text" text="글 읽기" isBlock />
+      <StyledButton type="primary" text="글 읽기" isBlock />
+      <StyledButton type="line" text="글 읽기" isBlock />
+      <StyledButton type="text" text="글 읽기" isBlock />
+      <StyledButton size="small" type="primary" text="수정" />
+      <StyledButton size="small" type="line" text="수정" />
+      <StyledButton size="small" type="text" text="수정" />
     </>
   );
 }
-export function IconButton() {
-  return <Button iconType="person" text="아이콘 있는 버튼" />;
-}
-export function BorderButton() {
+
+export function TextButtonWithIcon() {
   return (
-    <Button
-      text="border + external link 버튼"
-      buttonType="line"
-      href="https://github.com/COOL-EWHA/devook-web"
-      height="4rem"
-    />
+    <>
+      <StyledButton iconType="delete_outline" size="large" type="primary" text="삭제" />
+      <StyledButton iconType="delete_outline" size="large" type="line" text="삭제" />
+      <StyledButton iconType="delete_outline" size="large" type="text" text="삭제" />
+      <StyledButton iconType="delete_outline" type="primary" text="삭제" />
+      <StyledButton iconType="delete_outline" type="line" text="삭제" />
+      <StyledButton iconType="delete_outline" type="text" text="삭제" />
+      <StyledButton iconType="restart_alt" size="small" type="primary" text="초기화" />
+      <StyledButton iconType="restart_alt" size="small" type="line" text="초기화" />
+      <StyledButton iconType="restart_alt" size="small" type="text" text="초기화" />
+    </>
   );
 }
+
+const StyledButton = styled(Button)`
+  margin-bottom: 1.2rem;
+`;
