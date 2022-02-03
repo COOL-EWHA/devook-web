@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import produce from 'immer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmarkMemo } from 'src/lib/api';
-import { BookmarkCreateParams } from 'src/types';
+import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IPost } from 'src/interfaces';
+import { bookmarkListFilter } from 'src/lib/store';
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();
@@ -129,6 +131,43 @@ export const useBookmarkDelete = (id: number) => {
   };
 
   return { onDelete: handleDelete };
+};
+
+export const useBookmarkIsReadEdit = ({ id, isRead }: { id?: number; isRead?: boolean }) => {
+  const queryClient = useQueryClient();
+  const filter = useRecoilValue(bookmarkListFilter);
+
+  const mutationFn = (id: number) => editBookmarkMemo({ id, isRead: !isRead });
+
+  const updateBookmarkList = (oldList: any) =>
+    produce(oldList, (bookmarkList: { pages: BookmarkPreview[][] }) => {
+      const updatedPost = bookmarkList.pages[0].find((post) => {
+        return post.id === id;
+      });
+      if (updatedPost) {
+        updatedPost.isRead = !isRead;
+      }
+    });
+
+  const { mutate } = useMutation(mutationFn, {
+    onMutate: async () => {
+      await queryClient.cancelQueries(bookmarkKeys.list(filter));
+      queryClient.setQueriesData(bookmarkKeys.list(filter), (oldList) => updateBookmarkList(oldList));
+    },
+    onError: () => {
+      const oldBookmarkListData = queryClient.getQueryData(bookmarkKeys.list(filter));
+      queryClient.setQueriesData(bookmarkKeys.list(filter), oldBookmarkListData);
+      alert('북마크 읽기 완료 수정에 실패하였습니다.');
+    },
+  });
+
+  const handleClick = () => {
+    if (id) {
+      mutate(id);
+    }
+  };
+
+  return { onClick: handleClick };
 };
 
 export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string }) => {
