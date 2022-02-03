@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
+import { useLocation } from 'react-router-dom';
 
 import { getRelatedPostList, getBookmarkList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
@@ -23,9 +24,11 @@ export const useRelatedPostList = (bookmarkId: number) => {
 };
 
 export const usePostList = (type: PostType = 'post') => {
+  const { pathname } = useLocation();
   const [queryKeys, getList, listFilter] =
     type === 'bookmark' ? [bookmarkKeys, getBookmarkList, bookmarkListFilter] : [postKeys, getPostList, postListFilter];
-  const filter = useRecoilValue(listFilter);
+
+  const [filter, setFilter] = useRecoilState(listFilter);
   const resetFilter = useResetRecoilState(listFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
@@ -34,6 +37,12 @@ export const usePostList = (type: PostType = 'post') => {
   useEffect(() => {
     return resetFilter;
   }, []);
+
+  useEffect(() => {
+    if (pathname === '/to-read' && type === 'bookmark') {
+      setFilter({ ...filter, isRead: false });
+    }
+  }, [pathname, type]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
