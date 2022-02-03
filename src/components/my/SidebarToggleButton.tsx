@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { MaterialIcon } from 'src/components/common';
+import { IconButton } from 'src/components/common';
 import { Sidebar } from '.';
 
 export default function MySidebarToggleButton() {
@@ -17,19 +17,12 @@ export default function MySidebarToggleButton() {
 
   return (
     <>
-      <Button onClick={handleOpen}>
-        <ProfileIcon />
-      </Button>
+      <Button onClick={handleOpen} />
       {isOpen && <Sidebar onClose={handleClose} />}
     </>
   );
 }
 
-const Button = styled.button`
-  padding: 0;
-  background: none;
-  border: none;
+const Button = styled(IconButton).attrs({ iconType: 'person' })`
   margin-left: 0.4rem;
 `;
-
-const ProfileIcon = styled(MaterialIcon).attrs({ type: 'person' })``;

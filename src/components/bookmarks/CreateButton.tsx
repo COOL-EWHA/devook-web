@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MaterialIcon, Modal, Input, Textarea } from 'src/components/common';
+import { Modal, Input, Textarea, IconButton } from 'src/components/common';
 
 import { useBookmarkCreate } from 'src/lib/hooks/bookmarks';
 
@@ -11,7 +11,7 @@ export default function BookmarkCreateButton() {
 
   return (
     <>
-      <BookmarkAddIcon onClick={openModal} />
+      <IconButton iconType="add" iconWidth="2.8rem" onClick={openModal} />
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} onComplete={onSubmit} title="북마크 추가하기">
           <InputWrapper>
@@ -29,8 +29,6 @@ export default function BookmarkCreateButton() {
     </>
   );
 }
-
-const BookmarkAddIcon = styled(MaterialIcon).attrs({ type: 'add', width: '2.8rem' })``;
 
 const InputWrapper = styled.div`
   padding: 2rem;
