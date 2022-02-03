@@ -1,3 +1,5 @@
+export const CONTENT_MAX_WIDTH = '1400px';
+
 export const BUTTON_ICON_WIDTH = {
   large: '2.2rem',
   medium: '2rem',
