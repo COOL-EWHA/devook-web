@@ -28,7 +28,9 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const Icon = styled.span<Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>>`
+type IconStyleProps = Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>;
+
+const Icon = styled.span<IconStyleProps>`
   ${({ width, color, hoverColor }) => `
   font-size: ${width ?? '2.4rem'};
   color: ${color || GREY[700]};
