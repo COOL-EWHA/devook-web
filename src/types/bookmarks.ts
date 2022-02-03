@@ -1,7 +1,7 @@
 import { IBookmark } from 'src/interfaces';
 import { PostListFilter, PostListParams, PostPreview } from '.';
 
-export type BookmarkPreview = PostPreview & { isRead?: boolean; dueDate?: string };
+export type BookmarkPreview = PostPreview & Pick<IBookmark, 'dueDate' | 'isRead'>;
 export type BookmarkListParams = PostListParams;
 export type BookmarkTagListParams = { isBookmarkRead?: boolean };
 export type BookmarkListFilter = PostListFilter;
