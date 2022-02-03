@@ -93,7 +93,11 @@ export const usePostSearch = (type: PostType = 'post') => {
 };
 
 export const usePostTagList = (type: PostType = 'post') => {
-  const [queryKeys, queryFn] = type === 'bookmark' ? [bookmarkKeys, getBookmarkTagList] : [postKeys, getPostTagList];
+  const { pathname } = useLocation();
+  const [queryKeys, queryFn] =
+    type === 'bookmark'
+      ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead: pathname === '/to-read' ? false : undefined })]
+      : [postKeys, getPostTagList];
   const { data } = useQuery(queryKeys.tags(), queryFn);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
