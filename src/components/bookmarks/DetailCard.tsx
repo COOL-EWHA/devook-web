@@ -33,7 +33,7 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
         ))}
         {id && <StyledDeleteButton id={id} />}
       </Footer>
-      <Button text="글 읽기" buttonType="line" isBlock height="3.6rem" href={url} />
+      <Button text="글 읽기" type="line" isBlock href={url} />
     </Wrapper>
   );
 }
@@ -92,6 +92,6 @@ const ContentWrapper = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-const StyledDeleteButton = styled(BookmarkDeleteButton)`
+const StyledDeleteButton = styled(BookmarkDeleteButton).attrs({ size: 'large' })`
   margin-left: auto;
 `;

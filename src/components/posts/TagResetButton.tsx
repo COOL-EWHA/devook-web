@@ -18,7 +18,7 @@ function PostTagResetButton({ postType }: IPostTagResetButtonProps) {
     setFilter({ ...filter, tags: [] });
   };
 
-  return <Button iconType="restart_alt" text="초기화" buttonType="line" onClick={resetFilter} />;
+  return <Button size="small" type="line" iconType="restart_alt" text="초기화" onClick={resetFilter} />;
 }
 
 export default PostTagResetButton;

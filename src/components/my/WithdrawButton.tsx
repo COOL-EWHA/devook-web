@@ -1,27 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GREY } from 'src/constant';
+import { Button } from 'src/components/common';
+
 import { useUserWithdraw } from 'src/lib/hooks';
 
 function WithdrawButton() {
   const { withdraw } = useUserWithdraw();
 
-  return <Button onClick={withdraw}>회원탈퇴</Button>;
+  return <StyledButton onClick={withdraw} />;
 }
 
 export default WithdrawButton;
 
-// @TO_BE_IMPROVED: 후에 공용 버튼으로 대체
-const Button = styled.button`
-  width: fit-content;
-  height: 2rem;
-  font-size: 1.2rem;
-  color: ${GREY[700]};
-  font-weight: 500;
-  border: none;
-  background: none;
-  margin: 1.2rem 0rem;
-  padding: 0;
-  cursor: pointer;
+const StyledButton = styled(Button).attrs({ size: 'small', text: '회원탈퇴' })`
+  margin-bottom: 0.8rem;
 `;

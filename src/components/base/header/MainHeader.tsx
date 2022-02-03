@@ -56,6 +56,7 @@ const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
   cursor: pointer;
+  width: fit-content;
   margin-right: auto;
 `;
 

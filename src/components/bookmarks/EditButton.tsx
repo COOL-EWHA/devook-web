@@ -13,7 +13,7 @@ function BookmarkEditButton() {
 
   return (
     <>
-      <Button buttonType="text" text="수정" color="GREY" onClick={openModal} />
+      <Button size="large" text="수정" onClick={openModal} />
       {isModalOpen && (
         <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
           <InputWrapper>
