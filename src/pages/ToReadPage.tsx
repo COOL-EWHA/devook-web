@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
+import { PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
+import { BookmarkList } from 'src/components/bookmarks';
 import { ScrollToTopButton } from 'src/components/common';
-import { PostList, PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
+
 import { isUserLoggedIn } from 'src/lib/store';
 
 function ToReadPage() {
@@ -15,7 +17,7 @@ function ToReadPage() {
         <>
           <BookmarkListWrapper>
             <PostSearchInput type="bookmark" />
-            <PostList type="bookmark" isForToRead />
+            <BookmarkList isRead={false} />
           </BookmarkListWrapper>
           <PostTagListOpenButton postType="bookmark" />
         </>

@@ -9,6 +9,7 @@ import BookmarkRelatedPostListSkeleton from './RelatedPostListSkeleton';
 import BookmarkRelatedPostList from './RelatedPostList';
 import BookmarkDetailCardSkeleton from './DetailCardSkeleton';
 import BookmarkDetailCard from './DetailCard';
+import BookmarkList from './List';
 
 export {
   BookmarkActionDropdown,
@@ -22,4 +23,5 @@ export {
   BookmarkRelatedPostList,
   BookmarkDetailCardSkeleton,
   BookmarkDetailCard,
+  BookmarkList,
 };
