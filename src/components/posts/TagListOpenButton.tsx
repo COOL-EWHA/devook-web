@@ -10,10 +10,11 @@ import { PostType } from 'src/types';
 
 interface IPostTagListOpenButtonProps {
   postType?: PostType;
+  isBookmarkRead?: boolean;
 }
 
-function PostTagListOpenButton({ postType = 'post' }: IPostTagListOpenButtonProps) {
-  const { data, isModalOpen, openModal, closeModal } = usePostTagList(postType);
+function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagListOpenButtonProps) {
+  const { data, isModalOpen, openModal, closeModal } = usePostTagList({ postType, isBookmarkRead });
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   if (!isLoggedIn) return null;

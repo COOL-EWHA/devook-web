@@ -19,7 +19,7 @@ function ToReadPage() {
             <PostSearchInput type="bookmark" />
             <BookmarkList isRead={false} />
           </BookmarkListWrapper>
-          <PostTagListOpenButton postType="bookmark" />
+          <PostTagListOpenButton postType="bookmark" isBookmarkRead={false} />
         </>
       )}
       <ScrollToTopButton />

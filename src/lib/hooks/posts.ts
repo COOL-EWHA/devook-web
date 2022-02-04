@@ -3,7 +3,6 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
-import { useLocation } from 'react-router-dom';
 
 import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
@@ -82,12 +81,15 @@ export const usePostSearch = (type: PostType = 'post') => {
   return { query, handleChange };
 };
 
-export const usePostTagList = (type: PostType = 'post') => {
-  const { pathname } = useLocation();
+export const usePostTagList = ({
+  postType = 'post',
+  isBookmarkRead,
+}: {
+  postType?: PostType;
+  isBookmarkRead?: boolean;
+}) => {
   const [queryKeys, queryFn] =
-    type === 'bookmark'
-      ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead: pathname === '/to-read' ? false : undefined })]
-      : [postKeys, getPostTagList];
+    postType === 'bookmark' ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead })] : [postKeys, getPostTagList];
   const { data } = useQuery(queryKeys.tags(), queryFn);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
