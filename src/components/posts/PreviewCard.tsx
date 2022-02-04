@@ -16,7 +16,7 @@ interface IPostPreviewCardProps {
   tags?: string[];
   isBookmarked?: boolean;
   url: string;
-  dueDate?: Date;
+  dueDate?: string;
   isRead?: boolean;
 }
 
