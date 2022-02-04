@@ -43,7 +43,7 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
     right: 0;
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
-    width: 10.6rem;
+    white-space: nowrap;
     padding: 1.2rem;
     background-color: ${WHITE};
     border-radius: 0.8rem;
