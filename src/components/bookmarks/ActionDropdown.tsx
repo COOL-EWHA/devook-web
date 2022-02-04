@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button } from 'src/components/common';
+import { BookmarkDeleteButton, BookmarkDueDateSetButton } from '.';
 import { WHITE } from 'src/constant';
-
-import { BookmarkDeleteButton } from '.';
 
 interface IBookmarkActionDropdownProps {
   bookmarkId: number;
@@ -15,7 +13,7 @@ interface IBookmarkActionDropdownProps {
 function BookmarkActionDropdown({ bookmarkId, isOpen, dueDate }: IBookmarkActionDropdownProps) {
   return (
     <Wrapper isOpen={isOpen}>
-      <Button iconType="event_available" text={dueDate || '기한설정'} />
+      <BookmarkDueDateSetButton id={bookmarkId} dueDate={dueDate} />
       <BookmarkDeleteButton id={bookmarkId} />
     </Wrapper>
   );

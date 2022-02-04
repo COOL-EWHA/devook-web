@@ -1,4 +1,5 @@
 import BookmarkDeleteButton from './DeleteButton';
+import BookmarkDueDateSetButton from './DueDateSetButton';
 import BookmarkActionDropdown from './ActionDropdown';
 import BookmarkCreateButton from './CreateButton';
 import BookmarkAddButton from './AddButton';
@@ -24,4 +25,5 @@ export {
   BookmarkDetailCardSkeleton,
   BookmarkDetailCard,
   BookmarkList,
+  BookmarkDueDateSetButton,
 };

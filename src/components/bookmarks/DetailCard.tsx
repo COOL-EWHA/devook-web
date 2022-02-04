@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BookmarkDeleteButton } from 'src/components/bookmarks';
+import { BookmarkDeleteButton, BookmarkDueDateSetButton } from 'src/components/bookmarks';
 import { P, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
@@ -12,7 +12,7 @@ interface IBookmarkDetailCardProps {
 }
 
 function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
-  const { id, title, description, thumbnail, tags, url } = data;
+  const { id, title, description, thumbnail, tags, url, dueDate } = data;
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
@@ -28,10 +28,13 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
         <Img src={thumbnail} alt="북마크한 글의 썸네일 이미지" onError={handleImgError} />
       </ContentWrapper>
       <Footer>
-        {tags?.map((tag) => (
-          <Tag key={tag}>#{tag}</Tag>
-        ))}
-        {id && <StyledDeleteButton id={id} />}
+        <Row>
+          {tags?.map((tag) => (
+            <Tag key={tag}>#{tag}</Tag>
+          ))}
+        </Row>
+        <DueDateSetButton id={id} dueDate={dueDate} />
+        <DeleteButton id={id} />
       </Footer>
       <Button text="글 읽기" type="line" isBlock href={url} />
     </Wrapper>
@@ -78,7 +81,6 @@ const Img = styled.img`
 const Footer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin: 0.8rem 0 1.2rem;
 `;
 
@@ -92,6 +94,15 @@ const ContentWrapper = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-const StyledDeleteButton = styled(BookmarkDeleteButton).attrs({ size: 'large' })`
-  margin-left: auto;
+const DueDateSetButton = styled(BookmarkDueDateSetButton).attrs({ size: 'large' })`
+  margin-left: 0.8rem;
+`;
+
+const DeleteButton = styled(BookmarkDeleteButton).attrs({ size: 'large' })`
+  margin-left: 0.8rem;
+`;
+
+const Row = styled.div`
+  display: flex;
+  margin-right: auto;
 `;
