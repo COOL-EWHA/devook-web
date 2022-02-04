@@ -7,4 +7,4 @@ export type PostListParams = ListRequestParams & Pick<IPost, 'tags'> & { q?: str
 export type RelatedPostListParams = BookmarkRelatedPostListParams | PostRelatedPostListParams;
 export type BookmarkRelatedPostListParams = ListRequestParams & { bookmarkId: number };
 export type PostRelatedPostListParams = ListRequestParams & { postId: number };
-export type PostListFilter = Pick<PostListParams, 'tags' | 'q'> & { isRead?: boolean };
+export type PostListFilter = Pick<PostListParams, 'tags' | 'q'>;
