@@ -9,12 +9,13 @@ import { BookmarkDeleteButton } from '.';
 interface IBookmarkActionDropdownProps {
   bookmarkId: number;
   isOpen: boolean;
+  dueDate?: string;
 }
 
-function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
+function BookmarkActionDropdown({ bookmarkId, isOpen, dueDate }: IBookmarkActionDropdownProps) {
   return (
     <Wrapper isOpen={isOpen}>
-      <Button iconType="notifications_none" text="알림설정" />
+      <Button iconType="event_available" text={dueDate || '기한설정'} />
       <BookmarkDeleteButton id={bookmarkId} />
     </Wrapper>
   );

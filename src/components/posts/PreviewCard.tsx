@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostPreviewCardActionMenu } from 'src/components/posts';
-import { P, Link, MaterialIcon, Checkbox } from 'src/components/common';
+import { P, Link, Checkbox } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 import { useBookmarkIsReadEdit } from 'src/lib/hooks';
 
@@ -39,56 +39,36 @@ export default function PostPreviewCard({
     e.currentTarget.src = '/favicon.svg';
   };
 
-  if (type === 'toRead') {
-    return (
-      <RowWrapper>
+  return (
+    <Row>
+      {bookmarkId && type === 'toRead' && (
         <CheckboxWrapper>
           <Checkbox id={String(bookmarkId)} isChecked={isRead} toggle={toggle} />
         </CheckboxWrapper>
-        <Wrapper>
-          <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
-            <ContentWrapper>
-              <PWrapper>
-                <Title>{title}</Title>
-                <Description>{description}</Description>
-              </PWrapper>
-              <Img src={thumbnail} onError={handleImgError} />
-            </ContentWrapper>
-          </PostPreviewCardLink>
-          <RowWrapper>
-            {tags?.map((tag) => (
-              <Tag key={tag}>#{tag}</Tag>
-            ))}
-          </RowWrapper>
-          <Footer>
-            <CalendarIcon />
-            {/* @TO_BE_IMPROVED: date format 추가 */}
-            <DueDate>{dueDate ?? '마감기한 없음'}</DueDate>
-            <PostPreviewCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} />
-          </Footer>
-        </Wrapper>
-      </RowWrapper>
-    );
-  }
-
-  return (
-    <Wrapper>
-      <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
-        <ContentWrapper>
+      )}
+      <Wrapper>
+        <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
           <PWrapper>
             <Title>{title}</Title>
             <Description>{description}</Description>
           </PWrapper>
           <Img src={thumbnail} onError={handleImgError} />
-        </ContentWrapper>
-      </PostPreviewCardLink>
-      <Footer>
-        {tags?.map((tag) => (
-          <Tag key={tag}>#{tag}</Tag>
-        ))}
-        <PostPreviewCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} />
-      </Footer>
-    </Wrapper>
+        </PostPreviewCardLink>
+        <Footer>
+          <Row>
+            {tags?.map((tag) => (
+              <Tag key={tag}>#{tag}</Tag>
+            ))}
+          </Row>
+          <PostPreviewCardActionMenu
+            postId={postId}
+            bookmarkId={bookmarkId}
+            isBookmarked={isBookmarked}
+            dueDate={dueDate}
+          />
+        </Footer>
+      </Wrapper>
+    </Row>
   );
 }
 
@@ -96,7 +76,7 @@ type PostPreviewCardLinkProps = Pick<IPostPreviewCardProps, 'bookmarkId' | 'url'
 
 function PostPreviewCardLink({ bookmarkId, url, children }: PostPreviewCardLinkProps) {
   if (bookmarkId) {
-    return <Link to={`/bookmarks/${bookmarkId}`}>{children}</Link>;
+    return <StyledLink to={`/bookmarks/${bookmarkId}`}>{children}</StyledLink>;
   }
 
   return (
@@ -132,12 +112,6 @@ const Tag = styled(P).attrs({
   margin-right: 0.8rem;
 `;
 
-const DueDate = styled(P).attrs({
-  color: GREY[700],
-})`
-  margin-left: 0.4rem;
-`;
-
 const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 1rem;
@@ -155,31 +129,32 @@ const Img = styled.img`
 const Footer = styled.div`
   display: flex;
   align-items: center;
-  margin: 0.8rem 0;
+  margin-bottom: 0.8rem;
 `;
 
 const PWrapper = styled.div`
   max-width: calc(100% - 9.2rem);
 `;
 
-const ContentWrapper = styled.div`
+const StyledLink = styled(Link)`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 0.4rem;
 `;
 
 const A = styled.a`
   text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.4rem;
 `;
 
-const RowWrapper = styled.div`
+const Row = styled.div`
   display: flex;
 `;
 
 const CheckboxWrapper = styled.div`
   margin: 0.2rem 0.8rem 0 0;
-`;
-
-const CalendarIcon = styled(MaterialIcon).attrs({ type: 'event_available', width: '1.8rem', hoverColor: GREY[700] })`
-  margin-top: 0.2rem;
 `;
