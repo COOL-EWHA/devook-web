@@ -11,8 +11,9 @@ interface IBookmarkListProps {
   isRead?: boolean;
 }
 
-function BookmarkList({ isRead }: IBookmarkListProps) {
+function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
   const { data, isLoading, listEndRef } = useBookmarkList({ isRead });
+  const previewCardType = isRead === undefined ? 'default' : 'toRead';
 
   return (
     <Wrapper>
@@ -23,7 +24,7 @@ function BookmarkList({ isRead }: IBookmarkListProps) {
           return (
             <PostPreviewCard
               key={id}
-              type={isRead === undefined ? 'default' : 'toRead'}
+              type={previewCardType}
               bookmarkId={id}
               title={title}
               thumbnail={thumbnail}
