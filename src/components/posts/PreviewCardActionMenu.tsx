@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { BookmarkActionDropdown, BookmarkAddButton } from 'src/components/bookmarks';
-import { Button } from 'src/components/common';
+import { IconButton } from 'src/components/common';
 
 interface IPostPreviewCardActionMenuProps {
   bookmarkId?: number;
@@ -45,7 +45,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const MoreButton = styled(Button).attrs({
+const MoreButton = styled(IconButton).attrs({
+  type: 'primary',
   iconType: 'more_horiz',
 })`
   @media screen and (min-width: 1025px) {
