@@ -4,7 +4,7 @@ import {
   BookmarkPreview,
   BookmarkCreateParams,
   BookmarkListParams,
-  BookmarkMemoEditParams,
+  BookmarkEditParams,
   BookmarkAddParams,
   BookmarkTagListParams,
 } from 'src/types';
@@ -26,7 +26,7 @@ export const getBookmarkList = (params: BookmarkListParams): Promise<BookmarkPre
 export const getBookmark = (id: number): Promise<IBookmark> =>
   apiClient.get(`/bookmarks/${id}`).then((res) => res.data);
 
-export const editBookmarkMemo = ({ id, memo, isRead, dueDate }: BookmarkMemoEditParams): Promise<void> =>
+export const editBookmark = ({ id, memo, isRead, dueDate }: BookmarkEditParams): Promise<void> =>
   apiClient.patch(`/bookmarks/${id}`, { memo, isRead, dueDate }).then((res) => res.data);
 
 export const getBookmarkTagList = (params: BookmarkTagListParams): Promise<string[]> =>

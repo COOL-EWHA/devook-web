@@ -6,14 +6,7 @@ import produce from 'immer';
 import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import {
-  addBookmark,
-  createBookmark,
-  deleteBookmark,
-  getBookmark,
-  editBookmarkMemo,
-  getBookmarkList,
-} from 'src/lib/api';
+import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark, getBookmarkList } from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark, IPost } from 'src/interfaces';
@@ -191,7 +184,7 @@ export const useBookmarkIsReadEdit = ({ id, isRead }: Partial<Pick<IBookmark, 'i
   const queryClient = useQueryClient();
   const filter = useRecoilValue(bookmarkListFilter);
 
-  const mutationFn = (id: number) => editBookmarkMemo({ id, isRead: !isRead });
+  const mutationFn = (id: number) => editBookmark({ id, isRead: !isRead });
 
   const updateBookmarkList = (oldList: InfiniteData<BookmarkPreview[]>) =>
     produce(oldList, ({ pages }) => {
@@ -243,7 +236,7 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memo, setMemo] = useState(originalMemo);
 
-  const mutationFn = (id: number) => editBookmarkMemo({ id, memo });
+  const mutationFn = (id: number) => editBookmark({ id, memo });
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
