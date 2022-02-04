@@ -40,7 +40,7 @@ export default function PostPreviewCard({
   };
 
   return (
-    <Row>
+    <StyledRow>
       {bookmarkId && type === 'toRead' && (
         <CheckboxWrapper>
           <Checkbox id={String(bookmarkId)} isChecked={isRead} toggle={toggle} />
@@ -68,7 +68,7 @@ export default function PostPreviewCard({
           />
         </Footer>
       </Wrapper>
-    </Row>
+    </StyledRow>
   );
 }
 
@@ -114,8 +114,6 @@ const Tag = styled(P).attrs({
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid ${GREY[300]};
 `;
 
 const Img = styled.img`
@@ -153,6 +151,12 @@ const A = styled.a`
 
 const Row = styled.div`
   display: flex;
+`;
+
+const StyledRow = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid ${GREY[300]};
 `;
 
 const CheckboxWrapper = styled.div`
