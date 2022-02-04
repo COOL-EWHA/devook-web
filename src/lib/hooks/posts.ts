@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 import { useLocation } from 'react-router-dom';
 
-import { getRelatedPostList, getBookmarkList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
+import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
@@ -23,13 +23,9 @@ export const useRelatedPostList = (bookmarkId: number) => {
   return { data, isLoading };
 };
 
-export const usePostList = (type: PostType = 'post') => {
-  const { pathname } = useLocation();
-  const [queryKeys, getList, listFilter] =
-    type === 'bookmark' ? [bookmarkKeys, getBookmarkList, bookmarkListFilter] : [postKeys, getPostList, postListFilter];
-
-  const [filter, setFilter] = useRecoilState(listFilter);
-  const resetFilter = useResetRecoilState(listFilter);
+export const usePostList = () => {
+  const filter = useRecoilValue(postListFilter);
+  const resetFilter = useResetRecoilState(postListFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
   });
@@ -39,18 +35,12 @@ export const usePostList = (type: PostType = 'post') => {
   }, []);
 
   useEffect(() => {
-    if (pathname === '/to-read' && type === 'bookmark') {
-      setFilter({ ...filter, isRead: false });
-    }
-  }, [pathname, type]);
-
-  useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [inView]);
 
-  const fetchList = ({ pageParam = undefined }) => getList({ cursor: pageParam, ...filter });
+  const fetchList = ({ pageParam = undefined }) => getPostList({ cursor: pageParam, ...filter });
 
   const getNextPageParam = (lastPage?: PostPreview[]) => {
     if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
@@ -61,7 +51,7 @@ export const usePostList = (type: PostType = 'post') => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    queryKeys.list(filter),
+    postKeys.list(filter),
     fetchList,
     {
       getNextPageParam,
