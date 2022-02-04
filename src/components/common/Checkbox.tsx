@@ -6,16 +6,17 @@ import { MaterialIcon } from '.';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 
 interface ICheckboxProps {
+  id: string;
   isChecked?: boolean;
-  onClick: () => void;
+  toggle: () => void;
 }
 
-function Checkbox({ isChecked, onClick }: ICheckboxProps) {
+function Checkbox({ id, isChecked, toggle }: ICheckboxProps) {
   const [color, hoverColor] = isChecked ? [CACTUS_GREEN[500], CACTUS_GREEN[700]] : [GREY[300], GREY[500]];
   return (
     <>
-      <Input id="checkbox" type="checkbox" checked={isChecked} onChange={onClick} />
-      <label htmlFor="checkbox">
+      <Input id={id} type="checkbox" checked={isChecked} onChange={toggle} />
+      <label htmlFor={id}>
         <MaterialIcon type="check_box" color={color} hoverColor={hoverColor} />
       </label>
     </>

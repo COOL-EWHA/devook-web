@@ -33,7 +33,7 @@ export default function PostPreviewCard({
   dueDate,
   isRead,
 }: IPostPreviewCardProps) {
-  const { onClick } = useBookmarkIsReadEdit({ id: bookmarkId, isRead });
+  const { toggle } = useBookmarkIsReadEdit({ id: bookmarkId, isRead });
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '/favicon.svg';
@@ -43,7 +43,7 @@ export default function PostPreviewCard({
     return (
       <RowWrapper>
         <CheckboxWrapper>
-          <Checkbox isChecked={isRead} onClick={onClick} />
+          <Checkbox id={String(bookmarkId)} isChecked={isRead} toggle={toggle} />
         </CheckboxWrapper>
         <Wrapper>
           <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
