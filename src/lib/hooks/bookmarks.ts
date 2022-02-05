@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import produce from 'immer';
+import { cloneDeep } from 'lodash';
 import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
@@ -186,33 +187,32 @@ export const useBookmarkIsReadEdit = ({ id, isRead }: Partial<Pick<IBookmark, 'i
 
   const mutationFn = (id: number) => editBookmark({ id, isRead: !isRead });
 
-  const updateBookmarkList = (oldList: InfiniteData<BookmarkPreview[]>) =>
-    produce(oldList, ({ pages }) => {
-      let updatedBookmark;
-      for (let i = 0; i < pages.length; i += 1) {
-        const bookmark = pages[i].find((bookmark) => bookmark.id === id);
-        if (bookmark) {
-          updatedBookmark = bookmark;
-          break;
-        }
+  const bookmarkListKey = bookmarkKeys.list(filter);
+
+  const updateBookmarkList = (prevList: InfiniteData<BookmarkPreview[]>) => {
+    const newList = cloneDeep(prevList);
+    const { pages } = newList;
+    for (let i = 0; i < pages.length; i += 1) {
+      const bookmark = pages[i].find((bookmark) => bookmark.id === id);
+      if (bookmark) {
+        bookmark.isRead = !bookmark.isRead;
+        break;
       }
-      if (updatedBookmark) {
-        updatedBookmark.isRead = !updatedBookmark.isRead;
-      }
-    });
+    }
+    return newList;
+  };
 
   const { mutate } = useMutation(mutationFn, {
-    onMutate: async () => {
-      await queryClient.cancelQueries(bookmarkKeys.list(filter));
-      queryClient.setQueriesData(bookmarkKeys.list(filter), (oldList) =>
-        updateBookmarkList(oldList as InfiniteData<BookmarkPreview[]>),
-      );
+    onMutate: async (): Promise<{
+      prevList: InfiniteData<BookmarkPreview[]>;
+    }> => {
+      await queryClient.cancelQueries(bookmarkListKey);
+      const prevList = queryClient.getQueryData(bookmarkListKey) as InfiniteData<BookmarkPreview[]>;
+      queryClient.setQueryData(bookmarkListKey, () => updateBookmarkList(prevList));
+      return { prevList };
     },
-    onError: () => {
-      queryClient.setQueriesData(bookmarkKeys.list(filter), (oldList) =>
-        updateBookmarkList(oldList as InfiniteData<BookmarkPreview[]>),
-      );
-
+    onError: (error, variables, context) => {
+      queryClient.setQueryData(bookmarkListKey, context?.prevList);
       alert('북마크 읽기 완료 수정에 실패하였습니다.');
     },
   });
