@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash';
 
 import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
