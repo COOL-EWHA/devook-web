@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import produce from 'immer';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
