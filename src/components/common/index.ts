@@ -10,6 +10,7 @@ import ScrollToTopButton from './ScrollToTopButton';
 import LabeledText from './LabeledText';
 import Section from './Section';
 import Skeleton from './Skeleton';
+import Checkbox from './Checkbox';
 
 export {
   P,
@@ -24,4 +25,5 @@ export {
   LabeledText,
   Section,
   Skeleton,
+  Checkbox,
 };

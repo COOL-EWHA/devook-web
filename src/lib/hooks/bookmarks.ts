@@ -1,13 +1,63 @@
-import { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import produce from 'immer';
+import cloneDeep from 'lodash/cloneDeep';
+import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmarkMemo } from 'src/lib/api';
-import { BookmarkCreateParams } from 'src/types';
+import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark, getBookmarkList } from 'src/lib/api';
+import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
-import { IPost } from 'src/interfaces';
+import { IBookmark, IPost } from 'src/interfaces';
+import { bookmarkListFilter } from 'src/lib/store';
+import { NO_REFETCH, POST_LIST_FETCH_LIMIT } from 'src/constant';
+
+export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
+  const [filter, setFilter] = useRecoilState(bookmarkListFilter);
+  const resetFilter = useResetRecoilState(bookmarkListFilter);
+  const { ref: listEndRef, inView } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    return resetFilter;
+  }, []);
+
+  useEffect(() => {
+    if (typeof isRead === 'boolean') {
+      setFilter({ ...filter, isRead });
+    }
+  }, [isRead]);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  const fetchList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
+
+  const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
+    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
+      return undefined;
+    }
+    const lastItemId = lastPage[lastPage.length - 1]?.id;
+    return lastItemId;
+  };
+
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    bookmarkKeys.list(filter),
+    fetchList,
+    {
+      getNextPageParam,
+      ...NO_REFETCH,
+    },
+  );
+
+  return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
+};
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();
@@ -131,6 +181,51 @@ export const useBookmarkDelete = (id: number) => {
   return { onDelete: handleDelete };
 };
 
+export const useBookmarkIsReadEdit = ({ id, isRead }: Partial<Pick<IBookmark, 'id' | 'isRead'>>) => {
+  const queryClient = useQueryClient();
+  const filter = useRecoilValue(bookmarkListFilter);
+
+  const mutationFn = (id: number) => editBookmark({ id, isRead: !isRead });
+
+  const bookmarkListKey = bookmarkKeys.list(filter);
+
+  const updateBookmarkList = (prevList: InfiniteData<BookmarkPreview[]>) => {
+    const newList = cloneDeep(prevList);
+    const { pages } = newList;
+    for (let i = 0; i < pages.length; i += 1) {
+      const bookmark = pages[i].find((bookmark) => bookmark.id === id);
+      if (bookmark) {
+        bookmark.isRead = !bookmark.isRead;
+        break;
+      }
+    }
+    return newList;
+  };
+
+  const { mutate } = useMutation(mutationFn, {
+    onMutate: async () => {
+      await queryClient.cancelQueries(bookmarkListKey);
+      const prevList = queryClient.getQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey);
+      if (prevList) {
+        queryClient.setQueryData(bookmarkListKey, () => updateBookmarkList(prevList));
+      }
+      return { prevList };
+    },
+    onError: (error, variables, context) => {
+      queryClient.setQueryData(bookmarkListKey, context?.prevList);
+      alert('북마크 읽기 완료 수정에 실패하였습니다.');
+    },
+  });
+
+  const toggle = () => {
+    if (id) {
+      mutate(id);
+    }
+  };
+
+  return { toggle };
+};
+
 export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string }) => {
   const params = useParams();
   const id = params.id ?? '';
@@ -141,7 +236,7 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memo, setMemo] = useState(originalMemo);
 
-  const mutationFn = (id: number) => editBookmarkMemo({ id, memo });
+  const mutationFn = (id: number) => editBookmark({ id, memo });
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {

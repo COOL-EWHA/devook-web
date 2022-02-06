@@ -8,12 +8,16 @@ interface IPostPreviewCardActionMenuProps {
   bookmarkId?: number;
   postId?: number;
   isBookmarked?: boolean;
+  dueDate?: string;
+  className?: string;
 }
 
 export default function PostPreviewCardActionMenu({
+  className,
   bookmarkId,
   postId,
   isBookmarked = true,
+  dueDate,
 }: IPostPreviewCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -22,11 +26,11 @@ export default function PostPreviewCardActionMenu({
   };
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       {bookmarkId && (
         <>
           <MoreButton onClick={handleMoreButtonClick} />
-          <BookmarkActionDropdown bookmarkId={bookmarkId} isOpen={isDropdownOpen} />
+          <BookmarkActionDropdown bookmarkId={bookmarkId} dueDate={dueDate} isOpen={isDropdownOpen} />
         </>
       )}
       {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}

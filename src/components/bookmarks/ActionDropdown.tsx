@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button } from 'src/components/common';
+import { BookmarkDeleteButton, BookmarkDueDateSetButton } from '.';
 import { WHITE } from 'src/constant';
-
-import { BookmarkDeleteButton } from '.';
 
 interface IBookmarkActionDropdownProps {
   bookmarkId: number;
   isOpen: boolean;
+  dueDate?: string;
 }
 
-function BookmarkActionDropdown({ bookmarkId, isOpen }: IBookmarkActionDropdownProps) {
+function BookmarkActionDropdown({ bookmarkId, isOpen, dueDate }: IBookmarkActionDropdownProps) {
   return (
     <Wrapper isOpen={isOpen}>
-      <Button iconType="notifications_none" text="알림설정" />
+      <BookmarkDueDateSetButton id={bookmarkId} dueDate={dueDate} />
       <BookmarkDeleteButton id={bookmarkId} />
     </Wrapper>
   );
@@ -44,7 +43,7 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
     right: 0;
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
-    width: 10.6rem;
+    white-space: nowrap;
     padding: 1.2rem;
     background-color: ${WHITE};
     border-radius: 0.8rem;

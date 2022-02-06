@@ -8,7 +8,7 @@ import { ScrollToTopButton } from 'src/components/common';
 
 import { isUserLoggedIn } from 'src/lib/store';
 
-function BookmarkListPage() {
+function ToReadPage() {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   return (
@@ -17,9 +17,9 @@ function BookmarkListPage() {
         <>
           <BookmarkListWrapper>
             <PostSearchInput type="bookmark" />
-            <BookmarkList />
+            <BookmarkList isRead={false} />
           </BookmarkListWrapper>
-          <PostTagListOpenButton postType="bookmark" />
+          <PostTagListOpenButton postType="bookmark" isBookmarkRead={false} />
         </>
       )}
       <ScrollToTopButton />
@@ -27,7 +27,7 @@ function BookmarkListPage() {
   );
 }
 
-export default BookmarkListPage;
+export default ToReadPage;
 
 const Wrapper = styled.div`
   display: flex;

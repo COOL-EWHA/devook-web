@@ -7,7 +7,7 @@ import { Section } from 'src/components/common';
 
 import { GREY } from 'src/constant';
 import { useRelatedPostList } from 'src/lib/hooks';
-import { BookmarkPreview } from 'src/types';
+import { PostPreview } from 'src/types';
 
 interface IBookmarkRelatedPostListProps {
   bookmarkId: number;
@@ -21,7 +21,7 @@ function BookmarkRelatedPostList({ bookmarkId }: IBookmarkRelatedPostListProps) 
       <Divider />
       <Section title="더 읽어보기">
         {isLoading && <BookmarkRelatedPostListSkeleton />}
-        {data?.map((post: BookmarkPreview) => {
+        {data?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
           return (
             <PostPreviewCard

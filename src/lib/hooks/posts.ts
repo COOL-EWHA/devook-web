@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import { getRelatedPostList, getBookmarkList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
+import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
@@ -22,11 +22,9 @@ export const useRelatedPostList = (bookmarkId: number) => {
   return { data, isLoading };
 };
 
-export const usePostList = (type: PostType = 'post') => {
-  const [queryKeys, getList, listFilter] =
-    type === 'bookmark' ? [bookmarkKeys, getBookmarkList, bookmarkListFilter] : [postKeys, getPostList, postListFilter];
-  const filter = useRecoilValue(listFilter);
-  const resetFilter = useResetRecoilState(listFilter);
+export const usePostList = () => {
+  const filter = useRecoilValue(postListFilter);
+  const resetFilter = useResetRecoilState(postListFilter);
   const { ref: listEndRef, inView } = useInView({
     threshold: 0,
   });
@@ -41,7 +39,7 @@ export const usePostList = (type: PostType = 'post') => {
     }
   }, [inView]);
 
-  const fetchList = ({ pageParam = undefined }) => getList({ cursor: pageParam, ...filter });
+  const fetchList = ({ pageParam = undefined }) => getPostList({ cursor: pageParam, ...filter });
 
   const getNextPageParam = (lastPage?: PostPreview[]) => {
     if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
@@ -52,7 +50,7 @@ export const usePostList = (type: PostType = 'post') => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    queryKeys.list(filter),
+    postKeys.list(filter),
     fetchList,
     {
       getNextPageParam,
@@ -83,8 +81,15 @@ export const usePostSearch = (type: PostType = 'post') => {
   return { query, handleChange };
 };
 
-export const usePostTagList = (type: PostType = 'post') => {
-  const [queryKeys, queryFn] = type === 'bookmark' ? [bookmarkKeys, getBookmarkTagList] : [postKeys, getPostTagList];
+export const usePostTagList = ({
+  postType = 'post',
+  isBookmarkRead,
+}: {
+  postType?: PostType;
+  isBookmarkRead?: boolean;
+}) => {
+  const [queryKeys, queryFn] =
+    postType === 'bookmark' ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead })] : [postKeys, getPostTagList];
   const { data } = useQuery(queryKeys.tags(), queryFn);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

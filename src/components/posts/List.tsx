@@ -5,15 +5,11 @@ import { PostPreviewCard } from 'src/components/posts';
 import { PostListSkeleton } from '.';
 import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
-import { PostPreview, PostType } from 'src/types';
+import { PostPreview } from 'src/types';
 import { usePostList } from 'src/lib/hooks';
 
-interface IPostListProps {
-  type?: PostType;
-}
-
-function PostList({ type = 'post' }: IPostListProps) {
-  const { data, isLoading, listEndRef } = usePostList(type);
+function PostList() {
+  const { data, isLoading, listEndRef } = usePostList();
 
   return (
     <Wrapper>
@@ -24,8 +20,7 @@ function PostList({ type = 'post' }: IPostListProps) {
           return (
             <PostPreviewCard
               key={id}
-              bookmarkId={type === 'bookmark' ? id : undefined}
-              postId={type === 'post' ? id : undefined}
+              postId={id}
               title={title}
               thumbnail={thumbnail}
               description={description}
