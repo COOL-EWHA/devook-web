@@ -203,12 +203,12 @@ export const useBookmarkIsReadEdit = ({ id, isRead }: Partial<Pick<IBookmark, 'i
   };
 
   const { mutate } = useMutation(mutationFn, {
-    onMutate: async (): Promise<{
-      prevList: InfiniteData<BookmarkPreview[]>;
-    }> => {
+    onMutate: async () => {
       await queryClient.cancelQueries(bookmarkListKey);
-      const prevList = queryClient.getQueryData(bookmarkListKey) as InfiniteData<BookmarkPreview[]>;
-      queryClient.setQueryData(bookmarkListKey, () => updateBookmarkList(prevList));
+      const prevList = queryClient.getQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey);
+      if (prevList) {
+        queryClient.setQueryData(bookmarkListKey, () => updateBookmarkList(prevList));
+      }
       return { prevList };
     },
     onError: (error, variables, context) => {
