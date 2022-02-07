@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-import { ko } from 'date-fns/esm/locale';
+import { ko } from 'date-fns/locale';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'src/styles/datepicker.css';
@@ -58,7 +58,8 @@ const StyledButton = styled(Button)<{ text: string }>`
     `}
 `;
 
-const StyledModal = styled(Modal)`
+// eslint-disable-next-line react/jsx-props-no-spreading
+const StyledModal = styled((props) => <Modal {...props} />)`
   padding: 1.2rem 2rem 2rem;
 `;
 
