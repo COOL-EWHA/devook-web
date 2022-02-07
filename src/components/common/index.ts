@@ -3,6 +3,7 @@ import MaterialIcon from './MaterialIcon';
 import Link from './Link';
 import IconButton from './IconButton';
 import Button from './Button';
+import ResetButton from './ResetButton';
 import Input from './Input';
 import Textarea from './Textarea';
 import Modal from './Modal';
@@ -17,6 +18,7 @@ export {
   MaterialIcon,
   Link,
   Button,
+  ResetButton,
   IconButton,
   Input,
   Textarea,
