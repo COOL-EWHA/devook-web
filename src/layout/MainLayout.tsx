@@ -12,7 +12,7 @@ interface IMainLayoutProps {
 
 export default function MainLayout({ children }: IMainLayoutProps) {
   const { pathname } = useLocation();
-  const isSubRoute = !!SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
+  const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
 
   return (
     <>

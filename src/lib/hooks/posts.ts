@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce';
 
 import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import { bookmarkListFilter, postListFilter } from 'src/lib/store';
+import { bookmarkListFilter, postListFilter, isUserLoggedIn } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
 import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
 
@@ -88,9 +88,13 @@ export const usePostTagList = ({
   postType?: PostType;
   isBookmarkRead?: boolean;
 }) => {
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
+
   const [queryKeys, queryFn] =
     postType === 'bookmark' ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead })] : [postKeys, getPostTagList];
-  const { data } = useQuery(queryKeys.tags(), queryFn);
+  const { data } = useQuery(queryKeys.tags(), queryFn, {
+    enabled: isLoggedIn || postType === 'post',
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

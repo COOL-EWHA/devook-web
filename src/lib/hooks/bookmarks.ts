@@ -12,10 +12,11 @@ import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark,
 import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark, IPost } from 'src/interfaces';
-import { bookmarkListFilter } from 'src/lib/store';
+import { bookmarkListFilter, isUserLoggedIn } from 'src/lib/store';
 import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
   const resetFilter = useResetRecoilState(bookmarkListFilter);
   const { ref: listEndRef, inView } = useInView({
@@ -53,6 +54,7 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     fetchList,
     {
       getNextPageParam,
+      enabled: isLoggedIn,
     },
   );
 

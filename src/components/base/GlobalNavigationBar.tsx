@@ -7,10 +7,10 @@ import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES, CACTUS_GREEN } from 'src/constant';
 
 function GlobalNavigationBar() {
   const { pathname } = useLocation();
-  const isVisible = !SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
+  const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
 
   return (
-    <Nav isVisible={isVisible}>
+    <Nav isSubRoute={isSubRoute}>
       <Ul>
         {NAV_ITEMS.map(({ iconType, label, to }) => (
           <Link to={to} key={label}>
@@ -27,12 +27,12 @@ function GlobalNavigationBar() {
 
 export default GlobalNavigationBar;
 
-const Nav = styled.nav<{ isVisible: boolean }>`
+const Nav = styled.nav<{ isSubRoute: boolean }>`
   @media screen and (min-width: 1025px) {
     width: 14.2rem;
   }
   @media screen and (max-width: 1024px) {
-    display: ${({ isVisible }) => !isVisible && 'none'};
+    display: ${({ isSubRoute }) => isSubRoute && 'none'};
   }
 `;
 

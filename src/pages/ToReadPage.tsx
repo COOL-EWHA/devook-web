@@ -5,7 +5,6 @@ import { useRecoilValue } from 'recoil';
 import { PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
 import { BookmarkList } from 'src/components/bookmarks';
 import { ScrollToTopButton } from 'src/components/common';
-
 import { isUserLoggedIn } from 'src/lib/store';
 
 function ToReadPage() {
@@ -13,15 +12,11 @@ function ToReadPage() {
 
   return (
     <Wrapper>
-      {isLoggedIn && (
-        <>
-          <BookmarkListWrapper>
-            <PostSearchInput type="bookmark" />
-            <BookmarkList isRead={false} />
-          </BookmarkListWrapper>
-          <PostTagListOpenButton postType="bookmark" isBookmarkRead={false} />
-        </>
-      )}
+      <BookmarkListWrapper>
+        {isLoggedIn && <PostSearchInput type="bookmark" />}
+        <BookmarkList isRead={false} />
+      </BookmarkListWrapper>
+      {isLoggedIn && <PostTagListOpenButton postType="bookmark" isBookmarkRead={false} />}
       <ScrollToTopButton />
     </Wrapper>
   );
