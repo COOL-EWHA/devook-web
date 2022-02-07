@@ -6,7 +6,7 @@ import { SUB_ROUTES } from 'src/constant';
 
 export default function GlobalHeader() {
   const { pathname } = useLocation();
-  const subRouteData = SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
+  const subRouteData = SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
 
   return (
     <>

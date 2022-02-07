@@ -7,10 +7,10 @@ import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES, CACTUS_GREEN } from 'src/constant';
 
 function GlobalNavigationBar() {
   const { pathname } = useLocation();
-  const isVisible = !SUB_ROUTES.find((subRoute) => pathname.includes(subRoute.pathname));
+  const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
 
   return (
-    <Nav isVisible={isVisible}>
+    <Nav isVisible={!isSubRoute}>
       <Ul>
         {NAV_ITEMS.map(({ iconType, label, to }) => (
           <Link to={to} key={label}>
