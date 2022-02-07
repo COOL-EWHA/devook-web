@@ -19,7 +19,7 @@ function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagLi
   const { data, isModalOpen, openModal, closeModal } = usePostTagList({ postType, isBookmarkRead });
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
-  if (!isLoggedIn) return null;
+  if (!isLoggedIn && postType === 'bookmark') return null;
 
   return (
     <>
