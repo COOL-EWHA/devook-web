@@ -1,18 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import { ScrollToTopButton } from 'src/components/common';
 import { PostSearchInput, PostTagListOpenButton } from 'src/components/posts';
 import { BookmarkList } from 'src/components/bookmarks';
+import { isUserLoggedIn } from 'src/lib/store';
 
 function BookmarkListPage() {
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
+
   return (
     <Wrapper>
       <BookmarkListWrapper>
-        <PostSearchInput type="bookmark" />
+        {isLoggedIn && <PostSearchInput type="bookmark" />}
         <BookmarkList />
       </BookmarkListWrapper>
-      <PostTagListOpenButton postType="bookmark" />
+      {isLoggedIn && <PostTagListOpenButton postType="bookmark" />}
       <ScrollToTopButton />
     </Wrapper>
   );
