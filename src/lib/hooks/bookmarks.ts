@@ -282,6 +282,7 @@ export const useBookmark = () => {
 };
 
 export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefined) => {
+  const { pathname } = useLocation();
   const queryClient = useQueryClient();
   const { checkIsLoggedIn } = useLoginStatus();
 
@@ -292,8 +293,12 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
-      queryClient.invalidateQueries(bookmarkKeys.lists());
-      queryClient.invalidateQueries(bookmarkKeys.detail(id));
+      if (pathname === '/bookmarks' || pathname === '/to-read') {
+        queryClient.invalidateQueries(bookmarkKeys.lists());
+      }
+      if (pathname.match(/^\/bookmarks\/[0-9]+/)) {
+        queryClient.invalidateQueries(bookmarkKeys.detail(id));
+      }
       setIsModalOpen(false);
     },
     onError: () => {
