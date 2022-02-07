@@ -286,7 +286,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
   const { checkIsLoggedIn } = useLoginStatus();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dueDate, setDueDate] = useState(() => (prevDueDate ? new Date(prevDueDate) : null));
+  const [dueDate, setDueDate] = useState(prevDueDate ? new Date(prevDueDate) : null);
   const dueDateString = dueDate ? dayjs(dueDate).format('YYYY.MM.DD') : '';
   const mutationFn = (id: number) => editBookmark({ id, dueDate: dueDateString });
 
@@ -294,7 +294,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
       queryClient.invalidateQueries(bookmarkKeys.detail(id));
-      closeModal();
+      setIsModalOpen(false);
     },
     onError: () => {
       alert('북마크 읽기기한 설정에 실패하였습니다.');
@@ -307,7 +307,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setDueDate(() => (prevDueDate ? new Date(prevDueDate) : null));
+    setDueDate(prevDueDate ? new Date(prevDueDate) : null);
   };
 
   const handleChange = (date: Date | null) => {
