@@ -4,6 +4,7 @@ import { InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient }
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import produce from 'immer';
 import cloneDeep from 'lodash/cloneDeep';
+import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
@@ -12,7 +13,7 @@ import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark, IPost } from 'src/interfaces';
 import { bookmarkListFilter } from 'src/lib/store';
-import { NO_REFETCH, POST_LIST_FETCH_LIMIT } from 'src/constant';
+import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
@@ -52,7 +53,6 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     fetchList,
     {
       getNextPageParam,
-      ...NO_REFETCH,
     },
   );
 
@@ -279,4 +279,59 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { id: Number(bookmarkId), data, isLoading };
+};
+
+export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefined) => {
+  const queryClient = useQueryClient();
+  const { checkIsLoggedIn } = useLoginStatus();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dueDate, setDueDate] = useState(() => (prevDueDate ? new Date(prevDueDate) : null));
+  const dueDateString = dueDate ? dayjs(dueDate).format('YYYY.MM.DD') : '';
+  const mutationFn = (id: number) => editBookmark({ id, dueDate: dueDateString });
+
+  const { mutate } = useMutation(mutationFn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(bookmarkKeys.lists());
+      queryClient.invalidateQueries(bookmarkKeys.detail(id));
+      closeModal();
+    },
+    onError: () => {
+      alert('북마크 읽기기한 설정에 실패하였습니다.');
+    },
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDueDate(() => (prevDueDate ? new Date(prevDueDate) : null));
+  };
+
+  const handleChange = (date: Date | null) => {
+    setDueDate(date);
+  };
+
+  const checkFormValid = () => {
+    if (!dueDate && !prevDueDate) {
+      alert('읽기 기한을 설정해주세요.');
+      return false;
+    }
+    if (dueDate && dayjs(dueDate).isBefore(dayjs().format('YYYY.MM.DD'))) {
+      alert('과거 날짜는 읽기 기한으로 설정할 수 없습니다.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (!checkIsLoggedIn() || !checkFormValid()) {
+      return;
+    }
+    mutate(id);
+  };
+
+  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit };
 };
