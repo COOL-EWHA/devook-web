@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Input } from 'src/components/common';
-
 import { usePostSearch } from 'src/lib/hooks';
 import { PostType } from 'src/types';
 
@@ -15,5 +14,4 @@ function PostSearchInput({ type = 'post' }: IPostSearchInputProps) {
 
   return <Input iconType="search" placeholder={placeholder} value={query} onChange={handleChange} />;
 }
-
 export default PostSearchInput;

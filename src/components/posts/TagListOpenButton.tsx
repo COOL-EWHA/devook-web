@@ -1,13 +1,10 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IconButton, Modal } from 'src/components/common';
 import { PostTagList } from 'src/components/posts';
-import { WHITE, GREY } from 'src/constant';
-
 import { usePostTagList } from 'src/lib/hooks';
-import { isUserLoggedIn } from 'src/lib/store';
+import { WHITE, GREY } from 'src/constant';
 import { PostType } from 'src/types';
 
 interface IPostTagListOpenButtonProps {
@@ -17,9 +14,6 @@ interface IPostTagListOpenButtonProps {
 
 function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagListOpenButtonProps) {
   const { data, isModalOpen, openModal, closeModal } = usePostTagList({ postType, isBookmarkRead });
-  const isLoggedIn = useRecoilValue(isUserLoggedIn);
-
-  if (!isLoggedIn) return null;
 
   return (
     <>

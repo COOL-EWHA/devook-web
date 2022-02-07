@@ -11,11 +11,11 @@ function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<BookmarkListPage />} />
+        <Route path="/" element={<FurtherReadPage />} />
         <Route path="/oauth-redirect" element={<OauthRedirectPage />} />
+        <Route path="/bookmarks" element={<BookmarkListPage />} />
         <Route path="/bookmarks/:id" element={<BookmarkDetailPage />} />
         <Route path="/to-read" element={<ToReadPage />} />
-        <Route path="/further-read" element={<FurtherReadPage />} />
       </Routes>
     </MainLayout>
   );
