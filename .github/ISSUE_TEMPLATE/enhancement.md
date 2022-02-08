@@ -1,9 +1,9 @@
 ---
 name: Enhancement request
 about: Write down the features you want to improve
-title: "[수정] "
+title: '[개선] '
 labels: enhancement
-assignees: ""
+assignees: ''
 ---
 
 **Problem**  
