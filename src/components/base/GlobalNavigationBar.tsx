@@ -1,24 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { MaterialIcon, Link } from 'src/components/common';
+import { MaterialIcon } from 'src/components/common';
+import { useLoginStatus } from 'src/lib/hooks';
 import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES, CACTUS_GREEN } from 'src/constant';
 
 function GlobalNavigationBar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { checkIsLoggedIn } = useLoginStatus();
   const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
+
+  const handleNavigate = (to: string) => {
+    if (to === '/' || checkIsLoggedIn()) {
+      navigate(to);
+    }
+  };
 
   return (
     <Nav isSubRoute={isSubRoute}>
       <Ul>
         {NAV_ITEMS.map(({ iconType, label, to }) => (
-          <Link to={to} key={label}>
-            <Li>
-              <MaterialIcon type={iconType} color={pathname === to ? CACTUS_GREEN[500] : GREY[900]} />
-              <Label isActive={pathname === to}>{label}</Label>
-            </Li>
-          </Link>
+          <Li onClick={() => handleNavigate(to)} key={label}>
+            <MaterialIcon type={iconType} color={pathname === to ? CACTUS_GREEN[500] : GREY[900]} />
+            <Label isActive={pathname === to}>{label}</Label>
+          </Li>
         ))}
       </Ul>
     </Nav>
