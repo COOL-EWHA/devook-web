@@ -8,7 +8,7 @@ import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } f
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter, isUserLoggedIn } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
-import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT, NO_REFETCH } from 'src/constant';
+import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useRelatedPostList = (bookmarkId: number) => {
   const filter = {
@@ -17,7 +17,7 @@ export const useRelatedPostList = (bookmarkId: number) => {
   };
 
   const queryFn = () => getRelatedPostList(filter);
-  const { data, isLoading } = useQuery(postKeys.list(filter), queryFn, NO_REFETCH);
+  const { data, isLoading } = useQuery(postKeys.list(filter), queryFn);
 
   return { data, isLoading };
 };
