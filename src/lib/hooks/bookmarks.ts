@@ -190,7 +190,7 @@ export const useBookmarkDelete = (id: number) => {
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
-      if (pathname.includes('/bookmarks')) {
+      if (pathname.match(/^\/bookmarks\/[0-9]+/)) {
         navigate(-1);
       }
     },
