@@ -9,7 +9,7 @@ interface ICloseHeaderProps {
   title: string;
 }
 
-export default function CloseHeader({ onClose, onComplete, title }: ICloseHeaderProps) {
+function CloseHeader({ onClose, onComplete, title }: ICloseHeaderProps) {
   return (
     <Wrapper>
       <IconButton iconType="close" onClick={onClose} />
@@ -18,6 +18,8 @@ export default function CloseHeader({ onClose, onComplete, title }: ICloseHeader
     </Wrapper>
   );
 }
+
+export default React.memo(CloseHeader);
 
 const Wrapper = styled.div`
   display: flex;
