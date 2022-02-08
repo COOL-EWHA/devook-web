@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'src/styles/datepicker.css';
 
-import { Button, ResetButton } from 'src/components/common';
-import Modal from 'src/components/common/Modal';
+import { Button } from 'src/components/common';
 import { ButtonSize } from 'src/components/common/Button';
 import { CACTUS_GREEN } from 'src/constant';
-
 import { useBookmarkDueDateSet } from 'src/lib/hooks';
+
+const Modal = lazy(() => import('src/components/common/Modal'));
+const DatePicker = lazy(() => import('react-datepicker'));
+const ResetButton = lazy(() => import('src/components/common/ResetButton'));
 
 interface IBookmarkDueDateSetButtonProps {
   className?: string;
@@ -37,12 +38,14 @@ export default function BookmarkDueDateSetButton({
         text={_dueDate || '기한설정'}
         onClick={openModal}
       />
-      {isModalOpen && (
-        <StyledModal onClose={closeModal} onComplete={onSubmit} title="읽기기한 설정하기">
-          <DatePicker locale={ko} selected={dueDate} onChange={onChange} inline />
-          <StyledResetButton onClick={() => onChange(null)} />
-        </StyledModal>
-      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        {isModalOpen && (
+          <StyledModal onClose={closeModal} onComplete={onSubmit} title="읽기기한 설정하기">
+            <DatePicker locale={ko} selected={dueDate} onChange={onChange} inline />
+            <StyledResetButton onClick={() => onChange(null)} />
+          </StyledModal>
+        )}
+      </Suspense>
     </>
   );
 }
