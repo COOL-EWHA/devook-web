@@ -13,9 +13,7 @@ function GlobalNavigationBar() {
   const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
 
   const handleNavigate = (to: string) => {
-    if (to === '/') {
-      navigate(to);
-    } else if (checkIsLoggedIn()) {
+    if (to === '/' || checkIsLoggedIn()) {
       navigate(to);
     }
   };
