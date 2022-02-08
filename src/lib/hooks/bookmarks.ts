@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { InfiniteData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import produce from 'immer';
 import cloneDeep from 'lodash/cloneDeep';
+import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark, getBookmarkList } from 'src/lib/api';
-import { BookmarkCreateParams, BookmarkPreview } from 'src/types';
+import { BookmarkCreateParams, BookmarkPreview, PostPreview } from 'src/types';
 import { useLoginStatus } from '.';
-import { IBookmark, IPost } from 'src/interfaces';
-import { bookmarkListFilter, isUserLoggedIn } from 'src/lib/store';
-import { NO_REFETCH, POST_LIST_FETCH_LIMIT } from 'src/constant';
+import { IBookmark } from 'src/interfaces';
+import { bookmarkListFilter, isUserLoggedIn, postListFilter } from 'src/lib/store';
+import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
@@ -53,7 +53,6 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     fetchList,
     {
       getNextPageParam,
-      ...NO_REFETCH,
       enabled: isLoggedIn,
     },
   );
@@ -119,26 +118,53 @@ export const useBookmarkCreate = () => {
 export const useBookmarkAdd = (postId: number) => {
   const queryClient = useQueryClient();
   const { checkIsLoggedIn } = useLoginStatus();
+  const { pathname } = useLocation();
+  const params = useParams();
+  const postListFilterValue = useRecoilValue(postListFilter);
+  const listType = pathname === '/' ? 'postList' : 'relatedPostList';
+  const filter =
+    listType === 'postList' ? postListFilterValue : { bookmarkId: Number(params?.id), limit: RELATED_POST_FETCH_LIMIT };
 
   const mutationFn = (postId: number) => addBookmark({ postId });
 
-  const postListsKey = postKeys.lists();
+  const postListKey = postKeys.list(filter);
 
-  const updatePostList = (oldList: IPost[], action: 'commit' | 'rollback' = 'commit') =>
-    produce(oldList, (posts) => {
-      const updatedPost = posts.find((post) => post.id === postId);
-      if (updatedPost) {
-        updatedPost.isBookmarked = action === 'commit';
+  const updatePostList = (prevList: InfiniteData<PostPreview[]>) => {
+    const newList = cloneDeep(prevList);
+    const { pages } = newList;
+    for (let i = 0; i < pages.length; i += 1) {
+      const post = pages[i].find((post) => post.id === postId);
+      if (post) {
+        post.isBookmarked = true;
+        break;
       }
-    });
+    }
+    return newList;
+  };
+
+  const updateRelatedPostList = (prevList: PostPreview[]) => {
+    const newList = cloneDeep(prevList);
+    const post = newList.find((post) => post.id === postId);
+    if (post) {
+      post.isBookmarked = true;
+    }
+    return newList;
+  };
 
   const { mutate } = useMutation(mutationFn, {
     onMutate: async () => {
-      await queryClient.cancelQueries(postListsKey);
-      queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[]));
+      await queryClient.cancelQueries(postListKey);
+      const prevList = queryClient.getQueryData<InfiniteData<PostPreview[]> | PostPreview[]>(postListKey);
+      if (prevList && listType === 'postList') {
+        queryClient.setQueryData(postListKey, () => updatePostList(prevList as InfiniteData<PostPreview[]>));
+      }
+      if (prevList && listType === 'relatedPostList') {
+        queryClient.setQueryData(postListKey, () => updateRelatedPostList(prevList as PostPreview[]));
+      }
+      return { prevList };
     },
-    onError: () => {
-      queryClient.setQueriesData(postListsKey, (oldList) => updatePostList(oldList as IPost[], 'rollback'));
+    onError: (error, variables, context) => {
+      queryClient.setQueryData(postListKey, context?.prevList);
       alert('북마크 추가에 실패하였습니다.');
     },
   });
@@ -164,7 +190,7 @@ export const useBookmarkDelete = (id: number) => {
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.lists());
-      if (pathname.includes('/bookmarks')) {
+      if (pathname.match(/^\/bookmarks\/[0-9]+/)) {
         navigate(-1);
       }
     },
@@ -281,4 +307,64 @@ export const useBookmark = () => {
   const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
 
   return { id: Number(bookmarkId), data, isLoading };
+};
+
+export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefined) => {
+  const { pathname } = useLocation();
+  const queryClient = useQueryClient();
+  const { checkIsLoggedIn } = useLoginStatus();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dueDate, setDueDate] = useState(prevDueDate ? new Date(prevDueDate) : null);
+  const dueDateString = dueDate ? dayjs(dueDate).format('YYYY.MM.DD') : '';
+  const mutationFn = (id: number) => editBookmark({ id, dueDate: dueDateString });
+
+  const { mutate } = useMutation(mutationFn, {
+    onSuccess: () => {
+      if (pathname === '/bookmarks' || pathname === '/to-read') {
+        queryClient.invalidateQueries(bookmarkKeys.lists());
+      }
+      if (pathname.match(/^\/bookmarks\/[0-9]+/)) {
+        queryClient.invalidateQueries(bookmarkKeys.detail(id));
+      }
+      setIsModalOpen(false);
+    },
+    onError: () => {
+      alert('북마크 읽기기한 설정에 실패하였습니다.');
+    },
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDueDate(prevDueDate ? new Date(prevDueDate) : null);
+  };
+
+  const handleChange = (date: Date | null) => {
+    setDueDate(date);
+  };
+
+  const checkFormValid = () => {
+    if (!dueDate && !prevDueDate) {
+      alert('읽기 기한을 설정해주세요.');
+      return false;
+    }
+    if (dueDate && dayjs(dueDate).isBefore(dayjs().format('YYYY.MM.DD'))) {
+      alert('과거 날짜는 읽기 기한으로 설정할 수 없습니다.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (!checkIsLoggedIn() || !checkFormValid()) {
+      return;
+    }
+    mutate(id);
+  };
+
+  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit };
 };

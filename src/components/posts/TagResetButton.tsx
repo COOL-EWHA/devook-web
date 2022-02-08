@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
-import { Button } from 'src/components/common';
+import { ResetButton } from 'src/components/common';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
 
 import { PostType } from 'src/types';
@@ -18,7 +18,7 @@ function PostTagResetButton({ postType }: IPostTagResetButtonProps) {
     setFilter({ ...filter, tags: [] });
   };
 
-  return <Button size="small" type="line" iconType="restart_alt" text="초기화" onClick={resetFilter} />;
+  return <ResetButton onClick={resetFilter} />;
 }
 
 export default PostTagResetButton;
