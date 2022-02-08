@@ -52,7 +52,7 @@ export default function PostPreviewCard({
             <Title>{title}</Title>
             <Description>{description}</Description>
           </PWrapper>
-          <Img src={thumbnail} onError={handleImgError} />
+          <Img src={thumbnail} onError={handleImgError} alt="썸네일 이미지" />
         </PostPreviewCardLink>
         <Footer>
           <Row>
