@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import { IconButton, P, Button } from 'src/components/common';
 import { SidebarToggleButton } from 'src/components/my';
-import { IconButton, Button, P } from 'src/components/common';
-
 import { GREY, WHITE } from 'src/constant';
 
 interface IBackHeaderProps {
