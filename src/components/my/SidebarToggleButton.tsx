@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IconButton } from 'src/components/common';
-import { Sidebar } from '.';
 import { isMySidebarOpen } from 'src/lib/store';
+
+const Sidebar = lazy(() => import('src/components/my/Sidebar'));
 
 export default function MySidebarToggleButton() {
   const [isOpen, setIsOpen] = useRecoilState(isMySidebarOpen);
@@ -20,7 +21,7 @@ export default function MySidebarToggleButton() {
   return (
     <>
       <Button onClick={handleOpen} />
-      {isOpen && <Sidebar onClose={handleClose} />}
+      <Suspense fallback={null}>{isOpen && <Sidebar onClose={handleClose} />}</Suspense>
     </>
   );
 }
