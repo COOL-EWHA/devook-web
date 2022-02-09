@@ -1,29 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BackHeader, CloseHeader } from 'src/components/base/header';
+import { CloseHeader } from 'src/components/base/header';
 
 import { GREY, WHITE } from 'src/constant';
 
 interface IModalProps {
   title: string;
-  headerType?: 'close' | 'back';
   onClose: () => void;
-  onBack?: () => void;
   onComplete?: () => void;
   children?: React.ReactNode;
   className?: string;
 }
 
-export default function Modal({
-  title,
-  headerType = 'close',
-  onClose,
-  onBack,
-  onComplete,
-  children,
-  className,
-}: IModalProps) {
+function Modal({ title, onClose, onComplete, children, className }: IModalProps) {
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
@@ -31,14 +21,15 @@ export default function Modal({
   return (
     <Overlay onClick={onClose}>
       <Wrapper onClick={handleWrapperClick}>
-        {headerType === 'close' && <CloseHeader title={title} onClose={onClose} onComplete={onComplete} />}
-        {headerType === 'back' && <BackHeader title={title} onBack={onBack} onComplete={onComplete} />}
+        <CloseHeader title={title} onClose={onClose} onComplete={onComplete} />
         <Divider />
         <ContentWrapper className={className}>{children}</ContentWrapper>
       </Wrapper>
     </Overlay>
   );
 }
+
+export default React.memo(Modal);
 
 const Overlay = styled.div`
   display: flex;

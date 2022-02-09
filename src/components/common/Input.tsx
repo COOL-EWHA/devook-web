@@ -9,10 +9,10 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconType?: string;
 }
 
-export default function Input({ label, iconType, placeholder, onChange, value, name, disabled }: IInputProps) {
+function Input({ label, iconType, placeholder, onChange, value, name, disabled = false }: IInputProps) {
   return (
     <Wrapper iconType={iconType} disabled={disabled}>
-      {label && <Label disabled={disabled}>{label}</Label>}
+      {label && <InputLabel value={label} disabled={disabled} />}
       {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} />}
       <StyledInput
         label={label}
@@ -26,7 +26,18 @@ export default function Input({ label, iconType, placeholder, onChange, value, n
   );
 }
 
-export const Label = styled.label<{ disabled?: boolean }>`
+interface IInputLabelProps {
+  value: string;
+  disabled?: boolean;
+}
+
+export const InputLabel = React.memo(function InputLabel({ value, disabled = false }: IInputLabelProps) {
+  return <Label disabled={disabled}>{value}</Label>;
+});
+
+export default React.memo(Input);
+
+export const Label = styled.label<{ disabled: boolean }>`
   position: absolute;
   top: -0.5rem;
   left: 1rem;

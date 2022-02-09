@@ -15,7 +15,7 @@ export interface IIconButtonProps {
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export default function IconButton({
+function IconButton({
   type = 'secondary',
   iconType,
   iconWidth,
@@ -34,6 +34,8 @@ export default function IconButton({
     </Wrapper>
   );
 }
+
+export default React.memo(IconButton);
 
 const Wrapper = styled.button`
   display: flex;

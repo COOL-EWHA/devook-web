@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Wrapper, InputLabel } from './Input';
 import { GREY } from 'src/constant';
-import { Label, Wrapper } from './Input';
 
 interface ITextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
 }
 
-export default function Textarea({ label, placeholder, onChange, value, name }: ITextareaProps) {
+function Textarea({ label, placeholder, onChange, value, name }: ITextareaProps) {
   return (
     <Wrapper>
-      {label && <Label>{label}</Label>}
+      {label && <InputLabel value={label} />}
       <StyledTextArea label={label} value={value} name={name} placeholder={placeholder} onChange={onChange} />
     </Wrapper>
   );
 }
+
+export default React.memo(Textarea);
 
 const StyledTextArea = styled.textarea<{ label?: string }>`
   width: 100%;

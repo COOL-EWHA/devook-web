@@ -9,18 +9,19 @@ interface IMaterialIconProps {
   width?: number | string;
   color?: string;
   hoverColor?: string;
-  onClick?: () => void;
 }
 
-export default function MaterialIcon({ className, type, width, color, hoverColor, onClick }: IMaterialIconProps) {
+function MaterialIcon({ className, type, width, color, hoverColor }: IMaterialIconProps) {
   return (
-    <Wrapper className={className} onClick={onClick}>
+    <Wrapper className={className}>
       <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor}>
         {type}
       </Icon>
     </Wrapper>
   );
 }
+
+export default React.memo(MaterialIcon);
 
 const Wrapper = styled.div`
   display: flex;
