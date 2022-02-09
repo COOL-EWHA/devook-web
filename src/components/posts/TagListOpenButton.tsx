@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
-import { IconButton, Modal } from 'src/components/common';
+import { IconButton } from 'src/components/common';
 import { PostTagList } from 'src/components/posts';
 import { usePostTagList } from 'src/lib/hooks';
 import { WHITE, GREY } from 'src/constant';
 import { PostType } from 'src/types';
+
+const Modal = lazy(() => import('src/components/common/Modal'));
 
 interface IPostTagListOpenButtonProps {
   postType?: PostType;
@@ -18,11 +20,13 @@ function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagLi
   return (
     <>
       <Button onClick={openModal} />
-      {isModalOpen && (
-        <Modal onClose={closeModal} onComplete={closeModal} title="태그 선택">
-          <PostTagList isModalOpen={isModalOpen} data={data} postType={postType} />
-        </Modal>
-      )}
+      <Suspense fallback={null}>
+        {isModalOpen && (
+          <Modal onClose={closeModal} onComplete={closeModal} title="태그 선택">
+            <PostTagList isModalOpen={isModalOpen} data={data} postType={postType} />
+          </Modal>
+        )}
+      </Suspense>
       {!isModalOpen && <PostTagList isModalOpen={isModalOpen} data={data} postType={postType} />}
     </>
   );
