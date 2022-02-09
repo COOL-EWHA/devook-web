@@ -17,7 +17,7 @@ function BookmarkEditButton() {
   return (
     <>
       <Button size="large" text="수정" onClick={openModal} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         {isModalOpen && (
           <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
             <InputWrapper>

@@ -1,12 +1,10 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { IconButton, P } from 'src/components/common';
+import { IconButton, P, Button } from 'src/components/common';
+import { SidebarToggleButton } from 'src/components/my';
 import { GREY, WHITE } from 'src/constant';
-
-const Button = lazy(() => import('src/components/common/Button'));
-const SidebarToggleButton = lazy(() => import('src/components/my/SidebarToggleButton'));
 
 interface IBackHeaderProps {
   onBack?: () => void;
@@ -36,10 +34,8 @@ export default function BackHeader({ onBack, onComplete, title }: IBackHeaderPro
       >
         {title}
       </Title>
-      <Suspense fallback={<div>Loading...</div>}>
-        {isModalHeader && <Button text="설정" onClick={onComplete} />}
-        {!isModalHeader && <SidebarToggleButton />}
-      </Suspense>
+      {isModalHeader && <Button text="설정" onClick={onComplete} />}
+      {!isModalHeader && <SidebarToggleButton />}
     </Wrapper>
   );
 }

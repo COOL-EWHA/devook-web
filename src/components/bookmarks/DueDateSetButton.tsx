@@ -38,7 +38,7 @@ export default function BookmarkDueDateSetButton({
         text={_dueDate || '기한설정'}
         onClick={openModal}
       />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         {isModalOpen && (
           <StyledModal onClose={closeModal} onComplete={onSubmit} title="읽기기한 설정하기">
             <DatePicker locale={ko} selected={dueDate} onChange={onChange} inline />

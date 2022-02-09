@@ -20,7 +20,7 @@ function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagLi
   return (
     <>
       <Button onClick={openModal} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         {isModalOpen && (
           <Modal onClose={closeModal} onComplete={closeModal} title="태그 선택">
             <PostTagList isModalOpen={isModalOpen} data={data} postType={postType} />

@@ -15,7 +15,7 @@ function App() {
 
   return (
     <MainLayout>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<FurtherReadPage />} />
           <Route path="/oauth-redirect" element={<OauthRedirectPage />} />

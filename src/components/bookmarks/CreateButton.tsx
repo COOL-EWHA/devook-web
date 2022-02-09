@@ -15,7 +15,7 @@ export default function BookmarkCreateButton() {
   return (
     <>
       <IconButton iconType="add" iconWidth="2.8rem" onClick={openModal} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         {isModalOpen && (
           <Modal onClose={closeModal} onComplete={onSubmit} title="북마크 추가하기">
             <InputWrapper>
