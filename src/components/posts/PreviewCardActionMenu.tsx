@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
-import { BookmarkActionDropdown, BookmarkAddButton } from 'src/components/bookmarks';
-import { IconButton } from 'src/components/common';
+const BookmarkActionDropdown = lazy(() => import('src/components/bookmarks/ActionDropdown'));
+const BookmarkAddButton = lazy(() => import('src/components/bookmarks/AddButton'));
+const IconButton = lazy(() => import('src/components/common/IconButton'));
 
 interface IPostPreviewCardActionMenuProps {
   bookmarkId?: number;
@@ -27,13 +28,15 @@ export default function PostPreviewCardActionMenu({
 
   return (
     <Wrapper className={className}>
-      {bookmarkId && (
-        <>
-          <MoreButton onClick={handleMoreButtonClick} />
-          <BookmarkActionDropdown bookmarkId={bookmarkId} dueDate={dueDate} isOpen={isDropdownOpen} />
-        </>
-      )}
-      {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
+      <Suspense fallback={null}>
+        {bookmarkId && (
+          <>
+            <MoreButton onClick={handleMoreButtonClick} />
+            <BookmarkActionDropdown bookmarkId={bookmarkId} dueDate={dueDate} isOpen={isDropdownOpen} />
+          </>
+        )}
+        {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}
+      </Suspense>
     </Wrapper>
   );
 }
