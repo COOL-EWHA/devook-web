@@ -27,8 +27,10 @@ export default function BookmarkDueDateSetButton({
   dueDate: _dueDate,
   size = 'medium',
 }: IBookmarkDueDateSetButtonProps) {
-  const { dueDate, isModalOpen, openModal, closeModal, onSubmit, onChange } = useBookmarkDueDateSet(id, _dueDate);
-  const handleClick = useCallback(() => onChange(null), []);
+  const { dueDate, isModalOpen, openModal, closeModal, onSubmit, onChange, reset } = useBookmarkDueDateSet(
+    id,
+    _dueDate,
+  );
 
   return (
     <>
@@ -43,7 +45,7 @@ export default function BookmarkDueDateSetButton({
         {isModalOpen && (
           <StyledModal onClose={closeModal} onComplete={onSubmit} title="읽기기한 설정하기">
             <DatePicker locale={ko} selected={dueDate} onChange={onChange} inline />
-            <StyledResetButton onClick={handleClick} />
+            <StyledResetButton onClick={reset} />
           </StyledModal>
         )}
       </Suspense>

@@ -347,6 +347,8 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     setDueDate(date);
   };
 
+  const reset = useCallback(() => setDueDate(null), []);
+
   const checkFormValid = () => {
     if (!dueDate && !prevDueDate) {
       alert('읽기 기한을 설정해주세요.');
@@ -366,5 +368,5 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     mutate(id);
   };
 
-  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit };
+  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit, reset };
 };
