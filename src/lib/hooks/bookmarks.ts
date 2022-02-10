@@ -276,18 +276,18 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     },
   });
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setMemo(value);
-  };
+  }, []);
 
   const handleSubmit = () => {
     if (!checkIsLoggedIn()) {

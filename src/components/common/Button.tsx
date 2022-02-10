@@ -21,7 +21,7 @@ export interface IButtonProps {
   className?: string;
 }
 
-export default function Button({
+function Button({
   type = 'text',
   text,
   iconType,
@@ -51,6 +51,7 @@ export default function Button({
     </Wrapper>
   );
 }
+export default React.memo(Button);
 
 type ButtonWrapperProps = Omit<IButtonProps, 'type' | 'text' | 'iconType'> & {
   buttonType: ButtonType;

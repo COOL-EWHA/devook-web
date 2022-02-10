@@ -25,7 +25,7 @@ function Section({ type = 'primary', title, rightComponent, children }: ISection
   );
 }
 
-export default Section;
+export default React.memo(Section);
 
 const Wrapper = styled.div`
   width: 100%;
