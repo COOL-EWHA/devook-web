@@ -20,7 +20,7 @@ interface IPostPreviewCardProps {
   isRead?: boolean;
 }
 
-export default function PostPreviewCard({
+function PostPreviewCard({
   postId,
   bookmarkId,
   title,
@@ -71,6 +71,8 @@ export default function PostPreviewCard({
     </StyledRow>
   );
 }
+
+export default React.memo(PostPreviewCard);
 
 type PostPreviewCardLinkProps = Pick<IPostPreviewCardProps, 'bookmarkId' | 'url'> & { children: React.ReactNode };
 
