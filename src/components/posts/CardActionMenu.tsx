@@ -1,25 +1,29 @@
 import React, { useCallback, useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
-const BookmarkActionDropdown = lazy(() => import('src/components/bookmarks/ActionDropdown'));
+const BookmarkActionMenu = lazy(() => import('src/components/bookmarks/ActionMenu'));
 const BookmarkAddButton = lazy(() => import('src/components/bookmarks/AddButton'));
 const IconButton = lazy(() => import('src/components/common/IconButton'));
 
-interface IPostPreviewCardActionMenuProps {
+export type MenuSize = 'medium' | 'large';
+
+interface IPostCardActionMenuProps {
   bookmarkId?: number;
   postId?: number;
   isBookmarked?: boolean;
   dueDate?: string;
   className?: string;
+  size?: MenuSize;
 }
 
-export default function PostPreviewCardActionMenu({
+export default function PostCardActionMenu({
   className,
   bookmarkId,
   postId,
   isBookmarked = true,
   dueDate,
-}: IPostPreviewCardActionMenuProps) {
+  size = 'medium',
+}: IPostCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMoreButtonClick = useCallback(() => {
@@ -32,7 +36,7 @@ export default function PostPreviewCardActionMenu({
         {bookmarkId && (
           <>
             <MoreButton onClick={handleMoreButtonClick} />
-            <BookmarkActionDropdown bookmarkId={bookmarkId} dueDate={dueDate} isOpen={isDropdownOpen} />
+            <BookmarkActionMenu size={size} bookmarkId={bookmarkId} dueDate={dueDate} isOpen={isDropdownOpen} />
           </>
         )}
         {postId && <BookmarkAddButton postId={postId} isBookmarked={isBookmarked} />}

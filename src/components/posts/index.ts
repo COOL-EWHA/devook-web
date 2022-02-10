@@ -1,7 +1,7 @@
 import PostSearchInput from './SearchInput';
 import PostList from './List';
 import PostListSkeleton from './ListSkeleton';
-import PostPreviewCardActionMenu from './PreviewCardActionMenu';
+import PostCardActionMenu from './CardActionMenu';
 import PostPreviewCard from './PreviewCard';
 import PostPreviewCardSkeleton from './PreviewCardSkeleton';
 import PostTagResetButton from './TagResetButton';
@@ -13,7 +13,7 @@ export {
   PostSearchInput,
   PostList,
   PostListSkeleton,
-  PostPreviewCardActionMenu,
+  PostCardActionMenu,
   PostPreviewCard,
   PostPreviewCardSkeleton,
   PostTagButton,

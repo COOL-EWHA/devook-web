@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostPreviewCardActionMenu } from 'src/components/posts';
+import { PostCardActionMenu } from 'src/components/posts';
 import { P, Link, Checkbox } from 'src/components/common';
 import { CACTUS_GREEN, GREY } from 'src/constant';
 import { useBookmarkIsReadEdit } from 'src/lib/hooks';
@@ -60,12 +60,7 @@ function PostPreviewCard({
               <Tag key={tag}>#{tag}</Tag>
             ))}
           </Row>
-          <PostPreviewCardActionMenu
-            postId={postId}
-            bookmarkId={bookmarkId}
-            isBookmarked={isBookmarked}
-            dueDate={dueDate}
-          />
+          <PostCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} dueDate={dueDate} />
         </Footer>
       </Wrapper>
     </StyledRow>

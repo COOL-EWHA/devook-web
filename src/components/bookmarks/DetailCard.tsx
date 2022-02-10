@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BookmarkDeleteButton, BookmarkDueDateSetButton } from 'src/components/bookmarks';
+import { PostCardActionMenu } from 'src/components/posts';
 import { P, Button } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
@@ -33,8 +34,7 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
             <Tag key={tag}>#{tag}</Tag>
           ))}
         </Row>
-        <DueDateSetButton id={id} dueDate={dueDate} />
-        <DeleteButton id={id} />
+        <PostCardActionMenu size="large" bookmarkId={id} dueDate={dueDate} />
       </Footer>
       <Button text="글 읽기" type="line" isBlock href={url} />
     </Wrapper>

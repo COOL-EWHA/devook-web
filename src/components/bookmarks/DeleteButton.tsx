@@ -8,10 +8,10 @@ import { useBookmarkDelete } from 'src/lib/hooks';
 interface IBookmarkDeleteButtonProps {
   className?: string;
   id: number;
-  size?: ButtonSize;
+  size: ButtonSize;
 }
 
-export default function BookmarkDeleteButton({ className, id, size = 'medium' }: IBookmarkDeleteButtonProps) {
+export default function BookmarkDeleteButton({ className, id, size }: IBookmarkDeleteButtonProps) {
   const { onDelete } = useBookmarkDelete(id);
 
   return <Button iconType="delete_outline" text="삭제" size={size} className={className} onClick={onDelete} />;

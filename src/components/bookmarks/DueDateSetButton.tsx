@@ -17,7 +17,7 @@ const ResetButton = lazy(() => import('src/components/common/ResetButton'));
 interface IBookmarkDueDateSetButtonProps {
   className?: string;
   id: number;
-  size?: ButtonSize;
+  size: ButtonSize;
   dueDate?: string;
 }
 
@@ -25,7 +25,7 @@ export default function BookmarkDueDateSetButton({
   className,
   id,
   dueDate: _dueDate,
-  size = 'medium',
+  size,
 }: IBookmarkDueDateSetButtonProps) {
   const { dueDate, isModalOpen, openModal, closeModal, onSubmit, onChange } = useBookmarkDueDateSet(id, _dueDate);
 
