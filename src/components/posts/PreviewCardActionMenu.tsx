@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useCallback, useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 const BookmarkActionDropdown = lazy(() => import('src/components/bookmarks/ActionDropdown'));
@@ -22,9 +22,9 @@ export default function PostPreviewCardActionMenu({
 }: IPostPreviewCardActionMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleMoreButtonClick = () => {
+  const handleMoreButtonClick = useCallback(() => {
     setIsDropdownOpen((prev) => !prev);
-  };
+  }, []);
 
   return (
     <Wrapper className={className}>
