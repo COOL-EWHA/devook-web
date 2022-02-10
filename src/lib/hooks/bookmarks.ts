@@ -334,14 +334,14 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     },
   });
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setDueDate(prevDueDate ? new Date(prevDueDate) : null);
-  };
+  }, []);
 
   const handleChange = (date: Date | null) => {
     setDueDate(date);

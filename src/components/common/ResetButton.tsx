@@ -13,4 +13,4 @@ function ResetButton({ onClick, className }: IResetButtonProps) {
   );
 }
 
-export default ResetButton;
+export default React.memo(ResetButton);

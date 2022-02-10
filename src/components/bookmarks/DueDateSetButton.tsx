@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useCallback } from 'react';
 import styled from 'styled-components';
 import { ko } from 'date-fns/locale';
 
@@ -28,6 +28,7 @@ export default function BookmarkDueDateSetButton({
   size = 'medium',
 }: IBookmarkDueDateSetButtonProps) {
   const { dueDate, isModalOpen, openModal, closeModal, onSubmit, onChange } = useBookmarkDueDateSet(id, _dueDate);
+  const handleClick = useCallback(() => onChange(null), []);
 
   return (
     <>
@@ -42,7 +43,7 @@ export default function BookmarkDueDateSetButton({
         {isModalOpen && (
           <StyledModal onClose={closeModal} onComplete={onSubmit} title="읽기기한 설정하기">
             <DatePicker locale={ko} selected={dueDate} onChange={onChange} inline />
-            <StyledResetButton onClick={() => onChange(null)} />
+            <StyledResetButton onClick={handleClick} />
           </StyledModal>
         )}
       </Suspense>
