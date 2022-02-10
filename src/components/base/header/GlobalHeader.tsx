@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { MainHeader } from 'src/components/base';
@@ -13,7 +13,7 @@ export default function GlobalHeader() {
   return (
     <>
       <MainHeader />
-      {subRouteData && <BackHeader title={subRouteData.title} />}
+      <Suspense fallback={null}>{subRouteData && <BackHeader title={subRouteData.title} />}</Suspense>
     </>
   );
 }
