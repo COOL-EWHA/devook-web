@@ -2,19 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostTagButton, PostTagResetButton } from 'src/components/posts';
+import { Modal } from 'src/components/common';
 import { GREY } from 'src/constant';
 
 import { PostType } from 'src/types';
 
 interface IPostTagListProps {
-  isModalOpen: boolean;
   data: string[] | undefined;
   postType: PostType;
+  isModalOpen: boolean;
+  closeModal: () => void;
 }
 
-export default function PostTagList({ isModalOpen, data, postType }: IPostTagListProps) {
+export default function PostTagList({ data, postType, isModalOpen, closeModal }: IPostTagListProps) {
   return (
-    <Wrapper isModalOpen={isModalOpen}>
+    <PostTagListWrapper isModalOpen={isModalOpen} closeModal={closeModal}>
       <Title>태그 목록</Title>
       <ButtonsWrapper>
         {data?.map((tag) => (
@@ -22,11 +24,37 @@ export default function PostTagList({ isModalOpen, data, postType }: IPostTagLis
         ))}
       </ButtonsWrapper>
       <PostTagResetButton postType={postType} />
-    </Wrapper>
+    </PostTagListWrapper>
   );
 }
 
-const Wrapper = styled.div<{ isModalOpen: boolean }>`
+type PostTagListWrapperProps = Pick<IPostTagListProps, 'isModalOpen' | 'closeModal'> & { children?: React.ReactNode };
+
+function PostTagListWrapper({ isModalOpen, closeModal, children }: PostTagListWrapperProps) {
+  if (isModalOpen) {
+    return (
+      <StyledModal title="태그 선택" onClose={closeModal} onComplete={closeModal}>
+        {children}
+      </StyledModal>
+    );
+  }
+  return <Wrapper>{children}</Wrapper>;
+}
+
+// eslint-disable-next-line react/jsx-props-no-spreading
+const StyledModal = styled((props) => <Modal {...props} />)`
+  padding: 2rem 1.6rem;
+
+  @media screen and (min-width: 1025px) {
+    width: 24rem;
+    height: 100%;
+    margin-left: 2.4rem;
+    border-radius: 0.8rem;
+    background-color: ${GREY[200]};
+  }
+`;
+
+const Wrapper = styled.div`
   padding: 2rem 1.6rem;
 
   @media screen and (min-width: 1025px) {
@@ -38,7 +66,7 @@ const Wrapper = styled.div<{ isModalOpen: boolean }>`
   }
 
   @media screen and (max-width: 1024px) {
-    ${({ isModalOpen }) => !isModalOpen && 'display: none;'}
+    display: none;
   }
 `;
 

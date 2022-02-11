@@ -2,24 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BookmarkDeleteButton, BookmarkDueDateSetButton } from '.';
+import { MenuSize } from 'src/components/posts/CardActionMenu';
 import { WHITE } from 'src/constant';
 
-interface IBookmarkActionDropdownProps {
+interface IBookmarkActionMenuProps {
   bookmarkId: number;
   isOpen: boolean;
   dueDate?: string;
+  size: MenuSize;
 }
 
-function BookmarkActionDropdown({ bookmarkId, isOpen, dueDate }: IBookmarkActionDropdownProps) {
+function BookmarkActionMenu({ bookmarkId, isOpen, dueDate, size }: IBookmarkActionMenuProps) {
   return (
     <Wrapper isOpen={isOpen}>
-      <BookmarkDueDateSetButton id={bookmarkId} dueDate={dueDate} />
-      <BookmarkDeleteButton id={bookmarkId} />
+      <BookmarkDueDateSetButton id={bookmarkId} dueDate={dueDate} size={size} />
+      <BookmarkDeleteButton id={bookmarkId} size={size} />
     </Wrapper>
   );
 }
 
-export default BookmarkActionDropdown;
+export default BookmarkActionMenu;
 
 const Wrapper = styled.div<{ isOpen: boolean }>`
   @keyframes openMenu {

@@ -1,6 +1,6 @@
 import BookmarkDeleteButton from './DeleteButton';
 import BookmarkDueDateSetButton from './DueDateSetButton';
-import BookmarkActionDropdown from './ActionDropdown';
+import BookmarkActionMenu from './ActionMenu';
 import BookmarkCreateButton from './CreateButton';
 import BookmarkAddButton from './AddButton';
 import BookmarkInfoCard from './InfoCard';
@@ -11,9 +11,10 @@ import BookmarkRelatedPostList from './RelatedPostList';
 import BookmarkDetailCardSkeleton from './DetailCardSkeleton';
 import BookmarkDetailCard from './DetailCard';
 import BookmarkList from './List';
+import BookmarkIsReadCheckbox from './IsReadCheckbox';
 
 export {
-  BookmarkActionDropdown,
+  BookmarkActionMenu,
   BookmarkCreateButton,
   BookmarkAddButton,
   BookmarkDeleteButton,
@@ -26,4 +27,5 @@ export {
   BookmarkDetailCard,
   BookmarkList,
   BookmarkDueDateSetButton,
+  BookmarkIsReadCheckbox,
 };

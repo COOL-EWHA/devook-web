@@ -19,7 +19,7 @@ function LabeledText({ label, value }: ILabeledTextProps) {
   );
 }
 
-export default LabeledText;
+export default React.memo(LabeledText);
 
 const Wrapper = styled.div`
   width: 100%;

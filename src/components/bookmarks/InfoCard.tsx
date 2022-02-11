@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 
 import { BookmarkEditButton } from '.';
 import { LabeledText, Section } from 'src/components/common';
@@ -10,11 +11,16 @@ interface IBookmarkInfoCardProps {
 }
 
 function BookmarkInfoCard({ data }: IBookmarkInfoCardProps) {
-  const { createdAt, memo } = data;
+  const { id, createdAt, memo } = data;
+  const formattedCreatedAt = dayjs(createdAt)?.format('YYYY.MM.DD HH:mm');
 
   return (
-    <Section title="북마크 정보" rightComponent={<BookmarkEditButton />} type="secondary">
-      <LabeledText label="생성 날짜" value={createdAt.toString()} />
+    <Section
+      title="북마크 정보"
+      rightComponent={<BookmarkEditButton id={id} createdAt={formattedCreatedAt} memo={memo} />}
+      type="secondary"
+    >
+      <LabeledText label="생성 시간" value={formattedCreatedAt} />
       <LabeledText label="메모" value={memo} />
     </Section>
   );

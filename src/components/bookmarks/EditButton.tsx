@@ -2,16 +2,23 @@ import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
-import { useBookmarkMemoEdit, useBookmark } from 'src/lib/hooks';
+
+import { useBookmarkMemoEdit } from 'src/lib/hooks';
 
 const Modal = lazy(() => import('src/components/common/Modal'));
 const Input = lazy(() => import('src/components/common/Input'));
 const Textarea = lazy(() => import('src/components/common/Textarea'));
 
-function BookmarkEditButton() {
-  const { data } = useBookmark();
-  const { isModalOpen, openModal, closeModal, onSubmit, onChange, memo } = useBookmarkMemoEdit({
-    originalMemo: data?.memo,
+interface IBookmarkEditButtonProps {
+  id: number;
+  createdAt: string;
+  memo?: string;
+}
+
+function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButtonProps) {
+  const { isModalOpen, memo, openModal, closeModal, onSubmit, onChange } = useBookmarkMemoEdit({
+    id,
+    memo: prevMemo,
   });
 
   return (
@@ -21,7 +28,7 @@ function BookmarkEditButton() {
         {isModalOpen && (
           <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
             <InputWrapper>
-              <Input name="url" value={data?.createdAt.toString()} label="생성 날짜" disabled />
+              <Input name="url" value={createdAt} label="생성 시간" disabled />
               <Textarea
                 name="memo"
                 value={memo}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { ResetButton } from 'src/components/common';
 import { bookmarkListFilter, postListFilter } from 'src/lib/store';
@@ -12,11 +12,11 @@ interface IPostTagResetButtonProps {
 
 function PostTagResetButton({ postType }: IPostTagResetButtonProps) {
   const listFilter = postType === 'bookmark' ? bookmarkListFilter : postListFilter;
-  const [filter, setFilter] = useRecoilState(listFilter);
+  const setFilter = useSetRecoilState(listFilter);
 
-  const resetFilter = () => {
-    setFilter({ ...filter, tags: [] });
-  };
+  const resetFilter = useCallback(() => {
+    setFilter((filter) => ({ ...filter, tags: [] }));
+  }, []);
 
   return <ResetButton onClick={resetFilter} />;
 }
