@@ -1,33 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { UserProfileCard, LoginButtons, LogoutButton, WithdrawButton, SidebarHeader } from 'src/components/my';
+import { LoggedInSideBar, NotLoggedInSideBar } from 'src/components/my';
 import { WHITE } from 'src/constant';
+import { isMySidebarOpen, isUserLoggedIn } from 'src/lib/store';
 
-import { isUserLoggedIn } from 'src/lib/store';
-
-export type IMySidebarProps = { onClose: () => void };
-
-export default function MySidebar({ onClose }: IMySidebarProps) {
+export default function MySidebar() {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
+  const setIsOpen = useSetRecoilState(isMySidebarOpen);
 
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Overlay onClick={onClose}>
+    <Overlay onClick={handleClose}>
       <Wrapper onClick={handleWrapperClick}>
-        <SidebarHeader onCloseButtonClick={onClose} />
-        {isLoggedIn && (
-          <>
-            <UserProfileCard />
-            <LogoutButton />
-            <WithdrawButton />
-          </>
-        )}
-        {!isLoggedIn && <LoginButtons />}
+        {isLoggedIn && <LoggedInSideBar />}
+        {!isLoggedIn && <NotLoggedInSideBar />}
       </Wrapper>
     </Overlay>
   );
@@ -55,6 +50,7 @@ const Wrapper = styled.div`
   background: ${WHITE};
   padding: 2rem;
   min-height: 100%;
+  height: 100%;
   width: 320px;
   @media (min-width: 641px) {
     html {

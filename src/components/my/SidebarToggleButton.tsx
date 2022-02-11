@@ -14,14 +14,10 @@ export default function MySidebarToggleButton() {
     setIsOpen(true);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <>
       <Button onClick={handleOpen} />
-      <Suspense fallback={null}>{isOpen && <Sidebar onClose={handleClose} />}</Suspense>
+      <Suspense fallback={null}>{isOpen && <Sidebar />}</Suspense>
     </>
   );
 }
