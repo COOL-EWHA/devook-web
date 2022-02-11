@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostCardActionMenu } from 'src/components/posts';
-import { P, Link } from 'src/components/common';
+import { Img, P, Link } from 'src/components/common';
 import { CACTUS_GREEN } from 'src/constant';
 
 interface IPostPreviewCardContentProps {
@@ -28,10 +28,6 @@ function PostPreviewCardContent({
   url,
   dueDate,
 }: IPostPreviewCardContentProps) {
-  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src = '/favicon.svg';
-  };
-
   return (
     <Wrapper>
       <DetailLink bookmarkId={bookmarkId} url={url}>
@@ -39,7 +35,7 @@ function PostPreviewCardContent({
           <Title>{title}</Title>
           <Description>{description}</Description>
         </PWrapper>
-        <Img src={thumbnail} onError={handleImgError} alt={`글 ${title}의 썸네일 이미지`} />
+        <StyledImg src={thumbnail} alt={`글 ${title}의 썸네일 이미지`} />
       </DetailLink>
       <Footer>
         <Row>
@@ -101,12 +97,9 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Img = styled.img`
-  object-fit: cover;
+// eslint-disable-next-line react/jsx-props-no-spreading
+const StyledImg = styled((props) => <Img {...props} />).attrs({ width: '7.2rem', height: '7.2rem' })`
   margin-left: 2rem;
-  border-radius: 0.4rem;
-  width: 7.2rem;
-  height: 7.2rem;
 `;
 
 const Footer = styled.div`

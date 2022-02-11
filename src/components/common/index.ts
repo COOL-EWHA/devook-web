@@ -12,6 +12,7 @@ import LabeledText from './LabeledText';
 import Section from './Section';
 import Skeleton from './Skeleton';
 import Checkbox from './Checkbox';
+import Img from './Img';
 
 export {
   P,
@@ -28,4 +29,5 @@ export {
   Section,
   Skeleton,
   Checkbox,
+  Img,
 };
