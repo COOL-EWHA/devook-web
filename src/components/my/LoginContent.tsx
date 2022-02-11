@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LoginButtons, SidebarHeader } from '.';
 
-function NotLoggedInSideBar() {
+function LoginContent() {
   return (
     <>
       <SidebarHeader />
@@ -11,4 +11,4 @@ function NotLoggedInSideBar() {
   );
 }
 
-export default NotLoggedInSideBar;
+export default LoginContent;

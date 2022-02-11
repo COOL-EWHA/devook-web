@@ -8,8 +8,8 @@ import Sidebar from './Sidebar';
 import SidebarToggleButton from './SidebarToggleButton';
 import NotificationCard from './NotificationCard';
 import NotificationList from './NotificationList';
-import LoggedInSideBar from './LoggedInSideBar';
-import NotLoggedInSideBar from './NotLoggedInSideBar';
+import UserContent from './UserContent';
+import LoginContent from './LoginContent';
 
 export {
   LoginButton,
@@ -22,6 +22,6 @@ export {
   SidebarToggleButton,
   NotificationCard,
   NotificationList,
-  LoggedInSideBar,
-  NotLoggedInSideBar,
+  UserContent,
+  LoginContent,
 };

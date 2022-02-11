@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { LoggedInSideBar, NotLoggedInSideBar } from 'src/components/my';
+import { UserContent, LoginContent } from 'src/components/my';
 import { WHITE } from 'src/constant';
 import { isMySidebarOpen, isUserLoggedIn } from 'src/lib/store';
 
@@ -21,8 +21,8 @@ export default function MySidebar() {
   return (
     <Overlay onClick={handleClose}>
       <Wrapper onClick={handleWrapperClick}>
-        {isLoggedIn && <LoggedInSideBar />}
-        {!isLoggedIn && <NotLoggedInSideBar />}
+        {isLoggedIn && <UserContent />}
+        {!isLoggedIn && <LoginContent />}
       </Wrapper>
     </Overlay>
   );
