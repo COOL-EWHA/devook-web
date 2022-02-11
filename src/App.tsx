@@ -1,5 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 import MainLayout from 'src/layout/MainLayout';
 import { useAuthRefresh } from 'src/lib/hooks';
@@ -11,6 +14,8 @@ const BookmarkDetailPage = lazy(() => import('./pages/BookmarkDetailPage'));
 const ToReadPage = lazy(() => import('./pages/ToReadPage'));
 
 function App() {
+  dayjs.locale('ko');
+  dayjs.extend(relativeTime);
   useAuthRefresh();
 
   return (
