@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -9,13 +9,13 @@ interface IMySidebarHeaderProps {
   onNotificationButtonClick?: () => void;
 }
 
-export default function MySidebarHeader({ onNotificationButtonClick }: IMySidebarHeaderProps) {
+function MySidebarHeader({ onNotificationButtonClick }: IMySidebarHeaderProps) {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
   const setIsOpen = useSetRecoilState(isMySidebarOpen);
 
-  const handleCloseButtonClick = () => {
+  const handleCloseButtonClick = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   return (
     <Wrapper>
@@ -24,6 +24,8 @@ export default function MySidebarHeader({ onNotificationButtonClick }: IMySideba
     </Wrapper>
   );
 }
+
+export default React.memo(MySidebarHeader);
 
 const Wrapper = styled.div`
   display: flex;

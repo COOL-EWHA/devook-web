@@ -27,7 +27,7 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
   );
 }
 
-export default NotificationList;
+export default React.memo(NotificationList);
 
 const Wrapper = styled.div`
   overflow-y: scroll;

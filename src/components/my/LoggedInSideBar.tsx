@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { LogoutButton, NotificationList, SidebarHeader, UserProfileCard, WithdrawButton } from '.';
 
 function LoggedInSideBar() {
   const [isNotificationShown, setIsNotificationShown] = useState(false);
 
-  const handleBackButtonClick = () => {
+  const handleBackButtonClick = useCallback(() => {
     setIsNotificationShown(false);
-  };
+  }, []);
 
-  const handleNotificationButtonClick = () => {
+  const handleNotificationButtonClick = useCallback(() => {
     setIsNotificationShown(true);
-  };
+  }, []);
 
   return (
     <>

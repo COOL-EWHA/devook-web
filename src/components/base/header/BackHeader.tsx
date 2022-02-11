@@ -11,7 +11,7 @@ interface IBackHeaderProps {
   onClick?: () => void;
 }
 
-export default function BackHeader({ title, isForSidebar = false, onClick }: IBackHeaderProps) {
+function BackHeader({ title, isForSidebar = false, onClick }: IBackHeaderProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -29,6 +29,7 @@ export default function BackHeader({ title, isForSidebar = false, onClick }: IBa
     </Wrapper>
   );
 }
+export default React.memo(BackHeader);
 
 const Wrapper = styled.div<{ isForSidebar?: boolean }>`
   @media screen and (min-width: 1025px) {
