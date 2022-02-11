@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
 
-import { PostCardActionMenu } from 'src/components/posts';
-import { P, Link, Checkbox } from 'src/components/common';
-import { CACTUS_GREEN, GREY } from 'src/constant';
+import { PostPreviewCardContent } from 'src/components/posts';
+import { Checkbox } from 'src/components/common';
+import { GREY } from 'src/constant';
+
 import { useBookmarkIsReadEdit } from 'src/lib/hooks';
 
 interface IPostPreviewCardProps {
@@ -20,24 +22,9 @@ interface IPostPreviewCardProps {
   isRead?: boolean;
 }
 
-function PostPreviewCard({
-  postId,
-  bookmarkId,
-  title,
-  thumbnail,
-  description,
-  tags,
-  type = 'default',
-  isBookmarked = true,
-  url,
-  dueDate,
-  isRead,
-}: IPostPreviewCardProps) {
+function PostPreviewCard({ type = 'default', isRead, ...contentProps }: IPostPreviewCardProps) {
+  const { bookmarkId } = contentProps;
   const { toggle } = useBookmarkIsReadEdit({ id: bookmarkId, isRead });
-
-  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src = '/favicon.svg';
-  };
 
   return (
     <StyledRow>
@@ -46,109 +33,12 @@ function PostPreviewCard({
           <Checkbox id={String(bookmarkId)} isChecked={isRead} toggle={toggle} />
         </CheckboxWrapper>
       )}
-      <Wrapper>
-        <PostPreviewCardLink bookmarkId={bookmarkId} url={url}>
-          <PWrapper>
-            <Title>{title}</Title>
-            <Description>{description}</Description>
-          </PWrapper>
-          <Img src={thumbnail} onError={handleImgError} alt={`글 ${title}의 썸네일 이미지`} />
-        </PostPreviewCardLink>
-        <Footer>
-          <Row>
-            {tags?.map((tag) => (
-              <Tag key={tag}>#{tag}</Tag>
-            ))}
-          </Row>
-          <PostCardActionMenu postId={postId} bookmarkId={bookmarkId} isBookmarked={isBookmarked} dueDate={dueDate} />
-        </Footer>
-      </Wrapper>
+      <PostPreviewCardContent {...contentProps} />
     </StyledRow>
   );
 }
 
 export default React.memo(PostPreviewCard);
-
-type PostPreviewCardLinkProps = Pick<IPostPreviewCardProps, 'bookmarkId' | 'url'> & { children: React.ReactNode };
-
-function PostPreviewCardLink({ bookmarkId, url, children }: PostPreviewCardLinkProps) {
-  if (bookmarkId) {
-    return <StyledLink to={`/bookmarks/${bookmarkId}`}>{children}</StyledLink>;
-  }
-
-  return (
-    <A href={url} target="_blank">
-      {children}
-    </A>
-  );
-}
-
-const Title = styled(P).attrs({
-  fontSize: '1.8rem',
-  fontWeight: 500,
-  ellipsis: true,
-  numOfLines: 1,
-  width: '100%',
-})`
-  margin-bottom: 0.6rem;
-`;
-
-const Description = styled(P).attrs({
-  fontSize: '1.4rem',
-  lineHeight: '2rem',
-  ellipsis: true,
-  numOfLines: 2,
-  width: '100%',
-})`
-  margin-bottom: 0.4rem;
-`;
-
-const Tag = styled(P).attrs({
-  color: CACTUS_GREEN[500],
-})`
-  margin-right: 0.8rem;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-`;
-
-const Img = styled.img`
-  object-fit: cover;
-  margin-left: 2rem;
-  border-radius: 0.4rem;
-  width: 7.2rem;
-  height: 7.2rem;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.8rem;
-`;
-
-const PWrapper = styled.div`
-  max-width: calc(100% - 9.2rem);
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 0.4rem;
-`;
-
-const A = styled.a`
-  text-decoration: none;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 0.4rem;
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
 
 const StyledRow = styled.div`
   display: flex;
