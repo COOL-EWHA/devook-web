@@ -65,7 +65,7 @@ const Wrapper = styled.div<{ isForSidebar?: boolean }>`
   }
 `;
 
-const Title = styled(P).attrs({ fontSize: '2rem', fontWeight: 500 })`
+const Title = styled(P).attrs({ fontSize: '2rem' })`
   margin: 0 auto;
   padding-right: 2.4rem;
 `;
