@@ -4,7 +4,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
-import { getNotificationList, editNotificationIsRead } from 'src/lib/api';
+import { getNotificationList, editNotification } from 'src/lib/api';
 import { notificationKeys } from 'src/lib/utils/queryKeys';
 import { isMySidebarOpen } from 'src/lib/store';
 import { NOTIFICATION_ROUTES, POST_LIST_FETCH_LIMIT } from 'src/constant';
@@ -64,7 +64,7 @@ export const useNotificationCard = ({
   };
 
   const handleClickNotificationCard = async () => {
-    await editNotificationIsRead({ id, isRead: true });
+    await editNotification({ id, isRead: true });
     handleRoute();
     setIsOpen(false);
   };
