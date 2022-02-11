@@ -13,8 +13,7 @@ function BookmarkInfoCard({ data }: IBookmarkInfoCardProps) {
   const { createdAt, memo } = data;
 
   return (
-    <Section title="북마크 정보" rightComponent={<BookmarkEditButton />} type="secondary">
-      <LabeledText label="생성 날짜" value={createdAt.toString()} />
+      <LabeledText label="생성 시간" value={dayjs(createdAt)?.format('YYYY.MM.DD HH:mm')} />
       <LabeledText label="메모" value={memo} />
     </Section>
   );

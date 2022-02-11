@@ -21,7 +21,7 @@ function BookmarkEditButton() {
         {isModalOpen && (
           <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
             <InputWrapper>
-              <Input name="url" value={data?.createdAt.toString()} label="생성 날짜" disabled />
+              <Input name="url" value={dayjs(data?.createdAt)?.format('YYYY.MM.DD HH:mm')} label="생성 시간" disabled />
               <Textarea
                 name="memo"
                 value={memo}
