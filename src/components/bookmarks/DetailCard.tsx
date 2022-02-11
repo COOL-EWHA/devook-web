@@ -36,7 +36,7 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
   );
 }
 
-export default React.memo(BookmarkDetailCard);
+export default BookmarkDetailCard;
 
 const Wrapper = styled.div`
   width: 100%;
