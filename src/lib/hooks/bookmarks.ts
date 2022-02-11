@@ -276,18 +276,18 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
     },
   });
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setMemo(value);
-  };
+  }, []);
 
   const handleSubmit = () => {
     if (!checkIsLoggedIn()) {
@@ -334,18 +334,20 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     },
   });
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setDueDate(prevDueDate ? new Date(prevDueDate) : null);
-  };
+  }, []);
 
   const handleChange = (date: Date | null) => {
     setDueDate(date);
   };
+
+  const reset = useCallback(() => setDueDate(null), []);
 
   const checkFormValid = () => {
     if (!dueDate && !prevDueDate) {
@@ -366,5 +368,5 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     mutate(id);
   };
 
-  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit };
+  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit, reset };
 };
