@@ -25,3 +25,4 @@ export * from './auth';
 export * from './bookmarks';
 export * from './users';
 export * from './posts';
+export * from './notifications';
