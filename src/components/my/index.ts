@@ -6,6 +6,10 @@ import UserProfileCard from './UserProfileCard';
 import SidebarHeader from './SidebarHeader';
 import Sidebar from './Sidebar';
 import SidebarToggleButton from './SidebarToggleButton';
+import NotificationCard from './NotificationCard';
+import NotificationList from './NotificationList';
+import LoggedInSideBar from './LoggedInSideBar';
+import NotLoggedInSideBar from './NotLoggedInSideBar';
 
 export {
   LoginButton,
@@ -16,4 +20,8 @@ export {
   SidebarHeader,
   Sidebar,
   SidebarToggleButton,
+  NotificationCard,
+  NotificationList,
+  LoggedInSideBar,
+  NotLoggedInSideBar,
 };
