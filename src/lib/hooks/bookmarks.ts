@@ -254,15 +254,12 @@ export const useBookmarkIsReadEdit = ({ id, isRead }: Partial<Pick<IBookmark, 'i
   return { toggle };
 };
 
-export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string }) => {
-  const params = useParams();
-  const id = params.id ?? '';
-
+export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id' | 'memo'>) => {
   const queryClient = useQueryClient();
   const { checkIsLoggedIn } = useLoginStatus();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [memo, setMemo] = useState(originalMemo);
+  const [memo, setMemo] = useState(prevMemo);
 
   const mutationFn = (id: number) => editBookmark({ id, memo });
 
@@ -301,12 +298,13 @@ export const useBookmarkMemoEdit = ({ originalMemo }: { originalMemo?: string })
 
 export const useBookmark = () => {
   const params = useParams();
-  const bookmarkId = params.id ?? '';
+  const bookmarkId = Number(params?.id);
+  const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
-  const queryFn = () => getBookmark(Number(bookmarkId));
-  const { data, isLoading } = useQuery(bookmarkKeys.detail(Number(bookmarkId)), queryFn);
+  const queryFn = () => getBookmark(bookmarkId);
+  const { data, isLoading } = useQuery(bookmarkKeys.detail(bookmarkId), queryFn, { enabled: isLoggedIn });
 
-  return { id: Number(bookmarkId), data, isLoading };
+  return { id: bookmarkId, data, isLoading };
 };
 
 export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefined) => {
