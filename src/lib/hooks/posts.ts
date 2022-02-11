@@ -111,13 +111,13 @@ export const usePostTagList = ({
     };
   }, [isModalOpen]);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
   return { data, isModalOpen, openModal, closeModal };
 };
