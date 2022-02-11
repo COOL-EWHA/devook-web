@@ -15,7 +15,7 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
 
   return (
     <Wrapper>
-      <BackHeader title="알림 목록" isForSidebar onClick={onBackButtonClick} />
+      <BackHeader title="알림 목록" isForSidebar onBack={onBackButtonClick} />
       {data?.pages.map((notifications) =>
         notifications?.map((notification: INotification) => (
           // eslint-disable-next-line react/jsx-props-no-spreading

@@ -8,15 +8,15 @@ import { GREY, WHITE } from 'src/constant';
 interface IBackHeaderProps {
   title: string;
   isForSidebar?: boolean;
-  onClick?: () => void;
+  onBack?: () => void;
 }
 
-function BackHeader({ title, isForSidebar = false, onClick }: IBackHeaderProps) {
+function BackHeader({ title, isForSidebar = false, onBack }: IBackHeaderProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    if (onClick) {
-      onClick();
+    if (onBack) {
+      onBack();
       return;
     }
     navigate(-1);
@@ -29,6 +29,7 @@ function BackHeader({ title, isForSidebar = false, onClick }: IBackHeaderProps) 
     </Wrapper>
   );
 }
+
 export default React.memo(BackHeader);
 
 const Wrapper = styled.div<{ isForSidebar?: boolean }>`
