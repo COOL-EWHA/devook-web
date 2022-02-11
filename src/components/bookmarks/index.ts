@@ -11,6 +11,7 @@ import BookmarkRelatedPostList from './RelatedPostList';
 import BookmarkDetailCardSkeleton from './DetailCardSkeleton';
 import BookmarkDetailCard from './DetailCard';
 import BookmarkList from './List';
+import BookmarkIsReadCheckbox from './IsReadCheckbox';
 
 export {
   BookmarkActionMenu,
@@ -26,4 +27,5 @@ export {
   BookmarkDetailCard,
   BookmarkList,
   BookmarkDueDateSetButton,
+  BookmarkIsReadCheckbox,
 };
