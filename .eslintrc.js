@@ -7,6 +7,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:cypress/recommended',
   ],
   rules: {
     'linebreak-style': 0,
