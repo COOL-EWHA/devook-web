@@ -15,3 +15,8 @@ export const postKeys = {
   details: () => [...postKeys.all, 'detail'] as const,
   detail: (id: number) => [...postKeys.details(), id] as const,
 };
+
+export const notificationKeys = {
+  all: ['notifications'] as const,
+  lists: () => [...notificationKeys.all, 'list'] as const,
+};

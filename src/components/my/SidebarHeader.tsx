@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { IconButton } from 'src/components/common';
+import { isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
-import { isUserLoggedIn } from 'src/lib/store';
+interface IMySidebarHeaderProps {
+  onNotificationButtonClick?: () => void;
+}
 
-export type IMySidebarProps = { onCloseButtonClick: () => void };
-
-export default function MySidebarHeader({ onCloseButtonClick }: IMySidebarProps) {
+function MySidebarHeader({ onNotificationButtonClick }: IMySidebarHeaderProps) {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
+  const setIsOpen = useSetRecoilState(isMySidebarOpen);
+
+  const handleCloseButtonClick = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   return (
     <Wrapper>
-      <IconButton iconType="close" onClick={onCloseButtonClick} />
-      {isLoggedIn && <IconButton iconType="notifications" />}
+      <IconButton iconType="close" onClick={handleCloseButtonClick} />
+      {isLoggedIn && <IconButton iconType="notifications" onClick={onNotificationButtonClick} />}
     </Wrapper>
   );
 }
+
+export default React.memo(MySidebarHeader);
 
 const Wrapper = styled.div`
   display: flex;
