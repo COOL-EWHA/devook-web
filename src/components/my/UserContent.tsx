@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { LogoutButton, NotificationList, SidebarHeader, UserProfileCard, WithdrawButton } from '.';
+import { NotificationList, UserInfo } from '.';
 
 function UserContent() {
   const [type, setType] = useState<'info' | 'notification'>('info');
@@ -15,14 +15,7 @@ function UserContent() {
 
   return (
     <>
-      {type === 'info' && (
-        <>
-          <SidebarHeader onNotificationButtonClick={openNotificationList} />
-          <UserProfileCard />
-          <LogoutButton />
-          <WithdrawButton />
-        </>
-      )}
+      {type === 'info' && <UserInfo onNotificationButtonClick={openNotificationList} />}
       {type === 'notification' && <NotificationList onBackButtonClick={closeNotificationList} />}
     </>
   );

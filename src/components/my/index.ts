@@ -10,6 +10,7 @@ import NotificationCard from './NotificationCard';
 import NotificationList from './NotificationList';
 import UserContent from './UserContent';
 import LoginContent from './LoginContent';
+import UserInfo from './UserInfo';
 
 export {
   LoginButton,
@@ -24,4 +25,5 @@ export {
   NotificationList,
   UserContent,
   LoginContent,
+  UserInfo,
 };
