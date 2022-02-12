@@ -22,7 +22,7 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
           <NotificationCard key={notification.id} {...notification} />
         )),
       )}
-      <div ref={listEndRef} />
+      <div ref={listEndRef} style={{ height: '0.1rem' }} />
     </Wrapper>
   );
 }
