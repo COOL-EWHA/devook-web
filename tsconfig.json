@@ -19,7 +19,7 @@
     "paths": {
       "src/*": ["src/*"]
     },
-    "types": ["node", "@testing-library/jest-dom", "cypress"]
+    "types": ["node", "@testing-library/jest-dom", "cypress", "cypress-react-selector"]
   },
   "include": ["src"]
 }
