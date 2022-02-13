@@ -24,7 +24,6 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
 
   // copy needed variables from process.env to config.env
-  config.env.appUrl = process.env.APP_URL;
 
   // do not forget to return the changed config object!
   return config;
