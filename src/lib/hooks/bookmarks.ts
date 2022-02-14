@@ -66,7 +66,7 @@ export const useBookmarkCreate = () => {
   const initialData = { url: '', memo: '' };
   const [form, setForm] = useState<BookmarkCreateParams>(initialData);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const isSubmitDisabled = !form.url;
   const mutationFn = (data: BookmarkCreateParams) => createBookmark(data);
 
   const { mutate } = useMutation(mutationFn, {
@@ -80,10 +80,6 @@ export const useBookmarkCreate = () => {
     },
   });
 
-  useEffect(() => {
-    validateForm();
-  }, [form.url]);
-
   const openModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
@@ -96,14 +92,6 @@ export const useBookmarkCreate = () => {
     const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
-
-  const validateForm = () => {
-    if (!form.url) {
-      setIsSubmitDisabled(true);
-      return;
-    }
-    setIsSubmitDisabled(false);
-  };
 
   const handleSubmit = () => {
     if (!checkIsLoggedIn()) {
@@ -120,7 +108,7 @@ export const useBookmarkCreate = () => {
     form,
     onChange: handleFormChange,
     onSubmit: handleSubmit,
-    isOnCompleteDisabled: isSubmitDisabled,
+    isSubmitDisabled,
   };
 };
 
@@ -269,7 +257,7 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memo, setMemo] = useState(prevMemo);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const isSubmitDisabled = memo === prevMemo;
 
   const mutationFn = (id: number) => editBookmark({ id, memo });
 
@@ -277,16 +265,11 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
     onSuccess: () => {
       queryClient.invalidateQueries(bookmarkKeys.detail(Number(id)));
       setIsModalOpen(false);
-      setIsSubmitDisabled(true);
     },
     onError: () => {
       alert('북마크 메모 수정에 실패하였습니다.');
     },
   });
-
-  useEffect(() => {
-    validateMemo();
-  }, [memo]);
 
   const openModal = useCallback(() => {
     setIsModalOpen(true);
@@ -308,14 +291,6 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
     mutate(Number(id));
   };
 
-  const validateMemo = () => {
-    if (memo === prevMemo) {
-      setIsSubmitDisabled(true);
-      return;
-    }
-    setIsSubmitDisabled(false);
-  };
-
   return {
     openModal,
     closeModal,
@@ -323,7 +298,7 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
     memo,
     onChange: handleChange,
     onSubmit: handleSubmit,
-    isOnCompleteDisabled: isSubmitDisabled,
+    isSubmitDisabled,
   };
 };
 
