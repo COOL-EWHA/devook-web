@@ -10,10 +10,10 @@ interface IModalProps {
   onComplete?: () => void;
   children?: React.ReactNode;
   className?: string;
-  isOnCompleteDisabled?: boolean;
+  isCompleteButtonDisabled?: boolean;
 }
 
-function Modal({ title, onClose, onComplete, children, className, isOnCompleteDisabled }: IModalProps) {
+function Modal({ title, onClose, onComplete, children, className, isCompleteButtonDisabled }: IModalProps) {
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
@@ -25,7 +25,7 @@ function Modal({ title, onClose, onComplete, children, className, isOnCompleteDi
           title={title}
           onClose={onClose}
           onComplete={onComplete}
-          isOnCompleteDisabled={isOnCompleteDisabled}
+          isCompleteButtonDisabled={isCompleteButtonDisabled}
         />
         <Divider />
         <ContentWrapper className={className}>{children}</ContentWrapper>

@@ -6,16 +6,16 @@ import { Button, P, IconButton } from 'src/components/common';
 interface ICloseHeaderProps {
   onClose: () => void;
   onComplete?: () => void;
-  isOnCompleteDisabled?: boolean;
+  isCompleteButtonDisabled?: boolean;
   title: string;
 }
 
-function CloseHeader({ onClose, onComplete, isOnCompleteDisabled = false, title }: ICloseHeaderProps) {
+function CloseHeader({ onClose, onComplete, isCompleteButtonDisabled = false, title }: ICloseHeaderProps) {
   return (
     <Wrapper>
       <IconButton iconType="close" onClick={onClose} />
       <P fontSize="1.6rem">{title}</P>
-      {onComplete && <Button text="완료" onClick={onComplete} disabled={isOnCompleteDisabled} />}
+      {onComplete && <Button text="완료" onClick={onComplete} disabled={isCompleteButtonDisabled} />}
     </Wrapper>
   );
 }
