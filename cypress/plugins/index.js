@@ -24,6 +24,9 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
 
   // copy needed variables from process.env to config.env
+  config.env.googleRefreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+  config.env.googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  config.env.googleClientSecret = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
 
   // do not forget to return the changed config object!
   return config;
