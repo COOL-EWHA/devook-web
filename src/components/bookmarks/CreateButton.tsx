@@ -9,7 +9,7 @@ const Input = lazy(() => import('src/components/common/Input'));
 const Textarea = lazy(() => import('src/components/common/Textarea'));
 
 export default function BookmarkCreateButton() {
-  const { form, onChange, onSubmit, openModal, closeModal, isModalOpen, isOnCompleteDisabled } = useBookmarkCreate();
+  const { form, onChange, onSubmit, openModal, closeModal, isModalOpen, isSubmitDisabled } = useBookmarkCreate();
   const { url, memo } = form;
 
   return (
@@ -21,7 +21,7 @@ export default function BookmarkCreateButton() {
             onClose={closeModal}
             onComplete={onSubmit}
             title="북마크 추가하기"
-            isOnCompleteDisabled={isOnCompleteDisabled}
+            isCompleteButtonDisabled={isSubmitDisabled}
           >
             <form>
               <Input

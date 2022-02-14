@@ -15,7 +15,7 @@ interface IBookmarkEditButtonProps {
 }
 
 function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButtonProps) {
-  const { isModalOpen, memo, openModal, closeModal, onSubmit, onChange, isOnCompleteDisabled } = useBookmarkMemoEdit({
+  const { isModalOpen, memo, openModal, closeModal, onSubmit, onChange, isSubmitDisabled } = useBookmarkMemoEdit({
     id,
     memo: prevMemo,
   });
@@ -29,7 +29,7 @@ function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButt
             onClose={closeModal}
             onComplete={onSubmit}
             title="메모 수정하기"
-            isOnCompleteDisabled={isOnCompleteDisabled}
+            isCompleteButtonDisabled={isSubmitDisabled}
           >
             <Form>
               <Input name="url" value={createdAt} label="생성 시간" disabled />
