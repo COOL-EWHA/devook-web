@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
-
 import { useBookmarkMemoEdit } from 'src/lib/hooks';
 
 const Modal = lazy(() => import('src/components/common/Modal'));
@@ -16,7 +15,7 @@ interface IBookmarkEditButtonProps {
 }
 
 function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButtonProps) {
-  const { isModalOpen, memo, openModal, closeModal, onSubmit, onChange } = useBookmarkMemoEdit({
+  const { isModalOpen, memo, openModal, closeModal, onSubmit, onChange, isSubmitDisabled } = useBookmarkMemoEdit({
     id,
     memo: prevMemo,
   });
@@ -26,8 +25,13 @@ function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButt
       <Button size="large" text="수정" onClick={openModal} />
       <Suspense fallback={null}>
         {isModalOpen && (
-          <Modal onClose={closeModal} onComplete={onSubmit} title="메모 수정하기">
-            <InputWrapper>
+          <Modal
+            onClose={closeModal}
+            onComplete={onSubmit}
+            title="메모 수정하기"
+            isCompleteButtonDisabled={isSubmitDisabled}
+          >
+            <Form>
               <Input name="url" value={createdAt} label="생성 시간" disabled />
               <Textarea
                 name="memo"
@@ -36,7 +40,7 @@ function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButt
                 label="메모"
                 placeholder="이 북마크와 관련된 메모를 수정해보세요"
               />
-            </InputWrapper>
+            </Form>
           </Modal>
         )}
       </Suspense>
@@ -46,6 +50,6 @@ function BookmarkEditButton({ id, createdAt, memo: prevMemo }: IBookmarkEditButt
 
 export default BookmarkEditButton;
 
-const InputWrapper = styled.div`
+const Form = styled.form`
   padding: 2rem;
 `;

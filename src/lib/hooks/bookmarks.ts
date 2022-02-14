@@ -66,7 +66,7 @@ export const useBookmarkCreate = () => {
   const initialData = { url: '', memo: '' };
   const [form, setForm] = useState<BookmarkCreateParams>(initialData);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const isSubmitDisabled = !form.url;
   const mutationFn = (data: BookmarkCreateParams) => createBookmark(data);
 
   const { mutate } = useMutation(mutationFn, {
@@ -93,26 +93,23 @@ export const useBookmarkCreate = () => {
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
-  const checkIsFormValid = () => {
-    if (!form.url) {
-      alert('링크를 입력해주세요!');
-      return false;
-    }
-    return true;
-  };
-
   const handleSubmit = () => {
     if (!checkIsLoggedIn()) {
       setIsModalOpen(false);
       return;
     }
-    if (!checkIsFormValid()) {
-      return;
-    }
     mutate(form);
   };
 
-  return { openModal, closeModal, isModalOpen, form, onChange: handleFormChange, onSubmit: handleSubmit };
+  return {
+    openModal,
+    closeModal,
+    isModalOpen,
+    form,
+    onChange: handleFormChange,
+    onSubmit: handleSubmit,
+    isSubmitDisabled,
+  };
 };
 
 export const useBookmarkAdd = (postId: number) => {
@@ -260,6 +257,7 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memo, setMemo] = useState(prevMemo);
+  const isSubmitDisabled = memo === prevMemo;
 
   const mutationFn = (id: number) => editBookmark({ id, memo });
 
@@ -293,7 +291,15 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
     mutate(Number(id));
   };
 
-  return { openModal, closeModal, isModalOpen, memo, onChange: handleChange, onSubmit: handleSubmit };
+  return {
+    openModal,
+    closeModal,
+    isModalOpen,
+    memo,
+    onChange: handleChange,
+    onSubmit: handleSubmit,
+    isSubmitDisabled,
+  };
 };
 
 export const useBookmark = () => {
@@ -366,5 +372,13 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     mutate(id);
   };
 
-  return { openModal, closeModal, isModalOpen, dueDate, onChange: handleChange, onSubmit: handleSubmit, reset };
+  return {
+    openModal,
+    closeModal,
+    isModalOpen,
+    dueDate,
+    onChange: handleChange,
+    onSubmit: handleSubmit,
+    reset,
+  };
 };

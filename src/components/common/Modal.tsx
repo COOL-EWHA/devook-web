@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { CloseHeader } from 'src/components/base/header';
-
 import { GREY, WHITE } from 'src/constant';
 
 interface IModalProps {
@@ -11,9 +10,10 @@ interface IModalProps {
   onComplete?: () => void;
   children?: React.ReactNode;
   className?: string;
+  isCompleteButtonDisabled?: boolean;
 }
 
-function Modal({ title, onClose, onComplete, children, className }: IModalProps) {
+function Modal({ title, onClose, onComplete, children, className, isCompleteButtonDisabled }: IModalProps) {
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
@@ -21,7 +21,12 @@ function Modal({ title, onClose, onComplete, children, className }: IModalProps)
   return (
     <Overlay onClick={onClose}>
       <Wrapper onClick={handleWrapperClick}>
-        <CloseHeader title={title} onClose={onClose} onComplete={onComplete} />
+        <CloseHeader
+          title={title}
+          onClose={onClose}
+          onComplete={onComplete}
+          isCompleteButtonDisabled={isCompleteButtonDisabled}
+        />
         <Divider />
         <ContentWrapper className={className}>{children}</ContentWrapper>
       </Wrapper>
