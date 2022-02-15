@@ -13,6 +13,7 @@ import Section from './Section';
 import Skeleton from './Skeleton';
 import Checkbox from './Checkbox';
 import Img from './Img';
+import EmptyContent from './EmptyContent';
 
 export {
   P,
@@ -30,4 +31,5 @@ export {
   Skeleton,
   Checkbox,
   Img,
+  EmptyContent,
 };
