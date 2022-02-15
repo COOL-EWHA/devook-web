@@ -38,7 +38,7 @@ const StyledLink = styled(Link)<{ isRead: boolean }>`
 `;
 
 // eslint-disable-next-line react/jsx-props-no-spreading
-const StyledImg = styled((props) => <Img {...props} />).attrs({ width: '3.2rem', height: 'fit-content' })`
+const StyledImg = styled((props) => <Img {...props} />).attrs({ width: '3.2rem', height: '3.2rem' })`
   margin-right: 1.2rem;
 `;
 
