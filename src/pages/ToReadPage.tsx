@@ -26,6 +26,7 @@ export default ToReadPage;
 
 const Wrapper = styled.div`
   display: flex;
+  height: 100%;
 `;
 
 const BookmarkListWrapper = styled.div`

@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostTagButton, PostTagResetButton } from 'src/components/posts';
-import { Modal } from 'src/components/common';
+import { Modal, EmptyContent } from 'src/components/common';
 import { GREY } from 'src/constant';
-
 import { PostType } from 'src/types';
 
 interface IPostTagListProps {
@@ -18,12 +17,13 @@ export default function PostTagList({ data, postType, isModalOpen, closeModal }:
   return (
     <PostTagListWrapper isModalOpen={isModalOpen} closeModal={closeModal}>
       <Title>태그 목록</Title>
+      {data?.length === 0 && <EmptyContent target="태그 목록이" iconType="tag" />}
       <ButtonsWrapper>
         {data?.map((tag) => (
           <PostTagButton key={tag} text={tag} postType={postType} />
         ))}
       </ButtonsWrapper>
-      <PostTagResetButton postType={postType} />
+      {data?.length !== 0 && <PostTagResetButton postType={postType} />}
     </PostTagListWrapper>
   );
 }
@@ -47,7 +47,7 @@ const StyledModal = styled((props) => <Modal {...props} />)`
 
   @media screen and (min-width: 1025px) {
     width: 24rem;
-    height: 100%;
+    height: fit-content;
     margin-left: 2.4rem;
     border-radius: 0.8rem;
     background-color: ${GREY[200]};
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
 
   @media screen and (min-width: 1025px) {
     width: 24rem;
-    height: 100%;
+    height: fit-content;
     margin-left: 2.4rem;
     border-radius: 0.8rem;
     background-color: ${GREY[200]};
