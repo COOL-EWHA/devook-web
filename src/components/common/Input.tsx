@@ -13,7 +13,7 @@ function Input({ label, iconType, placeholder, onChange, value, name, disabled =
   return (
     <Wrapper iconType={iconType} disabled={disabled}>
       {label && <InputLabel value={label} disabled={disabled} />}
-      {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} />}
+      {iconType && <Icon type={iconType} width="2rem" color={GREY[600]} disabled />}
       <StyledInput
         label={label}
         name={name}

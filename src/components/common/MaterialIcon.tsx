@@ -9,12 +9,13 @@ interface IMaterialIconProps {
   width?: number | string;
   color?: string;
   hoverColor?: string;
+  disabled?: boolean;
 }
 
-function MaterialIcon({ className, type, width, color, hoverColor }: IMaterialIconProps) {
+function MaterialIcon({ className, type, width, color, hoverColor, disabled = false }: IMaterialIconProps) {
   return (
     <Wrapper className={className}>
-      <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor}>
+      <Icon className="material-icons" width={width} color={color} hoverColor={hoverColor} disabled={disabled}>
         {type}
       </Icon>
     </Wrapper>
@@ -26,17 +27,22 @@ export default React.memo(MaterialIcon);
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
 `;
 
-type IconStyleProps = Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor'>;
+type IconStyleProps = Pick<IMaterialIconProps, 'width' | 'color' | 'hoverColor' | 'disabled'>;
 
 const Icon = styled.span<IconStyleProps>`
-  ${({ width, color, hoverColor }) => `
+  ${({ width, color, hoverColor, disabled }) => `
   font-size: ${width ?? '2.4rem'};
   color: ${color || GREY[700]};
-  :hover {
-    color: ${hoverColor || GREY[900]};
+  ${
+    !disabled &&
+    `
+    :hover {
+      color: ${hoverColor || GREY[900]};
+    }
+    cursor: pointer;
+    `
   }
   transition: all 0.3s;
   `}
