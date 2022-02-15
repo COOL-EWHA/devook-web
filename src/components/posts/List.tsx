@@ -16,7 +16,7 @@ function PostList() {
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
       {data?.pages.map((posts) => {
-        if (posts.length === 0) {
+        if (data.pages.length === 1 && posts.length === 0) {
           return <EmptyContent iconType={emptyTargetIconType} target={emptyTarget} />;
         }
         return posts?.map((post: PostPreview) => {

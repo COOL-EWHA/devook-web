@@ -18,12 +18,12 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
   return (
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages.map((posts) => {
-        if (posts.length === 0) {
+      {data?.pages.map((bookmarks) => {
+        if (data.pages.length === 1 && bookmarks.length === 0) {
           return <EmptyContent iconType={emptyTargetIconType} target={emptyTarget} />;
         }
-        return posts?.map((post: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = post;
+        return bookmarks?.map((bookmark: BookmarkPreview) => {
+          const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;
           return (
             <PostPreviewCard
               key={id}

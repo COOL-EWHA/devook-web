@@ -19,7 +19,7 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
     <Wrapper>
       <BackHeader title="알림 목록" isForSidebar onBack={onBackButtonClick} />
       {data?.pages.map((notifications) => {
-        if (notifications.length === 0) {
+        if (data.pages.length === 1 && notifications.length === 0) {
           return <EmptyContent iconType="notifications" target="도착한 알림이" />;
         }
         return notifications?.map((notification: INotification) => (
