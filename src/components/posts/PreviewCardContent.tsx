@@ -73,6 +73,7 @@ const Title = styled(P).attrs({
   ellipsis: true,
   numOfLines: 1,
   width: '100%',
+  'data-cy': 'postPreviewCardTitle',
 })`
   margin-bottom: 0.6rem;
 `;
