@@ -57,7 +57,19 @@ export const usePostList = () => {
     },
   );
 
-  return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
+  const [noResultIconType, noResultTarget] = filter.q === '' ? ['favorite', '추천 글이'] : ['favorite', `검색 결과가`];
+
+  return {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    listEndRef,
+    noResultIconType,
+    noResultTarget,
+  };
 };
 
 export const usePostSearch = (type: PostType = 'post') => {

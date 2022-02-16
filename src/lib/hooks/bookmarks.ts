@@ -57,7 +57,20 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     },
   );
 
-  return { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage, listEndRef };
+  const noResultIconType = isRead === undefined ? 'bookmark' : 'event_available';
+  const noResultTarget = filter.q ? '검색 결과가' : `${isRead === undefined ? '' : '읽지 않은 '}북마크가`;
+
+  return {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    listEndRef,
+    noResultIconType,
+    noResultTarget,
+  };
 };
 
 export const useBookmarkCreate = () => {

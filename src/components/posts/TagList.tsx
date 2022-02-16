@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { PostTagButton, PostTagResetButton } from 'src/components/posts';
 import { Modal } from 'src/components/common';
 import { GREY } from 'src/constant';
-
 import { PostType } from 'src/types';
 
 interface IPostTagListProps {
@@ -47,7 +46,7 @@ const StyledModal = styled((props) => <Modal {...props} />)`
 
   @media screen and (min-width: 1025px) {
     width: 24rem;
-    height: 100%;
+    height: fit-content;
     margin-left: 2.4rem;
     border-radius: 0.8rem;
     background-color: ${GREY[200]};
@@ -59,7 +58,7 @@ const Wrapper = styled.div`
 
   @media screen and (min-width: 1025px) {
     width: 24rem;
-    height: 100%;
+    height: fit-content;
     margin-left: 2.4rem;
     border-radius: 0.8rem;
     background-color: ${GREY[200]};

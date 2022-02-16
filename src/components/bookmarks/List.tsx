@@ -1,26 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { NoResult } from 'src/components/common';
 import { PostListSkeleton, PostPreviewCard } from 'src/components/posts';
-import { POST_LIST_FETCH_LIMIT } from 'src/constant';
-
-import { BookmarkPreview } from 'src/types';
 import { useBookmarkList } from 'src/lib/hooks';
+import { BookmarkPreview } from 'src/types';
+import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
 interface IBookmarkListProps {
   isRead?: boolean;
 }
 
 function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
-  const { data, isLoading, listEndRef } = useBookmarkList({ isRead });
+  const { data, isLoading, listEndRef, noResultIconType, noResultTarget } = useBookmarkList({ isRead });
   const previewCardType = isRead === undefined ? 'default' : 'toRead';
 
   return (
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages.map((posts) =>
-        posts?.map((post: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = post;
+      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
+      {data?.pages.map((bookmarks) =>
+        bookmarks?.map((bookmark: BookmarkPreview) => {
+          const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;
           return (
             <PostPreviewCard
               key={id}
@@ -45,4 +46,6 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
 
 export default BookmarkList;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 100%;
+`;

@@ -7,13 +7,15 @@ import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
 import { PostPreview } from 'src/types';
 import { usePostList } from 'src/lib/hooks';
+import { NoResult } from '../common';
 
 function PostList() {
-  const { data, isLoading, listEndRef } = usePostList();
+  const { data, isLoading, listEndRef, noResultIconType, noResultTarget } = usePostList();
 
   return (
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
+      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
       {data?.pages.map((posts) =>
         posts?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
@@ -38,4 +40,6 @@ function PostList() {
 
 export default PostList;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 100%;
+`;
