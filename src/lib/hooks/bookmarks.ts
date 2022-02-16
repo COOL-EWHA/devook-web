@@ -57,10 +57,8 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     },
   );
 
-  const [emptyTargetIconType, emptyTarget] =
-    isRead === undefined
-      ? ['bookmark', filter.q === '' ? '북마크 목록이' : `${filter.q}에 대한 검색결과가`]
-      : ['event_available', filter.q === '' ? '읽기관리 목록이' : `${filter.q}에 대한 검색결과가`];
+  const noResultIconType = isRead === undefined ? 'bookmark' : 'event_available';
+  const noResultTarget = filter.q ? '검색 결과가' : `${isRead === undefined ? '' : '읽지 않은 '}북마크가`;
 
   return {
     data,
@@ -70,8 +68,8 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     hasNextPage,
     isFetchingNextPage,
     listEndRef,
-    emptyTargetIconType,
-    emptyTarget,
+    noResultIconType,
+    noResultTarget,
   };
 };
 

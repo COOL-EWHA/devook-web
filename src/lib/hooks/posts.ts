@@ -57,8 +57,7 @@ export const usePostList = () => {
     },
   );
 
-  const [emptyTargetIconType, emptyTarget] =
-    filter.q === '' ? ['favorite', '추천 글이'] : ['favorite', `${filter.q}에 대한 검색결과가`];
+  const [noResultIconType, noResultTarget] = filter.q === '' ? ['favorite', '추천 글이'] : ['favorite', `검색 결과가`];
 
   return {
     data,
@@ -68,8 +67,8 @@ export const usePostList = () => {
     hasNextPage,
     isFetchingNextPage,
     listEndRef,
-    emptyTargetIconType,
-    emptyTarget,
+    noResultIconType,
+    noResultTarget,
   };
 };
 
