@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  install:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -53,12 +53,8 @@ jobs:
           REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome88-ff89
-    needs: install
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Cypress run
-        run: yarn cy:run
+      - name: Run app
+        run: yarn start & wait-on https://localhost:3000
+
+      - name: Run cypress
+        run: cypress run --record --browser chrome
