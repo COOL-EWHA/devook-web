@@ -36,7 +36,7 @@
     "tsc": "tsc",
     "test": "yarn lint && yarn pretty && yarn tsc && yarn jest",
     "cy:open": "yarn start & wait-on https://localhost:3000 && cypress open",
-    "cy:run": "yarn start & wait-on https://localhost:3000 && cypress run --browser chrome",
+    "cy:run": "yarn start & wait-on https://localhost:3000 && cypress run --record --browser chrome",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
