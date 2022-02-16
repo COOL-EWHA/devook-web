@@ -10,16 +10,14 @@ import { usePostList } from 'src/lib/hooks';
 import { NoResult } from '../common';
 
 function PostList() {
-  const { data, isLoading, listEndRef, emptyTargetIconType, emptyTarget } = usePostList();
+  const { data, isLoading, listEndRef, noResultIconType, noResultTarget } = usePostList();
 
   return (
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages.map((posts) => {
-        if (data.pages.length === 1 && posts.length === 0) {
-          return <NoResult iconType={emptyTargetIconType} target={emptyTarget} />;
-        }
-        return posts?.map((post: PostPreview) => {
+      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
+      {data?.pages.map((posts) =>
+        posts?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
           return (
             <PostPreviewCard
@@ -33,8 +31,8 @@ function PostList() {
               url={url}
             />
           );
-        });
-      })}
+        }),
+      )}
       <div style={{ height: '1rem' }} ref={listEndRef} />
     </Wrapper>
   );

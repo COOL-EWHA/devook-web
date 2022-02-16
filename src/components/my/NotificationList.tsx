@@ -18,14 +18,12 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
   return (
     <Wrapper>
       <BackHeader title="알림 목록" isForSidebar onBack={onBackButtonClick} />
-      {data?.pages.map((notifications) => {
-        if (data.pages.length === 1 && notifications.length === 0) {
-          return <NoResult iconType="notifications" target="도착한 알림이" />;
-        }
-        return notifications?.map((notification: INotification) => (
+      {data?.pages[0].length === 0 && <NoResult iconType="notifications" target="알림이" />}
+      {data?.pages.map((notifications) =>
+        notifications?.map((notification: INotification) => (
           <NotificationCard key={notification.id} {...notification} />
-        ));
-      })}
+        )),
+      )}
       <div ref={listEndRef} style={{ height: '0.1rem' }} />
     </Wrapper>
   );

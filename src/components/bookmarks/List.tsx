@@ -12,17 +12,15 @@ interface IBookmarkListProps {
 }
 
 function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
-  const { data, isLoading, listEndRef, emptyTargetIconType, emptyTarget } = useBookmarkList({ isRead });
+  const { data, isLoading, listEndRef, noResultIconType, noResultTarget } = useBookmarkList({ isRead });
   const previewCardType = isRead === undefined ? 'default' : 'toRead';
 
   return (
     <Wrapper>
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages.map((bookmarks) => {
-        if (data.pages.length === 1 && bookmarks.length === 0) {
-          return <NoResult iconType={emptyTargetIconType} target={emptyTarget} />;
-        }
-        return bookmarks?.map((bookmark: BookmarkPreview) => {
+      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
+      {data?.pages.map((bookmarks) =>
+        bookmarks?.map((bookmark: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;
           return (
             <PostPreviewCard
@@ -39,8 +37,8 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
               dueDate={dueDate}
             />
           );
-        });
-      })}
+        }),
+      )}
       <div style={{ height: '1rem' }} ref={listEndRef} />
     </Wrapper>
   );
