@@ -1,0 +1,81 @@
+name: devook E2E test
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install project dependencies
+        run: yarn install
+
+      - name: Create certfile
+        run: >
+          apt install libnss3-tools
+          brew install mkcert
+          mkcert -install
+          mkcert localhost 127.0.0.1 ::1
+
+      - name: Create envfile
+        uses: SpicyPizza/create-envfile@v1.2
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: 'devook'
+          envkey_SECRET_KEY: ${{ secrets.ENVKEY_SECRET_KEY }}
+          REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
+          REACT_APP_OAUTH_REDIRECT_URI: ${{ secrets.REACT_APP_OAUTH_REDIRECT_URI }}
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
+          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          HTTPS: true
+          SSL_CERT_FILE: localhost+2.pem
+          SSL_KEY_FILE: localhost+2-key.pem
+
+  ui-chrome-tests:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.15.0-chrome96-ff94
+    needs: install
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+
+      - name: 'UI Tests - Chrome'
+        uses: cypress-io/github-action@v2
+        with:
+          # we have already installed all dependencies above
+          install: false
+          start: yarn start
+          wait-on: 'https://localhost:3000'
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          parallel: true
+          group: 'UI - Chrome'
+          spec: cypress/tests/ui/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
