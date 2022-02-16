@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { EmptyContent } from 'src/components/common';
+import { NoResult } from 'src/components/common';
 import { PostListSkeleton, PostPreviewCard } from 'src/components/posts';
 import { useBookmarkList } from 'src/lib/hooks';
 import { BookmarkPreview } from 'src/types';
@@ -20,7 +20,7 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
       {data?.pages.map((bookmarks) => {
         if (data.pages.length === 1 && bookmarks.length === 0) {
-          return <EmptyContent iconType={emptyTargetIconType} target={emptyTarget} />;
+          return <NoResult iconType={emptyTargetIconType} target={emptyTarget} />;
         }
         return bookmarks?.map((bookmark: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;

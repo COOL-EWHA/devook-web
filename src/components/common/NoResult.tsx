@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { MaterialIcon, P } from 'src/components/common';
 import { GREY } from 'src/constant';
 
-interface IEmptyContentProps {
+interface INoResultProps {
   iconType?: string;
   target: string;
 }
 
-function EmptyContent({ iconType, target }: IEmptyContentProps) {
+function NoResult({ iconType, target }: INoResultProps) {
   return (
     <Wrapper>
       {iconType && <MaterialIcon type={iconType} color={GREY[400]} width="6rem" disabled />}
@@ -18,7 +18,7 @@ function EmptyContent({ iconType, target }: IEmptyContentProps) {
   );
 }
 
-export default EmptyContent;
+export default NoResult;
 
 const Wrapper = styled.div`
   height: 85%;

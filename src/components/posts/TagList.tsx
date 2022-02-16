@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PostTagButton, PostTagResetButton } from 'src/components/posts';
-import { Modal, EmptyContent } from 'src/components/common';
+import { Modal, NoResult } from 'src/components/common';
 import { GREY } from 'src/constant';
 import { PostType } from 'src/types';
 
@@ -17,7 +17,7 @@ export default function PostTagList({ data, postType, isModalOpen, closeModal }:
   return (
     <PostTagListWrapper isModalOpen={isModalOpen} closeModal={closeModal}>
       <Title>태그 목록</Title>
-      {data?.length === 0 && <EmptyContent target="태그 목록이" iconType="tag" />}
+      {data?.length === 0 && <NoResult target="태그 목록이" iconType="tag" />}
       <ButtonsWrapper>
         {data?.map((tag) => (
           <PostTagButton key={tag} text={tag} postType={postType} />

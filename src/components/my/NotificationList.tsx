@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { EmptyContent } from 'src/components/common';
+import { NoResult } from 'src/components/common';
 import { BackHeader } from 'src/components/base';
 import { NotificationCard } from 'src/components/my';
 import { useNotificationList } from 'src/lib/hooks';
@@ -20,7 +20,7 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
       <BackHeader title="알림 목록" isForSidebar onBack={onBackButtonClick} />
       {data?.pages.map((notifications) => {
         if (data.pages.length === 1 && notifications.length === 0) {
-          return <EmptyContent iconType="notifications" target="도착한 알림이" />;
+          return <NoResult iconType="notifications" target="도착한 알림이" />;
         }
         return notifications?.map((notification: INotification) => (
           <NotificationCard key={notification.id} {...notification} />

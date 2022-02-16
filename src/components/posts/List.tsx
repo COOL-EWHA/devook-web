@@ -7,7 +7,7 @@ import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 
 import { PostPreview } from 'src/types';
 import { usePostList } from 'src/lib/hooks';
-import { EmptyContent } from '../common';
+import { NoResult } from '../common';
 
 function PostList() {
   const { data, isLoading, listEndRef, emptyTargetIconType, emptyTarget } = usePostList();
@@ -17,7 +17,7 @@ function PostList() {
       {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
       {data?.pages.map((posts) => {
         if (data.pages.length === 1 && posts.length === 0) {
-          return <EmptyContent iconType={emptyTargetIconType} target={emptyTarget} />;
+          return <NoResult iconType={emptyTargetIconType} target={emptyTarget} />;
         }
         return posts?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
