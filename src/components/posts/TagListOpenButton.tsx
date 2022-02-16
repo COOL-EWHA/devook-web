@@ -16,6 +16,8 @@ interface IPostTagListOpenButtonProps {
 function PostTagListOpenButton({ postType = 'post', isBookmarkRead }: IPostTagListOpenButtonProps) {
   const { data, isModalOpen, openModal, closeModal } = usePostTagList({ postType, isBookmarkRead });
 
+  if (data?.length === 0) return null;
+
   return (
     <>
       <Button onClick={openModal} />
