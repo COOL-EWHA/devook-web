@@ -1,4 +1,4 @@
-name: devook E2E test
+name: devook dev E2E test
 
 on:
   push:
@@ -11,7 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -22,32 +21,41 @@ jobs:
       - name: Install project dependencies
         run: yarn install
 
-      - name: Create certfile
-        run: >
-          apt install libnss3-tools
-          brew install mkcert
+      - name: Create dev certfile
+        run: |
+          sudo apt-get update
+          sudo apt install libnss3-tools wget
+          wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+          sudo cp mkcert-v1.4.3-linux-amd64 /usr/local/bin/mkcert
+          sudo chmod +x /usr/local/bin/mkcert
           mkcert -install
           mkcert localhost 127.0.0.1 ::1
 
-      - name: Create envfile
-        uses: SpicyPizza/create-envfile@v1.2
-        with:
-          envkey_DEBUG: false
-          envkey_SOME_API_KEY: 'devook'
-          envkey_SECRET_KEY: ${{ secrets.ENVKEY_SECRET_KEY }}
+      - name: Create dev envfile
+        run: |
+          echo "REACT_APP_API_HOST=$REACT_APP_API_HOST" >> .env
+          echo "REACT_APP_OAUTH_REDIRECT_URI=$REACT_APP_OAUTH_REDIRECT_URI" >> .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env
+          echo "REACT_APP_GOOGLE_CLIENT_SECRET=$REACT_APP_GOOGLE_CLIENT_SECRET" >> .env
+          echo "GOOGLE_REFRESH_TOKEN=$GOOGLE_REFRESH_TOKEN" >> .env
+          echo "REACT_APP_GITHUB_CLIENT_ID=$REACT_APP_GITHUB_CLIENT_ID" >> .env
+          echo "HTTPS=true" >> .env
+          echo "SSL_CRT_FILE=localhost+2.pem" >> .env
+          echo "SSL_KEY_FILE=localhost+2-key.pem" >> .env
+          echo "CYPRESS_RECORD_KEY=$CYPRESS_RECORD_KEY"
+
+        env:
           REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
           REACT_APP_OAUTH_REDIRECT_URI: ${{ secrets.REACT_APP_OAUTH_REDIRECT_URI }}
           REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
           REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
-          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
-          HTTPS: true
-          SSL_CERT_FILE: localhost+2.pem
-          SSL_KEY_FILE: localhost+2-key.pem
+          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  ui-chrome-tests:
+  cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.15.0-chrome96-ff94
+    container: cypress/browsers:node14.17.0-chrome88-ff89
     needs: install
     strategy:
       fail-fast: false
@@ -55,27 +63,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
-      - name: 'UI Tests - Chrome'
+      - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          # we have already installed all dependencies above
-          install: false
-          start: yarn start
-          wait-on: 'https://localhost:3000'
-          wait-on-timeout: 120
-          browser: chrome
-          record: true
-          parallel: true
-          group: 'UI - Chrome'
-          spec: cypress/tests/ui/*
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn cy:run
