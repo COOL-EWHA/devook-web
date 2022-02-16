@@ -54,7 +54,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
       - name: Run app
-        run: yarn start & wait-on https://localhost:3000
+        run: yarn start & yarn wait-on https://localhost:3000
 
       - name: Run cypress
         run: cypress run --record --browser chrome
