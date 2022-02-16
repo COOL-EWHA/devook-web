@@ -21,11 +21,11 @@ function NoResult({ iconType, target }: INoResultProps) {
 export default NoResult;
 
 const Wrapper = styled.div`
-  height: 85%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20rem;
 `;
 
 const Description = styled(P).attrs({ fontSize: '1.6rem', color: GREY[600] })`

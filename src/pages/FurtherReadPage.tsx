@@ -21,7 +21,6 @@ export default FurtherReadPage;
 
 const Wrapper = styled.div`
   display: flex;
-  height: 100%;
 `;
 
 const FurtherReadWrapper = styled.div`

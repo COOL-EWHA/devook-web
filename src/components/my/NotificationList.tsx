@@ -7,6 +7,7 @@ import { BackHeader } from 'src/components/base';
 import { NotificationCard } from 'src/components/my';
 import { useNotificationList } from 'src/lib/hooks';
 import { INotification } from 'src/interfaces';
+import { GREY } from 'src/constant';
 
 interface INotificationListProps {
   onBackButtonClick: () => void;
@@ -36,4 +37,14 @@ const Wrapper = styled.div`
   margin: 3.2rem -2rem -2rem -2rem;
   padding: 0 2rem;
   height: 100%;
+
+  &::-webkit-scrollbar {
+    display: flex;
+    width: 0.4rem;
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${GREY[400]};
+  }
 `;
