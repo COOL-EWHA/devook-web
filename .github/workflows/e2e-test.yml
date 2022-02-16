@@ -42,7 +42,6 @@ jobs:
           echo "HTTPS=true" >> .env
           echo "SSL_CRT_FILE=localhost+2.pem" >> .env
           echo "SSL_KEY_FILE=localhost+2-key.pem" >> .env
-          echo "CYPRESS_RECORD_KEY=$CYPRESS_RECORD_KEY"
 
         env:
           REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
@@ -51,10 +50,9 @@ jobs:
           REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
       - name: Run app
         run: yarn start & yarn wait-on https://localhost:3000
 
       - name: Run cypress
-        run: yarn cypress run --record --browser chrome
+        run: yarn cypress --record --key ${{ secrets.CYPRESS_RECORD_KEY }} run --browser chrome
