@@ -41,9 +41,9 @@ const Icon = styled.span<IconStyleProps>`
     :hover {
       color: ${hoverColor || GREY[900]};
     }
+    transition: all 0.3s;
     cursor: pointer;
     `
   }
-  transition: all 0.3s;
   `}
 `;
