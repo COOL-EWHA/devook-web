@@ -38,15 +38,6 @@ describe('로그인 추천 글 목록 테스트', () => {
               .then((bookmarkTitle) => {
                 expect(bookmarkTitle).to.eq(postTitle);
               });
-
-            cy.visit('/');
-            cy.waitForReact();
-            cy.get('[data-cy=postPreviewCardTitle]')
-              .eq(0)
-              .invoke('text')
-              .then((_postTitle) => {
-                expect(_postTitle).not.to.eq(postTitle);
-              });
           });
       });
   });
