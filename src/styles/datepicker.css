@@ -3,6 +3,10 @@
   border: none;
 }
 
+.react-datepicker__month {
+  margin-top: 0;
+}
+
 .react-datepicker__month-container {
   width: 100%;
 }
@@ -16,12 +20,12 @@
 .react-datepicker__header {
   padding-top: 1.2rem;
   width: 100%;
-  margin-bottom: 0.8rem;
   background: none;
+  border-bottom: none;
 }
 
 .react-datepicker__day-names {
-  margin-top: 0.8rem;
+  margin-top: 1.2rem;
 }
 
 .react-datepicker__day,
