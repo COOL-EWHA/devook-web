@@ -1,0 +1,57 @@
+name: devook dev E2E test
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install project dependencies
+        run: yarn install
+
+      - name: Create dev certfile
+        run: |
+          sudo apt-get update
+          sudo apt install libnss3-tools wget
+          wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+          sudo cp mkcert-v1.4.3-linux-amd64 /usr/local/bin/mkcert
+          sudo chmod +x /usr/local/bin/mkcert
+          mkcert -install
+          mkcert localhost 127.0.0.1 ::1
+
+      - name: Create dev envfile
+        run: |
+          echo "REACT_APP_API_HOST=$REACT_APP_API_HOST" >> .env
+          echo "REACT_APP_OAUTH_REDIRECT_URI=$REACT_APP_OAUTH_REDIRECT_URI" >> .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env
+          echo "REACT_APP_GOOGLE_CLIENT_SECRET=$REACT_APP_GOOGLE_CLIENT_SECRET" >> .env
+          echo "REACT_APP_TEST_REFRESH_TOKEN=$REACT_APP_TEST_REFRESH_TOKEN" >> .env
+          echo "REACT_APP_GITHUB_CLIENT_ID=$REACT_APP_GITHUB_CLIENT_ID" >> .env
+          echo "HTTPS=true" >> .env
+          echo "SSL_CRT_FILE=localhost+2.pem" >> .env
+          echo "SSL_KEY_FILE=localhost+2-key.pem" >> .env
+
+        env:
+          REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
+          REACT_APP_OAUTH_REDIRECT_URI: ${{ secrets.REACT_APP_OAUTH_REDIRECT_URI }}
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
+          REACT_APP_TEST_REFRESH_TOKEN: ${{ secrets.REACT_APP_TEST_REFRESH_TOKEN }}
+          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
+
+      - name: Run app
+        run: yarn start & yarn wait-on https://localhost:3000
+
+      - name: Run cypress
+        run: |
+          export CYPRESS_PROJECT_ID=${{ secrets.CYPRESS_PROJECT_ID }}
+          yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome

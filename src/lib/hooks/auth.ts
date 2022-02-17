@@ -4,10 +4,11 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
-import { isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
+import { isAuthRefreshLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
+  const setLoading = useSetRecoilState(isAuthRefreshLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
@@ -19,12 +20,15 @@ export const useAuthRefresh = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const { accessToken } = await authRefresh();
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
     } catch (err) {
       handleRefreshError(err as AxiosError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,9 +81,9 @@ export const useAuthTestLogin = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
-  const testLogin = async (email: string) => {
+  const testLogin = async () => {
     try {
-      const { accessToken } = await authTestLogin(email);
+      const { accessToken } = await authTestLogin(process.env.REACT_APP_TEST_REFRESH_TOKEN as string);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);

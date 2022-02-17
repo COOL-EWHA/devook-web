@@ -1,0 +1,8 @@
+{
+  "baseUrl": "https://localhost:3000",
+  "env": {
+    "cypress-react-selector": {
+      "root": "#root"
+    }
+  }
+}

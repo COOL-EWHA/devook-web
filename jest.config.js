@@ -1,5 +1,5 @@
 module.exports = {
-  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/cypress/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest',
   },
