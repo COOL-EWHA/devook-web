@@ -1,9 +1,6 @@
 name: devook dev E2E test
 
-on:
-  push:
-    branches-ignore:
-      - 'main'
+on: [push]
 
 jobs:
   cypress-run:
