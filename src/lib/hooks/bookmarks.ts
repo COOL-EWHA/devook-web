@@ -335,6 +335,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
   const [dueDate, setDueDate] = useState(prevDueDate ? new Date(prevDueDate) : null);
   const dueDateString = dueDate ? dayjs(dueDate).format('YYYY.MM.DD') : '';
   const mutationFn = (id: number) => editBookmark({ id, dueDate: dueDateString });
+  const isSubmitDisabled = prevDueDate && new Date(prevDueDate)?.getTime() === dueDate?.getTime();
 
   const { mutate } = useMutation(mutationFn, {
     onSuccess: () => {
@@ -393,5 +394,6 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
     onChange: handleChange,
     onSubmit: handleSubmit,
     reset,
+    isSubmitDisabled,
   };
 };
