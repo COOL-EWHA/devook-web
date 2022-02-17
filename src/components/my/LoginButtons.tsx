@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 import { P } from 'src/components/common';
 import LoginButton from './LoginButton';
-import { useAuthTestLogin } from 'src/lib/hooks';
 
-const TEST_EMAIL_1 = process.env.REACT_APP_TEST_EMAIL_1 as string;
+import { useAuthTestLogin } from 'src/lib/hooks';
 
 export default function LoginButtons() {
   const { testLogin } = useAuthTestLogin();
@@ -13,7 +12,7 @@ export default function LoginButtons() {
 
   if (hostname.includes('devook.com') && hostname !== 'www.devook.com') {
     // eslint-disable-next-line react/button-has-type
-    return <button onClick={() => testLogin(TEST_EMAIL_1)}>효진 로그인</button>;
+    return <button onClick={testLogin}>효진 로그인</button>;
   }
 
   return (

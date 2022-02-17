@@ -77,9 +77,9 @@ export const useAuthTestLogin = () => {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
-  const testLogin = async (email: string) => {
+  const testLogin = async () => {
     try {
-      const { accessToken } = await authTestLogin(email);
+      const { accessToken } = await authTestLogin(process.env.REACT_APP_GOOGLE_REFRESH_TOKEN as string);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
