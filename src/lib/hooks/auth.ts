@@ -4,10 +4,11 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
-import { isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
+import { isAuthRefreshLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
+  const setLoading = useSetRecoilState(isAuthRefreshLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
@@ -19,12 +20,15 @@ export const useAuthRefresh = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const { accessToken } = await authRefresh();
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
     } catch (err) {
       handleRefreshError(err as AxiosError);
+    } finally {
+      setLoading(false);
     }
   };
 
