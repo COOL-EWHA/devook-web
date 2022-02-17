@@ -25,7 +25,7 @@ module.exports = (on, config) => {
 
   // copy needed variables from process.env to config.env
   config.env.apiHost = process.env.REACT_APP_API_HOST;
-  config.env.googleRefreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+  config.env.testRefreshToken = process.env.REACT_APP_TEST_REFRESH_TOKEN;
   config.env.googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   config.env.googleClientSecret = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
 

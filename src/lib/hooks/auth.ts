@@ -79,7 +79,7 @@ export const useAuthTestLogin = () => {
 
   const testLogin = async () => {
     try {
-      const { accessToken } = await authTestLogin(process.env.REACT_APP_GOOGLE_REFRESH_TOKEN as string);
+      const { accessToken } = await authTestLogin(process.env.REACT_APP_TEST_REFRESH_TOKEN as string);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
