@@ -2,7 +2,7 @@
 
 describe('로그인 Sidebar 테스트', () => {
   before(() => {
-    cy.setRefreshTokenCookie();
+    cy.login();
     cy.visit('/');
     cy.waitForReact();
     cy.get('span').contains('person').click();

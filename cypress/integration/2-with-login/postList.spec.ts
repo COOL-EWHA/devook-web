@@ -2,7 +2,7 @@
 
 describe('로그인 추천 글 목록 테스트', () => {
   before(() => {
-    cy.setRefreshTokenCookie();
+    cy.login();
   });
 
   beforeEach(() => {
