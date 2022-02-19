@@ -76,17 +76,41 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();
+  const filter = useRecoilValue(bookmarkListFilter);
   const { checkIsLoggedIn } = useLoginStatus();
-  const initialData = { url: '', memo: '' };
-  const [form, setForm] = useState<BookmarkCreateParams>(initialData);
+  const initialFormData = { url: '', memo: '' };
+  const [form, setForm] = useState<BookmarkCreateParams>({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const isSubmitDisabled = !form.url;
   const mutationFn = (data: BookmarkCreateParams) => createBookmark(data);
 
+  const bookmarkListKey = bookmarkKeys.list(filter);
+
+  const updateBookmarkList = (prevList: InfiniteData<BookmarkPreview[]>, newBookmark: BookmarkPreview) => {
+    const newList = cloneDeep(prevList);
+    const { pages } = newList;
+    pages[0].unshift(newBookmark);
+    for (let i = 0; i < pages.length; i += 1) {
+      if (pages[i].length > POST_LIST_FETCH_LIMIT) {
+        const lastItem = pages[i].pop() as BookmarkPreview;
+        if (i + 1 < pages.length) {
+          pages[i + 1]?.unshift(lastItem);
+        }
+      }
+    }
+    return newList;
+  };
+
   const { mutate } = useMutation(mutationFn, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(bookmarkKeys.lists());
-      setForm(initialData);
+    onSuccess: (data) => {
+      const prevList = queryClient.getQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey);
+      if (prevList) {
+        queryClient.setQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey, () =>
+          updateBookmarkList(prevList, data),
+        );
+      }
+      setForm(initialFormData);
       setIsModalOpen(false);
     },
     onError: () => {
@@ -319,10 +343,13 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
 export const useBookmark = () => {
   const params = useParams();
   const bookmarkId = Number(params?.id);
+  const isAuthLoadingValue = useRecoilValue(isAuthLoading);
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   const queryFn = () => getBookmark(bookmarkId);
-  const { data, isLoading } = useQuery(bookmarkKeys.detail(bookmarkId), queryFn, { enabled: isLoggedIn });
+  const { data, isLoading } = useQuery(bookmarkKeys.detail(bookmarkId), queryFn, {
+    enabled: !isAuthLoadingValue && isLoggedIn,
+  });
 
   return { id: bookmarkId, data, isLoading };
 };
