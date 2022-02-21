@@ -42,13 +42,7 @@ export const usePostList = () => {
 
   const fetchList = ({ pageParam = undefined }) => getPostList({ cursor: pageParam, ...filter });
 
-  const getNextPageParam = (lastPage?: PostPreview[]) => {
-    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastItemId = lastPage[lastPage.length - 1]?.id;
-    return lastItemId;
-  };
+  const getNextPageParam = (lastPage: PostPreview[]) => lastPage[lastPage.length - 1]?.id;
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     postKeys.list(filter),

@@ -12,7 +12,7 @@ import { BookmarkCreateParams, BookmarkPreview, PostPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark } from 'src/interfaces';
 import { bookmarkListFilter, isAuthLoading, isUserLoggedIn, postListFilter } from 'src/lib/store';
-import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
+import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
   const isAuthLoadingValue = useRecoilValue(isAuthLoading);
@@ -41,13 +41,7 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
 
   const fetchList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
 
-  const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
-    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastItemId = lastPage[lastPage.length - 1]?.id;
-    return lastItemId;
-  };
+  const getNextPageParam = (lastPage: BookmarkPreview[]) => lastPage[lastPage.length - 1]?.id;
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     bookmarkKeys.list(filter),
@@ -91,14 +85,6 @@ export const useBookmarkCreate = () => {
     const newList = cloneDeep(prevList);
     const { pages } = newList;
     pages[0].unshift(newBookmark);
-    for (let i = 0; i < pages.length; i += 1) {
-      if (pages[i].length > POST_LIST_FETCH_LIMIT) {
-        const lastItem = pages[i].pop() as BookmarkPreview;
-        if (i + 1 < pages.length) {
-          pages[i + 1]?.unshift(lastItem);
-        }
-      }
-    }
     return newList;
   };
 
