@@ -8,7 +8,7 @@ import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } f
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
 import { bookmarkListFilter, postListFilter, isAuthLoading, isUserLoggedIn } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
-import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
+import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useRelatedPostList = (bookmarkId: number) => {
   const filter = {

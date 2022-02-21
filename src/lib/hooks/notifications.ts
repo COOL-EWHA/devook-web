@@ -6,7 +6,6 @@ import { useSetRecoilState } from 'recoil';
 import { getNotificationList, editNotification } from 'src/lib/api';
 import { notificationKeys } from 'src/lib/utils/queryKeys';
 import { isMySidebarOpen } from 'src/lib/store';
-import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 import { INotification } from 'src/interfaces';
 
 export const useNotificationList = () => {
