@@ -6,9 +6,9 @@ import debounce from 'lodash/debounce';
 
 import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
 import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import { bookmarkListFilter, postListFilter, isAuthRefreshLoading, isUserLoggedIn } from 'src/lib/store';
+import { bookmarkListFilter, postListFilter, isAuthLoading, isUserLoggedIn } from 'src/lib/store';
 import { PostPreview, PostType } from 'src/types';
-import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
+import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useRelatedPostList = (bookmarkId: number) => {
   const filter = {
@@ -23,7 +23,7 @@ export const useRelatedPostList = (bookmarkId: number) => {
 };
 
 export const usePostList = () => {
-  const isAuthLoading = useRecoilValue(isAuthRefreshLoading);
+  const isAuthLoadingValue = useRecoilValue(isAuthLoading);
   const filter = useRecoilValue(postListFilter);
   const resetFilter = useResetRecoilState(postListFilter);
   const { ref: listEndRef, inView } = useInView({
@@ -42,20 +42,14 @@ export const usePostList = () => {
 
   const fetchList = ({ pageParam = undefined }) => getPostList({ cursor: pageParam, ...filter });
 
-  const getNextPageParam = (lastPage?: PostPreview[]) => {
-    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastItemId = lastPage[lastPage.length - 1]?.id;
-    return lastItemId;
-  };
+  const getNextPageParam = (lastPage: PostPreview[]) => lastPage[lastPage.length - 1]?.id;
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     postKeys.list(filter),
     fetchList,
     {
       getNextPageParam,
-      enabled: !isAuthLoading,
+      enabled: !isAuthLoadingValue,
     },
   );
 
@@ -103,12 +97,12 @@ export const usePostTagList = ({
   isBookmarkRead?: boolean;
 }) => {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
-  const isAuthLoading = useRecoilValue(isAuthRefreshLoading);
+  const isAuthLoadingValue = useRecoilValue(isAuthLoading);
 
   const [queryKeys, queryFn] =
     postType === 'bookmark' ? [bookmarkKeys, () => getBookmarkTagList({ isBookmarkRead })] : [postKeys, getPostTagList];
   const { data } = useQuery(queryKeys.tags(), queryFn, {
-    enabled: isLoggedIn || (!isAuthLoading && postType === 'post'),
+    enabled: isLoggedIn || (!isAuthLoadingValue && postType === 'post'),
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);

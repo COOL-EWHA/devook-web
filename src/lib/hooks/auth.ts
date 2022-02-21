@@ -3,12 +3,12 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
-import { authLogin, authRefresh, authTestLogin, updateAuthHeader } from 'src/lib/api';
-import { isAuthRefreshLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
+import { authLogin, authLogout, authRefresh, authTestLogin, initAuthHeader, updateAuthHeader } from 'src/lib/api';
+import { isAuthLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
-  const setLoading = useSetRecoilState(isAuthRefreshLoading);
+  const setLoading = useSetRecoilState(isAuthLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export const useAuthRefresh = () => {
 export const useAuthLogin = () => {
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
+  const setLoading = useSetRecoilState(isAuthLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export const useAuthLogin = () => {
 
     const scope = searchParams.get('scope');
     const provider = scope?.includes('google') ? 'google' : 'github';
-
+    setLoading(true);
     try {
       const { accessToken } = await authLogin(provider, code);
       alert('로그인되었습니다.');
@@ -72,6 +73,8 @@ export const useAuthLogin = () => {
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 };
@@ -79,9 +82,11 @@ export const useAuthLogin = () => {
 // 개발, 테스트용 로그인
 export const useAuthTestLogin = () => {
   const navigate = useNavigate();
+  const setLoading = useSetRecoilState(isAuthLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
   const testLogin = async () => {
+    setLoading(true);
     try {
       const { accessToken } = await authTestLogin(process.env.REACT_APP_TEST_REFRESH_TOKEN as string);
       alert('로그인되었습니다.');
@@ -90,6 +95,8 @@ export const useAuthTestLogin = () => {
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,7 +104,6 @@ export const useAuthTestLogin = () => {
 };
 
 export const useLoginStatus = () => {
-  // @TO_BE_IMPROVED: isSidebarOpen 상태 글로벌로 만들고 로그인 필요할 때 열리게 수정
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
   const setIsSidebarOpen = useSetRecoilState(isMySidebarOpen);
 
@@ -109,4 +115,28 @@ export const useLoginStatus = () => {
   };
 
   return { checkIsLoggedIn };
+};
+
+export const useAuthLogout = () => {
+  const setLoading = useSetRecoilState(isAuthLoading);
+  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
+  const setIsSidebarOpen = useSetRecoilState(isMySidebarOpen);
+
+  const logout = async (param = { alert: true }) => {
+    setLoading(true);
+    try {
+      await authLogout();
+      initAuthHeader();
+      setIsLoggedIn(false);
+      setIsSidebarOpen(false);
+      if (param.alert) {
+        alert('로그아웃되었습니다.');
+      }
+    } catch (err) {
+      alert('로그아웃에 실패하였습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { logout };
 };

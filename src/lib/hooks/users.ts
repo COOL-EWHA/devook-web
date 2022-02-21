@@ -1,8 +1,7 @@
 import { useQuery } from 'react-query';
-import { useSetRecoilState } from 'recoil';
 
-import { isMySidebarOpen, isUserLoggedIn } from 'src/lib/store';
-import { authLogout, deleteUser, getUser, initAuthHeader } from 'src/lib/api';
+import { deleteUser, getUser } from 'src/lib/api';
+import { useAuthLogout } from '.';
 
 export const useUserProfile = () => {
   const { isLoading, error, data } = useQuery('userProfile', getUser);
@@ -10,28 +9,8 @@ export const useUserProfile = () => {
   return { isLoading, error, data };
 };
 
-export const useUserLogout = () => {
-  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
-  const setIsSidebarOpen = useSetRecoilState(isMySidebarOpen);
-
-  const logout = async (param = { alert: true }) => {
-    try {
-      await authLogout();
-      initAuthHeader();
-      setIsLoggedIn(false);
-      setIsSidebarOpen(false);
-      if (param.alert) {
-        alert('로그아웃되었습니다.');
-      }
-    } catch (err) {
-      alert('로그아웃에 실패하였습니다.');
-    }
-  };
-  return { logout };
-};
-
 export const useUserWithdraw = () => {
-  const { logout } = useUserLogout();
+  const { logout } = useAuthLogout();
 
   const withdraw = async () => {
     try {

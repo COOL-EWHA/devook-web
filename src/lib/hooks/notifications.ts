@@ -6,7 +6,6 @@ import { useSetRecoilState } from 'recoil';
 import { getNotificationList, editNotification } from 'src/lib/api';
 import { notificationKeys } from 'src/lib/utils/queryKeys';
 import { isMySidebarOpen } from 'src/lib/store';
-import { POST_LIST_FETCH_LIMIT } from 'src/constant';
 import { INotification } from 'src/interfaces';
 
 export const useNotificationList = () => {
@@ -22,13 +21,7 @@ export const useNotificationList = () => {
 
   const fetchList = ({ pageParam = undefined }) => getNotificationList({ cursor: pageParam });
 
-  const getNextPageParam = (lastPage?: INotification[]) => {
-    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastItemId = lastPage[lastPage.length - 1]?.id;
-    return lastItemId;
-  };
+  const getNextPageParam = (lastPage: INotification[]) => lastPage[lastPage.length - 1]?.id;
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     notificationKeys.lists(),

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import { Button } from 'src/components/common';
 
-import { useUserLogout } from 'src/lib/hooks';
+import { useAuthLogout } from 'src/lib/hooks';
 
 function LogoutButton() {
-  const { logout } = useUserLogout();
+  const { logout } = useAuthLogout();
 
   // Logout 함수에 alert params 있어서 핸들러 따로 선언
   const handleClick = () => {

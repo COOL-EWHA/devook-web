@@ -10,7 +10,7 @@ interface IBookmarkIsReadCheckboxProps {
   isRead?: boolean;
 }
 
-export default function BookmarkIsReadCheckbox({ id, isRead }: IBookmarkIsReadCheckboxProps) {
+export default function BookmarkIsReadCheckbox({ id, isRead = false }: IBookmarkIsReadCheckboxProps) {
   const { toggle } = useBookmarkIsReadEdit({ id, isRead });
 
   return (

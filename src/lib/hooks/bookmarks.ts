@@ -11,10 +11,11 @@ import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark,
 import { BookmarkCreateParams, BookmarkPreview, PostPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark } from 'src/interfaces';
-import { bookmarkListFilter, isUserLoggedIn, postListFilter } from 'src/lib/store';
-import { POST_LIST_FETCH_LIMIT, RELATED_POST_FETCH_LIMIT } from 'src/constant';
+import { bookmarkListFilter, isAuthLoading, isUserLoggedIn, postListFilter } from 'src/lib/store';
+import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) => {
+  const isAuthLoadingValue = useRecoilValue(isAuthLoading);
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
   const [filter, setFilter] = useRecoilState(bookmarkListFilter);
   const resetFilter = useResetRecoilState(bookmarkListFilter);
@@ -40,20 +41,14 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
 
   const fetchList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
 
-  const getNextPageParam = (lastPage?: BookmarkPreview[]) => {
-    if (!lastPage || lastPage.length < POST_LIST_FETCH_LIMIT) {
-      return undefined;
-    }
-    const lastItemId = lastPage[lastPage.length - 1]?.id;
-    return lastItemId;
-  };
+  const getNextPageParam = (lastPage: BookmarkPreview[]) => lastPage[lastPage.length - 1]?.id;
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     bookmarkKeys.list(filter),
     fetchList,
     {
       getNextPageParam,
-      enabled: isLoggedIn,
+      enabled: !isAuthLoadingValue && isLoggedIn,
     },
   );
 
@@ -75,17 +70,33 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
 
 export const useBookmarkCreate = () => {
   const queryClient = useQueryClient();
+  const filter = useRecoilValue(bookmarkListFilter);
   const { checkIsLoggedIn } = useLoginStatus();
-  const initialData = { url: '', memo: '' };
-  const [form, setForm] = useState<BookmarkCreateParams>(initialData);
+  const initialFormData = { url: '', memo: '' };
+  const [form, setForm] = useState<BookmarkCreateParams>({ url: '', memo: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const isSubmitDisabled = !form.url;
   const mutationFn = (data: BookmarkCreateParams) => createBookmark(data);
 
+  const bookmarkListKey = bookmarkKeys.list(filter);
+
+  const updateBookmarkList = (prevList: InfiniteData<BookmarkPreview[]>, newBookmark: BookmarkPreview) => {
+    const newList = cloneDeep(prevList);
+    const { pages } = newList;
+    pages[0].unshift(newBookmark);
+    return newList;
+  };
+
   const { mutate } = useMutation(mutationFn, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(bookmarkKeys.lists());
-      setForm(initialData);
+    onSuccess: (data) => {
+      const prevList = queryClient.getQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey);
+      if (prevList) {
+        queryClient.setQueryData<InfiniteData<BookmarkPreview[]>>(bookmarkListKey, () =>
+          updateBookmarkList(prevList, data),
+        );
+      }
+      setForm(initialFormData);
       setIsModalOpen(false);
     },
     onError: () => {
@@ -318,10 +329,13 @@ export const useBookmarkMemoEdit = ({ id, memo: prevMemo }: Pick<IBookmark, 'id'
 export const useBookmark = () => {
   const params = useParams();
   const bookmarkId = Number(params?.id);
+  const isAuthLoadingValue = useRecoilValue(isAuthLoading);
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
 
   const queryFn = () => getBookmark(bookmarkId);
-  const { data, isLoading } = useQuery(bookmarkKeys.detail(bookmarkId), queryFn, { enabled: isLoggedIn });
+  const { data, isLoading } = useQuery(bookmarkKeys.detail(bookmarkId), queryFn, {
+    enabled: !isAuthLoadingValue && isLoggedIn,
+  });
 
   return { id: bookmarkId, data, isLoading };
 };
