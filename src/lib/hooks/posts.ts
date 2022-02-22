@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
@@ -70,12 +70,12 @@ export const usePostList = () => {
 
 export const usePostSearch = (type: PostType = 'post') => {
   const listFilter = type === 'bookmark' ? bookmarkListFilter : postListFilter;
-  const [filter, setFilter] = useRecoilState(listFilter);
+  const setFilter = useSetRecoilState(listFilter);
   const [query, setQuery] = useState('');
 
   const search = useCallback(
     debounce((query) => {
-      setFilter({ ...filter, q: query });
+      setFilter((filter) => ({ ...filter, q: query }));
     }, 500),
     [],
   );
