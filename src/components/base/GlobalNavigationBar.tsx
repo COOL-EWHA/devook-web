@@ -15,7 +15,7 @@ function GlobalNavigationBar() {
         {NAV_ITEMS.map(({ iconType, label, to }) => {
           const color = getLabelColor(to);
           return (
-            <Li onClick={() => onNavigate(to)} onMouseEnter={() => prefetchList(to)} key={label}>
+            <Li onClick={() => onNavigate(to)} onMouseOver={() => prefetchList(to)} key={label}>
               <MaterialIcon type={iconType} color={color} hoverColor={color} />
               <Label color={color}>{label}</Label>
             </Li>
