@@ -19,8 +19,8 @@ function NotificationList({ onBackButtonClick }: INotificationListProps) {
   return (
     <Wrapper>
       <BackHeader title="알림 목록" isForSidebar onBack={onBackButtonClick} />
-      {data?.pages[0].length === 0 && <NoResult iconType="notifications" target="알림이" />}
-      {data?.pages.map((notifications) =>
+      {data?.pages && data?.pages[0].length === 0 && <NoResult iconType="notifications" target="알림이" />}
+      {data?.pages?.map((notifications) =>
         notifications?.map((notification: INotification) => (
           <NotificationCard key={notification.id} {...notification} />
         )),

@@ -14,9 +14,9 @@ function PostList() {
 
   return (
     <Wrapper>
-      {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
-      {data?.pages.map((posts) =>
+      {(isLoading || !data?.pages) && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
+      {data?.pages && data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
+      {data?.pages?.map((posts) =>
         posts?.map((post: PostPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
           return (

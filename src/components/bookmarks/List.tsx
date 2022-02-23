@@ -17,9 +17,9 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
 
   return (
     <Wrapper>
-      {isLoading && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
-      {data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
-      {data?.pages.map((bookmarks) =>
+      {(isLoading || !data?.pages) && <PostListSkeleton fetchLimit={POST_LIST_FETCH_LIMIT} />}
+      {data?.pages && data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
+      {data?.pages?.map((bookmarks) =>
         bookmarks?.map((bookmark: BookmarkPreview) => {
           const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;
           return (
