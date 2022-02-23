@@ -45,6 +45,7 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     {
       getNextPageParam,
       enabled: !isAuthLoadingValue && isLoggedIn,
+      staleTime: 1000,
     },
   );
 

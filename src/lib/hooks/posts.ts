@@ -46,6 +46,7 @@ export const usePostList = () => {
     {
       getNextPageParam,
       enabled: !isAuthLoadingValue,
+      staleTime: 1000,
     },
   );
 
