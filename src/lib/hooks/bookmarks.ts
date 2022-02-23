@@ -6,8 +6,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
-import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
-import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark, getBookmarkList } from 'src/lib/api';
+import { bookmarkKeys, postKeys, getFetchBookmarkList, getNextPageParam } from 'src/lib/utils';
+import { addBookmark, createBookmark, deleteBookmark, getBookmark, editBookmark } from 'src/lib/api';
 import { BookmarkCreateParams, BookmarkPreview, PostPreview } from 'src/types';
 import { useLoginStatus } from '.';
 import { IBookmark } from 'src/interfaces';
@@ -39,13 +39,9 @@ export const useBookmarkList = ({ isRead }: Partial<Pick<IBookmark, 'isRead'>>) 
     }
   }, [inView]);
 
-  const fetchList = ({ pageParam = undefined }) => getBookmarkList({ cursor: pageParam, ...filter });
-
-  const getNextPageParam = (lastPage: BookmarkPreview[]) => lastPage[lastPage.length - 1]?.id;
-
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     bookmarkKeys.list(filter),
-    fetchList,
+    getFetchBookmarkList(filter),
     {
       getNextPageParam,
       enabled: !isAuthLoadingValue && isLoggedIn,

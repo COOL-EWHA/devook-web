@@ -3,8 +3,8 @@ import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 
-import { getNotificationList, editNotification } from 'src/lib/api';
-import { notificationKeys } from 'src/lib/utils/queryKeys';
+import { editNotification } from 'src/lib/api';
+import { notificationKeys, fetchNotificationList, getNextPageParam } from 'src/lib/utils';
 import { isMySidebarOpen } from 'src/lib/store';
 import { INotification } from 'src/interfaces';
 
@@ -19,13 +19,9 @@ export const useNotificationList = () => {
     }
   }, [inView]);
 
-  const fetchList = ({ pageParam = undefined }) => getNotificationList({ cursor: pageParam });
-
-  const getNextPageParam = (lastPage: INotification[]) => lastPage[lastPage.length - 1]?.id;
-
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     notificationKeys.lists(),
-    fetchList,
+    fetchNotificationList,
     {
       getNextPageParam,
     },
