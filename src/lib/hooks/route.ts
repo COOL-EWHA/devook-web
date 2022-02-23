@@ -47,7 +47,7 @@ export const useGNB = () => {
       return;
     }
     const fetchList = getFetchList(to);
-    await queryClient.prefetchQuery(getQueryKey(to), fetchList);
+    await queryClient.prefetchInfiniteQuery(getQueryKey(to), fetchList);
   };
 
   return { isSubRoute, onNavigate: handleNavigate, getLabelColor, prefetchList };
