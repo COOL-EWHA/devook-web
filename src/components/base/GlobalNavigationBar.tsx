@@ -1,32 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import { MaterialIcon } from 'src/components/common';
-import { useLoginStatus } from 'src/lib/hooks';
-import { GREY, WHITE, NAV_ITEMS, SUB_ROUTES, CACTUS_GREEN } from 'src/constant';
+import { GREY, WHITE, NAV_ITEMS } from 'src/constant';
+
+import { useGNB } from 'src/lib/hooks';
 
 function GlobalNavigationBar() {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const { checkIsLoggedIn } = useLoginStatus();
-  const isSubRoute = !!SUB_ROUTES.find((subRoute) => subRoute.pathname.test(pathname));
-
-  const handleNavigate = (to: string) => {
-    if (to === '/' || checkIsLoggedIn()) {
-      navigate(to);
-    }
-  };
+  const { isSubRoute, onNavigate, getLabelColor, prefetchList } = useGNB();
 
   return (
     <Nav isSubRoute={isSubRoute}>
       <Ul>
-        {NAV_ITEMS.map(({ iconType, label, to }) => (
-          <Li onClick={() => handleNavigate(to)} key={label}>
-            <MaterialIcon type={iconType} color={pathname === to ? CACTUS_GREEN[500] : GREY[900]} />
-            <Label isActive={pathname === to}>{label}</Label>
-          </Li>
-        ))}
+        {NAV_ITEMS.map(({ iconType, label, to }) => {
+          const color = getLabelColor(to);
+          return (
+            <Li onClick={() => onNavigate(to)} onMouseEnter={() => prefetchList(to)} key={label}>
+              <MaterialIcon type={iconType} color={color} hoverColor={color} />
+              <Label color={color}>{label}</Label>
+            </Li>
+          );
+        })}
       </Ul>
     </Nav>
   );
@@ -90,8 +84,8 @@ const Li = styled.li`
   }
 `;
 
-const Label = styled.label<{ isActive: boolean }>`
+const Label = styled.label<{ color: string }>`
   font-size: 1.4rem;
   margin-top: 0.4rem;
-  color: ${({ isActive }) => (isActive ? CACTUS_GREEN[500] : GREY[900])};
+  color: ${({ color }) => color};
 `;
