@@ -15,7 +15,10 @@ describe('로그인 추천 글 목록 테스트', () => {
     cy.react('PostPreviewCard').eq(0).find('button').contains('북마크 추가').click();
     cy.getReact('PostPreviewCard').nthNode(0).getProps('title').as('postTitle');
 
-    cy.get('li').contains('bookmarks').click();
+    cy.get('li').contains('bookmarks').trigger('mouseenter').click();
+    const apiHost = Cypress.env('apiHost');
+    cy.intercept('GET', `${apiHost}/bookmarks`).as('getBookmarks');
+    cy.wait('@getBookmarks');
     cy.get('@postTitle').then((postTitle) => {
       cy.getReact('PostPreviewCard').nthNode(0).getProps('title').should('eq', postTitle);
     });
