@@ -4,10 +4,10 @@ import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState 
 import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash/debounce';
 
-import { getRelatedPostList, getPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
-import { bookmarkKeys, postKeys } from 'src/lib/utils/queryKeys';
+import { getRelatedPostList, getPostTagList, getBookmarkTagList } from 'src/lib/api';
+import { bookmarkKeys, postKeys, getFetchPostList, getNextPageParam } from 'src/lib/utils';
 import { bookmarkListFilter, postListFilter, isAuthLoading, isUserLoggedIn } from 'src/lib/store';
-import { PostPreview, PostType } from 'src/types';
+import { PostType } from 'src/types';
 import { RELATED_POST_FETCH_LIMIT } from 'src/constant';
 
 export const useRelatedPostList = (bookmarkId: number) => {
@@ -40,16 +40,13 @@ export const usePostList = () => {
     }
   }, [inView]);
 
-  const fetchList = ({ pageParam = undefined }) => getPostList({ cursor: pageParam, ...filter });
-
-  const getNextPageParam = (lastPage: PostPreview[]) => lastPage[lastPage.length - 1]?.id;
-
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     postKeys.list(filter),
-    fetchList,
+    getFetchPostList(filter),
     {
       getNextPageParam,
       enabled: !isAuthLoadingValue,
+      staleTime: 1000,
     },
   );
 
