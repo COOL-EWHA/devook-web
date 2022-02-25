@@ -1,46 +1,75 @@
-# Getting Started with Create React App
+# 개발자를 위한 AI 북마크 비서 - Devook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="https://images.velog.io/images/gywlsp/post/d6bb16ec-1e4c-4736-bb49-94acb0b545d5/Devook.png" style = "margin: 15px; width: 720px"/>
+</p>
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+## 서비스 소개 💁🏻‍♀️
 
-### `yarn start`
+- 서비스 이름 **Devook**은 Dev와 hook/book의 합성어로, 유저들이 추가(hook) 개발 관련 북마크들이 모여 개발자들을 위한 하나의 책(book)이 된다는 의미를 가지고 있습니다.
+- Devook은 북마크 확장 프로그램과 웹앱, 모바일앱을 지원합니다.
+  - 개발 완료 여부
+    - [x] 웹앱
+    - [ ] 모바일앱
+    - [ ] 확장프로그램
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 주요 기능 🌟
 
-### `yarn test`
+1. 북마크 자동 분류
+2. 읽기 TODO
+3. 읽기 알림
+4. 어디서나 읽기 목록 관리
+5. 읽을 만한 글 추천
+6. 읽기 메모
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br />
 
-### `yarn build`
+### 핵심 기능 🔑
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **북마크 자동 분류**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   Devook은 유저가 북마크한 글을 파악해 자동으로 카테고리를 부여합니다. 유저는 북마크한 글들을 따로 분류할 필요 없이, 카테고리별로 북마크를 쉽게 필터링하여 볼 수 있습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **읽기 TODO**
 
-### `yarn eject`
+   유저는 북마크를 읽었는지 여부를 표시하는 체크박스를 통해, 어떤 북마크를 읽지 않았는지 쉽게 파악할 수 있습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. **읽기 알림**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   유저는 북마크에 읽기 기한을 설정할 수 있어, 마감일에 모바일앱으로 알림을 받아 읽어야 할 북마크를 놓치지 않고 읽을 수 있습니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   <img src="https://images.velog.io/images/gywlsp/post/b8de48cd-e162-421d-96b1-64f49fa4c672/image.png" style = "margin: 15px; width: 480px" alt="체크박스, 마감 기한 설정"/>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br />
 
-## Learn More
+## 기술 스택 🛠
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<div> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled components&logoColor=white">
+  <img src="https://img.shields.io/badge/react query-FF4154?style=for-the-badge&logo=react query&logoColor=white"> 
+  <img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white"> 
+  <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> 
+  <img src="https://img.shields.io/badge/prettier-F7B932?style=for-the-badge&logo=prettier&logoColor=black"> 
+  <img src="https://img.shields.io/badge/cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white">
+  <img src="https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=white">
+  <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
+  <img src="https://img.shields.io/badge/aws amplify-FF9900?style=for-the-badge&logo=aws amplify&logoColor=white">
+</div>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br />
+
+## 개발 진행 상황 🏃🏻‍♀️
+
+| 개발 파트 | 1. 북마크 자동 분류 | 2. 읽기 TODO       | 3. 읽기 알림                  | 4. 어디서나 읽기 목록 관리 | 5. 읽을 만한 글 추천 | 6. 읽기 메모       |
+| --------- | ------------------- | ------------------ | ----------------------------- | -------------------------- | -------------------- | ------------------ |
+| FE        |                     | :white_check_mark: | 모바일 앱 푸시 알림 구현 예정 | 모바일 앱 구현 예정        | :white_check_mark:   | :white_check_mark: |
+| BE        |                     | :white_check_mark: | 모바일 앱 푸시 알림 구현 예정 |                            | :white_check_mark:   | :white_check_mark: |
+| AI        | 진행 중             |                    |                               |                            | 진행 중              |                    |
