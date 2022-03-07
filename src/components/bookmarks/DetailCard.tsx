@@ -31,7 +31,7 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
         </Row>
         <PostCardActionMenu size="large" bookmarkId={id} dueDate={dueDate} />
       </Footer>
-      <Button text="글 읽기" type="line" isBlock href={url} />
+      <Button text="글 읽기" type="line" isBlock href={url} target="_blank" />
     </Wrapper>
   );
 }
