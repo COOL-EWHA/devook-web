@@ -25,6 +25,7 @@ export const useAuthRefresh = () => {
       const { accessToken } = await authRefresh();
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
+      window.AuthChannel?.postMessage('refresh');
     } catch (err) {
       handleRefreshError(err as AxiosError);
     } finally {
@@ -71,6 +72,7 @@ export const useAuthLogin = () => {
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
       navigate('/');
+      window.AuthChannel?.postMessage('login');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
     } finally {
@@ -129,6 +131,7 @@ export const useAuthLogout = () => {
       initAuthHeader();
       setIsLoggedIn(false);
       setIsSidebarOpen(false);
+      window.AuthChannel?.postMessage('logout');
       if (param.alert) {
         alert('로그아웃되었습니다.');
       }
