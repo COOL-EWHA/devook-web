@@ -17,6 +17,8 @@ describe('로그인 추천 글 목록 테스트', () => {
     const apiHost = Cypress.env('apiHost');
     cy.intercept('GET', `${apiHost}/bookmarks`).as('getBookmarks');
     cy.get('@postTitle').then((postTitle) => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(200); // 북마크 목록 페이지 이동 UI에 커서 올리기까지 예상되는 최소 시간
       cy.get('li').contains('bookmarks').trigger('mouseover');
       cy.wait('@getBookmarks')
         .its('response.body')
