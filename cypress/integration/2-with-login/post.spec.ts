@@ -26,6 +26,7 @@ describe('로그인 추천 글 목록 테스트', () => {
           expect(bookmarks[0].title).to.equal(postTitle);
         });
       cy.get('li').contains('bookmarks').click();
+      cy.location('pathname', { timeout: 5000 }).should('include', '/bookmarks');
       cy.getReact('PostPreviewCard').nthNode(0).getProps('title').should('eq', postTitle);
     });
   });
