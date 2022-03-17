@@ -6,6 +6,7 @@ describe('로그인 Sidebar 테스트', () => {
     cy.visit('/');
     cy.waitForReact();
     cy.get('span').contains('person').click();
+    cy.getReact('MySidebar', { options: { timeout: 5000 } });
   });
 
   it('유저 정보가 뜨는지 확인한다.', () => {
