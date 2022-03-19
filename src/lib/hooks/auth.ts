@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
@@ -22,13 +23,14 @@ export const useAuthRefresh = () => {
     }
 
     setLoading(true);
+    window.Toaster?.postMessage(`refresh 시도 ${refreshToken}`);
     try {
       const { accessToken } = await authRefresh(refreshToken);
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
       window.AuthChannel?.postMessage('refresh');
-    } catch (_) {
-      //
+    } catch (err) {
+      window.Toaster?.postMessage(`refresh 실패 ${(err as AxiosError)?.response?.status}`);
     } finally {
       setLoading(false);
     }
