@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
@@ -8,6 +7,8 @@ import { isAuthLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
+  const [searchParams, _] = useSearchParams();
+  const refreshToken = searchParams.get('rt');
   const setLoading = useSetRecoilState(isAuthLoading);
   const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
 
@@ -22,27 +23,14 @@ export const useAuthRefresh = () => {
 
     setLoading(true);
     try {
-      const { accessToken } = await authRefresh();
+      const { accessToken } = await authRefresh(refreshToken);
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
       window.AuthChannel?.postMessage('refresh');
-    } catch (err) {
-      handleRefreshError(err as AxiosError);
+    } catch (_) {
+      //
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleRefreshError = ({ response }: AxiosError) => {
-    switch ((response as AxiosResponse).status) {
-      case 400:
-        // REFRESH_TOKEN 빈 문자열
-        break;
-      case 404:
-        // REFRESH_TOKEN 값 있으나 DB에서 값 찾을 수 없음
-        break;
-      default:
-      // 그 외 Error
     }
   };
 };
@@ -67,12 +55,12 @@ export const useAuthLogin = () => {
     const provider = scope?.includes('google') ? 'google' : 'github';
     setLoading(true);
     try {
-      const { accessToken } = await authLogin(provider, code);
+      const { accessToken, refreshToken } = await authLogin(provider, code);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
       setIsLoggedIn(!!accessToken);
       navigate('/');
-      window.AuthChannel?.postMessage('login');
+      window.AuthChannel?.postMessage(`login:${refreshToken}`);
     } catch (err) {
       alert('로그인에 실패하였습니다.');
     } finally {
