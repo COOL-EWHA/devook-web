@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 
 import { authLogin, authLogout, authRefresh, authTestLogin, initAuthHeader, updateAuthHeader } from 'src/lib/api';
-import { isAuthLoading, isUserLoggedIn, isMySidebarOpen } from 'src/lib/store';
+import { isAuthLoading, accessToken, isMySidebarOpen, isUserLoggedIn } from 'src/lib/store';
 
 export const useAuthRefresh = () => {
   const { pathname } = useLocation();
   const [searchParams, _] = useSearchParams();
   const refreshToken = searchParams.get('rt');
   const setLoading = useSetRecoilState(isAuthLoading);
-  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
+  const setAccessToken = useSetRecoilState(accessToken);
 
   useEffect(() => {
     refreshAuthTokens();
@@ -25,7 +25,7 @@ export const useAuthRefresh = () => {
     try {
       const { accessToken } = await authRefresh(refreshToken);
       updateAuthHeader(accessToken);
-      setIsLoggedIn(!!accessToken);
+      setAccessToken(accessToken);
       window.AuthChannel?.postMessage('refresh');
     } catch (_) {
       //
@@ -39,7 +39,7 @@ export const useAuthLogin = () => {
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
   const setLoading = useSetRecoilState(isAuthLoading);
-  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
+  const setAccessToken = useSetRecoilState(accessToken);
 
   useEffect(() => {
     login();
@@ -58,9 +58,9 @@ export const useAuthLogin = () => {
       const { accessToken, refreshToken } = await authLogin(provider, code);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
-      setIsLoggedIn(!!accessToken);
-      navigate('/');
+      setAccessToken(accessToken);
       window.AuthChannel?.postMessage(`login:${refreshToken}`);
+      navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
     } finally {
@@ -73,7 +73,7 @@ export const useAuthLogin = () => {
 export const useAuthTestLogin = () => {
   const navigate = useNavigate();
   const setLoading = useSetRecoilState(isAuthLoading);
-  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
+  const setAccessToken = useSetRecoilState(accessToken);
 
   const testLogin = async () => {
     setLoading(true);
@@ -81,7 +81,7 @@ export const useAuthTestLogin = () => {
       const { accessToken } = await authTestLogin(process.env.REACT_APP_TEST_REFRESH_TOKEN as string);
       alert('로그인되었습니다.');
       updateAuthHeader(accessToken);
-      setIsLoggedIn(!!accessToken);
+      setAccessToken(accessToken);
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
@@ -109,17 +109,17 @@ export const useLoginStatus = () => {
 
 export const useAuthLogout = () => {
   const setLoading = useSetRecoilState(isAuthLoading);
-  const setIsLoggedIn = useSetRecoilState(isUserLoggedIn);
+  const [accessTokenValue, setAccessToken] = useRecoilState(accessToken);
   const setIsSidebarOpen = useSetRecoilState(isMySidebarOpen);
 
   const logout = async (param = { alert: true }) => {
     setLoading(true);
     try {
       await authLogout();
-      initAuthHeader();
-      setIsLoggedIn(false);
-      setIsSidebarOpen(false);
       window.AuthChannel?.postMessage('logout');
+      initAuthHeader();
+      setAccessToken('');
+      setIsSidebarOpen(false);
       if (param.alert) {
         alert('로그아웃되었습니다.');
       }
