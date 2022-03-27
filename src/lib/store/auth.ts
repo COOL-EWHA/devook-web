@@ -1,5 +1,8 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const isAuthLoading = atom<boolean>({ key: 'isAuthLoading', default: true });
 export const accessToken = atom<string>({ key: 'accessToken', default: '' });
-export const isUserLoggedIn = atom<boolean>({ key: 'isUserLoggedIn', default: false });
+export const isUserLoggedIn = selector({
+  key: 'isUserLoggedIn',
+  get: ({ get }) => !!get(accessToken),
+});
