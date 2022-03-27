@@ -60,6 +60,7 @@ export const useAuthLogin = () => {
       updateAuthHeader(accessToken);
       setAccessToken(accessToken);
       window.AuthChannel?.postMessage(`login:${refreshToken}`);
+      window.DeviceChannel?.postMessage(`login:${accessToken}`);
       navigate('/');
     } catch (err) {
       alert('로그인에 실패하였습니다.');
@@ -117,6 +118,7 @@ export const useAuthLogout = () => {
     try {
       await authLogout();
       window.AuthChannel?.postMessage('logout');
+      window.DeviceChannel?.postMessage(`logout:${accessTokenValue}`);
       initAuthHeader();
       setAccessToken('');
       setIsSidebarOpen(false);
