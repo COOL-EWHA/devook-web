@@ -1,4 +1,4 @@
-import GithubIcon from './github';
+import AppleIcon from './apple';
 import GoogleIcon from './google';
 import LogoIcon from './logo';
 
@@ -11,4 +11,4 @@ export type IconProps = {
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
-export { GithubIcon, GoogleIcon, LogoIcon };
+export { AppleIcon, GoogleIcon, LogoIcon };
