@@ -9,6 +9,6 @@ describe('비로그인 Sidebar 테스트', () => {
 
   it('Sidebar에서 로그인 버튼 목록을 확인한다.', () => {
     cy.get('a').contains('GOOGLE').should('be.visible');
-    cy.get('a').contains('GITHUB').should('be.visible');
+    cy.get('a').contains('APPLE').should('be.visible');
   });
 });
