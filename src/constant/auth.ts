@@ -17,10 +17,10 @@ export const OAUTH_DATA = {
     Icon: AppleIcon,
     link: `https://appleid.apple.com/auth/authorize${getQueryString({
       client_id: process.env.REACT_APP_APPLE_CLIENT_ID,
-      redirect_uri: process.env.REACT_APP_OAUTH_REDIRECT_URI,
-      response_type: 'code',
-      scope: 'name email',
+      redirect_uri: process.env.REACT_APP_APPLE_OAUTH_REDIRECT_URI,
+      response_type: 'code id_token',
       response_mode: 'form_post',
+      scope: 'name email',
     })}`,
   },
 };
