@@ -1,4 +1,4 @@
-import { GithubIcon, GoogleIcon } from 'src/components/assets/icons';
+import { AppleIcon, GoogleIcon } from 'src/components/assets/icons';
 import { getQueryString } from 'src/lib/utils';
 
 export const OAUTH_DATA = {
@@ -13,12 +13,14 @@ export const OAUTH_DATA = {
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     })}`,
   },
-  github: {
-    Icon: GithubIcon,
-    link: `https://github.com/login/oauth/authorize${getQueryString({
-      scope: 'id,name,email,avatar_url',
+  apple: {
+    Icon: AppleIcon,
+    link: `https://appleid.apple.com/auth/authorize?${getQueryString({
+      client_id: process.env.REACT_APP_APPLE_CLIENT_ID,
       redirect_uri: process.env.REACT_APP_OAUTH_REDIRECT_URI,
-      client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
+      response_type: 'code',
+      scope: 'name email',
+      response_mode: 'form_post',
     })}`,
   },
 };
