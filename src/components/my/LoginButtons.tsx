@@ -4,17 +4,7 @@ import styled from 'styled-components';
 import { P } from 'src/components/common';
 import LoginButton from './LoginButton';
 
-import { useAuthTestLogin } from 'src/lib/hooks';
-
 export default function LoginButtons() {
-  const { testLogin } = useAuthTestLogin();
-  const { hostname } = window.location;
-
-  if (hostname.includes('devook.com') && hostname !== 'www.devook.com') {
-    // eslint-disable-next-line react/button-has-type
-    return <button onClick={testLogin}>효진 로그인</button>;
-  }
-
   return (
     <>
       <Title>로그인</Title>
