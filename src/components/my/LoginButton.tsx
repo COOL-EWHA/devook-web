@@ -5,7 +5,7 @@ import { P } from 'src/components/common';
 import { GREY, WHITE, OAUTH_DATA } from 'src/constant';
 
 interface ILoginButtonProps {
-  platform: 'google' | 'github';
+  platform: 'google' | 'apple';
 }
 
 export default function LoginButton({ platform }: ILoginButtonProps) {

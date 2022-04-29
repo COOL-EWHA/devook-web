@@ -19,7 +19,7 @@ export default function LoginButtons() {
     <>
       <Title>로그인</Title>
       <LoginButton platform="google" />
-      <LoginButton platform="github" />
+      <LoginButton platform="apple" />
     </>
   );
 }

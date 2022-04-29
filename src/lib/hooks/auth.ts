@@ -63,7 +63,7 @@ export const useAuthLogin = () => {
     }
 
     const scope = searchParams.get('scope');
-    const provider = scope?.includes('google') ? 'google' : 'github';
+    const provider = scope?.includes('google') ? 'google' : 'apple';
     setLoading(true);
     try {
       const { accessToken } = await authLogin(provider, code);
