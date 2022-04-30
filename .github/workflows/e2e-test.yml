@@ -32,10 +32,11 @@ jobs:
         run: |
           echo "REACT_APP_API_HOST=$REACT_APP_API_HOST" >> .env
           echo "REACT_APP_OAUTH_REDIRECT_URI=$REACT_APP_OAUTH_REDIRECT_URI" >> .env
+          echo "REACT_APP_APPLE_OAUTH_REDIRECT_URI=$REACT_APP_APPLE_OAUTH_REDIRECT_URI" >> .env
           echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env
           echo "REACT_APP_GOOGLE_CLIENT_SECRET=$REACT_APP_GOOGLE_CLIENT_SECRET" >> .env
           echo "REACT_APP_TEST_REFRESH_TOKEN=$REACT_APP_TEST_REFRESH_TOKEN" >> .env
-          echo "REACT_APP_GITHUB_CLIENT_ID=$REACT_APP_GITHUB_CLIENT_ID" >> .env
+          echo "REACT_APP_APPLE_CLIENT_ID=$REACT_APP_APPLE_CLIENT_ID" >> .env
           echo "HTTPS=true" >> .env
           echo "SSL_CRT_FILE=localhost+2.pem" >> .env
           echo "SSL_KEY_FILE=localhost+2-key.pem" >> .env
@@ -43,10 +44,11 @@ jobs:
         env:
           REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
           REACT_APP_OAUTH_REDIRECT_URI: ${{ secrets.REACT_APP_OAUTH_REDIRECT_URI }}
+          REACT_APP_APPLE_OAUTH_REDIRECT_URI: ${{ secrets.REACT_APP_APPLE_OAUTH_REDIRECT_URI }}
           REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
           REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
           REACT_APP_TEST_REFRESH_TOKEN: ${{ secrets.REACT_APP_TEST_REFRESH_TOKEN }}
-          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
+          REACT_APP_APPLE_CLIENT_ID: ${{ secrets.REACT_APP_APPLE_CLIENT_ID }}
 
       - name: Run app
         run: yarn start & yarn wait-on https://localhost:3000
