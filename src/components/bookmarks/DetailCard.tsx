@@ -14,6 +14,14 @@ interface IBookmarkDetailCardProps {
 function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
   const { id, title, description, thumbnail, tags, url, dueDate } = data;
 
+  const handleButtonClick = (e?: React.MouseEvent<HTMLElement>) => {
+    if (!window.UrlLaunchChannel) {
+      return;
+    }
+    e?.preventDefault();
+    window.UrlLaunchChannel.postMessage(url);
+  };
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -31,7 +39,7 @@ function BookmarkDetailCard({ data }: IBookmarkDetailCardProps) {
         </Row>
         <PostCardActionMenu size="large" bookmarkId={id} dueDate={dueDate} />
       </Footer>
-      <Button text="글 읽기" type="line" isBlock href={url} target="_blank" />
+      <Button text="글 읽기" type="line" isBlock href={url} target="_blank" onClick={handleButtonClick} />
     </Wrapper>
   );
 }
