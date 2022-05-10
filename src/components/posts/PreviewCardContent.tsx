@@ -60,8 +60,16 @@ function DetailLink({ bookmarkId, url, children }: DetailLinkProps) {
     return <StyledLink to={`/bookmarks/${bookmarkId}`}>{children}</StyledLink>;
   }
 
+  const handleClick = (e?: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!window.UrlLaunchChannel) {
+      return;
+    }
+    e?.preventDefault();
+    window.UrlLaunchChannel.postMessage(url);
+  };
+
   return (
-    <A href={url} target="_blank">
+    <A href={url} target="_blank" onClick={handleClick}>
       {children}
     </A>
   );

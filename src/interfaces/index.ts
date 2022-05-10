@@ -8,5 +8,6 @@ declare global {
     AuthChannel?: Window;
     DeviceChannel?: Window;
     Toaster?: Window;
+    UrlLaunchChannel?: Window;
   }
 }
