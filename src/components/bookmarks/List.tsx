@@ -21,7 +21,7 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
       {data?.pages && data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
       {data?.pages?.map((bookmarks) =>
         bookmarks?.map((bookmark: BookmarkPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked, url, dueDate, isRead } = bookmark;
+          const { id, title, thumbnail, description, tags, url, dueDate, isRead } = bookmark;
           return (
             <PostPreviewCard
               key={id}
@@ -31,7 +31,6 @@ function BookmarkList({ isRead = undefined }: IBookmarkListProps) {
               thumbnail={thumbnail}
               description={description}
               tags={tags}
-              isBookmarked={isBookmarked}
               url={url}
               isRead={isRead}
               dueDate={dueDate}
