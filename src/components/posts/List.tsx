@@ -18,11 +18,11 @@ function PostList() {
       {data?.pages && data?.pages[0].length === 0 && <NoResult iconType={noResultIconType} target={noResultTarget} />}
       {data?.pages?.map((posts) =>
         posts?.map((post: PostPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
+          const { id, title, thumbnail, description, tags, isBookmarked, url, value } = post;
           return (
             <PostPreviewCard
               key={id}
-              postId={id}
+              postId={value}
               title={title}
               thumbnail={thumbnail}
               description={description}

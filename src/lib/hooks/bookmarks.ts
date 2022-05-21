@@ -151,7 +151,7 @@ export const useBookmarkAdd = (postId: number) => {
     const newList = cloneDeep(prevList);
     const { pages } = newList;
     for (let i = 0; i < pages.length; i += 1) {
-      const post = pages[i].find((post) => post.id === postId);
+      const post = pages[i].find((post) => post.value === postId);
       if (post) {
         post.isBookmarked = true;
         break;
@@ -162,7 +162,7 @@ export const useBookmarkAdd = (postId: number) => {
 
   const updateRelatedPostList = (prevList: PostPreview[]) => {
     const newList = cloneDeep(prevList);
-    const post = newList.find((post) => post.id === postId);
+    const post = newList.find((post) => post.value === postId);
     if (post) {
       post.isBookmarked = true;
     }
