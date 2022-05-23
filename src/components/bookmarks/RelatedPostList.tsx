@@ -22,11 +22,11 @@ function BookmarkRelatedPostList({ bookmarkId }: IBookmarkRelatedPostListProps) 
       <Section title="더 읽어보기">
         {isLoading && <BookmarkRelatedPostListSkeleton />}
         {data?.map((post: PostPreview) => {
-          const { id, title, thumbnail, description, tags, isBookmarked, url } = post;
+          const { id, title, thumbnail, description, tags, isBookmarked, url, value } = post;
           return (
             <PostPreviewCard
               key={id}
-              postId={id}
+              postId={value}
               isBookmarked={isBookmarked}
               title={title}
               thumbnail={thumbnail}
