@@ -344,7 +344,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dueDate, setDueDate] = useState(prevDueDate ? new Date(prevDueDate) : null);
-  const dueDateString = dueDate ? dayjs(dueDate).format('YYYY.MM.DD') : '';
+  const dueDateString = dueDate ? dayjs(dueDate).format('YYYY/MM/DD') : '';
   const mutationFn = (id: number) => editBookmark({ id, dueDate: dueDateString });
   const isSubmitDisabled = prevDueDate === dueDateString;
 
@@ -383,7 +383,7 @@ export const useBookmarkDueDateSet = (id: number, prevDueDate: string | undefine
       alert('읽기 기한을 설정해주세요.');
       return false;
     }
-    if (dueDate && dayjs(dueDate).isBefore(dayjs().format('YYYY.MM.DD'))) {
+    if (dueDate && dayjs(dueDate).isBefore(dayjs().format('YYYY/MM/DD'))) {
       alert('과거 날짜는 읽기 기한으로 설정할 수 없습니다.');
       return false;
     }
