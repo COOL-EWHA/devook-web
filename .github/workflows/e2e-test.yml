@@ -7,6 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: browser-actions/setup-chromium@latest
+        with:
+          chromium-version: 827102
+
+      - run: chrome --version
+
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -20,7 +27,7 @@ jobs:
 
       - name: Create dev certfile
         run: |
-          google-chrome
+          chrome
           sudo apt-get update
           sudo apt install libnss3-tools wget
           wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
