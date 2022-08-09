@@ -25,6 +25,7 @@ jobs:
           wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
           sudo cp mkcert-v1.4.3-linux-amd64 /usr/local/bin/mkcert
           sudo chmod +x /usr/local/bin/mkcert
+          mkdir -p ~/.pki/nssdb
           mkcert -install
           mkcert localhost 127.0.0.1 ::1
 
